@@ -18,12 +18,7 @@
                         <p class="text-muted">Please complete the form to create your account</p>
                     </div>
                     
-                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-                    {
-                        <div class="alert alert-danger" role="alert">
-                            <i class="bi bi-exclamation-triangle-fill me-2"></i>@ViewBag.ErrorMessage
-                        </div>
-                    }
+                    <div id="message-container"></div>
                     
                     <form id="signupForm" method="post" action="/api/auth/signup" class="needs-validation" novalidate>
                         <div class="row">
@@ -49,7 +44,6 @@
                             <label for="department" class="form-label">Department</label>
                             <select class="form-select" id="department" name="departmentId" required>
                                 <option value="">Select your department</option>
-                                <!-- Options will be populated via JavaScript -->
                             </select>
                             <div class="invalid-feedback">Please select your department.</div>
                         </div>
@@ -57,8 +51,7 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="password" name="password" required 
-                                       placeholder="Enter your password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$">
+                                <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
@@ -70,8 +63,7 @@
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Confirm Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required 
-                                       placeholder="Confirm your password">
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
                                 <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
@@ -104,138 +96,5 @@
 </div>
 
 @section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load departments
-            fetch('/api/departments')
-                .then(response => response.json())
-                .then(departments => {
-                    const departmentSelect = document.getElementById('department');
-                    
-                    departments.forEach(dept => {
-                        const option = document.createElement('option');
-                        option.value = dept.id;
-                        option.textContent = dept.name;
-                        departmentSelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error loading departments:', error);
-                });
-            
-            // Toggle password visibility functions
-            const togglePassword = document.getElementById('togglePassword');
-            const passwordInput = document.getElementById('password');
-            
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                
-                // Toggle eye icon
-                const eyeIcon = this.querySelector('i');
-                eyeIcon.classList.toggle('bi-eye');
-                eyeIcon.classList.toggle('bi-eye-slash');
-            });
-            
-            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-            const confirmPasswordInput = document.getElementById('confirmPassword');
-            
-            toggleConfirmPassword.addEventListener('click', function() {
-                const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                confirmPasswordInput.setAttribute('type', type);
-                
-                // Toggle eye icon
-                const eyeIcon = this.querySelector('i');
-                eyeIcon.classList.toggle('bi-eye');
-                eyeIcon.classList.toggle('bi-eye-slash');
-            });
-            
-            // Form validation
-            const form = document.getElementById('signupForm');
-            
-            form.addEventListener('submit', function(event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                
-                // Check if passwords match
-                const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                
-                if (password !== confirmPassword) {
-                    document.getElementById('confirmPassword').setCustomValidity('Passwords do not match');
-                } else {
-                    document.getElementById('confirmPassword').setCustomValidity('');
-                }
-                
-                form.classList.add('was-validated');
-                
-                // If form is valid, submit via AJAX
-                if (form.checkValidity()) {
-                    event.preventDefault();
-                    
-                    const formData = new FormData(form);
-                    const jsonData = {};
-                    
-                    formData.forEach((value, key) => {
-                        jsonData[key] = value;
-                    });
-                    
-                    fetch('/api/auth/signup', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(jsonData)
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            return response.json().then(data => {
-                                throw new Error(data.message || 'Error creating account');
-                            });
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Show success message and redirect
-                        const successDiv = document.createElement('div');
-                        successDiv.className = 'alert alert-success mt-3';
-                        successDiv.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i>Account created successfully! Redirecting to login...`;
-                        
-                        form.insertBefore(successDiv, form.firstChild);
-                        
-                        // Redirect after a delay
-                        setTimeout(() => {
-                            window.location.href = '/Account/Login';
-                        }, 2000);
-                    })
-                    .catch(error => {
-                        // Show error message
-                        const errorDiv = document.createElement('div');
-                        errorDiv.className = 'alert alert-danger mt-3';
-                        errorDiv.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i>${error.message}`;
-                        
-                        // Remove any existing alerts
-                        const existingAlerts = form.querySelectorAll('.alert');
-                        existingAlerts.forEach(alert => alert.remove());
-                        
-                        form.insertBefore(errorDiv, form.firstChild);
-                    });
-                }
-            });
-            
-            // Real-time password confirmation validation
-            document.getElementById('confirmPassword').addEventListener('input', function() {
-                const password = document.getElementById('password').value;
-                const confirmPassword = this.value;
-                
-                if (password !== confirmPassword) {
-                    this.setCustomValidity('Passwords do not match');
-                } else {
-                    this.setCustomValidity('');
-                }
-            });
-        });
-    </script>
+    <script src="/js/signup.js"></script>
 }

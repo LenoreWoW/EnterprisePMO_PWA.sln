@@ -15,3 +15,4 @@
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net8.0/EnterprisePMO_PWA.Infrastructure.pdb
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net8.0/EnterprisePMO_PWA.Infrastructure.genruntimeconfig.cache
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net8.0/ref/EnterprisePMO_PWA.Infrastructure.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net8.0/EnterprisePMO_PWA.Infrastructure.sourcelink.json

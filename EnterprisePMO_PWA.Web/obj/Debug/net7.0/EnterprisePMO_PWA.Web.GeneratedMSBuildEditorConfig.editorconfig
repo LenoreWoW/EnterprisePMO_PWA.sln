@@ -131,3 +131,7 @@ build_metadata.AdditionalFiles.CssScope =
 [/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/Views/WeeklyUpdates/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvV2Vla2x5VXBkYXRlcy9MaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

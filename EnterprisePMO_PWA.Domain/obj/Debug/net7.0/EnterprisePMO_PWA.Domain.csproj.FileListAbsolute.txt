@@ -9,3 +9,4 @@
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net7.0/refint/EnterprisePMO_PWA.Domain.dll
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net7.0/EnterprisePMO_PWA.Domain.pdb
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net7.0/ref/EnterprisePMO_PWA.Domain.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net7.0/EnterprisePMO_PWA.Domain.sourcelink.json

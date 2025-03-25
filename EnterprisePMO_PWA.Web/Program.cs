@@ -10,6 +10,9 @@ using Hangfire.PostgreSql;
 using Hangfire.Dashboard;
 using System.Text;
 
+// Force IPv4 - Add this at the top of the file
+AppContext.SetSwitch("System.Net.DisableIPv6", true);
+
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
@@ -29,9 +32,15 @@ try
     });
 
     // Add services to the container
-    // Database
-    builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    // Database with IPv6 disabled by modifying the connection string
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    if (!connectionString.Contains("IPv4Only"))
+    {
+        connectionString += ";IPv4Only=true";
+    }
+    
+    builder.Services.AddDbContext<AppDbContext>(options => 
+        options.UseNpgsql(connectionString));
 
     // Register services
     builder.Services.AddScoped<ProjectService>();
@@ -72,6 +81,17 @@ try
     var supabaseIssuer = $"https://{supabaseProjectRef}.supabase.co";
     var supabaseAudience = supabaseProjectRef;
 
+    if (string.IsNullOrEmpty(supabaseJwtSecret))
+    {
+        supabaseJwtSecret = builder.Configuration["SUPABASE_JWT_SECRET"] ?? 
+                            Environment.GetEnvironmentVariable("SUPABASE_JWT_SECRET");
+        
+        if (string.IsNullOrEmpty(supabaseJwtSecret))
+        {
+            Log.Warning("JWT secret not found in configuration or environment variables");
+        }
+    }
+
     builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -87,7 +107,8 @@ try
             ValidateIssuerSigningKey = true,
             ValidIssuer = supabaseIssuer,
             ValidAudience = supabaseAudience,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(supabaseJwtSecret ?? throw new InvalidOperationException("Supabase JWT secret is not configured.")))
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(supabaseJwtSecret ?? "fallback-dev-key-not-for-production"))
         };
     });
 
@@ -107,7 +128,7 @@ try
         configuration.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                      .UseSimpleAssemblyNameTypeSerializer()
                      .UseRecommendedSerializerSettings()
-                     .UsePostgreSqlStorage(builder.Configuration.GetConnectionString("DefaultConnection"));
+                     .UsePostgreSqlStorage(connectionString);
     });
     builder.Services.AddHangfireServer();
 
@@ -147,8 +168,18 @@ try
     // Seed initial data
     using (var scope = app.Services.CreateScope())
     {
-        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        DataSeeder.Seed(dbContext);
+        try 
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            Log.Information("Seeding database...");
+            DataSeeder.Seed(dbContext);
+            Log.Information("Database seeding completed");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "An error occurred while seeding the database: {ErrorMessage}", ex.Message);
+            // Continue running the app even if seeding fails
+        }
     }
 
     // Map controllers

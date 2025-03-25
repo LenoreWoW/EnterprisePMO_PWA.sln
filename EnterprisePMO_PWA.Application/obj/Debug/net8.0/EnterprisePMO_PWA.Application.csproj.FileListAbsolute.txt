@@ -15,3 +15,4 @@
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Application/obj/Debug/net8.0/refint/EnterprisePMO_PWA.Application.dll
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Application/obj/Debug/net8.0/EnterprisePMO_PWA.Application.pdb
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Application/obj/Debug/net8.0/ref/EnterprisePMO_PWA.Application.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Application/obj/Debug/net8.0/EnterprisePMO_PWA.Application.sourcelink.json
