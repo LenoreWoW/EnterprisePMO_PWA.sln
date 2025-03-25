@@ -1,0 +1,17 @@
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/bin/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.deps.json
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/bin/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.runtimeconfig.json
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/bin/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/bin/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.pdb
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/bin/Debug/net7.0/EnterprisePMO_PWA.Domain.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/bin/Debug/net7.0/EnterprisePMO_PWA.Domain.pdb
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.csproj.AssemblyReference.cache
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.AssemblyInfoInputs.cache
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.AssemblyInfo.cs
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/Enterpri.46E0D9A3.Up2Date
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/refint/EnterprisePMO_PWA.Infrastructure.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.pdb
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/EnterprisePMO_PWA.Infrastructure.genruntimeconfig.cache
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Infrastructure/obj/Debug/net7.0/ref/EnterprisePMO_PWA.Infrastructure.dll

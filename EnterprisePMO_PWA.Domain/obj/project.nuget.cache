@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "UpoDfPqb4HE=",
+  "success": true,
+  "projectFilePath": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/EnterprisePMO_PWA.Domain.csproj",
+  "expectedPackageFiles": [
+    "/Users/hassanalsahli/.nuget/packages/microsoft.netcore.app.ref/7.0.20/microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/hassanalsahli/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.20/microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512"
+  ],
+  "logs": []
+}

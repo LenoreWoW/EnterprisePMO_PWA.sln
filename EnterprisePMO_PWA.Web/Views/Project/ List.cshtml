@@ -1,0 +1,36 @@
+@model IEnumerable<EnterprisePMO_PWA.Domain.Entities.Project>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Projects";
+}
+<h1>Projects</h1>
+<a href="/Project/Create" class="btn btn-primary mb-3">Create New Project</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Client</th>
+            <th>Deadline</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var project in Model) {
+            <tr>
+                <td>@project.Name</td>
+                <td>@project.ClientName</td>
+                <td>@project.EndDate.ToShortDateString()</td>
+                <td>@project.StatusColor</td>
+                <td>
+                    <a href="/Project/Details/@project.Id" class="btn btn-sm btn-info">Details</a>
+                    <a href="/Project/Edit/@project.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <form asp-action="Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@project.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

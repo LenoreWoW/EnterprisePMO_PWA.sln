@@ -1,0 +1,379 @@
+/* 
+  Enterprise PMO Application Styles
+  Main stylesheet for the PMO application
+*/
+
+/* Base Styles */
+:root {
+    --primary-color: #0078D7;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --body-bg: #f5f7fa;
+    --card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --card-hover-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --border-radius: 0.25rem;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--body-bg);
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  /* Layout & Container */
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  main {
+    min-height: calc(100vh - 160px);
+    padding-bottom: 2rem;
+  }
+  
+  /* Header & Navigation */
+  .navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-brand {
+    font-weight: 600;
+  }
+  
+  .nav-link {
+    padding: 0.5rem 1rem;
+    transition: color 0.15s ease-in-out;
+  }
+  
+  .nav-link.active {
+    font-weight: 600;
+  }
+  
+  /* Cards */
+  .card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.3s ease-in-out;
+    margin-bottom: 1.5rem;
+  }
+  
+  .card:hover {
+    box-shadow: var(--card-hover-shadow);
+  }
+  
+  .card-header {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 0.75rem 1.25rem;
+  }
+  
+  .card-header:first-child {
+    border-radius: calc(var(--border-radius) - 1px) calc(var(--border-radius) - 1px) 0 0;
+  }
+  
+  /* Buttons */
+  .btn {
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  .btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  /* Forms */
+  .form-control {
+    border-radius: var(--border-radius);
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+  }
+  
+  .form-select {
+    border-radius: var(--border-radius);
+    padding: 0.5rem 2.25rem 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+  }
+  
+  .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-text {
+    color: #6c757d;
+    font-size: 0.875rem;
+  }
+  
+  /* Tables */
+  .table {
+    margin-bottom: 0;
+  }
+  
+  .table th {
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: rgba(0, 120, 215, 0.05);
+  }
+  
+  /* Status Indicators */
+  .status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+  
+  .status-green {
+    background-color: var(--success-color);
+  }
+  
+  .status-yellow {
+    background-color: var(--warning-color);
+  }
+  
+  .status-red {
+    background-color: var(--danger-color);
+  }
+  
+  .status-blue {
+    background-color: var(--info-color);
+  }
+  
+  /* Dashboard Cards */
+  .metric-card {
+    position: relative;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    color: white;
+    overflow: hidden;
+  }
+  
+  .metric-card .metric-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    opacity: 0.2;
+  }
+  
+  .metric-card .metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .metric-card .metric-label {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  /* Progress Indicators */
+  .progress {
+    height: 0.875rem;
+    border-radius: 0.875rem;
+    background-color: #e9ecef;
+    margin-bottom: 0.5rem;
+  }
+  
+  .progress-bar {
+    border-radius: 0.875rem;
+  }
+  
+  /* Kanban Board */
+  .kanban-column {
+    min-height: 300px;
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+  }
+  
+  .kanban-card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    cursor: grab;
+  }
+  
+  .kanban-card:hover {
+    box-shadow: var(--card-hover-shadow);
+  }
+  
+  /* Notifications */
+  .notification-badge {
+    font-size: 0.7rem;
+  }
+  
+  .notification-dropdown {
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 0;
+  }
+  
+  .notification-item {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .notification-icon {
+    font-size: 1.25rem;
+    min-width: 28px;
+  }
+  
+  .notification-content {
+    flex: 1;
+  }
+  
+  .notification-text {
+    margin-bottom: 0.25rem;
+  }
+  
+  .notification-time {
+    font-size: 0.75rem;
+  }
+  
+  /* Tabs */
+  .nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    margin-bottom: -1px;
+    color: #495057;
+  }
+  
+  .nav-tabs .nav-link:hover,
+  .nav-tabs .nav-link:focus {
+    border-color: #e9ecef #e9ecef #dee2e6;
+  }
+  
+  .nav-tabs .nav-link.active,
+  .nav-tabs .nav-item.show .nav-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+  }
+  
+  /* Modals */
+  .modal-header {
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .modal-footer {
+    border-top: 1px solid #dee2e6;
+  }
+  
+  /* Badges */
+  .badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    border-radius: 0.2rem;
+  }
+  
+  /* Gantt Chart Custom Styles */
+  .gantt_task_progress {
+    background-color: var(--primary-color);
+  }
+  
+  .gantt_task_line {
+    border-radius: var(--border-radius);
+  }
+  
+  .critical_task {
+    background-color: rgba(220, 53, 69, 0.2);
+    border: 1px solid var(--danger-color);
+  }
+  
+  .weekend {
+    background-color: #f4f7f4;
+  }
+  
+  /* Tooltips */
+  .tooltip {
+    font-size: 0.875rem;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: var(--light-color);
+    padding: 1.5rem 0;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .metric-card {
+      margin-bottom: 1rem;
+    }
+    
+    .metric-card .metric-value {
+      font-size: 2rem;
+    }
+    
+    .kanban-column {
+      margin-bottom: 1rem;
+    }
+    
+    .notification-dropdown {
+      width: 100%;
+    }
+  }
+  
+  /* Print styles */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    
+    .card {
+      box-shadow: none;
+      border: 1px solid #dee2e6;
+    }
+    
+    body {
+      background-color: white;
+    }
+    
+    a {
+      text-decoration: none !important;
+      color: #000 !important;
+    }
+  }

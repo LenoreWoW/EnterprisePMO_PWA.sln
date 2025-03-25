@@ -1,0 +1,8 @@
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net7.0/EnterprisePMO_PWA.Web.csproj.AssemblyReference.cache
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net7.0/EnterprisePMO_PWA.Web.GeneratedMSBuildEditorConfig.editorconfig
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net7.0/EnterprisePMO_PWA.Web.AssemblyInfoInputs.cache
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net7.0/EnterprisePMO_PWA.Web.AssemblyInfo.cs
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net7.0/EnterprisePMO_PWA.Web.csproj.CoreCompileInputs.cache
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net7.0/EnterprisePMO_PWA.Web.MvcApplicationPartsAssemblyInfo.cache
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net7.0/EnterprisePMO_PWA.Web.RazorAssemblyInfo.cache
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net7.0/EnterprisePMO_PWA.Web.RazorAssemblyInfo.cs

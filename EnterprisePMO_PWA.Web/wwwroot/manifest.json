@@ -1,0 +1,20 @@
+{
+  "short_name": "EnterprisePMO",
+  "name": "Enterprise PMO Progressive Web App",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0078D7",
+  "icons": [
+    {
+      "src": "/icons/icon-192.jpg",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/icon-512.jpg",
+      "type": "image/jpeg",
+      "sizes": "512x512"
+    }
+  ]
+}

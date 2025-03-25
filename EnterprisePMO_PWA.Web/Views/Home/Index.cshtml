@@ -1,0 +1,200 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 p-0">
+            <!-- Hero Banner -->
+            <div class="bg-primary text-white py-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-7">
+                            <h1 class="display-4 fw-bold mb-4">Enterprise PMO Platform</h1>
+                            <p class="lead mb-4">
+                                A comprehensive solution for managing your organization's project portfolio with standardized 
+                                workflows, governance, and reporting capabilities.
+                            </p>
+                            <div class="d-flex gap-3">
+                                <a href="/Account/Login" class="btn btn-light btn-lg">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                                </a>
+                                <a href="/Account/Signup" class="btn btn-outline-light btn-lg">
+                                    <i class="bi bi-person-plus me-2"></i>Sign Up
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-5 d-none d-md-block">
+                            <img src="/img/hero-dashboard.svg" alt="Dashboard Illustration" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Features Section -->
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Key Features</h2>
+            <p class="lead text-muted">Designed to streamline your project management processes</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary bg-opacity-10 p-3 d-inline-flex mb-3">
+                            <i class="bi bi-kanban text-primary fs-1"></i>
+                        </div>
+                        <h4 class="card-title">Project Governance</h4>
+                        <p class="card-text">Standardized workflows, approvals, and escalation paths ensure projects follow organizational guidelines.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-success bg-opacity-10 p-3 d-inline-flex mb-3">
+                            <i class="bi bi-people text-success fs-1"></i>
+                        </div>
+                        <h4 class="card-title">Role-Based Access</h4>
+                        <p class="card-text">Tailored views and permissions for Project Managers, Sub PMOs, Main PMO, Directors, and Executives.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-warning bg-opacity-10 p-3 d-inline-flex mb-3">
+                            <i class="bi bi-graph-up text-warning fs-1"></i>
+                        </div>
+                        <h4 class="card-title">Advanced Analytics</h4>
+                        <p class="card-text">Comprehensive dashboards and reports provide actionable insights for decision-making at all levels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">How It Works</h2>
+                <p class="lead text-muted">A streamlined workflow for effective project management</p>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-md-6 order-md-2">
+                    <img src="/img/workflow.svg" alt="Workflow Illustration" class="img-fluid mb-4 mb-md-0" />
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="bg-primary text-white rounded-circle fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">1</div>
+                        </div>
+                        <div>
+                            <h4>Project Registration</h4>
+                            <p>Project Managers create project proposals with required details, following standardized templates.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="bg-primary text-white rounded-circle fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">2</div>
+                        </div>
+                        <div>
+                            <h4>Review & Approval</h4>
+                            <p>Sub PMOs and Main PMO review proposals, ensuring alignment with organizational strategy and standards.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="bg-primary text-white rounded-circle fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">3</div>
+                        </div>
+                        <div>
+                            <h4>Execution & Monitoring</h4>
+                            <p>Project Managers submit weekly updates, tracking progress, risks, and issues with visual indicators.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="bg-primary text-white rounded-circle fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">4</div>
+                        </div>
+                        <div>
+                            <h4>Reporting & Analytics</h4>
+                            <p>Stakeholders access dashboards and reports for informed decision-making and strategic planning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Roles Section -->
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Designed for Every Stakeholder</h2>
+            <p class="lead text-muted">Tailored experiences for different roles in your organization</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h4 class="card-title"><i class="bi bi-person-badge me-2 text-primary"></i>Project Managers</h4>
+                        <ul class="list-unstyled mt-3">
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Create and manage project details</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Submit weekly status updates</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Manage project team members</li>
+                            <li><i class="bi bi-check2-circle me-2 text-success"></i>Request changes to scope, budget, or timeline</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h4 class="card-title"><i class="bi bi-people me-2 text-success"></i>PMO Team</h4>
+                        <ul class="list-unstyled mt-3">
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Review and approve project proposals</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Monitor project performance across departments</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Enforce governance and standards</li>
+                            <li><i class="bi bi-check2-circle me-2 text-success"></i>Generate portfolio-level reports</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h4 class="card-title"><i class="bi bi-briefcase me-2 text-warning"></i>Executives</h4>
+                        <ul class="list-unstyled mt-3">
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>View high-level portfolio dashboards</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Monitor strategic goal alignment</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Track department performance</li>
+                            <li><i class="bi bi-check2-circle me-2 text-success"></i>Access executive-level reports</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="bg-primary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <h2 class="fw-bold mb-3">Ready to Transform Your Project Management?</h2>
+                    <p class="lead mb-4">Join organizations that are streamlining their PMO operations with our comprehensive solution.</p>
+                </div>
+                <div class="col-md-5 text-md-end">
+                    <a href="/Account/Signup" class="btn btn-light btn-lg">
+                        <i class="bi bi-rocket-takeoff me-2"></i>Get Started Today
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

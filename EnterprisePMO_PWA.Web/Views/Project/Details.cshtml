@@ -1,0 +1,18 @@
+@model EnterprisePMO_PWA.Domain.Entities.Project
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Project Details";
+}
+<h1>Project Details</h1>
+<div class="card">
+    <div class="card-body">
+        <h2>@Model.Name</h2>
+        <p>@Model.Description</p>
+        <p><strong>Client:</strong> @Model.ClientName</p>
+        <p><strong>Start Date:</strong> @Model.StartDate.ToShortDateString()</p>
+        <p><strong>End Date:</strong> @Model.EndDate.ToShortDateString()</p>
+        <p><strong>Budget:</strong> @Model.Budget.ToString("C")</p>
+        <p><strong>Estimated Cost:</strong> @Model.EstimatedCost.ToString("C")</p>
+        <p><strong>Status:</strong> @Model.StatusColor</p>
+    </div>
+</div>

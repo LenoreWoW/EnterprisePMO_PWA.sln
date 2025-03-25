@@ -1,0 +1,27 @@
+@model EnterprisePMO_PWA.Domain.Entities.ChangeRequest
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Create Change Request";
+}
+<h1>Create Change Request</h1>
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="ChangeType" class="form-label"></label>
+        <input asp-for="ChangeType" class="form-control" />
+        <span asp-validation-for="ChangeType" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Justification" class="form-label"></label>
+        <textarea asp-for="Justification" class="form-control"></textarea>
+        <span asp-validation-for="Justification" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ImpactAnalysis" class="form-label"></label>
+        <textarea asp-for="ImpactAnalysis" class="form-control"></textarea>
+        <span asp-validation-for="ImpactAnalysis" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Request</button>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

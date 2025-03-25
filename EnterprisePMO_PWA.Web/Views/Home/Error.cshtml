@@ -1,0 +1,67 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <i class="bi bi-exclamation-triangle text-danger" style="font-size: 5rem;"></i>
+                    <h1 class="mt-4 mb-3 display-4">Oops! Something went wrong.</h1>
+                    <p class="lead text-muted mb-4">
+                        We're sorry, but we encountered an error while processing your request.
+                        Our technical team has been notified and is working to resolve the issue.
+                    </p>
+                    
+                    @if (Model?.ShowRequestId ?? false)
+                    {
+                        <div class="alert alert-info mb-4">
+                            <strong>Request ID:</strong> <code>@Model?.RequestId</code>
+                        </div>
+                    }
+                    
+                    @if (ViewData["Exception"] is Exception exception)
+                    {
+                        <div class="alert alert-danger text-start mb-4">
+                            <h4 class="alert-heading">Error Details</h4>
+                            <p class="mb-0">@exception.Message</p>
+                            
+                            @if (exception.InnerException != null)
+                            {
+                                <hr>
+                                <p class="mb-0">Inner Exception: @exception.InnerException.Message</p>
+                            }
+                            
+                            @if (!string.IsNullOrEmpty(exception.StackTrace))
+                            {
+                                <hr>
+                                <div class="small">
+                                    <pre>@exception.StackTrace</pre>
+                                </div>
+                            }
+                        </div>
+                    }
+                    
+                    <div class="mt-4">
+                        <a href="/" class="btn btn-primary me-2">
+                            <i class="bi bi-house-door me-2"></i>Go Home
+                        </a>
+                        <button onclick="window.history.back()" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Go Back
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-muted">
+                <p class="small">
+                    Error ID: @DateTime.UtcNow.Ticks
+                    <br>
+                    Date/Time: @DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

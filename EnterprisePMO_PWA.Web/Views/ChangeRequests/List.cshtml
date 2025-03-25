@@ -1,0 +1,46 @@
+@model IEnumerable<EnterprisePMO_PWA.Domain.Entities.ChangeRequest>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Change Requests List";
+}
+<h1>Change Requests</h1>
+@if (User.IsInRole("ProjectManager"))
+{
+    <a href="/ChangeRequests/Create" class="btn btn-primary mb-3">Create New Change Request</a>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Change Type</th>
+            <th>Request Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var cr in Model) {
+            <tr>
+                <td>@cr.ChangeType</td>
+                <td>@cr.RequestDate.ToShortDateString()</td>
+                <td>@cr.ApprovalStatus</td>
+                <td>
+                    @if (User.IsInRole("ProjectManager"))
+                    {
+                        <a href="/ChangeRequests/Edit/@cr.Id" class="btn btn-sm btn-primary">Edit</a>
+                    }
+                    @if (User.IsInRole("SubPMO") || User.IsInRole("MainPMO"))
+                    {
+                        <form asp-action="Approve" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@cr.Id" />
+                            <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                        </form>
+                        <form asp-action="Reject" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@cr.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

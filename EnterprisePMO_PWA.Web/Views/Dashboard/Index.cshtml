@@ -1,0 +1,43 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Kanban Board</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>To Do</h3>
+            <div class="kanban-column" id="todoColumn">
+                <div class="card mb-2" data-id="task1">
+                    <div class="card-body">
+                        <h5 class="card-title">Task 1</h5>
+                        <p class="card-text">Description of Task 1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h3>In Progress</h3>
+            <div class="kanban-column" id="inProgressColumn">
+                <div class="card mb-2" data-id="task2">
+                    <div class="card-body">
+                        <h5 class="card-title">Task 2</h5>
+                        <p class="card-text">Description of Task 2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h3>Done</h3>
+            <div class="kanban-column" id="doneColumn">
+                <div class="card mb-2" data-id="task3">
+                    <div class="card-body">
+                        <h5 class="card-title">Task 3</h5>
+                        <p class="card-text">Description of Task 3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script src="/js/kanban.js"></script>

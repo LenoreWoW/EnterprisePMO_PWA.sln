@@ -1,0 +1,29 @@
+@model IEnumerable<EnterprisePMO_PWA.Domain.Entities.Department>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Departments";
+}
+<h1>Departments</h1>
+<a href="/Department/Create" class="btn btn-primary mb-3">Create New Department</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var dept in Model) {
+            <tr>
+                <td>@dept.Name</td>
+                <td>
+                    <a href="/Department/Edit?id=@dept.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <form asp-action="Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@dept.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

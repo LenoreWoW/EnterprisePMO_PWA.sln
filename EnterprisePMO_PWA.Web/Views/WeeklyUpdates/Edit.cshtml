@@ -1,0 +1,39 @@
+@model EnterprisePMO_PWA.Domain.Entities.WeeklyUpdate
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit Weekly Update";
+}
+<h1>Edit Weekly Update</h1>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ProjectId" />
+    <div class="mb-3">
+        <label asp-for="WeekEndingDate" class="form-label"></label>
+        <input asp-for="WeekEndingDate" type="date" class="form-control" />
+        <span asp-validation-for="WeekEndingDate" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Accomplishments" class="form-label"></label>
+        <textarea asp-for="Accomplishments" class="form-control"></textarea>
+        <span asp-validation-for="Accomplishments" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NextSteps" class="form-label"></label>
+        <textarea asp-for="NextSteps" class="form-control"></textarea>
+        <span asp-validation-for="NextSteps" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IssuesOrRisks" class="form-label"></label>
+        <textarea asp-for="IssuesOrRisks" class="form-control"></textarea>
+        <span asp-validation-for="IssuesOrRisks" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PercentComplete" class="form-label"></label>
+        <input asp-for="PercentComplete" type="number" class="form-control" />
+        <span asp-validation-for="PercentComplete" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

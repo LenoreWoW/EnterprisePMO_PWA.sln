@@ -1,0 +1,241 @@
+@{
+    ViewData["Title"] = "Sign Up";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-plus me-2"></i>Create Account
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <img src="/icons/icon-192.jpg" alt="Enterprise PMO Logo" width="80" class="mb-3">
+                        <p class="text-muted">Please complete the form to create your account</p>
+                    </div>
+                    
+                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>@ViewBag.ErrorMessage
+                        </div>
+                    }
+                    
+                    <form id="signupForm" method="post" action="/api/auth/signup" class="needs-validation" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" required placeholder="Enter your first name">
+                                <div class="invalid-feedback">Please enter your first name.</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" required placeholder="Enter your last name">
+                                <div class="invalid-feedback">Please enter your last name.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
+                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="department" class="form-label">Department</label>
+                            <select class="form-select" id="department" name="departmentId" required>
+                                <option value="">Select your department</option>
+                                <!-- Options will be populated via JavaScript -->
+                            </select>
+                            <div class="invalid-feedback">Please select your department.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password" required 
+                                       placeholder="Enter your password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                            <div class="form-text">Password must be at least 8 characters long and include at least one letter, one number, and one special character.</div>
+                            <div class="invalid-feedback">Password doesn't meet the requirements.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required 
+                                       placeholder="Confirm your password">
+                                <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">Passwords do not match.</div>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="termsAgreed" name="termsAgreed" required>
+                            <label class="form-check-label" for="termsAgreed">
+                                I agree to the <a href="/Home/Terms" target="_blank">Terms of Service</a> and <a href="/Home/Privacy" target="_blank">Privacy Policy</a>
+                            </label>
+                            <div class="invalid-feedback">You must agree to the terms to proceed.</div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-person-plus-fill me-2"></i>Create Account
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer bg-light text-center py-3">
+                    <span>Already have an account? </span>
+                    <a href="/Account/Login" class="text-decoration-none">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load departments
+            fetch('/api/departments')
+                .then(response => response.json())
+                .then(departments => {
+                    const departmentSelect = document.getElementById('department');
+                    
+                    departments.forEach(dept => {
+                        const option = document.createElement('option');
+                        option.value = dept.id;
+                        option.textContent = dept.name;
+                        departmentSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading departments:', error);
+                });
+            
+            // Toggle password visibility functions
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // Toggle eye icon
+                const eyeIcon = this.querySelector('i');
+                eyeIcon.classList.toggle('bi-eye');
+                eyeIcon.classList.toggle('bi-eye-slash');
+            });
+            
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            
+            toggleConfirmPassword.addEventListener('click', function() {
+                const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                confirmPasswordInput.setAttribute('type', type);
+                
+                // Toggle eye icon
+                const eyeIcon = this.querySelector('i');
+                eyeIcon.classList.toggle('bi-eye');
+                eyeIcon.classList.toggle('bi-eye-slash');
+            });
+            
+            // Form validation
+            const form = document.getElementById('signupForm');
+            
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                
+                // Check if passwords match
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    document.getElementById('confirmPassword').setCustomValidity('Passwords do not match');
+                } else {
+                    document.getElementById('confirmPassword').setCustomValidity('');
+                }
+                
+                form.classList.add('was-validated');
+                
+                // If form is valid, submit via AJAX
+                if (form.checkValidity()) {
+                    event.preventDefault();
+                    
+                    const formData = new FormData(form);
+                    const jsonData = {};
+                    
+                    formData.forEach((value, key) => {
+                        jsonData[key] = value;
+                    });
+                    
+                    fetch('/api/auth/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(jsonData)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(data => {
+                                throw new Error(data.message || 'Error creating account');
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Show success message and redirect
+                        const successDiv = document.createElement('div');
+                        successDiv.className = 'alert alert-success mt-3';
+                        successDiv.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i>Account created successfully! Redirecting to login...`;
+                        
+                        form.insertBefore(successDiv, form.firstChild);
+                        
+                        // Redirect after a delay
+                        setTimeout(() => {
+                            window.location.href = '/Account/Login';
+                        }, 2000);
+                    })
+                    .catch(error => {
+                        // Show error message
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'alert alert-danger mt-3';
+                        errorDiv.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i>${error.message}`;
+                        
+                        // Remove any existing alerts
+                        const existingAlerts = form.querySelectorAll('.alert');
+                        existingAlerts.forEach(alert => alert.remove());
+                        
+                        form.insertBefore(errorDiv, form.firstChild);
+                    });
+                }
+            });
+            
+            // Real-time password confirmation validation
+            document.getElementById('confirmPassword').addEventListener('input', function() {
+                const password = document.getElementById('password').value;
+                const confirmPassword = this.value;
+                
+                if (password !== confirmPassword) {
+                    this.setCustomValidity('Passwords do not match');
+                } else {
+                    this.setCustomValidity('');
+                }
+            });
+        });
+    </script>
+}

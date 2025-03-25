@@ -1,0 +1,79 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Executive Dashboard";
+}
+<h1>Executive Dashboard</h1>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Projects In Progress</div>
+            <div class="card-body">
+                <ul class="list-group" id="projectSummaryList">
+                    <!-- Dynamic project summaries will be loaded here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <canvas id="execPieChart"></canvas>
+    </div>
+</div>
+<div class="modal fade" id="projectDetailsModal" tabindex="-1" aria-labelledby="projectDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="projectDetailsLabel">Project Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="projectDetailsContent">
+        <!-- Detailed project info loaded dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  async function fetchProjectMetrics() {
+      const response = await fetch('/api/reports/projectmetrics');
+      return await response.json();
+  }
+  async function renderExecChart() {
+      const data = await fetchProjectMetrics();
+      const ctx = document.getElementById('execPieChart').getContext('2d');
+      new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: data.statusLabels,
+              datasets: [{
+                  data: data.statusValues,
+                  backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+              }]
+          },
+          options: { responsive: true }
+      });
+  }
+  async function loadProjectSummaries() {
+      // For demonstration, using static data.
+      const summaries = [
+          { id: '1', name: 'Project Alpha', progress: '70%', details: 'Detailed info for Project Alpha' },
+          { id: '2', name: 'Project Beta', progress: '55%', details: 'Detailed info for Project Beta' },
+      ];
+      const list = document.getElementById('projectSummaryList');
+      list.innerHTML = '';
+      summaries.forEach(project => {
+          const li = document.createElement('li');
+          li.className = 'list-group-item';
+          li.innerHTML = `${project.name} - ${project.progress} <button class="btn btn-link" onclick="showDetails('${project.id}', '${project.details}')">Details</button>`;
+          list.appendChild(li);
+      });
+  }
+  function showDetails(projectId, details) {
+      document.getElementById('projectDetailsContent').textContent = details;
+      var modal = new bootstrap.Modal(document.getElementById('projectDetailsModal'));
+      modal.show();
+  }
+  renderExecChart();
+  loadProjectSummaries();
+</script>

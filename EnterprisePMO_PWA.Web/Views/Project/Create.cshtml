@@ -1,0 +1,55 @@
+@model EnterprisePMO_PWA.Domain.Entities.Project
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Create Project";
+}
+<h1>Create Project</h1>
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ClientName" class="form-label">Client Name</label>
+        <input asp-for="ClientName" class="form-control" />
+        <span asp-validation-for="ClientName" class="text-danger"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="StartDate" class="form-label"></label>
+            <input asp-for="StartDate" type="date" class="form-control" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="EndDate" class="form-label"></label>
+            <input asp-for="EndDate" type="date" class="form-control" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Budget" class="form-label"></label>
+            <input asp-for="Budget" type="number" step="0.01" class="form-control" />
+            <span asp-validation-for="Budget" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="EstimatedCost" class="form-label">Estimated Cost</label>
+            <input asp-for="EstimatedCost" type="number" step="0.01" class="form-control" />
+            <span asp-validation-for="EstimatedCost" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Attachments</label>
+        <input type="file" name="attachments" multiple class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create Project</button>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
