@@ -298,10 +298,14 @@ namespace EnterprisePMO_PWA.Application.Services
 
                 if (user != null)
                 {
+                    // Extract the subject part outside the LINQ query to avoid expression tree issues
+                    string subjectPart = subject.Split(':').LastOrDefault();
+                    if (subjectPart == null) subjectPart = "";
+                    
                     // Find notifications that may match this email subject
                     // This is a best-effort match based on the subject line
                     var notifications = await _context.Set<Notification>()
-                        .Where(n => n.UserId == user.Id && !n.EmailSent && n.Message.Contains(subject.Split(':').LastOrDefault() ?? ""))
+                        .Where(n => n.UserId == user.Id && !n.EmailSent && n.Message.Contains(subjectPart))
                         .ToListAsync();
 
                     foreach (var notification in notifications)

@@ -18,13 +18,8 @@ namespace EnterprisePMO_PWA.Web.Controllers
 
         public IActionResult Index()
         {
-            // If user is already authenticated, redirect to dashboard
-            if (User.Identity?.IsAuthenticated ?? false)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            
-            return View();
+            // Redirect to login page as the landing page
+            return RedirectToAction("Login", "Account");
         }
 
         [Authorize]

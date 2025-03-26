@@ -1,0 +1,146 @@
+@model IEnumerable<EnterprisePMO_PWA.Domain.Entities.User>
+@{
+    ViewData["Title"] = "Assign Users to Departments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <h1 class="mb-4">Assign Users to Departments</h1>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Users in Holding Department</h5>
+        </div>
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-2"></i>
+                    There are currently no users in the holding department.
+                </div>
+            }
+            else
+            {
+                <form asp-action="ProcessBulkMove" method="post">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="5%">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="selectAll">
+                                        </div>
+                                    </th>
+                                    <th>Username</th>
+                                    <th>Current Role</th>
+                                    <th>Registration Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input user-checkbox" type="checkbox" name="selectedUsers" value="@user.Id">
+                                            </div>
+                                        </td>
+                                        <td>@user.Username</td>
+                                        <td>@user.Role</td>
+                                        <td>
+                                            @{
+                                                // Get the creation date from audit logs if available
+                                                var creationDate = ViewBag.UserCreationDates != null && ViewBag.UserCreationDates.ContainsKey(user.Id) 
+                                                    ? ViewBag.UserCreationDates[user.Id] 
+                                                    : DateTime.UtcNow;
+                                            }
+                                            @creationDate.ToString("MMM dd, yyyy HH:mm")
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-5">
+                            <div class="mb-3">
+                                <label for="targetDepartmentId" class="form-label">Target Department</label>
+                                <select class="form-select" id="targetDepartmentId" name="targetDepartmentId" required>
+                                    <option value="">Select Department</option>
+                                    @foreach (var dept in ViewBag.Departments)
+                                    {
+                                        <option value="@dept.Id">@dept.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="mb-3">
+                                <label for="targetRole" class="form-label">Assign Role</label>
+                                <select class="form-select" id="targetRole" name="targetRole" required>
+                                    <option value="">Select Role</option>
+                                    @foreach (RoleType role in Enum.GetValues(typeof(RoleType)))
+                                    {
+                                        <option value="@((int)role)">@role</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100" id="moveButton" disabled>
+                                <i class="bi bi-arrow-right me-2"></i>Assign Users
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+
+    <div class="text-end mt-3">
+        <a href="@Url.Action("Index")" class="btn btn-secondary">
+            <i class="bi bi-arrow-left me-2"></i>Back to User List
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Select all checkbox functionality
+            $("#selectAll").change(function() {
+                $(".user-checkbox").prop('checked', this.checked);
+                updateMoveButtonState();
+            });
+
+            // Update when individual checkboxes change
+            $(".user-checkbox").change(function() {
+                updateMoveButtonState();
+                
+                // Update select all checkbox
+                if ($(".user-checkbox:checked").length === $(".user-checkbox").length) {
+                    $("#selectAll").prop('checked', true);
+                } else {
+                    $("#selectAll").prop('checked', false);
+                }
+            });
+
+            // Function to update move button state
+            function updateMoveButtonState() {
+                if ($(".user-checkbox:checked").length > 0 &&
+                    $("#targetDepartmentId").val() !== "" &&
+                    $("#targetRole").val() !== "") {
+                    $("#moveButton").prop('disabled', false);
+                } else {
+                    $("#moveButton").prop('disabled', true);
+                }
+            }
+
+            // Update when dropdowns change
+            $("#targetDepartmentId, #targetRole").change(function() {
+                updateMoveButtonState();
+            });
+        });
+    </script>
+}

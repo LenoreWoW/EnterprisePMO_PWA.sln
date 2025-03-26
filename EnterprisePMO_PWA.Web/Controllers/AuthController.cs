@@ -73,29 +73,55 @@ namespace EnterprisePMO_PWA.Web.Controllers
                 return BadRequest(new { message = "Email is already in use" });
             }
 
-            // Create new user
+            // Get holding department
+            var holdingDepartment = await _context.Departments
+                .FirstOrDefaultAsync(d => d.Name == "Holding");
+
+            if (holdingDepartment == null)
+            {
+                // Create holding department if it doesn't exist
+                holdingDepartment = new Department
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Holding"
+                };
+                _context.Departments.Add(holdingDepartment);
+                await _context.SaveChangesAsync();
+            }
+
+            // Create new user in holding department
             var user = new User
             {
                 Id = Guid.NewGuid(),
                 Username = request.Email,
                 Role = RoleType.ProjectManager, // Default role for new users
-                DepartmentId = request.DepartmentId
+                DepartmentId = holdingDepartment.Id
             };
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             // Send welcome notification
-            await _notificationService.NotifyAsync("Welcome to Enterprise PMO!", user.Username);
+            await _notificationService.NotifyAsync("Welcome to Enterprise PMO! Your account has been created and is waiting for department assignment.", user.Username);
+
+            // Also notify admins about new user registration
+            var adminUsers = await _context.Users
+                .Where(u => u.Role == RoleType.Admin)
+                .ToListAsync();
+
+            foreach (var admin in adminUsers)
+            {
+                await _notificationService.NotifyAsync($"New user registration: {user.Username}. Please assign to appropriate department.", admin.Username);
+            }
 
             // Log the registration
             await _auditService.LogActionAsync(
                 "Authentication",
                 user.Id,
                 "Register",
-                "New user registered");
+                "New user registered and placed in holding department");
 
-            return Ok(new { message = "User registered successfully" });
+            return Ok(new { message = "User registered successfully and placed in holding department" });
         }
 
         [Authorize]

@@ -30,6 +30,7 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
         {
             var departments = new[]
             {
+                new Department { Id = Guid.NewGuid(), Name = "Holding" }, // Added holding department
                 new Department { Id = Guid.NewGuid(), Name = "IT" },
                 new Department { Id = Guid.NewGuid(), Name = "Finance" },
                 new Department { Id = Guid.NewGuid(), Name = "Marketing" },
@@ -176,6 +177,18 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
                     CanManageRoles = false,
                     CanViewReports = true,
                     CanViewAuditLogs = false
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "New User", 
+                    Description = "Recently registered user awaiting department assignment",
+                    HierarchyLevel = 10,
+                    CanManageProjects = false,
+                    CanManageUsers = false,
+                    CanApproveRequests = false,
+                    CanManageRoles = false,
+                    CanViewReports = false,
+                    CanViewAuditLogs = false
                 }
             };
 
@@ -185,7 +198,8 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
 
         private static void SeedUsers(AppDbContext context)
         {
-            // Get the first department of each type for reference
+            // Get the departments for reference
+            var holdingDepartment = context.Departments.FirstOrDefault(d => d.Name == "Holding");
             var itDepartment = context.Departments.FirstOrDefault(d => d.Name == "IT");
             var financeDepartment = context.Departments.FirstOrDefault(d => d.Name == "Finance");
             var marketingDepartment = context.Departments.FirstOrDefault(d => d.Name == "Marketing");
@@ -214,7 +228,10 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
                 new User { Id = Guid.NewGuid(), Username = "executive@company.com", Role = RoleType.Executive },
                 
                 // Admin
-                new User { Id = Guid.NewGuid(), Username = "admin@company.com", Role = RoleType.Admin }
+                new User { Id = Guid.NewGuid(), Username = "admin@company.com", Role = RoleType.Admin },
+
+                // New user in holding department
+                new User { Id = Guid.NewGuid(), Username = "newuser@company.com", Role = RoleType.ProjectManager, DepartmentId = holdingDepartment?.Id }
             };
 
             context.Users.AddRange(users);
