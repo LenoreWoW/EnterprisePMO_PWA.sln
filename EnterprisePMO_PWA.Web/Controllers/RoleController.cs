@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Application.Services;
 using EnterprisePMO_PWA.Domain.Entities;
@@ -31,7 +32,14 @@ namespace EnterprisePMO_PWA.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _roleService.CreateRoleAsync(role);
+                // Get current user ID
+                var userId = GetCurrentUserId();
+                if (!userId.HasValue)
+                {
+                    return Unauthorized();
+                }
+                
+                await _roleService.CreateRoleAsync(role, userId.Value);
                 return RedirectToAction("List");
             }
             return View(role);
@@ -51,7 +59,14 @@ namespace EnterprisePMO_PWA.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _roleService.UpdateRoleAsync(role);
+                // Get current user ID
+                var userId = GetCurrentUserId();
+                if (!userId.HasValue)
+                {
+                    return Unauthorized();
+                }
+                
+                await _roleService.UpdateRoleAsync(role, userId.Value);
                 return RedirectToAction("List");
             }
             return View(role);
@@ -60,8 +75,29 @@ namespace EnterprisePMO_PWA.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _roleService.DeleteRoleAsync(id);
+            // Get current user ID
+            var userId = GetCurrentUserId();
+            if (!userId.HasValue)
+            {
+                return Unauthorized();
+            }
+            
+            await _roleService.DeleteRoleAsync(id, userId.Value);
             return RedirectToAction("List");
+        }
+        
+        /// <summary>
+        /// Gets the current user's ID from claims.
+        /// </summary>
+        private Guid? GetCurrentUserId()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out Guid userId))
+            {
+                return userId;
+            }
+            
+            return null;
         }
     }
 }

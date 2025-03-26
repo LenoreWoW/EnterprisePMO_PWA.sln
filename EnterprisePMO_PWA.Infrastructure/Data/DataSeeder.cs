@@ -45,12 +45,138 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
         {
             var roles = new[]
             {
-                new Role { Id = Guid.NewGuid(), RoleName = "Project Lead", Description = "Leads the project team" },
-                new Role { Id = Guid.NewGuid(), RoleName = "Developer", Description = "Implements technical components" },
-                new Role { Id = Guid.NewGuid(), RoleName = "Designer", Description = "Responsible for UX/UI design" },
-                new Role { Id = Guid.NewGuid(), RoleName = "Tester", Description = "Performs quality assurance" },
-                new Role { Id = Guid.NewGuid(), RoleName = "Business Analyst", Description = "Analyzes business requirements" },
-                new Role { Id = Guid.NewGuid(), RoleName = "Stakeholder", Description = "Key business stakeholder" }
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Admin", 
+                    Description = "Administrator with full system access",
+                    HierarchyLevel = 100,
+                    CanManageProjects = true,
+                    CanManageUsers = true,
+                    CanApproveRequests = true,
+                    CanManageRoles = true,
+                    CanViewReports = true,
+                    CanViewAuditLogs = true
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Main PMO", 
+                    Description = "Main Project Management Office",
+                    HierarchyLevel = 90,
+                    CanManageProjects = true,
+                    CanManageUsers = false,
+                    CanApproveRequests = true,
+                    CanManageRoles = false,
+                    CanViewReports = true,
+                    CanViewAuditLogs = true
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Executive", 
+                    Description = "Executive leadership",
+                    HierarchyLevel = 80,
+                    CanManageProjects = false,
+                    CanManageUsers = false,
+                    CanApproveRequests = false,
+                    CanManageRoles = false,
+                    CanViewReports = true,
+                    CanViewAuditLogs = false
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Department Director", 
+                    Description = "Department director/manager",
+                    HierarchyLevel = 70,
+                    CanManageProjects = false,
+                    CanManageUsers = false,
+                    CanApproveRequests = false,
+                    CanManageRoles = false,
+                    CanViewReports = true,
+                    CanViewAuditLogs = false
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Sub PMO", 
+                    Description = "Sub-level Project Management Office",
+                    HierarchyLevel = 60,
+                    CanManageProjects = true,
+                    CanManageUsers = false,
+                    CanApproveRequests = true,
+                    CanManageRoles = false,
+                    CanViewReports = true,
+                    CanViewAuditLogs = false
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Project Lead", 
+                    Description = "Leads the project team",
+                    HierarchyLevel = 50,
+                    CanManageProjects = true,
+                    CanManageUsers = false,
+                    CanApproveRequests = false,
+                    CanManageRoles = false,
+                    CanViewReports = true,
+                    CanViewAuditLogs = false
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Developer", 
+                    Description = "Implements technical components",
+                    HierarchyLevel = 40,
+                    CanManageProjects = false,
+                    CanManageUsers = false,
+                    CanApproveRequests = false,
+                    CanManageRoles = false,
+                    CanViewReports = false,
+                    CanViewAuditLogs = false
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Designer", 
+                    Description = "Responsible for UX/UI design",
+                    HierarchyLevel = 40,
+                    CanManageProjects = false,
+                    CanManageUsers = false,
+                    CanApproveRequests = false,
+                    CanManageRoles = false,
+                    CanViewReports = false,
+                    CanViewAuditLogs = false
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Tester", 
+                    Description = "Performs quality assurance",
+                    HierarchyLevel = 40,
+                    CanManageProjects = false,
+                    CanManageUsers = false,
+                    CanApproveRequests = false,
+                    CanManageRoles = false,
+                    CanViewReports = false,
+                    CanViewAuditLogs = false
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Business Analyst", 
+                    Description = "Analyzes business requirements",
+                    HierarchyLevel = 40,
+                    CanManageProjects = false,
+                    CanManageUsers = false,
+                    CanApproveRequests = false,
+                    CanManageRoles = false,
+                    CanViewReports = true,
+                    CanViewAuditLogs = false
+                },
+                new Role { 
+                    Id = Guid.NewGuid(), 
+                    RoleName = "Stakeholder", 
+                    Description = "Key business stakeholder",
+                    HierarchyLevel = 30,
+                    CanManageProjects = false,
+                    CanManageUsers = false,
+                    CanApproveRequests = false,
+                    CanManageRoles = false,
+                    CanViewReports = true,
+                    CanViewAuditLogs = false
+                }
             };
 
             context.Roles.AddRange(roles);

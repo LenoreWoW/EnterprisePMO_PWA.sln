@@ -1,0 +1,71 @@
+@model List<EnterprisePMO_PWA.Domain.Entities.Role>
+@{
+    ViewData["Title"] = "Role Hierarchy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Role Hierarchy</h1>
+        <div>
+            <a permission="ManageRoles" href="@Url.Action("Index", "RoleManagement")" class="btn btn-primary">
+                <i class="bi bi-shield-lock me-2"></i>Manage Roles
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">Discord-inspired Hierarchical System</h5>
+        </div>
+        <div class="card-body">
+            <p class="text-muted mb-3">
+                <i class="bi bi-info-circle me-2"></i>
+                Our system uses a Discord-inspired hierarchical role system. 
+                Roles with higher levels have more permissions and can manage roles below them in the hierarchy.
+                Each role can inherit permissions from roles below it.
+            </p>
+            
+            @await Component.InvokeAsync("RoleHierarchyVisualizer")
+        </div>
+    </div>
+    
+    <div class="row">
+        @foreach (var role in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">@role.RoleName</h5>
+                        <span class="badge bg-primary">Level @role.HierarchyLevel</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@role.Description</p>
+                        
+                        <hr class="my-3">
+                        
+                        @await Component.InvokeAsync("RolePermissions", new { role = role })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        /* Add any additional styles here */
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        });
+    </script>
+}

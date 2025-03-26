@@ -1,0 +1,167 @@
+@model EnterprisePMO_PWA.Domain.Entities.Role
+@{
+    ViewData["Title"] = "Create Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    // Get the current user's role hierarchy level to enforce limits
+    int currentUserHierarchyLevel = ViewBag.CurrentUserRole switch
+    {
+        EnterprisePMO_PWA.Domain.Entities.RoleType.Admin => 100,
+        EnterprisePMO_PWA.Domain.Entities.RoleType.MainPMO => 90,
+        EnterprisePMO_PWA.Domain.Entities.RoleType.Executive => 80,
+        EnterprisePMO_PWA.Domain.Entities.RoleType.DepartmentDirector => 70,
+        EnterprisePMO_PWA.Domain.Entities.RoleType.SubPMO => 60,
+        EnterprisePMO_PWA.Domain.Entities.RoleType.ProjectManager => 50,
+        _ => 10
+    };
+    
+    int maxAllowedLevel = currentUserHierarchyLevel - 1;
+}
+
+<div class="container my-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "RoleManagement")">Roles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create New Role</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">Create New Role</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="RoleName" class="form-label">Role Name</label>
+                            <input asp-for="RoleName" class="form-control" />
+                            <span asp-validation-for="RoleName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="HierarchyLevel" class="form-label">Hierarchy Level (1-@maxAllowedLevel)</label>
+                            <div class="input-group">
+                                <input asp-for="HierarchyLevel" class="form-control" type="number" min="1" max="@maxAllowedLevel" />
+                                <span class="input-group-text">
+                                    <i class="bi bi-info-circle" data-bs-toggle="tooltip" 
+                                       title="Higher numbers have more permissions. Maximum allowed is @maxAllowedLevel for your role."></i>
+                                </span>
+                            </div>
+                            <small class="form-text text-muted">Your current role has a hierarchy level of @currentUserHierarchyLevel</small>
+                            <span asp-validation-for="HierarchyLevel" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input asp-for="InheritsPermissions" class="form-check-input" type="checkbox" role="switch" id="permInherit" checked>
+                                <label class="form-check-label" for="permInherit">
+                                    Inherit Permissions (Discord-like inheritance)
+                                </label>
+                            </div>
+                            <small class="form-text text-muted">If enabled, this role inherits all permissions from lower roles in the hierarchy</small>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Permissions</label>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input asp-for="CanManageProjects" class="form-check-input" type="checkbox" role="switch">
+                                                <label class="form-check-label" asp-for="CanManageProjects">
+                                                    Manage Projects
+                                                </label>
+                                                <div class="form-text">Create, edit, and delete projects</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input asp-for="CanManageUsers" class="form-check-input" type="checkbox" role="switch">
+                                                <label class="form-check-label" asp-for="CanManageUsers">
+                                                    Manage Users
+                                                </label>
+                                                <div class="form-text">Create, edit, and manage user accounts</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input asp-for="CanApproveRequests" class="form-check-input" type="checkbox" role="switch">
+                                                <label class="form-check-label" asp-for="CanApproveRequests">
+                                                    Approve Requests
+                                                </label>
+                                                <div class="form-text">Approve/reject change requests and updates</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input asp-for="CanManageRoles" class="form-check-input" type="checkbox" role="switch">
+                                                <label class="form-check-label" asp-for="CanManageRoles">
+                                                    Manage Roles
+                                                </label>
+                                                <div class="form-text">Create, edit, and delete roles</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input asp-for="CanViewReports" class="form-check-input" type="checkbox" role="switch">
+                                                <label class="form-check-label" asp-for="CanViewReports">
+                                                    View Reports
+                                                </label>
+                                                <div class="form-text">Access reports and analytics</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+                                                <input asp-for="CanViewAuditLogs" class="form-check-input" type="checkbox" role="switch">
+                                                <label class="form-check-label" asp-for="CanViewAuditLogs">
+                                                    View Audit Logs
+                                                </label>
+                                                <div class="form-text">Access audit trails and system logs</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="@Url.Action("Index", "RoleManagement")" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left me-2"></i>Back to List
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-plus-circle me-2"></i>Create Role
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}

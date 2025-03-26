@@ -1,0 +1,193 @@
+@model EnterprisePMO_PWA.Domain.Entities.Role
+
+<div class="role-permissions">
+    <div class="row g-2">
+        <div class="col-md-4">
+            <div class="permission-card @(Model.CanManageProjects ? "enabled" : "disabled")">
+                <div class="permission-icon">
+                    <i class="bi bi-kanban"></i>
+                </div>
+                <div class="permission-label">Manage Projects</div>
+                <div class="permission-status">
+                    @if (Model.CanManageProjects)
+                    {
+                        <span class="badge bg-success">Enabled</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Disabled</span>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="permission-card @(Model.CanManageUsers ? "enabled" : "disabled")">
+                <div class="permission-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <div class="permission-label">Manage Users</div>
+                <div class="permission-status">
+                    @if (Model.CanManageUsers)
+                    {
+                        <span class="badge bg-success">Enabled</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Disabled</span>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="permission-card @(Model.CanApproveRequests ? "enabled" : "disabled")">
+                <div class="permission-icon">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <div class="permission-label">Approve Requests</div>
+                <div class="permission-status">
+                    @if (Model.CanApproveRequests)
+                    {
+                        <span class="badge bg-success">Enabled</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Disabled</span>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="permission-card @(Model.CanManageRoles ? "enabled" : "disabled")">
+                <div class="permission-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+                <div class="permission-label">Manage Roles</div>
+                <div class="permission-status">
+                    @if (Model.CanManageRoles)
+                    {
+                        <span class="badge bg-success">Enabled</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Disabled</span>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="permission-card @(Model.CanViewReports ? "enabled" : "disabled")">
+                <div class="permission-icon">
+                    <i class="bi bi-bar-chart"></i>
+                </div>
+                <div class="permission-label">View Reports</div>
+                <div class="permission-status">
+                    @if (Model.CanViewReports)
+                    {
+                        <span class="badge bg-success">Enabled</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Disabled</span>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="permission-card @(Model.CanViewAuditLogs ? "enabled" : "disabled")">
+                <div class="permission-icon">
+                    <i class="bi bi-journal-text"></i>
+                </div>
+                <div class="permission-label">View Audit Logs</div>
+                <div class="permission-status">
+                    @if (Model.CanViewAuditLogs)
+                    {
+                        <span class="badge bg-success">Enabled</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Disabled</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hierarchy-info mt-3">
+        <div class="d-flex align-items-center">
+            <span class="me-2">Hierarchy Level:</span>
+            <div class="progress flex-grow-1" style="height: 8px;">
+                <div class="progress-bar bg-primary" role="progressbar" 
+                     style="width: @(Model.HierarchyLevel)%;" 
+                     aria-valuenow="@Model.HierarchyLevel" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100"></div>
+            </div>
+            <span class="ms-2">@Model.HierarchyLevel</span>
+        </div>
+        <div class="inheritance-status mt-2">
+            <span>Inheritance Status:</span>
+            @if (Model.InheritsPermissions)
+            {
+                <span class="badge bg-info ms-2">Inherits Permissions</span>
+                <small class="text-muted d-block mt-1">This role inherits permissions from roles below it in the hierarchy</small>
+            }
+            else
+            {
+                <span class="badge bg-warning ms-2">No Inheritance</span>
+                <small class="text-muted d-block mt-1">This role does not inherit permissions</small>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .role-permissions .permission-card {
+        padding: 1rem;
+        border-radius: 0.25rem;
+        background-color: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        transition: all 0.2s ease;
+    }
+    
+    .role-permissions .permission-card.enabled {
+        background-color: rgba(25, 135, 84, 0.1);
+        border: 1px solid rgba(25, 135, 84, 0.2);
+    }
+    
+    .role-permissions .permission-card.disabled {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        opacity: 0.7;
+    }
+    
+    .role-permissions .permission-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #6c757d;
+    }
+    
+    .role-permissions .permission-card.enabled .permission-icon {
+        color: #198754;
+    }
+    
+    .role-permissions .permission-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    
+    .role-permissions .hierarchy-info {
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 0.25rem;
+        border: 1px solid #e9ecef;
+    }
+</style>

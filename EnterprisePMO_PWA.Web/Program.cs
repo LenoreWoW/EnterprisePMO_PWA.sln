@@ -1,13 +1,14 @@
 using EnterprisePMO_PWA.Infrastructure.Data;
 using EnterprisePMO_PWA.Application.Services;
 using EnterprisePMO_PWA.Web.Hubs;
+using EnterprisePMO_PWA.Web.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Hangfire;
-using Hangfire.MemoryStorage;  // You need to add the Hangfire.MemoryStorage package
-using Hangfire.Dashboard;
+using Hangfire.MemoryStorage;
 using System.Text;
 
 // Setup the web server with in-memory database
@@ -47,6 +48,7 @@ builder.Services.AddScoped<ProjectMemberService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<WorkflowService>();
 builder.Services.AddScoped<AuditService>();
+builder.Services.AddScoped<PermissionService>();
 builder.Services.AddHttpContextAccessor();
 
 // Add CORS
@@ -92,14 +94,31 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Configure Authorization with Permission-based policies
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
 builder.Services.AddAuthorization(options =>
 {
+    // Base role policies
     options.AddPolicy("ProjectManager", policy => policy.RequireRole("ProjectManager"));
     options.AddPolicy("SubPMO", policy => policy.RequireRole("SubPMO"));
     options.AddPolicy("MainPMO", policy => policy.RequireRole("MainPMO"));
     options.AddPolicy("DepartmentDirector", policy => policy.RequireRole("DepartmentDirector"));
     options.AddPolicy("Executive", policy => policy.RequireRole("Executive"));
     options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    
+    // Permission-based policies
+    options.AddPolicy("Permission:ManageProjects", policy => 
+        policy.Requirements.Add(new PermissionRequirement("ManageProjects")));
+    options.AddPolicy("Permission:ApproveRequests", policy => 
+        policy.Requirements.Add(new PermissionRequirement("ApproveRequests")));
+    options.AddPolicy("Permission:ManageUsers", policy => 
+        policy.Requirements.Add(new PermissionRequirement("ManageUsers")));
+    options.AddPolicy("Permission:ViewReports", policy => 
+        policy.Requirements.Add(new PermissionRequirement("ViewReports")));
+    options.AddPolicy("Permission:ViewAuditLogs", policy => 
+        policy.Requirements.Add(new PermissionRequirement("ViewAuditLogs")));
 });
 
 // Add Hangfire with in-memory storage for development

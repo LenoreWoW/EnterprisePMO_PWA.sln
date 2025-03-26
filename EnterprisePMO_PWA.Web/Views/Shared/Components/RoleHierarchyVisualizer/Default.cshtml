@@ -1,0 +1,147 @@
+@model List<EnterprisePMO_PWA.Domain.Entities.Role>
+
+<div class="role-hierarchy-visualizer">
+    <div class="hierarchy-container">
+        @foreach (var role in Model)
+        {
+            <div class="role-level" style="--level-percent: @(role.HierarchyLevel)%">
+                <div class="role-box">
+                    <div class="role-name">@role.RoleName</div>
+                    <div class="role-hierarchy-level">Level @role.HierarchyLevel</div>
+                    <div class="role-permissions-summary">
+                        <div class="permission-dots">
+                            @if (role.CanManageProjects)
+                            {
+                                <span class="permission-dot" data-bs-toggle="tooltip" title="Can Manage Projects">
+                                    <i class="bi bi-kanban"></i>
+                                </span>
+                            }
+                            @if (role.CanManageUsers)
+                            {
+                                <span class="permission-dot" data-bs-toggle="tooltip" title="Can Manage Users">
+                                    <i class="bi bi-people"></i>
+                                </span>
+                            }
+                            @if (role.CanApproveRequests)
+                            {
+                                <span class="permission-dot" data-bs-toggle="tooltip" title="Can Approve Requests">
+                                    <i class="bi bi-check-circle"></i>
+                                </span>
+                            }
+                            @if (role.CanManageRoles)
+                            {
+                                <span class="permission-dot" data-bs-toggle="tooltip" title="Can Manage Roles">
+                                    <i class="bi bi-shield-lock"></i>
+                                </span>
+                            }
+                            @if (role.CanViewReports)
+                            {
+                                <span class="permission-dot" data-bs-toggle="tooltip" title="Can View Reports">
+                                    <i class="bi bi-bar-chart"></i>
+                                </span>
+                            }
+                            @if (role.CanViewAuditLogs)
+                            {
+                                <span class="permission-dot" data-bs-toggle="tooltip" title="Can View Audit Logs">
+                                    <i class="bi bi-journal-text"></i>
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="connect-line"></div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .role-hierarchy-visualizer {
+        margin-bottom: 2rem;
+    }
+    
+    .hierarchy-container {
+        position: relative;
+        padding: 2rem 0;
+    }
+    
+    .role-level {
+        position: relative;
+        padding-left: calc(var(--level-percent) - 10%);
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .role-box {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        width: 220px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        position: relative;
+        z-index: 2;
+    }
+    
+    .role-name {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .role-hierarchy-level {
+        font-size: 0.75rem;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+    
+    .permission-dots {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .permission-dot {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: rgba(13, 110, 253, 0.1);
+        color: #0d6efd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+    }
+    
+    .connect-line {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        height: 2px;
+        background-color: #dee2e6;
+        width: calc(var(--level-percent) - 10%);
+        z-index: 1;
+    }
+    
+    .connect-line::before {
+        content: '';
+        position: absolute;
+        left: -3px;
+        top: -3px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #6c757d;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    });
+</script>
