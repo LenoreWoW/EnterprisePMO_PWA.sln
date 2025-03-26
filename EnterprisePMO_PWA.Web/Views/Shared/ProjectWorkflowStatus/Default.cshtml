@@ -1,0 +1,421 @@
+@model EnterprisePMO_PWA.Domain.Entities.Project
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Project Workflow Status</h5>
+    </div>
+    <div class="card-body">
+        <div class="workflow-timeline">
+            <!-- Workflow Timeline -->
+            <div class="d-flex mb-4">
+                <div class="workflow-step @(Model.CreationDate != DateTime.MinValue ? "complete" : "pending")">
+                    <div class="step-indicator">
+                        <i class="bi bi-plus-circle-fill"></i>
+                    </div>
+                    <div class="step-label">Created</div>
+                    <div class="step-date">
+                        @(Model.CreationDate != DateTime.MinValue ? Model.CreationDate.ToString("MMM dd, yyyy") : "Pending")
+                    </div>
+                </div>
+                <div class="workflow-connector"></div>
+                <div class="workflow-step @(Model.Status != ProjectStatus.Proposed ? "complete" : Model.Status == ProjectStatus.Proposed && !Model.ApprovedDate.HasValue ? "current" : "pending")">
+                    <div class="step-indicator">
+                        <i class="bi bi-send-fill"></i>
+                    </div>
+                    <div class="step-label">Submitted</div>
+                    <div class="step-date">
+                        @if (Model.Status != ProjectStatus.Proposed || (Model.Status == ProjectStatus.Proposed && !Model.ApprovedDate.HasValue))
+                        {
+                            <span>In Progress</span>
+                        }
+                        else
+                        {
+                            <span>Pending</span>
+                        }
+                    </div>
+                </div>
+                <div class="workflow-connector"></div>
+                <div class="workflow-step @(Model.Status == ProjectStatus.Active && !Model.ApprovedDate.HasValue ? "current" : Model.Status == ProjectStatus.Rejected ? "rejected" : Model.ApprovedDate.HasValue ? "complete" : "pending")">
+                    <div class="step-indicator">
+                        @if (Model.Status == ProjectStatus.Rejected)
+                        {
+                            <i class="bi bi-x-circle-fill text-danger"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-check-circle-fill"></i>
+                        }
+                    </div>
+                    <div class="step-label">
+                        @if (Model.Status == ProjectStatus.Rejected)
+                        {
+                            <span class="text-danger">Rejected</span>
+                        }
+                        else
+                        {
+                            <span>Sub PMO</span>
+                        }
+                    </div>
+                    <div class="step-date">
+                        @if (Model.Status == ProjectStatus.Rejected)
+                        {
+                            <span class="text-danger">@(Model.CreationDate.AddDays(1).ToString("MMM dd, yyyy"))</span>
+                        }
+                        else if (Model.Status == ProjectStatus.Active && !Model.ApprovedDate.HasValue)
+                        {
+                            <span>In Progress</span>
+                        }
+                        else if (Model.ApprovedDate.HasValue)
+                        {
+                            <span>@(Model.CreationDate.AddDays(2).ToString("MMM dd, yyyy"))</span>
+                        }
+                        else
+                        {
+                            <span>Pending</span>
+                        }
+                    </div>
+                </div>
+                <div class="workflow-connector"></div>
+                <div class="workflow-step @(Model.ApprovedDate.HasValue ? "complete" : Model.Status == ProjectStatus.Active && !Model.ApprovedDate.HasValue ? "pending" : "pending")">
+                    <div class="step-indicator">
+                        <i class="bi bi-check-all"></i>
+                    </div>
+                    <div class="step-label">Final Approval</div>
+                    <div class="step-date">
+                        @if (Model.ApprovedDate.HasValue)
+                        {
+                            <span>@Model.ApprovedDate.Value.ToString("MMM dd, yyyy")</span>
+                        }
+                        else
+                        {
+                            <span>Pending</span>
+                        }
+                    </div>
+                </div>
+                <div class="workflow-connector"></div>
+                <div class="workflow-step @(Model.Status == ProjectStatus.Completed ? "complete" : "pending")">
+                    <div class="step-indicator">
+                        <i class="bi bi-flag-fill"></i>
+                    </div>
+                    <div class="step-label">Completed</div>
+                    <div class="step-date">
+                        @if (Model.Status == ProjectStatus.Completed)
+                        {
+                            <span>@(Model.EndDate.ToString("MMM dd, yyyy"))</span>
+                        }
+                        else
+                        {
+                            <span>Pending</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Information -->
+            <div class="alert @(Model.Status == ProjectStatus.Proposed ? "alert-info" : Model.Status == ProjectStatus.Active ? "alert-success" : Model.Status == ProjectStatus.Rejected ? "alert-danger" : Model.Status == ProjectStatus.Completed ? "alert-secondary" : "alert-info")">
+                <div class="d-flex align-items-center">
+                    @if (Model.Status == ProjectStatus.Proposed)
+                    {
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        <div>
+                            <strong>Project Proposed</strong>
+                            <p class="mb-0">This project is awaiting initial review by Sub PMO.</p>
+                        </div>
+                    }
+                    else if (Model.Status == ProjectStatus.Active && !Model.ApprovedDate.HasValue)
+                    {
+                        <i class="bi bi-arrow-right-circle-fill me-2"></i>
+                        <div>
+                            <strong>Sub PMO Approved</strong>
+                            <p class="mb-0">This project has been approved by Sub PMO and is awaiting final approval from Main PMO.</p>
+                        </div>
+                    }
+                    else if (Model.Status == ProjectStatus.Active && Model.ApprovedDate.HasValue)
+                    {
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <div>
+                            <strong>Project Active</strong>
+                            <p class="mb-0">This project has been fully approved and is currently active.</p>
+                        </div>
+                    }
+                    else if (Model.Status == ProjectStatus.Rejected)
+                    {
+                        <i class="bi bi-x-circle-fill me-2"></i>
+                        <div>
+                            <strong>Project Rejected</strong>
+                            <p class="mb-0">This project has been rejected. Please review the feedback and resubmit if appropriate.</p>
+                        </div>
+                    }
+                    else if (Model.Status == ProjectStatus.Completed)
+                    {
+                        <i class="bi bi-trophy-fill me-2"></i>
+                        <div>
+                            <strong>Project Completed</strong>
+                            <p class="mb-0">This project has been successfully completed.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-4">
+                @if (User.IsInRole("ProjectManager") && Model.Status == ProjectStatus.Proposed && !Model.ApprovedDate.HasValue)
+                {
+                    <div id="project-workflow-actions">
+                        <div class="alert alert-warning">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Project is awaiting your submission for approval.
+                        </div>
+
+                        <form action="/api/project-workflow/submit" method="post" class="d-inline">
+                            <input type="hidden" name="projectId" value="@Model.Id" />
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-send me-2"></i>Submit for Approval
+                            </button>
+                        </form>
+                    </div>
+                }
+                else if (User.IsInRole("ProjectManager") && Model.Status == ProjectStatus.Rejected)
+                {
+                    <div id="project-resubmission-form">
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Project was rejected. You can resubmit after addressing the concerns.
+                        </div>
+
+                        <form action="/api/project-workflow/resubmit" method="post">
+                            <input type="hidden" name="projectId" value="@Model.Id" />
+                            <div class="mb-3">
+                                <label for="changesDescription" class="form-label">Changes Made</label>
+                                <textarea id="changesDescription" name="changesDescription" class="form-control" rows="3" 
+                                    placeholder="Describe the changes you've made to address the rejection reasons" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-arrow-repeat me-2"></i>Resubmit Project
+                            </button>
+                        </form>
+                    </div>
+                }
+                else if (User.IsInRole("SubPMO") && Model.Status == ProjectStatus.Proposed)
+                {
+                    <div id="subpmo-approval-form">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            This project is awaiting your review.
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Sub PMO Review</h5>
+                                <div class="mb-3">
+                                    <label for="comments" class="form-label">Review Comments</label>
+                                    <textarea id="comments" class="form-control" rows="3" 
+                                        placeholder="Enter your comments (optional)"></textarea>
+                                </div>
+                                <div class="d-flex">
+                                    <form action="/api/project-workflow/approve-sub-pmo" method="post" class="d-inline me-2">
+                                        <input type="hidden" name="projectId" value="@Model.Id" />
+                                        <input type="hidden" id="approveComments" name="comments" value="" />
+                                        <button type="button" onclick="submitApproval()" class="btn btn-success">
+                                            <i class="bi bi-check-circle me-2"></i>Approve
+                                        </button>
+                                    </form>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectionModal">
+                                        <i class="bi bi-x-circle me-2"></i>Reject
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rejection Modal -->
+                        <div class="modal fade" id="rejectionModal" tabindex="-1" aria-labelledby="rejectionModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="rejectionModalLabel">Reject Project</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="rejectionForm" action="/api/project-workflow/reject-sub-pmo" method="post">
+                                            <input type="hidden" name="projectId" value="@Model.Id" />
+                                            <div class="mb-3">
+                                                <label for="rejectionReason" class="form-label">Rejection Reason</label>
+                                                <textarea id="rejectionReason" name="rejectionReason" class="form-control" rows="4" 
+                                                    placeholder="Provide a detailed reason for rejection" required></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" onclick="submitRejection()" class="btn btn-danger">Reject Project</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (User.IsInRole("MainPMO") && Model.Status == ProjectStatus.Active && !Model.ApprovedDate.HasValue)
+                {
+                    <div id="mainpmo-approval-form">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            This project is awaiting your final approval.
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Main PMO Review</h5>
+                                <div class="mb-3">
+                                    <label for="mainComments" class="form-label">Review Comments</label>
+                                    <textarea id="mainComments" class="form-control" rows="3" 
+                                        placeholder="Enter your comments (optional)"></textarea>
+                                </div>
+                                <div class="d-flex">
+                                    <form action="/api/project-workflow/approve-main-pmo" method="post" class="d-inline me-2">
+                                        <input type="hidden" name="projectId" value="@Model.Id" />
+                                        <input type="hidden" id="mainApproveComments" name="comments" value="" />
+                                        <button type="button" onclick="submitMainApproval()" class="btn btn-success">
+                                            <i class="bi bi-check-circle me-2"></i>Final Approval
+                                        </button>
+                                    </form>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#mainRejectionModal">
+                                        <i class="bi bi-x-circle me-2"></i>Reject
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main PMO Rejection Modal -->
+                        <div class="modal fade" id="mainRejectionModal" tabindex="-1" aria-labelledby="mainRejectionModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="mainRejectionModalLabel">Reject Project</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="mainRejectionForm" action="/api/project-workflow/reject-main-pmo" method="post">
+                                            <input type="hidden" name="projectId" value="@Model.Id" />
+                                            <div class="mb-3">
+                                                <label for="mainRejectionReason" class="form-label">Rejection Reason</label>
+                                                <textarea id="mainRejectionReason" name="rejectionReason" class="form-control" rows="4" 
+                                                    placeholder="Provide a detailed reason for rejection" required></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" onclick="submitMainRejection()" class="btn btn-danger">Reject Project</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .workflow-timeline {
+        position: relative;
+        margin: 20px 0;
+    }
+    
+    .workflow-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100px;
+    }
+    
+    .step-indicator {
+        width: 40px;
+        height: 40px;
+        background-color: #f8f9fa;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+        border: 2px solid #dee2e6;
+        color: #6c757d;
+    }
+    
+    .workflow-step.complete .step-indicator {
+        background-color: #d1e7dd;
+        border-color: #198754;
+        color: #198754;
+    }
+    
+    .workflow-step.current .step-indicator {
+        background-color: #cfe2ff;
+        border-color: #0d6efd;
+        color: #0d6efd;
+    }
+    
+    .workflow-step.rejected .step-indicator {
+        background-color: #f8d7da;
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+    
+    .workflow-connector {
+        flex-grow: 1;
+        height: 2px;
+        background-color: #dee2e6;
+        margin-top: 20px;
+    }
+    
+    .step-label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+    
+    .step-date {
+        font-size: 0.75rem;
+        color: #6c757d;
+        text-align: center;
+    }
+</style>
+
+<script>
+    // Functions to handle form submissions
+    function submitApproval() {
+        // Copy comments to the hidden input
+        document.getElementById('approveComments').value = document.getElementById('comments').value;
+        // Submit the form
+        document.querySelector('form[action="/api/project-workflow/approve-sub-pmo"]').submit();
+    }
+    
+    function submitRejection() {
+        // Validate the form
+        const rejectionReason = document.getElementById('rejectionReason').value;
+        if (!rejectionReason.trim()) {
+            alert('Please provide a rejection reason');
+            return;
+        }
+        // Submit the form
+        document.getElementById('rejectionForm').submit();
+    }
+    
+    function submitMainApproval() {
+        // Copy comments to the hidden input
+        document.getElementById('mainApproveComments').value = document.getElementById('mainComments').value;
+        // Submit the form
+        document.querySelector('form[action="/api/project-workflow/approve-main-pmo"]').submit();
+    }
+    
+    function submitMainRejection() {
+        // Validate the form
+        const rejectionReason = document.getElementById('mainRejectionReason').value;
+        if (!rejectionReason.trim()) {
+            alert('Please provide a rejection reason');
+            return;
+        }
+        // Submit the form
+        document.getElementById('mainRejectionForm').submit();
+    }
+</script>

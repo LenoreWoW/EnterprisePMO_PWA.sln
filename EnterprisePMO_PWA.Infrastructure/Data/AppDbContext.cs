@@ -23,6 +23,7 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
         public DbSet<ProjectMember> ProjectMembers => Set<ProjectMember>();
         public DbSet<Role> Roles => Set<Role>();
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+        public DbSet<Notification> Notifications => Set<Notification>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,6 +47,16 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
                 
             modelBuilder.Entity<AuditLog>()
                 .HasIndex(a => a.Timestamp);
+
+            // Notification configuration
+            modelBuilder.Entity<Notification>()
+                .HasIndex(n => n.UserId);
+
+            modelBuilder.Entity<Notification>()
+                .HasIndex(n => n.IsRead);
+
+            modelBuilder.Entity<Notification>()
+                .HasIndex(n => n.CreatedAt);
                 
             // Configure relationships for in-memory database
             // This makes navigation properties work properly

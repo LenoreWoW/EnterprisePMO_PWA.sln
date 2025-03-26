@@ -1,0 +1,273 @@
+@{
+    ViewData["Title"] = "Workflow Test Page";
+    Layout = "_Layout";
+}
+
+<div class="container my-5">
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Project Workflow Test</h2>
+        </div>
+        <div class="card-body">
+            <p>This page helps you test the project workflow and notification system. Follow these steps:</p>
+            
+            <ol class="mb-4">
+                <li>Create a test project environment</li>
+                <li>Test the full approval workflow</li>
+                <li>Test the rejection workflow</li>
+                <li>View notifications</li>
+            </ol>
+            
+            <div class="alert alert-info mb-4">
+                <strong>Note:</strong> The test controller will create test data in your database and run through the workflow steps automatically.
+            </div>
+            
+            <div class="mb-4">
+                <h4>1. Create Test Environment</h4>
+                <button id="setupTestBtn" class="btn btn-primary">Setup Test Environment</button>
+                <div id="setupResult" class="mt-3 d-none">
+                    <div class="alert alert-success">
+                        <h5>Test Setup Completed</h5>
+                        <p id="setupMessage"></p>
+                        <div id="setupData" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <h4>2. Run Complete Workflow Test</h4>
+                <div class="input-group mb-3" style="max-width: 600px;">
+                    <span class="input-group-text">Project ID:</span>
+                    <input type="text" id="projectIdInput" class="form-control" placeholder="Enter the Project ID from step 1">
+                    <button id="testWorkflowBtn" class="btn btn-success">Run Workflow Test</button>
+                </div>
+                <div id="workflowResult" class="mt-3 d-none">
+                    <div class="alert alert-success">
+                        <h5>Workflow Test Completed</h5>
+                        <p id="workflowMessage"></p>
+                        <div id="workflowSteps" class="mt-2"></div>
+                        <div id="notificationsCreated" class="mt-3">
+                            <h6>Notifications Created:</h6>
+                            <div id="notificationsList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <h4>3. Run Rejection Workflow Test</h4>
+                <div class="input-group mb-3" style="max-width: 600px;">
+                    <span class="input-group-text">Project ID:</span>
+                    <input type="text" id="rejectionProjectIdInput" class="form-control" placeholder="Enter the Project ID from step 1">
+                    <button id="testRejectionBtn" class="btn btn-danger">Run Rejection Test</button>
+                </div>
+                <div id="rejectionResult" class="mt-3 d-none">
+                    <div class="alert alert-warning">
+                        <h5>Rejection Workflow Test Completed</h5>
+                        <p id="rejectionMessage"></p>
+                        <div id="rejectionSteps" class="mt-2"></div>
+                        <div id="rejectionNotifications" class="mt-3">
+                            <h6>Notifications Created:</h6>
+                            <div id="rejectionNotificationsList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup Test Environment
+            document.getElementById('setupTestBtn').addEventListener('click', async function() {
+                try {
+                    const response = await fetch('/api/test/workflow/setup');
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Show result
+                        document.getElementById('setupResult').classList.remove('d-none');
+                        document.getElementById('setupMessage').textContent = data.message;
+                        
+                        // Format test data
+                        const testDataHtml = `
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <tr>
+                                        <th>Project ID</th>
+                                        <td><code>${data.testData.projectId}</code></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Project Manager</th>
+                                        <td>${data.testData.projectManagerUsername}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="mt-2">
+                                <strong>Next Steps:</strong>
+                                <ul>
+                                    ${data.nextSteps.map(step => `<li>${step}</li>`).join('')}
+                                </ul>
+                            </div>
+                        `;
+                        document.getElementById('setupData').innerHTML = testDataHtml;
+                        
+                        // Auto-fill project IDs
+                        document.getElementById('projectIdInput').value = data.testData.projectId;
+                        document.getElementById('rejectionProjectIdInput').value = data.testData.projectId;
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                }
+            });
+            
+            // Run Complete Workflow Test
+            document.getElementById('testWorkflowBtn').addEventListener('click', async function() {
+                const projectId = document.getElementById('projectIdInput').value;
+                if (!projectId) {
+                    alert('Please enter a Project ID');
+                    return;
+                }
+                
+                try {
+                    const response = await fetch(`/api/test/workflow/test-workflow/${projectId}`);
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Show result
+                        document.getElementById('workflowResult').classList.remove('d-none');
+                        document.getElementById('workflowMessage').textContent = data.message;
+                        
+                        // Format workflow steps
+                        const stepsHtml = `
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Step</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${data.workflows.map(step => `
+                                            <tr>
+                                                <td>${step.step}</td>
+                                                <td><span class="badge bg-success">${step.status}</span></td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                        document.getElementById('workflowSteps').innerHTML = stepsHtml;
+                        
+                        // Format notifications
+                        const notificationsHtml = `
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Message</th>
+                                            <th>Recipient</th>
+                                            <th>Created</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${data.notifications.map(notification => `
+                                            <tr>
+                                                <td>${notification.Message}</td>
+                                                <td><code>${notification.Recipient}</code></td>
+                                                <td>${new Date(notification.Created).toLocaleString()}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                        document.getElementById('notificationsList').innerHTML = notificationsHtml;
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                }
+            });
+            
+            // Run Rejection Workflow Test
+            document.getElementById('testRejectionBtn').addEventListener('click', async function() {
+                const projectId = document.getElementById('rejectionProjectIdInput').value;
+                if (!projectId) {
+                    alert('Please enter a Project ID');
+                    return;
+                }
+                
+                try {
+                    const response = await fetch(`/api/test/workflow/test-workflow-rejection/${projectId}`);
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Show result
+                        document.getElementById('rejectionResult').classList.remove('d-none');
+                        document.getElementById('rejectionMessage').textContent = data.message;
+                        
+                        // Format workflow steps
+                        const stepsHtml = `
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Step</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${data.workflows.map(step => `
+                                            <tr>
+                                                <td>${step.step}</td>
+                                                <td><span class="badge bg-success">${step.status}</span></td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                        document.getElementById('rejectionSteps').innerHTML = stepsHtml;
+                        
+                        // Format notifications
+                        const notificationsHtml = `
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Message</th>
+                                            <th>Recipient</th>
+                                            <th>Created</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${data.notifications.map(notification => `
+                                            <tr>
+                                                <td>${notification.Message}</td>
+                                                <td><code>${notification.Recipient}</code></td>
+                                                <td>${new Date(notification.Created).toLocaleString()}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                        document.getElementById('rejectionNotificationsList').innerHTML = notificationsHtml;
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                }
+            });
+        });
+    </script>
+}

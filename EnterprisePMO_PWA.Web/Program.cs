@@ -1,7 +1,9 @@
 using EnterprisePMO_PWA.Infrastructure.Data;
 using EnterprisePMO_PWA.Application.Services;
 using EnterprisePMO_PWA.Web.Hubs;
+using EnterprisePMO_PWA.Web.Services;
 using EnterprisePMO_PWA.Web.Authorization;
+using EnterprisePMO_PWA.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -36,7 +38,17 @@ builder.Services.AddControllersWithViews()
 
 // Add in-memory database for development
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("EnterprisePMO"));
+{
+    // Use existing database provider (in-memory or PostgreSQL)
+    if (builder.Environment.IsDevelopment())
+    {
+        options.UseInMemoryDatabase("EnterprisePMO");
+    }
+    else
+    {
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    }
+});
 
 // Register application services
 builder.Services.AddScoped<ProjectService>();
@@ -45,11 +57,22 @@ builder.Services.AddScoped<ChangeRequestService>();
 builder.Services.AddScoped<RoleService>();
 builder.Services.AddScoped<DepartmentService>();
 builder.Services.AddScoped<ProjectMemberService>();
-builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<WorkflowService>();
 builder.Services.AddScoped<AuditService>();
 builder.Services.AddScoped<PermissionService>();
 builder.Services.AddHttpContextAccessor();
+
+// Register new workflow and notification services
+builder.Services.AddScoped<ProjectWorkflowService>();
+
+// Add SignalR
+builder.Services.AddSignalR();
+
+// Register real-time notification service (Web layer)
+builder.Services.AddScoped<IRealTimeNotificationService, SignalRNotificationService>();
+
+// Register notification service (Application layer)
+builder.Services.AddScoped<INotificationService, EnhancedNotificationService>();
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -128,9 +151,6 @@ builder.Services.AddHangfire(config =>
 });
 builder.Services.AddHangfireServer();
 
-// SignalR for real-time notifications
-builder.Services.AddSignalR();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
@@ -156,7 +176,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// SignalR hub
+// SignalR hub for notifications
 app.MapHub<NotificationHub>("/notificationHub");
 
 // Add Hangfire dashboard

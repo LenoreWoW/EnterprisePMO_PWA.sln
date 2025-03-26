@@ -2216,3 +2216,208 @@
 2025-03-26 19:12:42.777 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
 2025-03-26 19:13:12.780 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
 2025-03-26 19:13:42.782 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:14:12.785 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:14:42.787 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:15:12.787 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:15:42.789 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:16:12.791 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:16:42.793 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:17:12.796 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:17:42.798 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:18:12.801 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:18:42.803 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:19:12.805 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:19:42.808 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:20:12.809 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:20:42.810 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:21:12.795 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:21:42.796 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:22:12.798 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:22:42.801 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:23:12.804 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:23:42.808 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:24:12.810 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:24:42.812 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:25:12.815 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:25:42.817 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:26:12.820 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:26:42.824 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:27:12.828 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:27:42.829 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:28:12.831 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:28:42.833 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:29:12.834 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:29:42.837 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:30:12.838 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:30:42.840 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:31:12.842 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:31:42.844 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:32:12.846 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:32:42.847 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:33:12.849 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:33:42.853 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:34:12.855 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:34:42.857 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:35:12.858 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:35:42.860 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:36:12.850 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:36:42.850 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:37:12.852 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:37:42.854 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:38:12.856 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:38:42.858 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:39:12.860 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:39:42.861 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:40:12.862 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:40:42.864 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:41:12.866 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:41:42.868 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:42:12.871 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:42:42.874 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:43:12.877 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:43:42.880 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:44:12.883 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:44:42.885 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:45:12.889 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:45:42.892 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:46:12.895 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:46:42.899 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:47:12.902 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:47:42.904 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:48:12.907 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:48:42.909 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:49:12.910 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:49:42.912 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:50:12.913 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:50:42.915 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:51:12.934 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:51:42.950 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:52:12.954 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:52:42.957 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:53:12.960 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:53:42.962 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:54:12.965 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:54:42.967 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:55:12.970 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:55:42.971 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:56:12.974 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:56:42.978 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:57:12.981 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:57:42.983 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:58:12.985 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:58:42.987 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:59:12.989 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:59:42.991 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:00:12.993 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:00:42.994 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:01:12.996 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:01:42.997 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:02:12.999 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:02:43.000 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:03:13.002 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:03:43.003 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:04:13.004 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:04:43.007 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:05:13.009 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:05:43.012 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:06:13.014 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:06:42.959 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:07:12.962 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:07:42.963 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:08:12.966 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:08:42.966 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:09:12.968 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:09:42.969 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:10:12.970 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:10:42.972 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:11:12.974 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:11:42.975 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:12:12.978 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:12:42.979 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:13:12.980 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:13:42.982 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:14:12.983 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:14:42.985 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:15:12.986 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:15:42.987 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:16:12.989 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:16:42.990 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:17:12.992 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:17:42.994 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:18:12.996 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:18:42.998 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:19:13.001 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:19:43.004 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:20:13.006 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:20:43.009 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:21:13.011 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:21:43.013 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:22:13.012 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:22:43.014 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:23:13.024 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:23:43.026 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:24:13.028 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:24:43.030 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:25:13.032 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:25:43.035 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:26:13.037 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:26:43.039 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:27:13.041 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:27:43.043 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:28:13.045 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:28:43.046 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:29:13.049 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:29:43.050 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:30:13.051 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:30:43.053 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:31:13.055 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:31:43.057 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:32:13.059 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:32:43.061 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:33:13.063 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:33:43.066 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:34:13.068 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:34:43.070 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:35:13.072 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:35:43.074 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:36:13.076 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:36:43.079 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:37:13.063 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:37:43.062 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 20:38:07.246 +03:00 [DBG] Hosting stopping
+2025-03-26 20:38:07.247 +03:00 [DBG] Hangfire Server is stopping...
+2025-03-26 20:38:07.248 +03:00 [INF] Server hassans-macbook-pro:85435:bc477d08 caught stopping signal...
+2025-03-26 20:38:07.249 +03:00 [DBG] Execution loop CountersAggregator:cc7d9d10 stopped in 0 ms
+2025-03-26 20:38:07.249 +03:00 [DBG] Execution loop Worker:46183470 stopped in 0 ms
+2025-03-26 20:38:07.249 +03:00 [DBG] Execution loop Worker:e82eb136 stopped in 0 ms
+2025-03-26 20:38:07.249 +03:00 [DBG] Execution loop Worker:64dc0784 stopped in 0 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:60b68fb7 stopped in 0.1024 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:1b0da599 stopped in 0.2032 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:63fe57b8 stopped in 0.2845 ms
+2025-03-26 20:38:07.249 +03:00 [DBG] Execution loop ExpirationManager:1f818122 stopped in 0 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:e5ab6345 stopped in 0.4037 ms
+2025-03-26 20:38:07.249 +03:00 [DBG] Execution loop Worker:8dbda9a5 stopped in 0 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:dbe1bc6c stopped in 0.5622 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:460e9dc9 stopped in 0.6269 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:e5cbf5f6 stopped in 0.6542 ms
+2025-03-26 20:38:07.250 +03:00 [INF] Application is shutting down...
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:fab830e7 stopped in 0.7282 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:bff45afc stopped in 0.689 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:f0b95043 stopped in 0.769 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:f4c966b1 stopped in 0.7924 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:27c8b785 stopped in 0.8713 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:d108fb54 stopped in 0.8462 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop ServerJobCancellationWatcher:9d0ec7d8 stopped in 0.9722 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:1c1ecde8 stopped in 0.899 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop RecurringJobScheduler:ce6de3e6 stopped in 1.0655 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop ServerWatchdog:94f6e9ce stopped in 0.9822 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:3661e5b7 stopped in 0.8396 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop DelayedJobScheduler:6cd3a6b7 stopped in 1.0145 ms
+2025-03-26 20:38:07.250 +03:00 [DBG] Execution loop Worker:c9ef5180 stopped in 1.0057 ms
+2025-03-26 20:38:07.252 +03:00 [INF] Server hassans-macbook-pro:85435:bc477d08 All dispatchers stopped
+2025-03-26 20:38:07.253 +03:00 [DBG] Execution loop ServerHeartbeatProcess:edc54aed stopped in 0.0633 ms
+2025-03-26 20:38:07.254 +03:00 [INF] Server hassans-macbook-pro:85435:bc477d08 successfully reported itself as stopped in 0.2696 ms
+2025-03-26 20:38:07.254 +03:00 [INF] Server hassans-macbook-pro:85435:bc477d08 has been stopped in total 4.1551 ms
+2025-03-26 20:38:07.254 +03:00 [DBG] Execution loop BackgroundServerProcess:5a09d378 stopped in 4.1985 ms
+2025-03-26 20:38:07.274 +03:00 [DBG] Hangfire Server is stopping...
+2025-03-26 20:38:07.275 +03:00 [DBG] Hosting stopped
