@@ -1053,3 +1053,1166 @@
 2025-03-26 13:57:21.310 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
 2025-03-26 13:57:51.312 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
 2025-03-26 13:58:21.315 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 13:58:51.320 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 13:59:21.321 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 13:59:51.324 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:00:21.326 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:00:51.328 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:01:21.331 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:01:51.332 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:02:21.335 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:02:51.336 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:03:21.338 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:03:51.339 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:04:21.342 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:04:51.344 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:05:21.346 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:05:51.348 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:06:21.350 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:06:51.352 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:07:21.355 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:07:51.357 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:08:21.359 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:08:51.361 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:09:21.385 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:09:51.404 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:10:21.408 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:10:51.411 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:11:21.414 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:11:51.416 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:12:21.419 +03:00 [DBG] Server hassans-macbook-pro:82003:0f7ef21a heartbeat successfully sent
+2025-03-26 14:12:22.452 +03:00 [DBG] Hangfire Server is stopping...
+2025-03-26 14:12:22.453 +03:00 [INF] Server hassans-macbook-pro:82003:0f7ef21a caught stopping signal...
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop CountersAggregator:71eee01a stopped in 0 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:05fca35f stopped in 1.9515 ms
+2025-03-26 14:12:22.457 +03:00 [DBG] Execution loop Worker:3821c579 stopped in 3.4354 ms
+2025-03-26 14:12:22.457 +03:00 [DBG] Hosting stopping
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:9052de61 stopped in 1.8973 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:da0fcaa8 stopped in 2.9149 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:144a77e3 stopped in 1.5992 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:c01a0f9f stopped in 3.0461 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:9c8c2079 stopped in 1.8632 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:14b90586 stopped in 3.0775 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:e3454755 stopped in 2.0201 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop ServerWatchdog:aba27da2 stopped in 1.4729 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:755ad045 stopped in 1.9532 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:c8dcc303 stopped in 2.5842 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:922a9257 stopped in 2.0765 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:5e533685 stopped in 1.6382 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop ExpirationManager:875695dc stopped in 0 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop RecurringJobScheduler:355cd402 stopped in 2.0801 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:cb808c70 stopped in 2.5112 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop DelayedJobScheduler:272b426e stopped in 0.9525 ms
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop ServerJobCancellationWatcher:7311f233 stopped in 1.8601 ms
+2025-03-26 14:12:22.457 +03:00 [DBG] Execution loop Worker:98fcbec8 stopped in 1.805 ms
+2025-03-26 14:12:22.457 +03:00 [DBG] Execution loop Worker:9616c427 stopped in 2.023 ms
+2025-03-26 14:12:22.457 +03:00 [DBG] Execution loop Worker:35a77fb6 stopped in 3.2452 ms
+2025-03-26 14:12:22.457 +03:00 [DBG] Execution loop Worker:67cf5295 stopped in 3.271 ms
+2025-03-26 14:12:22.457 +03:00 [DBG] Execution loop Worker:92e2cc63 stopped in 3.3914 ms
+2025-03-26 14:12:22.457 +03:00 [INF] Application is shutting down...
+2025-03-26 14:12:22.456 +03:00 [DBG] Execution loop Worker:38d4c1a4 stopped in 2.583 ms
+2025-03-26 14:12:22.460 +03:00 [INF] Server hassans-macbook-pro:82003:0f7ef21a All dispatchers stopped
+2025-03-26 14:12:22.460 +03:00 [DBG] Execution loop ServerHeartbeatProcess:b1ce6ed6 stopped in 0.1716 ms
+2025-03-26 14:12:22.463 +03:00 [INF] Server hassans-macbook-pro:82003:0f7ef21a successfully reported itself as stopped in 0.8168 ms
+2025-03-26 14:12:22.463 +03:00 [INF] Server hassans-macbook-pro:82003:0f7ef21a has been stopped in total 9.0333 ms
+2025-03-26 14:12:22.463 +03:00 [DBG] Execution loop BackgroundServerProcess:a8de9cea stopped in 9.1759 ms
+2025-03-26 14:12:22.466 +03:00 [DBG] Hangfire Server is stopping...
+2025-03-26 14:12:22.466 +03:00 [DBG] Hosting stopped
+2025-03-26 18:51:41.878 +03:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2025-03-26 18:51:41.939 +03:00 [DBG] Registered SignalR Protocol: json, implemented by Microsoft.AspNetCore.SignalR.Protocol.JsonHubProtocol.
+2025-03-26 18:51:41.992 +03:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2025-03-26 18:51:42.165 +03:00 [DBG] Entity Framework Core 9.0.3 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory:9.0.3' with options: StoreName=EnterprisePMO 
+2025-03-26 18:51:42.175 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .Any()'
+2025-03-26 18:51:42.219 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<bool>(
+    queryContext, 
+    new ResultEnumerable(() => new ValueBuffer(new object[]{ (object)InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Any() })), 
+    Func<QueryContext, ValueBuffer, bool>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .Single()'
+2025-03-26 18:51:42.245 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.246 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.246 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.246 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.246 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.247 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.247 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.250 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-26 18:51:42.255 +03:00 [INF] Saved 5 entities to in-memory store.
+2025-03-26 18:51:42.257 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.257 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.257 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.257 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.257 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.259 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 5 entities written to the database.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.267 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.267 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.270 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-26 18:51:42.270 +03:00 [INF] Saved 11 entities to in-memory store.
+2025-03-26 18:51:42.271 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.271 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.271 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.271 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.271 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.271 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.272 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.272 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.272 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.272 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.272 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.272 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 11 entities written to the database.
+2025-03-26 18:51:42.276 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "IT")'
+2025-03-26 18:51:42.291 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "IT"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.295 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "Finance")'
+2025-03-26 18:51:42.297 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "Finance"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.298 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "Marketing")'
+2025-03-26 18:51:42.299 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "Marketing"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.299 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "Operations")'
+2025-03-26 18:51:42.300 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "Operations"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.301 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "Human Resources")'
+2025-03-26 18:51:42.302 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "Human Resources"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.313 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.317 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.318 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.318 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.318 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.318 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.318 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.318 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.318 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.318 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.319 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.319 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.319 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.319 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.319 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.319 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.319 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.319 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.319 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.321 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-26 18:51:42.321 +03:00 [INF] Saved 10 entities to in-memory store.
+2025-03-26 18:51:42.321 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.321 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.321 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.321 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.321 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.321 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.322 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.322 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.322 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.322 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.322 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 10 entities written to the database.
+2025-03-26 18:51:42.326 +03:00 [DBG] Context 'AppDbContext' started tracking 'StrategicGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.326 +03:00 [DBG] Context 'AppDbContext' started tracking 'StrategicGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.326 +03:00 [DBG] Context 'AppDbContext' started tracking 'StrategicGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.326 +03:00 [DBG] Context 'AppDbContext' started tracking 'StrategicGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.326 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.326 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.327 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-26 18:51:42.327 +03:00 [INF] Saved 4 entities to in-memory store.
+2025-03-26 18:51:42.327 +03:00 [DBG] An entity of type 'StrategicGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.327 +03:00 [DBG] An entity of type 'StrategicGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.327 +03:00 [DBG] An entity of type 'StrategicGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.327 +03:00 [DBG] An entity of type 'StrategicGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.327 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 4 entities written to the database.
+2025-03-26 18:51:42.328 +03:00 [DBG] Compiling query expression: 
+'DbSet<StrategicGoal>()
+    .FirstOrDefault(g => g.Name == "Digital Transformation")'
+2025-03-26 18:51:42.329 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<StrategicGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: StrategicGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required), 
+            right: "Digital Transformation"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: StrategicGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: StrategicGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, StrategicGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.330 +03:00 [DBG] Compiling query expression: 
+'DbSet<StrategicGoal>()
+    .FirstOrDefault(g => g.Name == "Customer Experience")'
+2025-03-26 18:51:42.331 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<StrategicGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: StrategicGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required), 
+            right: "Customer Experience"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: StrategicGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: StrategicGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, StrategicGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.332 +03:00 [DBG] Compiling query expression: 
+'DbSet<StrategicGoal>()
+    .FirstOrDefault(g => g.Name == "Operational Excellence")'
+2025-03-26 18:51:42.333 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<StrategicGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: StrategicGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required), 
+            right: "Operational Excellence"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: StrategicGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: StrategicGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, StrategicGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.334 +03:00 [DBG] Compiling query expression: 
+'DbSet<StrategicGoal>()
+    .FirstOrDefault(g => g.Name == "Market Expansion")'
+2025-03-26 18:51:42.335 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<StrategicGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: StrategicGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required), 
+            right: "Market Expansion"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: StrategicGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: StrategicGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, StrategicGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.340 +03:00 [DBG] The navigation 'AnnualGoal.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.340 +03:00 [DBG] Context 'AppDbContext' started tracking 'AnnualGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.340 +03:00 [DBG] The navigation 'AnnualGoal.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.340 +03:00 [DBG] Context 'AppDbContext' started tracking 'AnnualGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.340 +03:00 [DBG] The navigation 'AnnualGoal.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.340 +03:00 [DBG] Context 'AppDbContext' started tracking 'AnnualGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.340 +03:00 [DBG] The navigation 'AnnualGoal.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.340 +03:00 [DBG] Context 'AppDbContext' started tracking 'AnnualGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.340 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.340 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.341 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-26 18:51:42.341 +03:00 [INF] Saved 4 entities to in-memory store.
+2025-03-26 18:51:42.341 +03:00 [DBG] An entity of type 'AnnualGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.341 +03:00 [DBG] An entity of type 'AnnualGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.341 +03:00 [DBG] An entity of type 'AnnualGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.341 +03:00 [DBG] An entity of type 'AnnualGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.341 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 4 entities written to the database.
+2025-03-26 18:51:42.343 +03:00 [DBG] Compiling query expression: 
+'DbSet<User>()
+    .FirstOrDefault(u => u.Username == "pm1@company.com")'
+2025-03-26 18:51:42.345 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<User>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: User)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: User.Username (string) Required Index), 
+            right: "pm1@company.com"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: User.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid?>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: User.DepartmentId (Guid?) FK), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<RoleType>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: User.Role (RoleType) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: User.Username (string) Required Index) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, User>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.346 +03:00 [DBG] Compiling query expression: 
+'DbSet<User>()
+    .FirstOrDefault(u => u.Username == "pm3@company.com")'
+2025-03-26 18:51:42.347 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<User>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: User)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: User.Username (string) Required Index), 
+            right: "pm3@company.com"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: User.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid?>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: User.DepartmentId (Guid?) FK), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<RoleType>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: User.Role (RoleType) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: User.Username (string) Required Index) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, User>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.348 +03:00 [DBG] Compiling query expression: 
+'DbSet<AnnualGoal>()
+    .FirstOrDefault(g => g.Name == "Cloud Migration")'
+2025-03-26 18:51:42.350 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<AnnualGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: AnnualGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: AnnualGoal.Name (string) Required), 
+            right: "Cloud Migration"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: AnnualGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: AnnualGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: AnnualGoal.Name (string) Required), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid?>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: AnnualGoal.StrategicGoalId (Guid?) FK) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, AnnualGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.351 +03:00 [DBG] Compiling query expression: 
+'DbSet<AnnualGoal>()
+    .FirstOrDefault(g => g.Name == "Mobile App Development")'
+2025-03-26 18:51:42.352 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<AnnualGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: AnnualGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: AnnualGoal.Name (string) Required), 
+            right: "Mobile App Development"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: AnnualGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: AnnualGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: AnnualGoal.Name (string) Required), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid?>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: AnnualGoal.StrategicGoalId (Guid?) FK) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, AnnualGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-26 18:51:42.371 +03:00 [DBG] The navigation 'Project.AnnualGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.372 +03:00 [DBG] The navigation 'Project.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.372 +03:00 [DBG] The navigation 'Project.ProjectManager' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.373 +03:00 [DBG] The navigation 'Project.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.373 +03:00 [DBG] Context 'AppDbContext' started tracking 'Project' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.373 +03:00 [DBG] The navigation 'Project.AnnualGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.373 +03:00 [DBG] The navigation 'Project.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.373 +03:00 [DBG] The navigation 'Project.ProjectManager' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.373 +03:00 [DBG] The navigation 'Project.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.373 +03:00 [DBG] Context 'AppDbContext' started tracking 'Project' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.374 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.374 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.381 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-26 18:51:42.381 +03:00 [INF] Saved 2 entities to in-memory store.
+2025-03-26 18:51:42.381 +03:00 [DBG] An entity of type 'Project' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.381 +03:00 [DBG] An entity of type 'Project' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.381 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 2 entities written to the database.
+2025-03-26 18:51:42.389 +03:00 [DBG] The navigation 'WeeklyUpdate.Project' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.390 +03:00 [DBG] The navigation 'WeeklyUpdate.SubmittedByUser' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.390 +03:00 [DBG] Context 'AppDbContext' started tracking 'WeeklyUpdate' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.390 +03:00 [DBG] The navigation 'WeeklyUpdate.Project' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.390 +03:00 [DBG] The navigation 'WeeklyUpdate.SubmittedByUser' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.390 +03:00 [DBG] Context 'AppDbContext' started tracking 'WeeklyUpdate' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.390 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.390 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.392 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-26 18:51:42.392 +03:00 [INF] Saved 2 entities to in-memory store.
+2025-03-26 18:51:42.392 +03:00 [DBG] An entity of type 'WeeklyUpdate' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.392 +03:00 [DBG] An entity of type 'WeeklyUpdate' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-26 18:51:42.392 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 2 entities written to the database.
+2025-03-26 18:51:42.392 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.392 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-26 18:51:42.392 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-26 18:51:42.392 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 0 entities written to the database.
+2025-03-26 18:51:42.393 +03:00 [DBG] 'AppDbContext' disposed.
+2025-03-26 18:51:42.394 +03:00 [DBG] Hosting starting
+2025-03-26 18:51:42.417 +03:00 [INF] User profile is available. Using '/Users/hassanalsahli/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-03-26 18:51:42.424 +03:00 [DBG] Reading data from file '/Users/hassanalsahli/.aspnet/DataProtection-Keys/key-14907a38-0f8e-4337-83a4-acb728fc0219.xml'.
+2025-03-26 18:51:42.427 +03:00 [DBG] Found key {14907a38-0f8e-4337-83a4-acb728fc0219}.
+2025-03-26 18:51:42.430 +03:00 [DBG] Considering key {14907a38-0f8e-4337-83a4-acb728fc0219} with expiration date 2025-06-21 03:22:24Z as default key.
+2025-03-26 18:51:42.430 +03:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2025-03-26 18:51:42.436 +03:00 [DBG] Using managed symmetric algorithm 'System.Security.Cryptography.Aes'.
+2025-03-26 18:51:42.436 +03:00 [DBG] Using managed keyed hash algorithm 'System.Security.Cryptography.HMACSHA256'.
+2025-03-26 18:51:42.438 +03:00 [DBG] Using key {14907a38-0f8e-4337-83a4-acb728fc0219} as the default key.
+2025-03-26 18:51:42.438 +03:00 [DBG] Key ring with default key {14907a38-0f8e-4337-83a4-acb728fc0219} was loaded during application startup.
+2025-03-26 18:51:42.622 +03:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-03-26 18:51:42.628 +03:00 [INF] Now listening on: http://0.0.0.0:7000
+2025-03-26 18:51:42.628 +03:00 [INF] Now listening on: https://0.0.0.0:7001
+2025-03-26 18:51:42.628 +03:00 [DBG] Loaded hosting startup assembly EnterprisePMO_PWA.Web
+2025-03-26 18:51:42.630 +03:00 [INF] Starting Hangfire Server using job storage: 'Hangfire.MemoryStorage.MemoryStorage'
+2025-03-26 18:51:42.631 +03:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2025-03-26 18:51:42.636 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-26 18:51:42.636 +03:00 [INF] Hosting environment: Development
+2025-03-26 18:51:42.636 +03:00 [INF] Content root path: /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web
+2025-03-26 18:51:42.636 +03:00 [DBG] Execution loop BackgroundServerProcess:5a09d378 has started in 1.0825 ms
+2025-03-26 18:51:42.637 +03:00 [DBG] Hosting started
+2025-03-26 18:51:42.671 +03:00 [INF] Server hassans-macbook-pro:85435:bc477d08 successfully announced in 33.3069 ms
+2025-03-26 18:51:42.671 +03:00 [DBG] Execution loop ServerHeartbeatProcess:edc54aed has started in 0.3635 ms
+2025-03-26 18:51:42.672 +03:00 [INF] Server hassans-macbook-pro:85435:bc477d08 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2025-03-26 18:51:42.672 +03:00 [DBG] Execution loop ServerWatchdog:94f6e9ce has started in 0.0832 ms
+2025-03-26 18:51:42.672 +03:00 [DBG] Execution loop ServerJobCancellationWatcher:9d0ec7d8 has started in 0.0906 ms
+2025-03-26 18:51:42.672 +03:00 [DBG] Execution loop ExpirationManager:1f818122 has started in 0.1093 ms
+2025-03-26 18:51:42.672 +03:00 [DBG] Execution loop CountersAggregator:cc7d9d10 has started in 0.0913 ms
+2025-03-26 18:51:42.672 +03:00 [DBG] Execution loop Worker:46183470 has started in 0.1213 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:e5cbf5f6 has started in 0.3509 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:3661e5b7 has started in 0.505 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:d108fb54 has started in 0.5816 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:bff45afc has started in 0.7063 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:fab830e7 has started in 0.7803 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:27c8b785 has started in 0.8752 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:e82eb136 has started in 0.9828 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:60b68fb7 has started in 1.0692 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:8dbda9a5 has started in 1.13 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:dbe1bc6c has started in 1.179 ms
+2025-03-26 18:51:42.673 +03:00 [DBG] Execution loop Worker:1b0da599 has started in 1.2484 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop Worker:f4c966b1 has started in 1.3516 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop Worker:1c1ecde8 has started in 1.4055 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop Worker:64dc0784 has started in 1.4818 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop Worker:63fe57b8 has started in 1.5358 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop Worker:f0b95043 has started in 1.5947 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop Worker:460e9dc9 has started in 1.6486 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop Worker:c9ef5180 has started in 1.7458 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop Worker:e5ab6345 has started in 1.8047 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop DelayedJobScheduler:6cd3a6b7 has started in 0.0762 ms
+2025-03-26 18:51:42.674 +03:00 [DBG] Execution loop RecurringJobScheduler:ce6de3e6 has started in 0.0633 ms
+2025-03-26 18:51:42.674 +03:00 [INF] Server hassans-macbook-pro:85435:bc477d08 all the dispatchers started
+2025-03-26 18:51:46.284 +03:00 [DBG] Connection id "0HNBCFOEE7B85" accepted.
+2025-03-26 18:51:46.285 +03:00 [DBG] Connection id "0HNBCFOEE7B85" started.
+2025-03-26 18:51:46.309 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/Home/Index - null null
+2025-03-26 18:51:46.311 +03:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2025-03-26 18:51:46.312 +03:00 [DBG] The request path /Home/Index does not match a supported file type
+2025-03-26 18:51:46.330 +03:00 [DBG] 1 candidate(s) found for the request path '/Home/Index'
+2025-03-26 18:51:46.332 +03:00 [DBG] Endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)' with route pattern '{controller=Home}/{action=Index}/{id?}' is valid for the request path '/Home/Index'
+2025-03-26 18:51:46.333 +03:00 [DBG] Request matched endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:46.352 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:46.353 +03:00 [INF] Executing endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:46.358 +03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web).
+2025-03-26 18:51:46.358 +03:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-03-26 18:51:46.358 +03:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:46.359 +03:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648)","Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)"]
+2025-03-26 18:51:46.359 +03:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-03-26 18:51:46.359 +03:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:46.359 +03:00 [DBG] Executing controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:46.360 +03:00 [DBG] Executed controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:46.361 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Account/Login.cshtml'.
+2025-03-26 18:51:46.361 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Account/Signup.cshtml'.
+2025-03-26 18:51:46.361 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/ChangeRequests/Create.cshtml'.
+2025-03-26 18:51:46.361 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/ChangeRequests/Edit.cshtml'.
+2025-03-26 18:51:46.361 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/ChangeRequests/List.cshtml'.
+2025-03-26 18:51:46.361 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Dashboard/Executive.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Dashboard/Index.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Dashboard/TailwindIndex.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Department/Create.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Department/Edit.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Department/List.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Home/Error.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Home/Index.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Home/Privacy.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Kanban/Index.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Project/ List.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Project/Create.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Project/Details.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Project/Edit.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Project/TailwindCreate.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/ProjectRoles/Assign.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Reports/ProjectReport.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Role/Create.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Role/Edit.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Role/List.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/RoleHierarchy/Index.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/RoleManagement/Create.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/RoleManagement/Edit.cshtml'.
+2025-03-26 18:51:46.362 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/RoleManagement/Index.cshtml'.
+2025-03-26 18:51:46.363 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Shared/Components/RoleHierarchyVisualizer/Default.cshtml'.
+2025-03-26 18:51:46.363 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Shared/Components/RolePermissions/Default.cshtml'.
+2025-03-26 18:51:46.363 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Shared/_Layout.cshtml'.
+2025-03-26 18:51:46.363 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Shared/_TailwindLayout.cshtml'.
+2025-03-26 18:51:46.363 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/Shared/_ValidationScriptsPartial.cshtml'.
+2025-03-26 18:51:46.363 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/WeeklyUpdates/Create.cshtml'.
+2025-03-26 18:51:46.363 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/WeeklyUpdates/Edit.cshtml'.
+2025-03-26 18:51:46.363 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/WeeklyUpdates/List.cshtml'.
+2025-03-26 18:51:46.363 +03:00 [DBG] Initializing Razor view compiler with compiled view: '/Views/_ViewImports.cshtml'.
+2025-03-26 18:51:46.366 +03:00 [DBG] View lookup cache miss for view 'Index' in controller 'Home'.
+2025-03-26 18:51:46.367 +03:00 [INF] Executing ViewResult, running view Index.
+2025-03-26 18:51:46.368 +03:00 [DBG] The view path '/Views/Home/Index.cshtml' was found in 1.6892ms.
+2025-03-26 18:51:46.378 +03:00 [INF] Executed ViewResult - view Index executed in 12.713ms.
+2025-03-26 18:51:46.379 +03:00 [INF] Executed action EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web) in 19.6797ms
+2025-03-26 18:51:46.379 +03:00 [INF] Executed endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:46.379 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:46.379 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/Home/Index - 200 null text/html; charset=utf-8 70.2603ms
+2025-03-26 18:51:46.391 +03:00 [DBG] Connection id "0HNBCFOEE7B86" accepted.
+2025-03-26 18:51:46.392 +03:00 [DBG] Connection id "0HNBCFOEE7B86" started.
+2025-03-26 18:51:46.392 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/img/hero-dashboard.svg - null null
+2025-03-26 18:51:46.392 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/img/workflow.svg - null null
+2025-03-26 18:51:46.393 +03:00 [DBG] The request path /img/hero-dashboard.svg does not match an existing file
+2025-03-26 18:51:46.393 +03:00 [DBG] The request path /img/workflow.svg does not match an existing file
+2025-03-26 18:51:46.395 +03:00 [DBG] No candidates found for the request path '/img/hero-dashboard.svg'
+2025-03-26 18:51:46.395 +03:00 [DBG] No candidates found for the request path '/img/workflow.svg'
+2025-03-26 18:51:46.395 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:46.395 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:46.395 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:46.395 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:46.395 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:46.395 +03:00 [DBG] Connection id "0HNBCFOEE7B86" completed keep alive response.
+2025-03-26 18:51:46.396 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/img/hero-dashboard.svg - 404 0 null 3.5442ms
+2025-03-26 18:51:46.396 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/img/workflow.svg - 404 0 null 3.3587ms
+2025-03-26 18:51:46.396 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/img/hero-dashboard.svg, Response status code: 404
+2025-03-26 18:51:46.396 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/img/workflow.svg, Response status code: 404
+2025-03-26 18:51:46.968 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/Home/Index - null null
+2025-03-26 18:51:46.969 +03:00 [DBG] The request path /Home/Index does not match a supported file type
+2025-03-26 18:51:46.971 +03:00 [DBG] 1 candidate(s) found for the request path '/Home/Index'
+2025-03-26 18:51:46.971 +03:00 [DBG] Endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)' with route pattern '{controller=Home}/{action=Index}/{id?}' is valid for the request path '/Home/Index'
+2025-03-26 18:51:46.972 +03:00 [DBG] Request matched endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:46.975 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:46.976 +03:00 [INF] Executing endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:46.976 +03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web).
+2025-03-26 18:51:46.977 +03:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-03-26 18:51:46.977 +03:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:46.977 +03:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648)","Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)"]
+2025-03-26 18:51:46.977 +03:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-03-26 18:51:46.977 +03:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:46.977 +03:00 [DBG] Executing controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:46.977 +03:00 [DBG] Executed controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:46.978 +03:00 [DBG] View lookup cache hit for view 'Index' in controller 'Home'.
+2025-03-26 18:51:46.978 +03:00 [INF] Executing ViewResult, running view Index.
+2025-03-26 18:51:46.978 +03:00 [DBG] The view path '/Views/Home/Index.cshtml' was found in 0.4596ms.
+2025-03-26 18:51:46.980 +03:00 [INF] Executed ViewResult - view Index executed in 2.5817ms.
+2025-03-26 18:51:46.981 +03:00 [INF] Executed action EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web) in 3.6152ms
+2025-03-26 18:51:46.981 +03:00 [INF] Executed endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:46.982 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:46.982 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/Home/Index - 200 null text/html; charset=utf-8 14.1558ms
+2025-03-26 18:51:46.992 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/img/hero-dashboard.svg - null null
+2025-03-26 18:51:46.992 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/img/workflow.svg - null null
+2025-03-26 18:51:46.993 +03:00 [DBG] The request path /img/workflow.svg does not match an existing file
+2025-03-26 18:51:46.993 +03:00 [DBG] The request path /img/hero-dashboard.svg does not match an existing file
+2025-03-26 18:51:46.993 +03:00 [DBG] No candidates found for the request path '/img/workflow.svg'
+2025-03-26 18:51:46.993 +03:00 [DBG] No candidates found for the request path '/img/hero-dashboard.svg'
+2025-03-26 18:51:46.993 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:46.993 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:46.994 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:46.994 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:46.994 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:46.994 +03:00 [DBG] Connection id "0HNBCFOEE7B86" completed keep alive response.
+2025-03-26 18:51:46.994 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/img/hero-dashboard.svg - 404 0 null 2.3909ms
+2025-03-26 18:51:46.995 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/img/workflow.svg - 404 0 null 2.1534ms
+2025-03-26 18:51:46.995 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/img/hero-dashboard.svg, Response status code: 404
+2025-03-26 18:51:46.996 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/img/workflow.svg, Response status code: 404
+2025-03-26 18:51:47.197 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/Home/Index - null null
+2025-03-26 18:51:47.197 +03:00 [DBG] The request path /Home/Index does not match a supported file type
+2025-03-26 18:51:47.197 +03:00 [DBG] 1 candidate(s) found for the request path '/Home/Index'
+2025-03-26 18:51:47.197 +03:00 [DBG] Endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)' with route pattern '{controller=Home}/{action=Index}/{id?}' is valid for the request path '/Home/Index'
+2025-03-26 18:51:47.197 +03:00 [DBG] Request matched endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:47.198 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:47.198 +03:00 [INF] Executing endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:47.198 +03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web).
+2025-03-26 18:51:47.198 +03:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-03-26 18:51:47.198 +03:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:47.198 +03:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648)","Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)"]
+2025-03-26 18:51:47.198 +03:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-03-26 18:51:47.198 +03:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:47.198 +03:00 [DBG] Executing controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:47.198 +03:00 [DBG] Executed controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:47.199 +03:00 [DBG] View lookup cache hit for view 'Index' in controller 'Home'.
+2025-03-26 18:51:47.199 +03:00 [INF] Executing ViewResult, running view Index.
+2025-03-26 18:51:47.199 +03:00 [DBG] The view path '/Views/Home/Index.cshtml' was found in 0.1188ms.
+2025-03-26 18:51:47.200 +03:00 [INF] Executed ViewResult - view Index executed in 1.1875ms.
+2025-03-26 18:51:47.200 +03:00 [INF] Executed action EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web) in 1.4972ms
+2025-03-26 18:51:47.200 +03:00 [INF] Executed endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:47.200 +03:00 [DBG] Connection id "0HNBCFOEE7B86" completed keep alive response.
+2025-03-26 18:51:47.200 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/Home/Index - 200 null text/html; charset=utf-8 3.0476ms
+2025-03-26 18:51:47.206 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/img/hero-dashboard.svg - null null
+2025-03-26 18:51:47.207 +03:00 [DBG] The request path /img/hero-dashboard.svg does not match an existing file
+2025-03-26 18:51:47.207 +03:00 [DBG] No candidates found for the request path '/img/hero-dashboard.svg'
+2025-03-26 18:51:47.207 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/img/workflow.svg - null null
+2025-03-26 18:51:47.207 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:47.208 +03:00 [DBG] The request path /img/workflow.svg does not match an existing file
+2025-03-26 18:51:47.208 +03:00 [DBG] No candidates found for the request path '/img/workflow.svg'
+2025-03-26 18:51:47.208 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:47.208 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:47.208 +03:00 [DBG] Connection id "0HNBCFOEE7B86" completed keep alive response.
+2025-03-26 18:51:47.208 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:47.208 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/img/hero-dashboard.svg - 404 0 null 1.8488ms
+2025-03-26 18:51:47.208 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:47.209 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/img/hero-dashboard.svg, Response status code: 404
+2025-03-26 18:51:47.209 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/img/workflow.svg - 404 0 null 1.6865ms
+2025-03-26 18:51:47.209 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/img/workflow.svg, Response status code: 404
+2025-03-26 18:51:47.370 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/Home/Index - null null
+2025-03-26 18:51:47.370 +03:00 [DBG] The request path /Home/Index does not match a supported file type
+2025-03-26 18:51:47.370 +03:00 [DBG] 1 candidate(s) found for the request path '/Home/Index'
+2025-03-26 18:51:47.370 +03:00 [DBG] Endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)' with route pattern '{controller=Home}/{action=Index}/{id?}' is valid for the request path '/Home/Index'
+2025-03-26 18:51:47.370 +03:00 [DBG] Request matched endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:47.371 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:47.371 +03:00 [INF] Executing endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:47.371 +03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web).
+2025-03-26 18:51:47.371 +03:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-03-26 18:51:47.371 +03:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:47.371 +03:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648)","Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)"]
+2025-03-26 18:51:47.371 +03:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-03-26 18:51:47.371 +03:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:47.371 +03:00 [DBG] Executing controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:47.371 +03:00 [DBG] Executed controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:47.372 +03:00 [DBG] View lookup cache hit for view 'Index' in controller 'Home'.
+2025-03-26 18:51:47.372 +03:00 [INF] Executing ViewResult, running view Index.
+2025-03-26 18:51:47.372 +03:00 [DBG] The view path '/Views/Home/Index.cshtml' was found in 0.2303ms.
+2025-03-26 18:51:47.372 +03:00 [INF] Executed ViewResult - view Index executed in 0.552ms.
+2025-03-26 18:51:47.372 +03:00 [INF] Executed action EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web) in 1.1058ms
+2025-03-26 18:51:47.372 +03:00 [INF] Executed endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:47.372 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:47.373 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/Home/Index - 200 null text/html; charset=utf-8 2.7092ms
+2025-03-26 18:51:47.380 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/img/hero-dashboard.svg - null null
+2025-03-26 18:51:47.380 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/img/workflow.svg - null null
+2025-03-26 18:51:47.380 +03:00 [DBG] The request path /img/hero-dashboard.svg does not match an existing file
+2025-03-26 18:51:47.380 +03:00 [DBG] The request path /img/workflow.svg does not match an existing file
+2025-03-26 18:51:47.380 +03:00 [DBG] No candidates found for the request path '/img/hero-dashboard.svg'
+2025-03-26 18:51:47.380 +03:00 [DBG] No candidates found for the request path '/img/workflow.svg'
+2025-03-26 18:51:47.381 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:47.381 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:47.381 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:47.381 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:47.381 +03:00 [DBG] Connection id "0HNBCFOEE7B86" completed keep alive response.
+2025-03-26 18:51:47.381 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:47.381 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/img/hero-dashboard.svg - 404 0 null 1.479ms
+2025-03-26 18:51:47.381 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/img/workflow.svg - 404 0 null 1.4828ms
+2025-03-26 18:51:47.381 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/img/hero-dashboard.svg, Response status code: 404
+2025-03-26 18:51:47.381 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/img/workflow.svg, Response status code: 404
+2025-03-26 18:51:48.855 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/Account/Login - null null
+2025-03-26 18:51:48.856 +03:00 [DBG] The request path /Account/Login does not match a supported file type
+2025-03-26 18:51:48.856 +03:00 [DBG] 1 candidate(s) found for the request path '/Account/Login'
+2025-03-26 18:51:48.856 +03:00 [DBG] Endpoint 'EnterprisePMO_PWA.Web.Controllers.AccountController.Login (EnterprisePMO_PWA.Web)' with route pattern '{controller=Home}/{action=Index}/{id?}' is valid for the request path '/Account/Login'
+2025-03-26 18:51:48.856 +03:00 [DBG] Request matched endpoint 'EnterprisePMO_PWA.Web.Controllers.AccountController.Login (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:48.857 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:48.858 +03:00 [INF] Executing endpoint 'EnterprisePMO_PWA.Web.Controllers.AccountController.Login (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:48.861 +03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller EnterprisePMO_PWA.Web.Controllers.AccountController (EnterprisePMO_PWA.Web).
+2025-03-26 18:51:48.861 +03:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-03-26 18:51:48.862 +03:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:48.862 +03:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648)","Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)"]
+2025-03-26 18:51:48.862 +03:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-03-26 18:51:48.862 +03:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:48.862 +03:00 [DBG] Executing controller factory for controller EnterprisePMO_PWA.Web.Controllers.AccountController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:48.863 +03:00 [DBG] Executed controller factory for controller EnterprisePMO_PWA.Web.Controllers.AccountController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:48.863 +03:00 [DBG] View lookup cache miss for view 'Login' in controller 'Account'.
+2025-03-26 18:51:48.864 +03:00 [INF] Executing ViewResult, running view Login.
+2025-03-26 18:51:48.864 +03:00 [DBG] The view path '/Views/Account/Login.cshtml' was found in 1.084ms.
+2025-03-26 18:51:48.906 +03:00 [DBG] View lookup cache miss for view '_Layout' in controller 'Account'.
+2025-03-26 18:51:48.920 +03:00 [INF] Executed ViewResult - view Login executed in 56.4992ms.
+2025-03-26 18:51:48.920 +03:00 [INF] Executed action EnterprisePMO_PWA.Web.Controllers.AccountController.Login (EnterprisePMO_PWA.Web) in 57.5865ms
+2025-03-26 18:51:48.920 +03:00 [INF] Executed endpoint 'EnterprisePMO_PWA.Web.Controllers.AccountController.Login (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:48.920 +03:00 [DBG] Connection id "0HNBCFOEE7B86" completed keep alive response.
+2025-03-26 18:51:48.920 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/Account/Login - 200 null text/html; charset=utf-8 65.2102ms
+2025-03-26 18:51:48.928 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/css/site.css - null null
+2025-03-26 18:51:48.928 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/icons/icon-192.jpg - null null
+2025-03-26 18:51:48.929 +03:00 [DBG] The request path /icons/icon-192.jpg does not match an existing file
+2025-03-26 18:51:48.929 +03:00 [DBG] No candidates found for the request path '/icons/icon-192.jpg'
+2025-03-26 18:51:48.929 +03:00 [DBG] Connection id "0HNBCFOEE7B87" accepted.
+2025-03-26 18:51:48.929 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:48.929 +03:00 [DBG] Connection id "0HNBCFOEE7B87" started.
+2025-03-26 18:51:48.929 +03:00 [DBG] Connection id "0HNBCFOEE7B88" accepted.
+2025-03-26 18:51:48.930 +03:00 [DBG] Connection id "0HNBCFOEE7B88" started.
+2025-03-26 18:51:48.930 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:48.930 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/js/supabaseClient.js - null null
+2025-03-26 18:51:48.930 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/js/site.js - null null
+2025-03-26 18:51:48.930 +03:00 [DBG] Connection id "0HNBCFOEE7B86" completed keep alive response.
+2025-03-26 18:51:48.930 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/icons/icon-192.jpg - 404 0 null 1.7981ms
+2025-03-26 18:51:48.930 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/icons/icon-192.jpg, Response status code: 404
+2025-03-26 18:51:48.932 +03:00 [INF] The file /css/site.css was not modified
+2025-03-26 18:51:48.932 +03:00 [INF] The file /js/supabaseClient.js was not modified
+2025-03-26 18:51:48.932 +03:00 [DBG] Handled. Status code: 304 File: /css/site.css
+2025-03-26 18:51:48.932 +03:00 [DBG] Handled. Status code: 304 File: /js/supabaseClient.js
+2025-03-26 18:51:48.932 +03:00 [DBG] Connection id "0HNBCFOEE7B87" completed keep alive response.
+2025-03-26 18:51:48.932 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:48.932 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/js/supabaseClient.js - 304 null text/javascript 2.5403ms
+2025-03-26 18:51:48.932 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/css/site.css - 304 null text/css 3.9959ms
+2025-03-26 18:51:48.934 +03:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: '/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/site.js'
+2025-03-26 18:51:48.934 +03:00 [DBG] Connection id "0HNBCFOEE7B88" completed keep alive response.
+2025-03-26 18:51:48.934 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/js/site.js - 200 6349 text/javascript 4.6995ms
+2025-03-26 18:51:49.296 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/api/notifications/unread/count - null null
+2025-03-26 18:51:49.296 +03:00 [DBG] The request path /api/notifications/unread/count does not match a supported file type
+2025-03-26 18:51:49.296 +03:00 [DBG] No candidates found for the request path '/api/notifications/unread/count'
+2025-03-26 18:51:49.296 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:49.297 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:49.297 +03:00 [DBG] Connection id "0HNBCFOEE7B88" completed keep alive response.
+2025-03-26 18:51:49.297 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/api/notifications/unread/count - 404 0 null 0.9651ms
+2025-03-26 18:51:49.297 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/api/notifications/unread/count, Response status code: 404
+2025-03-26 18:51:49.298 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/service-worker.js - null null
+2025-03-26 18:51:49.299 +03:00 [INF] Sending file. Request path: '/service-worker.js'. Physical path: '/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/service-worker.js'
+2025-03-26 18:51:49.299 +03:00 [DBG] Connection id "0HNBCFOEE7B88" completed keep alive response.
+2025-03-26 18:51:49.299 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/service-worker.js - 200 881 text/javascript 0.8581ms
+2025-03-26 18:51:49.306 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/ - null null
+2025-03-26 18:51:49.307 +03:00 [DBG] The request path / does not match a supported file type
+2025-03-26 18:51:49.307 +03:00 [DBG] 1 candidate(s) found for the request path '/'
+2025-03-26 18:51:49.307 +03:00 [DBG] Endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)' with route pattern '{controller=Home}/{action=Index}/{id?}' is valid for the request path '/'
+2025-03-26 18:51:49.307 +03:00 [DBG] Request matched endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:49.307 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:49.307 +03:00 [INF] Executing endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:49.307 +03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web).
+2025-03-26 18:51:49.307 +03:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-03-26 18:51:49.307 +03:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:49.308 +03:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648)","Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)"]
+2025-03-26 18:51:49.308 +03:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-03-26 18:51:49.308 +03:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:49.308 +03:00 [DBG] Executing controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:49.308 +03:00 [DBG] Executed controller factory for controller EnterprisePMO_PWA.Web.Controllers.HomeController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:49.308 +03:00 [DBG] View lookup cache hit for view 'Index' in controller 'Home'.
+2025-03-26 18:51:49.308 +03:00 [INF] Executing ViewResult, running view Index.
+2025-03-26 18:51:49.308 +03:00 [DBG] The view path '/Views/Home/Index.cshtml' was found in 0.1025ms.
+2025-03-26 18:51:49.308 +03:00 [INF] Executed ViewResult - view Index executed in 0.3465ms.
+2025-03-26 18:51:49.308 +03:00 [INF] Executed action EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web) in 0.6268ms
+2025-03-26 18:51:49.308 +03:00 [INF] Executed endpoint 'EnterprisePMO_PWA.Web.Controllers.HomeController.Index (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:49.308 +03:00 [DBG] Connection id "0HNBCFOEE7B88" completed keep alive response.
+2025-03-26 18:51:49.309 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/ - 200 null text/html; charset=utf-8 2.1512ms
+2025-03-26 18:51:49.309 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/manifest.json - null null
+2025-03-26 18:51:49.309 +03:00 [INF] The file /manifest.json was not modified
+2025-03-26 18:51:49.309 +03:00 [DBG] Handled. Status code: 304 File: /manifest.json
+2025-03-26 18:51:49.309 +03:00 [DBG] Connection id "0HNBCFOEE7B88" completed keep alive response.
+2025-03-26 18:51:49.309 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/manifest.json - 304 null application/json 0.335ms
+2025-03-26 18:51:58.468 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/Account/Signup - null null
+2025-03-26 18:51:58.469 +03:00 [DBG] The request path /Account/Signup does not match a supported file type
+2025-03-26 18:51:58.470 +03:00 [DBG] 1 candidate(s) found for the request path '/Account/Signup'
+2025-03-26 18:51:58.470 +03:00 [DBG] Endpoint 'EnterprisePMO_PWA.Web.Controllers.AccountController.Signup (EnterprisePMO_PWA.Web)' with route pattern '{controller=Home}/{action=Index}/{id?}' is valid for the request path '/Account/Signup'
+2025-03-26 18:51:58.470 +03:00 [DBG] Request matched endpoint 'EnterprisePMO_PWA.Web.Controllers.AccountController.Signup (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:58.470 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:58.471 +03:00 [INF] Executing endpoint 'EnterprisePMO_PWA.Web.Controllers.AccountController.Signup (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:58.472 +03:00 [INF] Route matched with {action = "Signup", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Signup() on controller EnterprisePMO_PWA.Web.Controllers.AccountController (EnterprisePMO_PWA.Web).
+2025-03-26 18:51:58.473 +03:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-03-26 18:51:58.473 +03:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:58.473 +03:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648)","Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)"]
+2025-03-26 18:51:58.473 +03:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-03-26 18:51:58.473 +03:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-03-26 18:51:58.473 +03:00 [DBG] Executing controller factory for controller EnterprisePMO_PWA.Web.Controllers.AccountController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:58.474 +03:00 [DBG] Executed controller factory for controller EnterprisePMO_PWA.Web.Controllers.AccountController (EnterprisePMO_PWA.Web)
+2025-03-26 18:51:58.474 +03:00 [DBG] View lookup cache miss for view 'Signup' in controller 'Account'.
+2025-03-26 18:51:58.475 +03:00 [INF] Executing ViewResult, running view Signup.
+2025-03-26 18:51:58.475 +03:00 [DBG] The view path '/Views/Account/Signup.cshtml' was found in 0.9079ms.
+2025-03-26 18:51:58.481 +03:00 [DBG] View lookup cache hit for view '_Layout' in controller 'Account'.
+2025-03-26 18:51:58.483 +03:00 [INF] Executed ViewResult - view Signup executed in 8.6981ms.
+2025-03-26 18:51:58.483 +03:00 [INF] Executed action EnterprisePMO_PWA.Web.Controllers.AccountController.Signup (EnterprisePMO_PWA.Web) in 9.3035ms
+2025-03-26 18:51:58.483 +03:00 [INF] Executed endpoint 'EnterprisePMO_PWA.Web.Controllers.AccountController.Signup (EnterprisePMO_PWA.Web)'
+2025-03-26 18:51:58.483 +03:00 [DBG] Connection id "0HNBCFOEE7B88" completed keep alive response.
+2025-03-26 18:51:58.483 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/Account/Signup - 200 null text/html; charset=utf-8 14.9592ms
+2025-03-26 18:51:58.501 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/icons/icon-192.jpg - null null
+2025-03-26 18:51:58.501 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/js/signup.js - null null
+2025-03-26 18:51:58.502 +03:00 [DBG] The request path /icons/icon-192.jpg does not match an existing file
+2025-03-26 18:51:58.502 +03:00 [DBG] No candidates found for the request path '/icons/icon-192.jpg'
+2025-03-26 18:51:58.502 +03:00 [INF] The file /js/signup.js was not modified
+2025-03-26 18:51:58.502 +03:00 [DBG] Handled. Status code: 304 File: /js/signup.js
+2025-03-26 18:51:58.502 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:58.502 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:58.502 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/js/signup.js - 304 null text/javascript 0.61ms
+2025-03-26 18:51:58.502 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:58.502 +03:00 [DBG] Connection id "0HNBCFOEE7B88" completed keep alive response.
+2025-03-26 18:51:58.502 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/icons/icon-192.jpg - 404 0 null 1.2312ms
+2025-03-26 18:51:58.503 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/icons/icon-192.jpg, Response status code: 404
+2025-03-26 18:51:58.520 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/api/notifications/unread/count - null null
+2025-03-26 18:51:58.520 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/api/departments - null null
+2025-03-26 18:51:58.521 +03:00 [DBG] The request path /api/notifications/unread/count does not match a supported file type
+2025-03-26 18:51:58.521 +03:00 [DBG] The request path /api/departments does not match a supported file type
+2025-03-26 18:51:58.521 +03:00 [DBG] No candidates found for the request path '/api/notifications/unread/count'
+2025-03-26 18:51:58.521 +03:00 [DBG] No candidates found for the request path '/api/departments'
+2025-03-26 18:51:58.522 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:58.522 +03:00 [DBG] Request did not match any endpoints
+2025-03-26 18:51:58.522 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:58.522 +03:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2025-03-26 18:51:58.522 +03:00 [DBG] Connection id "0HNBCFOEE7B88" completed keep alive response.
+2025-03-26 18:51:58.522 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:51:58.522 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/api/departments - 404 0 null 1.7978ms
+2025-03-26 18:51:58.522 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/api/notifications/unread/count - 404 0 null 1.6666ms
+2025-03-26 18:51:58.523 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/api/departments, Response status code: 404
+2025-03-26 18:51:58.523 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:7000/api/notifications/unread/count, Response status code: 404
+2025-03-26 18:52:00.049 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:7000/service-worker.js - null null
+2025-03-26 18:52:00.049 +03:00 [INF] The file /service-worker.js was not modified
+2025-03-26 18:52:00.049 +03:00 [DBG] Handled. Status code: 304 File: /service-worker.js
+2025-03-26 18:52:00.049 +03:00 [DBG] Connection id "0HNBCFOEE7B85" completed keep alive response.
+2025-03-26 18:52:00.050 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:7000/service-worker.js - 304 null text/javascript 1.0376ms
+2025-03-26 18:52:12.675 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:52:42.678 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:53:12.681 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:53:42.683 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:53:42.894 +03:00 [DBG] Connection id "0HNBCFOEE7B86" received FIN.
+2025-03-26 18:53:42.895 +03:00 [DBG] Connection id "0HNBCFOEE7B87" received FIN.
+2025-03-26 18:53:42.895 +03:00 [DBG] Connection id "0HNBCFOEE7B88" received FIN.
+2025-03-26 18:53:42.895 +03:00 [DBG] Connection id "0HNBCFOEE7B85" received FIN.
+2025-03-26 18:53:42.896 +03:00 [DBG] Connection id "0HNBCFOEE7B86" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-03-26 18:53:42.896 +03:00 [DBG] Connection id "0HNBCFOEE7B87" disconnecting.
+2025-03-26 18:53:42.897 +03:00 [DBG] Connection id "0HNBCFOEE7B87" stopped.
+2025-03-26 18:53:42.898 +03:00 [DBG] Connection id "0HNBCFOEE7B88" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-03-26 18:53:42.901 +03:00 [DBG] Connection id "0HNBCFOEE7B85" disconnecting.
+2025-03-26 18:53:42.901 +03:00 [DBG] Connection id "0HNBCFOEE7B85" stopped.
+2025-03-26 18:53:42.901 +03:00 [DBG] Connection id "0HNBCFOEE7B87" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-03-26 18:53:42.902 +03:00 [DBG] Connection id "0HNBCFOEE7B85" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-03-26 18:53:42.903 +03:00 [DBG] Connection id "0HNBCFOEE7B88" disconnecting.
+2025-03-26 18:53:42.903 +03:00 [DBG] Connection id "0HNBCFOEE7B86" disconnecting.
+2025-03-26 18:53:42.903 +03:00 [DBG] Connection id "0HNBCFOEE7B86" stopped.
+2025-03-26 18:53:42.904 +03:00 [DBG] Connection id "0HNBCFOEE7B88" stopped.
+2025-03-26 18:54:12.685 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:54:42.687 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:55:12.690 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:55:42.692 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:56:12.695 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:56:42.698 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:57:12.700 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:57:42.704 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:58:12.706 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:58:42.710 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:59:12.713 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 18:59:42.716 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:00:12.719 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:00:42.722 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:01:12.725 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:01:42.727 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:02:12.730 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:02:42.731 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:03:12.734 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:03:42.735 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:04:12.737 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:04:42.739 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:05:12.740 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:05:42.739 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:06:12.738 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:06:42.740 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:07:12.742 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:07:42.745 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:08:12.748 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:08:42.751 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:09:12.754 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:09:42.758 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:10:12.763 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:10:42.767 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:11:12.770 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:11:42.774 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:12:12.775 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:12:42.777 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:13:12.780 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent
+2025-03-26 19:13:42.782 +03:00 [DBG] Server hassans-macbook-pro:85435:bc477d08 heartbeat successfully sent

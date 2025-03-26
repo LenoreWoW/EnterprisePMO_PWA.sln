@@ -12,6 +12,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"f7mtwe9mzv"},{"Name":"integrity","Value":"sha256-qz2\u002BAEXR1U4\u002BqSARSLBTL\u002BZJTnUHOE/HF2e4fGGzeQ8="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/css/site.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6986"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022qz2\u002BAEXR1U4\u002BqSARSLBTL\u002BZJTnUHOE/HF2e4fGGzeQ8=\u0022"},{"Name":"Last-Modified","Value":"Tue, 25 Mar 2025 07:42:48 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/css/tailwind-input.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\tailwind-input.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2694"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Mar 2025 11:10:32 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/css/tailwind-input.j29xfnb7fa.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\tailwind-input.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"j29xfnb7fa"},{"Name":"integrity","Value":"sha256-K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/css/tailwind-input.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2694"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Mar 2025 11:10:32 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/favicon.2aojdz48ei.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

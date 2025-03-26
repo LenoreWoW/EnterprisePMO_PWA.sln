@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets/css/site.css"
     },
     {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/css/tailwind-input.css",
+      "PackagePath": "staticwebassets/css/tailwind-input.css"
+    },
+    {
       "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/favicon.ico",
       "PackagePath": "staticwebassets/favicon.ico"
     },

@@ -158,3 +158,4 @@
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Hangfire.MemoryStorage.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/package.json

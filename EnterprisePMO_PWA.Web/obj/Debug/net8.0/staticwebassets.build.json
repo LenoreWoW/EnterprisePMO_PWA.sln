@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5pxp8Y92kRrLuu7oUdOV6b5lNZGRsyJgZlnPoBj595k=",
+  "Hash": "f2Og8jIJdOrEdNCq6Zc/dmfoaQkk4Ij0S4Tx5fmZSoI=",
   "Source": "EnterprisePMO_PWA.Web",
   "BasePath": "_content/EnterprisePMO_PWA.Web",
   "Mode": "Default",
@@ -36,6 +36,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/site.css"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/css/tailwind-input.css",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "css/tailwind-input#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "j29xfnb7fa",
+      "Integrity": "K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/tailwind-input.css"
     },
     {
       "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/favicon.ico",
@@ -370,6 +391,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-qz2+AEXR1U4+qSARSLBTL+ZJTnUHOE/HF2e4fGGzeQ8="
+        }
+      ]
+    },
+    {
+      "Route": "css/tailwind-input.css",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/css/tailwind-input.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2694"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 11:10:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso="
+        }
+      ]
+    },
+    {
+      "Route": "css/tailwind-input.j29xfnb7fa.css",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/css/tailwind-input.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2694"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 11:10:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "j29xfnb7fa"
+        },
+        {
+          "Name": "label",
+          "Value": "css/tailwind-input.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso="
         }
       ]
     },
