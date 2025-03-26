@@ -46,6 +46,23 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
                 
             modelBuilder.Entity<AuditLog>()
                 .HasIndex(a => a.Timestamp);
+                
+            // Configure relationships for in-memory database
+            // This makes navigation properties work properly
+            modelBuilder.Entity<Project>()
+                .HasOne(p => p.Department)
+                .WithMany(d => d.Projects)
+                .HasForeignKey(p => p.DepartmentId);
+                
+            modelBuilder.Entity<Project>()
+                .HasOne(p => p.ProjectManager)
+                .WithMany()
+                .HasForeignKey(p => p.ProjectManagerId);
+                
+            modelBuilder.Entity<WeeklyUpdate>()
+                .HasOne(w => w.Project)
+                .WithMany(p => p.WeeklyUpdates)
+                .HasForeignKey(w => w.ProjectId);
         }
     }
 }

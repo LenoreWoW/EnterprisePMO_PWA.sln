@@ -147,3 +147,14 @@
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net8.0/EnterprisePMO_PWA.Web.sourcelink.json
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net8.0/staticwebassets.build.endpoints.json
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/obj/Debug/net8.0/staticwebassets/msbuild.EnterprisePMO_PWA.Web.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.Extensions.Caching.Abstractions.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/bin/Debug/net8.0/Hangfire.MemoryStorage.dll

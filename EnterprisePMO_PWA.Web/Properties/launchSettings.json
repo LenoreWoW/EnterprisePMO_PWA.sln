@@ -4,10 +4,9 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001",
+      "applicationUrl": "http://localhost:7000;https://localhost:7001",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "SUPABASE_JWT_SECRET": "wKxbmBbXe86kTnY2Vn6XGrr3K4uIKcDbzErrVkAXCv3u+QE+UF+i7QZqV7TM+IUi7rMLx6ZzMlP5B0WevOa8Nw=="
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }

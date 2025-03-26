@@ -330,6 +330,10 @@
               "target": "Package",
               "version": "[1.0.2, )"
             },
+            "Hangfire.MemoryStorage": {
+              "target": "Package",
+              "version": "[1.8.1.1, )"
+            },
             "Hangfire.PostgreSql": {
               "target": "Package",
               "version": "[1.20.5, )"
@@ -337,6 +341,10 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[9.0.3, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

@@ -11,10 +11,8 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
     {
         public static void Seed(AppDbContext context)
         {
-            // Ensure the database is created
-            context.Database.EnsureCreated();
-
-            // Only seed if there's no data
+            // For in-memory database, we don't need to EnsureCreated
+            // Just check if any data exists
             if (!context.Departments.Any())
             {
                 SeedDepartments(context);
@@ -61,7 +59,7 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
 
         private static void SeedUsers(AppDbContext context)
         {
-            // Get the first IT department for reference
+            // Get the first department of each type for reference
             var itDepartment = context.Departments.FirstOrDefault(d => d.Name == "IT");
             var financeDepartment = context.Departments.FirstOrDefault(d => d.Name == "Finance");
             var marketingDepartment = context.Departments.FirstOrDefault(d => d.Name == "Marketing");
