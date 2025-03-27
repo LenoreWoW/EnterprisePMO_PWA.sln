@@ -45,8 +45,12 @@ namespace EnterprisePMO_PWA.Web.Controllers
             _httpClient = httpClientFactory.CreateClient();
             
             // Get Supabase configuration
-            _supabaseUrl = $"https://{_configuration["Supabase:ProjectRef"]}.supabase.co";
-            _supabaseKey = _configuration["Supabase:AnonKey"];
+            var projectRef = configuration["Supabase:ProjectRef"];
+            _supabaseUrl = !string.IsNullOrEmpty(projectRef) 
+                ? $"https://{projectRef}.supabase.co" 
+                : "https://example.supabase.co";
+                
+            _supabaseKey = configuration["Supabase:AnonKey"] ?? "default-key-for-dev";
             
             // Set default headers for Supabase API calls
             _httpClient.DefaultRequestHeaders.Add("apikey", _supabaseKey);
@@ -55,56 +59,152 @@ namespace EnterprisePMO_PWA.Web.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
+            // Debug logging
+            Console.WriteLine($"Login attempt for email: {request.Email}");
+            
             try
             {
-                // First, authenticate with Supabase
-                var supabaseAuthRequest = new
+                // TEMPORARY TEST LOGIN - FOR DEVELOPMENT ONLY
+                // This allows you to login with admin@test.com / Password123!
+                if (request.Email == "admin@test.com" && request.Password == "Password123!")
                 {
-                    email = request.Email,
-                    password = request.Password
-                };
-
-                var authResponse = await _httpClient.PostAsJsonAsync(
-                    $"{_supabaseUrl}/auth/v1/token?grant_type=password",
-                    supabaseAuthRequest);
-
-                if (!authResponse.IsSuccessStatusCode)
-                {
-                    return Unauthorized(new { message = "Invalid email or password" });
+                    Console.WriteLine("Using test account login");
+                    
+                    // Find or create an admin user
+                    var adminUser = await _context.Users
+                        .FirstOrDefaultAsync(u => u.Username == "admin@test.com");
+                        
+                    if (adminUser == null)
+                    {
+                        // Get or create admin department
+                        var adminDept = await _context.Departments
+                            .FirstOrDefaultAsync(d => d.Name == "Administration");
+                            
+                        if (adminDept == null)
+                        {
+                            adminDept = new Department
+                            {
+                                Id = Guid.NewGuid(),
+                                Name = "Administration"
+                            };
+                            _context.Departments.Add(adminDept);
+                            await _context.SaveChangesAsync();
+                        }
+                        
+                        // Create admin user
+                        adminUser = new User
+                        {
+                            Id = Guid.NewGuid(),
+                            Username = "admin@test.com",
+                            Role = RoleType.Admin,
+                            DepartmentId = adminDept.Id,
+                            SupabaseId = "test-admin-id"
+                        };
+                        _context.Users.Add(adminUser);
+                        await _context.SaveChangesAsync();
+                        
+                        Console.WriteLine($"Created test admin user with ID: {adminUser.Id}");
+                    }
+                    
+                    // Create a test token
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"] ?? "your-temporary-secret-key-for-testing-only");
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = new ClaimsIdentity(new[] 
+                        { 
+                            new Claim(ClaimTypes.Name, adminUser.Username),
+                            new Claim(ClaimTypes.NameIdentifier, adminUser.Id.ToString()),
+                            new Claim(ClaimTypes.Role, adminUser.Role.ToString())
+                        }),
+                        Expires = DateTime.UtcNow.AddDays(1),
+                        SigningCredentials = new SigningCredentials(
+                            new SymmetricSecurityKey(key), 
+                            SecurityAlgorithms.HmacSha256Signature)
+                    };
+                    var token = tokenHandler.CreateToken(tokenDescriptor);
+                    
+                    // Log the login in the audit trail
+                    await _auditService.LogActionAsync(
+                        "Authentication",
+                        adminUser.Id,
+                        "Login",
+                        "Test admin user logged in successfully");
+                    
+                    return Ok(new { 
+                        token = tokenHandler.WriteToken(token), 
+                        refreshToken = "temp-refresh-token-for-test-admin",
+                        user = new { 
+                            id = adminUser.Id, 
+                            username = adminUser.Username, 
+                            role = adminUser.Role.ToString() 
+                        } 
+                    });
                 }
 
-                var authResult = await authResponse.Content.ReadFromJsonAsync<SupabaseAuthResponse>();
-                
-                // Now, get the user from our application database
-                var user = await _context.Users
-                    .Include(u => u.Department)
-                    .FirstOrDefaultAsync(u => u.Username == request.Email);
+                // Standard Supabase authentication
+                try {
+                    // First, authenticate with Supabase
+                    var supabaseAuthRequest = new
+                    {
+                        email = request.Email,
+                        password = request.Password
+                    };
 
-                if (user == null)
-                {
-                    return Unauthorized(new { message = "User not found in application database" });
+                    Console.WriteLine($"Attempting Supabase auth at URL: {_supabaseUrl}/auth/v1/token?grant_type=password");
+                    
+                    var authResponse = await _httpClient.PostAsJsonAsync(
+                        $"{_supabaseUrl}/auth/v1/token?grant_type=password",
+                        supabaseAuthRequest);
+
+                    if (!authResponse.IsSuccessStatusCode)
+                    {
+                        var errorContent = await authResponse.Content.ReadAsStringAsync();
+                        Console.WriteLine($"Supabase auth failed: {errorContent}");
+                        return Unauthorized(new { message = "Invalid email or password" });
+                    }
+
+                    var authResult = await authResponse.Content.ReadFromJsonAsync<SupabaseAuthResponse>();
+                    
+                    // Now, get the user from our application database
+                    var user = await _context.Users
+                        .Include(u => u.Department)
+                        .FirstOrDefaultAsync(u => u.Username == request.Email);
+
+                    if (user == null)
+                    {
+                        Console.WriteLine("User not found in application database");
+                        return Unauthorized(new { message = "User not found in application database" });
+                    }
+
+                    // Log the login
+                    await _auditService.LogActionAsync(
+                        "Authentication",
+                        user.Id,
+                        "Login",
+                        "User logged in successfully");
+
+                    // Return the Supabase access token and application user info
+                    return Ok(new { 
+                        token = authResult?.AccessToken, 
+                        refreshToken = authResult?.RefreshToken,
+                        user = new { 
+                            id = user.Id, 
+                            username = user.Username, 
+                            role = user.Role.ToString() 
+                        } 
+                    });
                 }
-
-                // Log the login
-                await _auditService.LogActionAsync(
-                    "Authentication",
-                    user.Id,
-                    "Login",
-                    "User logged in successfully");
-
-                // Return the Supabase access token and application user info
-                return Ok(new { 
-                    token = authResult.AccessToken, 
-                    refreshToken = authResult.RefreshToken,
-                    user = new { 
-                        id = user.Id, 
-                        username = user.Username, 
-                        role = user.Role.ToString() 
-                    } 
-                });
+                catch (Exception ex) {
+                    Console.WriteLine($"Error during Supabase authentication: {ex.Message}");
+                    Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                    throw;
+                }
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Authentication error: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 return StatusCode(500, new { message = $"Authentication error: {ex.Message}" });
             }
         }
@@ -112,8 +212,23 @@ namespace EnterprisePMO_PWA.Web.Controllers
         [HttpPost("signup")]
         public async Task<IActionResult> Signup([FromBody] SignupRequest request)
         {
+            // Validate request first
+            if (string.IsNullOrEmpty(request.Email))
+                return BadRequest(new { message = "Email is required" });
+                
+            if (string.IsNullOrEmpty(request.Password))
+                return BadRequest(new { message = "Password is required" });
+                
+            if (request.Password != request.ConfirmPassword)
+                return BadRequest(new { message = "Passwords do not match" });
+                
+            if (!request.TermsAgreed)
+                return BadRequest(new { message = "You must agree to the terms" });
+                
             try
             {
+                Console.WriteLine($"Signup attempt for email: {request.Email}");
+                
                 // Check if email is already in use in our application
                 if (await _context.Users.AnyAsync(u => u.Username == request.Email))
                 {
@@ -127,80 +242,111 @@ namespace EnterprisePMO_PWA.Web.Controllers
                     password = request.Password
                 };
 
-                var signupResponse = await _httpClient.PostAsJsonAsync(
-                    $"{_supabaseUrl}/auth/v1/signup",
-                    supabaseSignupRequest);
+                Console.WriteLine($"Calling Supabase signup API at: {_supabaseUrl}/auth/v1/signup");
+                
+                try {
+                    var signupResponse = await _httpClient.PostAsJsonAsync(
+                        $"{_supabaseUrl}/auth/v1/signup",
+                        supabaseSignupRequest);
 
-                if (!signupResponse.IsSuccessStatusCode)
-                {
-                    var errorContent = await signupResponse.Content.ReadAsStringAsync();
-                    return BadRequest(new { message = $"Failed to create account: {errorContent}" });
-                }
+                    if (!signupResponse.IsSuccessStatusCode)
+                    {
+                        var errorContent = await signupResponse.Content.ReadAsStringAsync();
+                        Console.WriteLine($"Supabase signup failed: {errorContent}");
+                        return BadRequest(new { message = $"Failed to create account: {errorContent}" });
+                    }
 
-                var signupResult = await signupResponse.Content.ReadFromJsonAsync<SupabaseAuthResponse>();
+                    var signupResult = await signupResponse.Content.ReadFromJsonAsync<SupabaseAuthResponse>();
+                    if (signupResult == null)
+                    {
+                        Console.WriteLine("Null response from Supabase");
+                        return BadRequest(new { message = "Invalid response from authentication service" });
+                    }
+                    
+                    // Handle Supabase signup success
+                    Console.WriteLine("Supabase signup successful, creating local user");
+                    
+                    // Get holding department
+                    var departmentId = request.DepartmentId;
+                    if (departmentId == Guid.Empty)
+                    {
+                        var holdingDepartment = await _context.Departments
+                            .FirstOrDefaultAsync(d => d.Name == "Holding");
 
-                // Get holding department
-                var holdingDepartment = await _context.Departments
-                    .FirstOrDefaultAsync(d => d.Name == "Holding");
+                        if (holdingDepartment == null)
+                        {
+                            // Create holding department if it doesn't exist
+                            holdingDepartment = new Department
+                            {
+                                Id = Guid.NewGuid(),
+                                Name = "Holding"
+                            };
+                            _context.Departments.Add(holdingDepartment);
+                            await _context.SaveChangesAsync();
+                            Console.WriteLine($"Created Holding department with ID: {holdingDepartment.Id}");
+                        }
+                        
+                        departmentId = holdingDepartment.Id;
+                    }
 
-                if (holdingDepartment == null)
-                {
-                    // Create holding department if it doesn't exist
-                    holdingDepartment = new Department
+                    // Create new user in database
+                    var user = new User
                     {
                         Id = Guid.NewGuid(),
-                        Name = "Holding"
+                        Username = request.Email,
+                        Role = RoleType.ProjectManager, // Default role for new users
+                        DepartmentId = departmentId,
+                        // Store Supabase UID for reference
+                        SupabaseId = signupResult.User?.Id
                     };
-                    _context.Departments.Add(holdingDepartment);
+
+                    Console.WriteLine($"Creating new user with ID: {user.Id}, Department: {departmentId}");
+                    
+                    _context.Users.Add(user);
                     await _context.SaveChangesAsync();
-                }
 
-                // Create new user in holding department
-                var user = new User
-                {
-                    Id = Guid.NewGuid(),
-                    Username = request.Email,
-                    Role = RoleType.ProjectManager, // Default role for new users
-                    DepartmentId = holdingDepartment.Id,
-                    // Store Supabase UID for reference
-                    SupabaseId = signupResult.User.Id
-                };
-
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-
-                // Send welcome notification
-                await _notificationService.NotifyAsync(
-                    "Welcome to Enterprise PMO! Your account has been created and is waiting for department assignment.", 
-                    user.Username);
-
-                // Also notify admins about new user registration
-                var adminUsers = await _context.Users
-                    .Where(u => u.Role == RoleType.Admin)
-                    .ToListAsync();
-
-                foreach (var admin in adminUsers)
-                {
+                    Console.WriteLine("User created successfully, sending notifications");
+                    
+                    // Send welcome notification
                     await _notificationService.NotifyAsync(
-                        $"New user registration: {user.Username}. Please assign to appropriate department.", 
-                        admin.Username);
+                        "Welcome to Enterprise PMO! Your account has been created and is waiting for department assignment.", 
+                        user.Username);
+
+                    // Also notify admins about new user registration
+                    var adminUsers = await _context.Users
+                        .Where(u => u.Role == RoleType.Admin)
+                        .ToListAsync();
+
+                    foreach (var admin in adminUsers)
+                    {
+                        await _notificationService.NotifyAsync(
+                            $"New user registration: {user.Username}. Please assign to appropriate department.", 
+                            admin.Username);
+                    }
+
+                    // Log the registration
+                    await _auditService.LogActionAsync(
+                        "Authentication",
+                        user.Id,
+                        "Register",
+                        "New user registered and placed in holding department");
+
+                    return Ok(new { 
+                        message = "User registered successfully and placed in holding department",
+                        token = signupResult.AccessToken,
+                        refreshToken = signupResult.RefreshToken
+                    });
+                } 
+                catch (Exception ex) {
+                    Console.WriteLine($"Error during Supabase signup: {ex.Message}");
+                    Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                    throw;
                 }
-
-                // Log the registration
-                await _auditService.LogActionAsync(
-                    "Authentication",
-                    user.Id,
-                    "Register",
-                    "New user registered and placed in holding department");
-
-                return Ok(new { 
-                    message = "User registered successfully and placed in holding department",
-                    token = signupResult.AccessToken,
-                    refreshToken = signupResult.RefreshToken
-                });
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Registration error: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 return StatusCode(500, new { message = $"Registration error: {ex.Message}" });
             }
         }
@@ -227,15 +373,19 @@ namespace EnterprisePMO_PWA.Web.Controllers
                 var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
                 
                 // Call Supabase to invalidate the token (sign out)
-                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-                var signoutResponse = await _httpClient.PostAsync(
-                    $"{_supabaseUrl}/auth/v1/logout", 
-                    null);
-
-                if (!signoutResponse.IsSuccessStatusCode)
+                // Skip if it's a test token
+                if (token != "temp-refresh-token-for-test-admin")
                 {
-                    // Log the error but still consider it a successful logout on our end
-                    Console.WriteLine("Failed to logout from Supabase: " + await signoutResponse.Content.ReadAsStringAsync());
+                    _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                    var signoutResponse = await _httpClient.PostAsync(
+                        $"{_supabaseUrl}/auth/v1/logout", 
+                        null);
+
+                    if (!signoutResponse.IsSuccessStatusCode)
+                    {
+                        // Log the error but still consider it a successful logout on our end
+                        Console.WriteLine("Failed to logout from Supabase: " + await signoutResponse.Content.ReadAsStringAsync());
+                    }
                 }
 
                 return Ok(new { message = "Logged out successfully" });
@@ -253,6 +403,48 @@ namespace EnterprisePMO_PWA.Web.Controllers
         {
             try
             {
+                // Skip Supabase for test token
+                if (request.RefreshToken == "temp-refresh-token-for-test-admin")
+                {
+                    var adminUser = await _context.Users
+                        .FirstOrDefaultAsync(u => u.Username == "admin@test.com");
+                        
+                    if (adminUser == null)
+                    {
+                        return Unauthorized(new { message = "Test admin user not found" });
+                    }
+                    
+                    // Create a new test token
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"] ?? "your-temporary-secret-key-for-testing-only");
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = new ClaimsIdentity(new[] 
+                        { 
+                            new Claim(ClaimTypes.Name, adminUser.Username),
+                            new Claim(ClaimTypes.NameIdentifier, adminUser.Id.ToString()),
+                            new Claim(ClaimTypes.Role, adminUser.Role.ToString())
+                        }),
+                        Expires = DateTime.UtcNow.AddDays(1),
+                        SigningCredentials = new SigningCredentials(
+                            new SymmetricSecurityKey(key), 
+                            SecurityAlgorithms.HmacSha256Signature)
+                    };
+                    var token = tokenHandler.CreateToken(tokenDescriptor);
+                    
+                    return Ok(new
+                    {
+                        token = tokenHandler.WriteToken(token),
+                        refreshToken = "temp-refresh-token-for-test-admin",
+                        user = new
+                        {
+                            id = adminUser.Id,
+                            username = adminUser.Username,
+                            role = adminUser.Role.ToString()
+                        }
+                    });
+                }
+                
                 // Call Supabase to refresh token
                 var refreshRequest = new
                 {
@@ -317,6 +509,8 @@ namespace EnterprisePMO_PWA.Web.Controllers
 
                 if (!resetResponse.IsSuccessStatusCode)
                 {
+                    var errorContent = await resetResponse.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Password reset request failed: {errorContent}");
                     return BadRequest(new { message = "Failed to send password reset email" });
                 }
 
@@ -324,6 +518,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Password reset error: {ex.Message}");
                 return StatusCode(500, new { message = $"Password reset error: {ex.Message}" });
             }
         }
@@ -337,78 +532,59 @@ namespace EnterprisePMO_PWA.Web.Controllers
         }
     }
 
+    // Request models for the API
     public class LoginRequest
     {
-        [JsonProperty("email")]
-        public required string Email { get; set; }
-
-        [JsonProperty("password")]
-        public required string Password { get; set; }
-
-        [JsonProperty("rememberMe")]
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
         public bool RememberMe { get; set; }
     }
 
     public class SignupRequest
     {
-        [JsonProperty("firstName")]
-        public required string FirstName { get; set; }
-
-        [JsonProperty("lastName")]
-        public required string LastName { get; set; }
-
-        [JsonProperty("email")]
-        public required string Email { get; set; }
-
-        [JsonProperty("departmentId")]
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public Guid DepartmentId { get; set; }
-
-        [JsonProperty("password")]
-        public required string Password { get; set; }
-
-        [JsonProperty("confirmPassword")]
-        public required string ConfirmPassword { get; set; }
-
-        [JsonProperty("termsAgreed")]
+        public string Password { get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
         public bool TermsAgreed { get; set; }
     }
 
     public class RefreshTokenRequest
     {
-        [JsonProperty("refreshToken")]
-        public required string RefreshToken { get; set; }
+        public string RefreshToken { get; set; } = string.Empty;
     }
 
     public class ResetPasswordRequest
     {
-        [JsonProperty("email")]
-        public required string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
     }
 
     public class SupabaseAuthResponse
     {
         [JsonProperty("access_token")]
-        public string AccessToken { get; set; }
+        public string AccessToken { get; set; } = string.Empty;
 
         [JsonProperty("refresh_token")]
-        public string RefreshToken { get; set; }
+        public string RefreshToken { get; set; } = string.Empty;
 
         [JsonProperty("expires_in")]
         public int ExpiresIn { get; set; }
 
         [JsonProperty("token_type")]
-        public string TokenType { get; set; }
+        public string TokenType { get; set; } = string.Empty;
 
         [JsonProperty("user")]
-        public SupabaseUser User { get; set; }
+        public SupabaseUser? User { get; set; }
     }
 
     public class SupabaseUser
     {
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
     }
 }

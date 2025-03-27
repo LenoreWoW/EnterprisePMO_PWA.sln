@@ -29,6 +29,18 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ NotificationBadge.jsx",
+      "PackagePath": "staticwebassets/js/components/ NotificationBadge.jsx"
+    },
+    {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ index.js",
+      "PackagePath": "staticwebassets/js/components/ index.js"
+    },
+    {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ApprovalWorkflowDiagram.jsx.",
+      "PackagePath": "staticwebassets/js/components/ApprovalWorkflowDiagram.jsx"
+    },
+    {
       "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/NotificationBadge.jsx",
       "PackagePath": "staticwebassets/js/components/NotificationBadge.jsx"
     },
@@ -37,12 +49,32 @@
       "PackagePath": "staticwebassets/js/components/ProjectApprovalWorkflow.jsx"
     },
     {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectDetailsView.js ",
+      "PackagePath": "staticwebassets/js/components/ProjectDetailsView.js "
+    },
+    {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectGanttChart.jsx",
+      "PackagePath": "staticwebassets/js/components/ProjectGanttChart.jsx"
+    },
+    {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/forgot-password.js",
+      "PackagePath": "staticwebassets/js/forgot-password.js"
+    },
+    {
       "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/kanban.js",
       "PackagePath": "staticwebassets/js/kanban.js"
     },
     {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/login.js",
+      "PackagePath": "staticwebassets/js/login.js"
+    },
+    {
       "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/notificationHubClient.js",
       "PackagePath": "staticwebassets/js/notificationHubClient.js"
+    },
+    {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/reset-password.js",
+      "PackagePath": "staticwebassets/js/reset-password.js"
     },
     {
       "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/signup.js",

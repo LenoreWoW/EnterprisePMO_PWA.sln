@@ -33,7 +33,15 @@ namespace EnterprisePMO_PWA.Application.Services
             _context = context;
             _configuration = configuration;
             _realTimeNotificationService = realTimeNotificationService;
-            _supabaseProjectRef = configuration["Supabase:ProjectRef"] ?? throw new Exception("Supabase ProjectRef is not configured.");
+            
+            // Fix the null warning by providing a default value
+            string? projectRef = configuration["Supabase:ProjectRef"];
+            if (string.IsNullOrEmpty(projectRef))
+            {
+                projectRef = "default-project-ref";
+                Console.WriteLine("Warning: Supabase ProjectRef is not configured. Using default value.");
+            }
+            _supabaseProjectRef = projectRef;
         }
 
         /// <summary>
@@ -299,8 +307,7 @@ namespace EnterprisePMO_PWA.Application.Services
                 if (user != null)
                 {
                     // Extract the subject part outside the LINQ query to avoid expression tree issues
-                    string subjectPart = subject.Split(':').LastOrDefault();
-                    if (subjectPart == null) subjectPart = "";
+                    string subjectPart = subject.Split(':').LastOrDefault() ?? string.Empty;
                     
                     // Find notifications that may match this email subject
                     // This is a best-effort match based on the subject line

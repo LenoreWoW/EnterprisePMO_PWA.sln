@@ -1,66 +1,46 @@
 @{
     ViewData["Title"] = "Login";
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
-<div class="container mt-5">
+<div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white text-center py-3">
-                    <h4 class="mb-0">
-                        <i class="bi bi-shield-lock me-2"></i>Login to Enterprise PMO
-                    </h4>
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">Login</h3>
                 </div>
-                <div class="card-body p-4">
-                    <div class="text-center mb-4">
-                        <img src="/icons/icon-192.jpg" alt="Enterprise PMO Logo" width="80" class="mb-3">
-                        <p class="text-muted">Please sign in to continue</p>
-                    </div>
+                <div class="card-body">
+                    <div id="message-container"></div>
                     
-                    <div id="error-container" class="alert alert-danger d-none" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        <span id="error-message"></span>
-                    </div>
-                    
-                    <form id="loginForm" method="post">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
-                            </div>
-                            <div class="invalid-feedback" id="email-feedback"></div>
+                    <form id="loginForm" class="needs-validation" novalidate>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
+                            <label for="email">Email address</label>
+                            <div class="invalid-feedback">Please enter a valid email address.</div>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
+                        <div class="form-floating mb-3">
                             <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-key"></i></span>
-                                <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
-                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                    <i class="bi bi-eye"></i>
+                                <input class="form-control" id="password" name="password" type="password" placeholder="Password" required />
+                                <button id="togglePassword" class="btn btn-outline-secondary" type="button">
+                                    <i class="bi bi-eye-slash"></i>
                                 </button>
                             </div>
-                            <div class="invalid-feedback" id="password-feedback"></div>
+                            <label for="password">Password</label>
+                            <div class="invalid-feedback">Please enter your password.</div>
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" id="rememberMe" name="rememberMe" type="checkbox" />
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary" id="submitButton">
-                                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
-                            </button>
+                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <a class="small" href="/Account/ForgotPassword">Forgot Password?</a>
+                            <button class="btn btn-primary" type="submit">Login</button>
                         </div>
                     </form>
-                    
-                    <div class="text-center mt-3">
-                        <a href="/Account/ForgotPassword" class="text-decoration-none">Forgot password?</a>
-                    </div>
                 </div>
-                <div class="card-footer bg-light text-center py-3">
-                    <span>Don't have an account? </span>
-                    <a href="/Account/Signup" class="text-decoration-none">Sign up</a>
+                <div class="card-footer text-center py-3">
+                    <div class="small"><a href="/Account/Signup">Need an account? Sign up!</a></div>
                 </div>
             </div>
         </div>
@@ -68,99 +48,5 @@
 </div>
 
 @section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Toggle password visibility
-            const togglePassword = document.getElementById('togglePassword');
-            const passwordInput = document.getElementById('password');
-            
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                
-                // Toggle eye icon
-                const eyeIcon = this.querySelector('i');
-                eyeIcon.classList.toggle('bi-eye');
-                eyeIcon.classList.toggle('bi-eye-slash');
-            });
-            
-            // Form validation and submission
-            const loginForm = document.getElementById('loginForm');
-            const submitButton = document.getElementById('submitButton');
-            const errorContainer = document.getElementById('error-container');
-            const errorMessage = document.getElementById('error-message');
-            
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Reset validation states
-                loginForm.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
-                errorContainer.classList.add('d-none');
-                
-                // Disable the submit button and show loading state
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Signing in...';
-                
-                const formData = {
-                    email: document.getElementById('email').value,
-                    password: document.getElementById('password').value,
-                    rememberMe: document.getElementById('rememberMe').checked
-                };
-                
-                fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(data => {
-                            throw new Error(data.message || 'Invalid login attempt');
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Store the tokens securely
-                    localStorage.setItem('auth_token', data.token);
-                    
-                    // Store refresh token if we want to implement auto-renewal
-                    if (data.refreshToken) {
-                        localStorage.setItem('refresh_token', data.refreshToken);
-                    }
-                    
-                    // Store basic user info
-                    localStorage.setItem('user_info', JSON.stringify({
-                        id: data.user.id,
-                        username: data.user.username,
-                        role: data.user.role
-                    }));
-                    
-                    // Set expiration time if we have it
-                    if (data.expiresIn) {
-                        const expiresAt = new Date();
-                        expiresAt.setSeconds(expiresAt.getSeconds() + data.expiresIn);
-                        localStorage.setItem('expires_at', expiresAt.toISOString());
-                    }
-                    
-                    // Redirect to dashboard on success
-                    window.location.href = '/Dashboard';
-                })
-                .catch(error => {
-                    // Show error message
-                    errorMessage.textContent = error.message;
-                    errorContainer.classList.remove('d-none');
-                    
-                    // Reset button state
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = '<i class="bi bi-box-arrow-in-right me-2"></i>Sign In';
-                    
-                    // Focus on email field
-                    document.getElementById('email').focus();
-                });
-            });
-        });
-    </script>
+    <script src="~/js/login.js"></script>
 }

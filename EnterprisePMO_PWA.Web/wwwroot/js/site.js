@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Register service worker for PWA
     registerServiceWorker();
     
-    // Initialize header notification badge
+    // Initialize header notification badge (only if authenticated)
     initNotificationBadge();
 });
 
@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initTooltips() {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    if (typeof bootstrap !== 'undefined') {
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    }
 }
 
 /**
@@ -58,23 +60,33 @@ function registerServiceWorker() {
  * Initializes the notification badge in the header
  */
 function initNotificationBadge() {
-    fetch('/api/notifications/unread/count')
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('Failed to fetch notification count');
-        })
-        .then(data => {
-            const badge = document.getElementById('notificationCount');
-            if (badge && data.count > 0) {
-                badge.textContent = data.count;
-                badge.classList.remove('d-none');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    // Check if user is authenticated by looking for auth token in localStorage
+    // or by checking a data attribute on the body element
+    const isAuthenticated = 
+        (document.body.getAttribute('data-authenticated') === 'true') || 
+        (localStorage.getItem('auth_token') !== null);
+    
+    // Only fetch notifications if the user is authenticated
+    if (isAuthenticated) {
+        fetch('/api/notifications/unread/count')
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Failed to fetch notification count');
+            })
+            .then(data => {
+                const badge = document.getElementById('notificationCount');
+                if (badge && data.count > 0) {
+                    badge.textContent = data.count;
+                    badge.classList.remove('d-none');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Don't show error message to user for notification count - fail silently
+            });
+    }
 }
 
 /**
@@ -156,8 +168,10 @@ function showToast(message, type = 'info') {
     
     // Initialize and show the toast
     const toastElement = document.getElementById(toastId);
-    const toast = new bootstrap.Toast(toastElement, { autohide: true, delay: 5000 });
-    toast.show();
+    if (typeof bootstrap !== 'undefined') {
+        const toast = new bootstrap.Toast(toastElement, { autohide: true, delay: 5000 });
+        toast.show();
+    }
     
     // Remove toast from DOM after it's hidden
     toastElement.addEventListener('hidden.bs.toast', function() {
@@ -198,7 +212,9 @@ function submitFormAjax(form, successCallback, errorCallback) {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            return response.json().then(data => {
+                throw new Error(data.message || 'Server error');
+            });
         }
         return response.json();
     })

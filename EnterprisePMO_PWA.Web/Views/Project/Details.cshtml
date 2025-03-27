@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Project Details";
+    var userRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "Guest";
 }
 
 <div class="container-fluid py-4">
@@ -27,230 +28,36 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-8">
-            <!-- Project Workflow Status -->
-            @await Component.InvokeAsync("ProjectWorkflowStatus", new { projectId = Model.Id })
+    <!-- React Component Root - This will be replaced with the React component tree -->
+    <div id="project-details-root" data-project-id="@Model.Id" data-user-role="@userRole"></div>
+</div>
 
-            <!-- Project Info Card -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-light">
-                    <h5 class="mb-0">Project Information</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Client</h6>
-                            <p>@Model.ClientName</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Department</h6>
-                            <p>@(Model.Department?.Name ?? "Not assigned")</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Project Manager</h6>
-                            <p>@(Model.ProjectManager?.Username ?? "Not assigned")</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Category</h6>
-                            <p>@Model.Category</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Start Date</h6>
-                            <p>@Model.StartDate.ToShortDateString()</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">End Date</h6>
-                            <p>@Model.EndDate.ToShortDateString()</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Budget</h6>
-                            <p>@Model.Budget.ToString("C0")</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Estimated Cost</h6>
-                            <p>@Model.EstimatedCost.ToString("C0")</p>
-                        </div>
-                    </div>
-                    
-                    <hr class="my-4">
-                    
-                    <h6 class="text-muted">Description</h6>
-                    <p>@Model.Description</p>
-                </div>
-            </div>
-
-            <!-- Weekly Updates -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Weekly Updates</h5>
-                    @if (User.IsInRole("ProjectManager"))
-                    {
-                        <a href="/WeeklyUpdates/Create?projectId=@Model.Id" class="btn btn-sm btn-primary">
-                            <i class="bi bi-plus-lg me-1"></i>Add Update
-                        </a>
-                    }
-                </div>
-                <div class="card-body">
-                    @if (Model.WeeklyUpdates == null || !Model.WeeklyUpdates.Any())
-                    {
-                        <div class="text-center py-4">
-                            <i class="bi bi-calendar-x text-muted" style="font-size: 2rem;"></i>
-                            <p class="mt-2 text-muted">No weekly updates have been submitted yet.</p>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="list-group">
-                            @foreach (var update in Model.WeeklyUpdates.OrderByDescending(u => u.WeekEndingDate))
-                            {
-                                <div class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">Week Ending: @update.WeekEndingDate.ToShortDateString()</h6>
-                                        <small>
-                                            <span class="badge @(update.IsApprovedBySubPMO ? "bg-success" : update.IsSentBack ? "bg-danger" : "bg-warning")">
-                                                @(update.IsApprovedBySubPMO ? "Approved" : update.IsSentBack ? "Rejected" : "Pending")
-                                            </span>
-                                        </small>
-                                    </div>
-                                    <p class="mb-1">@update.Accomplishments</p>
-                                    <small class="text-muted">Completion: @update.PercentComplete%</small>
-                                </div>
-                            }
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4">
-            <!-- Status Card -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-light">
-                    <h5 class="mb-0">Project Status</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <h6 class="text-muted">Current Status</h6>
-                            <div class="d-flex align-items-center">
-                                <div class="status-indicator status-@Model.StatusColor.ToString().ToLower() me-2"></div>
-                                <span>@Model.Status.ToString()</span>
-                            </div>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <h6 class="text-muted">Progress</h6>
-                            @{
-                                var lastUpdate = Model.WeeklyUpdates?.OrderByDescending(u => u.WeekEndingDate).FirstOrDefault();
-                                int progress = lastUpdate?.PercentComplete ?? 0;
-                            }
-                            <div class="progress" style="height: 10px;">
-                                <div class="progress-bar @(progress >= 100 ? "bg-success" : progress >= 50 ? "bg-info" : "bg-warning")" 
-                                     role="progressbar" style="width: @progress%;" 
-                                     aria-valuenow="@progress" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <small class="text-muted">@progress% Complete</small>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <h6 class="text-muted">Created</h6>
-                            <p>@Model.CreationDate.ToShortDateString()</p>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <h6 class="text-muted">Approved</h6>
-                            <p>@(Model.ApprovedDate.HasValue ? Model.ApprovedDate.Value.ToShortDateString() : "Pending")</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+@section Scripts {
+    <!-- Load React and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prop-types@15.8.1/prop-types.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/recharts@2.7.2/umd/Recharts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
+    
+    <!-- Load project components bundle -->
+    <script src="~/js/components/project-components-bundle.js"></script>
+    
+    <!-- Initialize the React components -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rootElement = document.getElementById('project-details-root');
+            const projectId = rootElement.getAttribute('data-project-id');
+            const userRole = rootElement.getAttribute('data-user-role');
             
-            <!-- Change Requests -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Change Requests</h5>
-                    @if (User.IsInRole("ProjectManager"))
-                    {
-                        <a href="/ChangeRequests/Create?projectId=@Model.Id" class="btn btn-sm btn-primary">
-                            <i class="bi bi-plus-lg me-1"></i>New Request
-                        </a>
-                    }
-                </div>
-                <div class="card-body">
-                    @if (Model.ChangeRequests == null || !Model.ChangeRequests.Any())
-                    {
-                        <div class="text-center py-4">
-                            <i class="bi bi-arrow-repeat text-muted" style="font-size: 2rem;"></i>
-                            <p class="mt-2 text-muted">No change requests have been submitted yet.</p>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="list-group">
-                            @foreach (var cr in Model.ChangeRequests.OrderByDescending(c => c.RequestDate))
-                            {
-                                <div class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">@cr.ChangeType</h6>
-                                        <small>
-                                            <span class="badge @(cr.ApprovalStatus == ChangeRequestStatus.MainPMOApproved ? "bg-success" : 
-                                                               cr.ApprovalStatus == ChangeRequestStatus.Rejected ? "bg-danger" : 
-                                                               cr.ApprovalStatus == ChangeRequestStatus.SubPMOApproved ? "bg-info" : "bg-warning")">
-                                                @cr.ApprovalStatus.ToString()
-                                            </span>
-                                        </small>
-                                    </div>
-                                    <p class="mb-1">@cr.Justification</p>
-                                    <small class="text-muted">Requested on @cr.RequestDate.ToShortDateString()</small>
-                                </div>
-                            }
-                        </div>
-                    }
-                </div>
-            </div>
-            
-            <!-- Team Members -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Team Members</h5>
-                    @if (User.IsInRole("ProjectManager"))
-                    {
-                        <a href="/ProjectRoles/Assign?projectId=@Model.Id" class="btn btn-sm btn-primary">
-                            <i class="bi bi-person-plus me-1"></i>Add Member
-                        </a>
-                    }
-                </div>
-                <div class="card-body">
-                    @if (Model.Members == null || !Model.Members.Any())
-                    {
-                        <div class="text-center py-4">
-                            <i class="bi bi-people text-muted" style="font-size: 2rem;"></i>
-                            <p class="mt-2 text-muted">No team members have been assigned yet.</p>
-                        </div>
-                    }
-                    else
-                    {
-                        <ul class="list-group">
-                            @foreach (var member in Model.Members)
-                            {
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <i class="bi bi-person-circle me-2"></i>
-                                        @member.User?.Username
-                                    </div>
-                                    <span class="badge bg-primary rounded-pill">@member.Role?.RoleName</span>
-                                </li>
-                            }
-                        </ul>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>3">
-                            <h6 class="text-muted">Client</h6>
-                            <p>@Model.ClientName</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Department</h6>
-                            <p>@(Model.Department?.Name ?? "Not assigned")</p>
-                        </div>
-                        <div class="col-md-6 mb-
+            // Render the ProjectDetailsView component
+            ReactDOM.render(
+                React.createElement(EnterprisePMO.ProjectDetailsView, {
+                    projectId: projectId,
+                    userRole: userRole
+                }),
+                rootElement
+            );
+        });
+    </script>
+}

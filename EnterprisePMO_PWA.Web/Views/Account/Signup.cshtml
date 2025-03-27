@@ -1,94 +1,87 @@
 @{
     ViewData["Title"] = "Sign Up";
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
-<div class="container mt-5">
+<div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white text-center py-3">
-                    <h4 class="mb-0">
-                        <i class="bi bi-person-plus me-2"></i>Create Account
-                    </h4>
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">Create Account</h3>
                 </div>
-                <div class="card-body p-4">
-                    <div class="text-center mb-4">
-                        <img src="/icons/icon-192.jpg" alt="Enterprise PMO Logo" width="80" class="mb-3">
-                        <p class="text-muted">Please complete the form to create your account</p>
-                    </div>
-                    
+                <div class="card-body">
                     <div id="message-container"></div>
                     
-                    <form id="signupForm" method="post" action="/api/auth/signup" class="needs-validation" novalidate>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" required placeholder="Enter your first name">
-                                <div class="invalid-feedback">Please enter your first name.</div>
+                    <form id="signupForm" class="needs-validation" novalidate>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    <input class="form-control" id="firstName" name="firstName" type="text" placeholder="Enter your first name" required />
+                                    <label for="firstName">First Name</label>
+                                    <div class="invalid-feedback">Please enter your first name.</div>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" required placeholder="Enter your last name">
-                                <div class="invalid-feedback">Please enter your last name.</div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Enter your last name" required />
+                                    <label for="lastName">Last Name</label>
+                                    <div class="invalid-feedback">Please enter your last name.</div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
+                            <label for="email">Email address</label>
                             <div class="invalid-feedback">Please enter a valid email address.</div>
                         </div>
-                        
-                        <div class="mb-3">
-                            <label for="department" class="form-label">Department</label>
+                        <div class="form-floating mb-3">
                             <select class="form-select" id="department" name="departmentId" required>
-                                <option value="">Select your department</option>
+                                <option value="" disabled selected>Select department</option>
                             </select>
-                            <div class="invalid-feedback">Please select your department.</div>
+                            <label for="department">Department</label>
+                            <div class="invalid-feedback">Please select a department.</div>
                         </div>
-                        
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
-                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                    <i class="bi bi-eye"></i>
-                                </button>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    <input class="form-control" id="password" name="password" type="password" placeholder="Create a password" required minlength="8" />
+                                    <label for="password">Password</label>
+                                    <div class="invalid-feedback">Password must be at least 8 characters.</div>
+                                    <div class="input-group-append">
+                                        <button id="togglePassword" class="btn btn-outline-secondary" type="button">
+                                            <i class="bi bi-eye-slash"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-text">Password must be at least 8 characters long and include at least one letter, one number, and one special character.</div>
-                            <div class="invalid-feedback">Password doesn't meet the requirements.</div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
-                                <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
-                                    <i class="bi bi-eye"></i>
-                                </button>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required />
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <div class="invalid-feedback">Passwords do not match.</div>
+                                    <div class="input-group-append">
+                                        <button id="toggleConfirmPassword" class="btn btn-outline-secondary" type="button">
+                                            <i class="bi bi-eye-slash"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="invalid-feedback">Passwords do not match.</div>
                         </div>
-                        
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="termsAgreed" name="termsAgreed" required>
-                            <label class="form-check-label" for="termsAgreed">
-                                I agree to the <a href="/Home/Terms" target="_blank">Terms of Service</a> and <a href="/Home/Privacy" target="_blank">Privacy Policy</a>
-                            </label>
-                            <div class="invalid-feedback">You must agree to the terms to proceed.</div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" id="termsAgreed" name="termsAgreed" type="checkbox" required />
+                            <label class="form-check-label" for="termsAgreed">I agree to the <a href="/Home/Terms">terms of service</a> and <a href="/Home/Privacy">privacy policy</a>.</label>
+                            <div class="invalid-feedback">You must agree to the terms.</div>
                         </div>
-                        
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-person-plus-fill me-2"></i>Create Account
-                            </button>
+                        <div class="mt-4 mb-0">
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-block" type="submit">Create Account</button>
+                            </div>
                         </div>
                     </form>
                 </div>
-                <div class="card-footer bg-light text-center py-3">
-                    <span>Already have an account? </span>
-                    <a href="/Account/Login" class="text-decoration-none">Sign in</a>
+                <div class="card-footer text-center py-3">
+                    <div class="small"><a href="/Account/Login">Already have an account? Go to login</a></div>
                 </div>
             </div>
         </div>
@@ -96,5 +89,5 @@
 </div>
 
 @section Scripts {
-    <script src="/js/signup.js"></script>
+    <script src="~/js/signup.js"></script>
 }
