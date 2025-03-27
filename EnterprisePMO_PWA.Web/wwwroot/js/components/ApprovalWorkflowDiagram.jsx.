@@ -1,0 +1,288 @@
+import React, { useState, useEffect } from 'react';
+
+const ApprovalWorkflowDiagram = ({ projectId, projectStatus, userRole }) => {
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Function to fetch project data
+    const fetchProjectData = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch project details
+        const response = await fetch(`/api/projects/${projectId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch project data');
+        }
+        const data = await response.json();
+        setProject(data);
+      } catch (err) {
+        console.error('Error fetching project data:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    if (projectId) {
+      fetchProjectData();
+    }
+  }, [projectId]);
+
+  // Determine the workflow status and status information
+  const getWorkflowStatus = () => {
+    if (!project) return { currentStep: 0, steps: [] };
+    
+    const steps = [
+      { id: 'created', label: 'Project Created', description: 'Project details entered in the system' },
+      { id: 'submitted', label: 'Submitted for Approval', description: 'Project Manager submits for review' },
+      { id: 'subpmo_review', label: 'Sub PMO Review', description: 'Department PMO reviews project details' },
+      { id: 'mainpmo_approval', label: 'Main PMO Approval', description: 'Final approval by enterprise PMO' },
+      { id: 'active', label: 'Project Active', description: 'Project moves to execution phase' }
+    ];
+
+    // Determine current step based on project status
+    let currentStep = 0;
+    
+    if (!project.submittedDate) {
+      currentStep = 0; // Created but not submitted
+    } else if (project.submittedDate && !project.subPmoApprovalDate && project.status !== 'Rejected') {
+      currentStep = 1; // Submitted, awaiting Sub PMO review
+    } else if (project.subPmoApprovalDate && !project.mainPmoApprovalDate && project.status !== 'Rejected') {
+      currentStep = 2; // Sub PMO approved, awaiting Main PMO
+    } else if (project.mainPmoApprovalDate && project.status === 'Active') {
+      currentStep = 4; // Fully approved and active
+    } else {
+      currentStep = 3; // In Main PMO review
+    }
+
+    // If rejected at any point, mark that specific stage
+    let rejectedAt = null;
+    if (project.status === 'Rejected') {
+      if (project.submittedDate && !project.subPmoApprovalDate) {
+        rejectedAt = 'subpmo_review'; // Rejected by Sub PMO
+      } else if (project.subPmoApprovalDate && !project.mainPmoApprovalDate) {
+        rejectedAt = 'mainpmo_approval'; // Rejected by Main PMO
+      }
+    }
+
+    return { 
+      currentStep, 
+      steps,
+      rejectedAt, 
+      dates: {
+        created: project.creationDate,
+        submitted: project.submittedDate,
+        subPmoApproved: project.subPmoApprovalDate,
+        mainPmoApproved: project.mainPmoApprovalDate
+      }
+    };
+  };
+
+  // For demo purposes, let's create sample dates if they don't exist in the project
+  const getDemoWorkflowStatus = () => {
+    const today = new Date();
+    const oneWeekAgo = new Date(today);
+    oneWeekAgo.setDate(today.getDate() - 7);
+    
+    const twoWeeksAgo = new Date(today);
+    twoWeeksAgo.setDate(today.getDate() - 14);
+    
+    const threeWeeksAgo = new Date(today);
+    threeWeeksAgo.setDate(today.getDate() - 21);
+    
+    const steps = [
+      { id: 'created', label: 'Project Created', description: 'Project details entered in the system' },
+      { id: 'submitted', label: 'Submitted for Approval', description: 'Project Manager submits for review' },
+      { id: 'subpmo_review', label: 'Sub PMO Review', description: 'Department PMO reviews project details' },
+      { id: 'mainpmo_approval', label: 'Main PMO Approval', description: 'Final approval by enterprise PMO' },
+      { id: 'active', label: 'Project Active', description: 'Project moves to execution phase' }
+    ];
+    
+    // Determine current step based on passed in status
+    let currentStep = 0;
+    let rejectedAt = null;
+    
+    switch(projectStatus) {
+      case 'Proposed':
+        currentStep = 1;
+        break;
+      case 'Rejected':
+        currentStep = 2;
+        rejectedAt = 'subpmo_review';
+        break;
+      case 'Active':
+        if (userRole === 'MainPMO') {
+          currentStep = 3; // In Main PMO review
+        } else {
+          currentStep = 4; // Fully approved
+        }
+        break;
+      case 'Completed':
+        currentStep = 4;
+        break;
+      default:
+        currentStep = 0;
+    }
+    
+    return {
+      currentStep,
+      steps,
+      rejectedAt,
+      dates: {
+        created: threeWeeksAgo.toISOString(),
+        submitted: twoWeeksAgo.toISOString(),
+        subPmoApproved: projectStatus !== 'Rejected' ? oneWeekAgo.toISOString() : null,
+        mainPmoApproved: projectStatus === 'Active' || projectStatus === 'Completed' ? today.toISOString() : null
+      }
+    };
+  };
+
+  // Use real workflow status if project exists, otherwise use demo data
+  const workflowStatus = project ? getWorkflowStatus() : getDemoWorkflowStatus();
+
+  // Format a date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return "Pending";
+    
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+      });
+    } catch (e) {
+      return "Invalid date";
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-32">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+        <div className="flex">
+          <div className="flex-shrink-0">
+            <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+            </svg>
+          </div>
+          <div className="ml-3">
+            <p className="text-sm text-red-700">
+              Error loading workflow diagram: {error}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-xl font-semibold mb-6">Project Approval Workflow</h2>
+      
+      <div className="relative">
+        {/* Main workflow timeline */}
+        <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-200"></div>
+        
+        {/* Mobile timeline */}
+        <div className="md:hidden absolute left-8 top-0 h-full w-1 bg-gray-200"></div>
+        
+        {/* Workflow steps */}
+        {workflowStatus.steps.map((step, index) => {
+          const isActive = index <= workflowStatus.currentStep;
+          const isRejected = step.id === workflowStatus.rejectedAt;
+          const isPending = index > workflowStatus.currentStep;
+          const isCurrent = index === workflowStatus.currentStep;
+          
+          // Determine step status and colors
+          let statusColor = "bg-gray-400"; // Default for pending
+          let statusIcon = (
+            <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          );
+          
+          if (isActive && !isRejected) {
+            statusColor = "bg-green-500";
+            statusIcon = (
+              <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            );
+          }
+          
+          if (isRejected) {
+            statusColor = "bg-red-500";
+            statusIcon = (
+              <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            );
+          }
+          
+          if (isCurrent && !isRejected) {
+            statusColor = "bg-blue-500";
+            statusIcon = (
+              <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            );
+          }
+          
+          // Get date for this step
+          let stepDate = null;
+          switch(step.id) {
+            case 'created':
+              stepDate = workflowStatus.dates.created;
+              break;
+            case 'submitted':
+              stepDate = workflowStatus.dates.submitted;
+              break;
+            case 'subpmo_review':
+              stepDate = workflowStatus.dates.subPmoApproved;
+              break;
+            case 'mainpmo_approval':
+              stepDate = workflowStatus.dates.mainPmoApproved;
+              break;
+            case 'active':
+              stepDate = workflowStatus.dates.mainPmoApproved;
+              break;
+            default:
+              stepDate = null;
+          }
+          
+          // Alternate left/right placement for desktop
+          const isEven = index % 2 === 0;
+          
+          return (
+            <div key={step.id} className={`relative mb-8 ${isEven ? 'md:flex-row-reverse' : ''} md:flex`}>
+              {/* Mobile step icon */}
+              <div className="md:hidden absolute left-8 -translate-x-1/2 mt-1.5">
+                <div className={`flex items-center justify-center w-4 h-4 rounded-full ${statusColor}`}></div>
+              </div>
+              
+              {/* Desktop step icon */}
+              <div className="hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${statusColor} shadow-lg z-10`}>
+                  {statusIcon}
+                </div>
+              </div>
+              
+              {/* Step content */}
+              <div className="md:w-5/12"></div>
+              <div className="ml-16 md:ml-0 md:w-5/12 p-4 rounded-lg border bg-white shadow-sm">
+                <div className="flex items-center">
+                  <div className={`mr-2 flex-shrink-0 w-3 h-3 rounded-full ${statusColor}`}></div>
+                  <h3 className="text-lg font-medium">{step.label}</h3>
+                </div>
+                <p className="mt-1
