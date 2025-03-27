@@ -3,6 +3,7 @@ using EnterprisePMO_PWA.Application.Services;
 using EnterprisePMO_PWA.Web.Hubs;
 using EnterprisePMO_PWA.Web.Services;
 using EnterprisePMO_PWA.Web.Authorization;
+using EnterprisePMO_PWA.Web.Extensions;
 using EnterprisePMO_PWA.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -35,6 +36,9 @@ builder.Services.AddControllersWithViews()
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
         options.JsonSerializerOptions.WriteIndented = true;
     });
+
+// Add HTTP client factory
+builder.Services.AddHttpClient();
 
 // Add in-memory database for development
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -113,7 +117,26 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = supabaseIssuer,
         ValidAudience = supabaseAudience,
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(supabaseJwtSecret ?? "fallback-dev-key-not-for-production"))
+            Encoding.UTF8.GetBytes(supabaseJwtSecret ?? "fallback-dev-key-not-for-production")),
+        // Add the following to handle clock skew
+        ClockSkew = TimeSpan.Zero
+    };
+    
+    // Add event handlers for successful token validation and token validation failure
+    options.Events = new JwtBearerEvents
+    {
+        OnTokenValidated = context =>
+        {
+            // This is called when the token is successfully validated
+            Console.WriteLine($"Token validated for user: {context.Principal?.Identity?.Name}");
+            return Task.CompletedTask;
+        },
+        OnAuthenticationFailed = context =>
+        {
+            // This is called when the authentication fails
+            Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+            return Task.CompletedTask;
+        }
     };
 });
 
@@ -169,6 +192,7 @@ app.UseRouting();
 app.UseCors("AllowedOrigins");
 
 app.UseAuthentication();
+app.UseAuthenticationSync(); // Add our custom authentication middleware
 app.UseAuthorization();
 
 // Map controllers

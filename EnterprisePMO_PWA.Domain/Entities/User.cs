@@ -28,5 +28,10 @@ namespace EnterprisePMO_PWA.Domain.Entities
 
         public Guid? DepartmentId { get; set; } // Optional FK to department
         public Department? Department { get; set; } // Navigation property
+        
+        /// <summary>
+        /// The user's ID in the Supabase authentication system
+        /// </summary>
+        public string? SupabaseId { get; set; }
     }
 }

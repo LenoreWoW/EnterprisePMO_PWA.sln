@@ -18,20 +18,19 @@
                         <p class="text-muted">Please sign in to continue</p>
                     </div>
                     
-                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-                    {
-                        <div class="alert alert-danger" role="alert">
-                            <i class="bi bi-exclamation-triangle-fill me-2"></i>@ViewBag.ErrorMessage
-                        </div>
-                    }
+                    <div id="error-container" class="alert alert-danger d-none" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <span id="error-message"></span>
+                    </div>
                     
-                    <form id="loginForm" method="post" action="/api/auth/login">
+                    <form id="loginForm" method="post">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                 <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
                             </div>
+                            <div class="invalid-feedback" id="email-feedback"></div>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
@@ -42,13 +41,14 @@
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
+                            <div class="invalid-feedback" id="password-feedback"></div>
                         </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" id="submitButton">
                                 <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
                             </button>
                         </div>
@@ -84,25 +84,35 @@
                 eyeIcon.classList.toggle('bi-eye-slash');
             });
             
-            // Submit form through AJAX
+            // Form validation and submission
             const loginForm = document.getElementById('loginForm');
+            const submitButton = document.getElementById('submitButton');
+            const errorContainer = document.getElementById('error-container');
+            const errorMessage = document.getElementById('error-message');
             
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const formData = new FormData(loginForm);
-                const jsonData = {};
+                // Reset validation states
+                loginForm.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+                errorContainer.classList.add('d-none');
                 
-                formData.forEach((value, key) => {
-                    jsonData[key] = value;
-                });
+                // Disable the submit button and show loading state
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Signing in...';
+                
+                const formData = {
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value,
+                    rememberMe: document.getElementById('rememberMe').checked
+                };
                 
                 fetch('/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(jsonData)
+                    body: JSON.stringify(formData)
                 })
                 .then(response => {
                     if (!response.ok) {
@@ -113,22 +123,42 @@
                     return response.json();
                 })
                 .then(data => {
+                    // Store the tokens securely
+                    localStorage.setItem('auth_token', data.token);
+                    
+                    // Store refresh token if we want to implement auto-renewal
+                    if (data.refreshToken) {
+                        localStorage.setItem('refresh_token', data.refreshToken);
+                    }
+                    
+                    // Store basic user info
+                    localStorage.setItem('user_info', JSON.stringify({
+                        id: data.user.id,
+                        username: data.user.username,
+                        role: data.user.role
+                    }));
+                    
+                    // Set expiration time if we have it
+                    if (data.expiresIn) {
+                        const expiresAt = new Date();
+                        expiresAt.setSeconds(expiresAt.getSeconds() + data.expiresIn);
+                        localStorage.setItem('expires_at', expiresAt.toISOString());
+                    }
+                    
                     // Redirect to dashboard on success
                     window.location.href = '/Dashboard';
                 })
                 .catch(error => {
                     // Show error message
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'alert alert-danger mt-3';
-                    errorDiv.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i>${error.message}`;
+                    errorMessage.textContent = error.message;
+                    errorContainer.classList.remove('d-none');
                     
-                    // Remove any existing error alert
-                    const existingAlert = loginForm.querySelector('.alert');
-                    if (existingAlert) {
-                        existingAlert.remove();
-                    }
+                    // Reset button state
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="bi bi-box-arrow-in-right me-2"></i>Sign In';
                     
-                    loginForm.insertBefore(errorDiv, loginForm.firstChild);
+                    // Focus on email field
+                    document.getElementById('email').focus();
                 });
             });
         });

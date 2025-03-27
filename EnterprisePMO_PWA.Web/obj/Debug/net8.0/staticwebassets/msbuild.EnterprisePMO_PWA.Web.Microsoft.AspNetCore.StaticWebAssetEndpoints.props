@@ -156,17 +156,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"o0jabr03nt"},{"Name":"integrity","Value":"sha256-yHV23NQaJvs246GW0dgsgnw/ECZetKv0rBxzixAbG7U="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/js/site.js"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6349"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022yHV23NQaJvs246GW0dgsgnw/ECZetKv0rBxzixAbG7U=\u0022"},{"Name":"Last-Modified","Value":"Tue, 25 Mar 2025 09:44:03 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/supabaseClient.atb1lnk2bw.js">
+    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/supabaseClient.j1dqgjbtx8.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\supabaseClient.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"atb1lnk2bw"},{"Name":"integrity","Value":"sha256-8lxLEvsyg4SYCWp94\u002BlQET8/DwcH/CC7mYAp7EYcxYQ="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/js/supabaseClient.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"873"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00228lxLEvsyg4SYCWp94\u002BlQET8/DwcH/CC7mYAp7EYcxYQ=\u0022"},{"Name":"Last-Modified","Value":"Tue, 25 Mar 2025 04:07:20 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"j1dqgjbtx8"},{"Name":"integrity","Value":"sha256-h/BKuvMw/shkSm45gyTd7u2Ls6mY6TcJ//z/Zzu012c="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/js/supabaseClient.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"9690"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022h/BKuvMw/shkSm45gyTd7u2Ls6mY6TcJ//z/Zzu012c=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Mar 2025 23:59:39 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/supabaseClient.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\supabaseClient.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-8lxLEvsyg4SYCWp94\u002BlQET8/DwcH/CC7mYAp7EYcxYQ="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"873"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00228lxLEvsyg4SYCWp94\u002BlQET8/DwcH/CC7mYAp7EYcxYQ=\u0022"},{"Name":"Last-Modified","Value":"Tue, 25 Mar 2025 04:07:20 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-h/BKuvMw/shkSm45gyTd7u2Ls6mY6TcJ//z/Zzu012c="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"9690"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022h/BKuvMw/shkSm45gyTd7u2Ls6mY6TcJ//z/Zzu012c=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Mar 2025 23:59:39 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/manifest.json">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\manifest.json'))</AssetFile>

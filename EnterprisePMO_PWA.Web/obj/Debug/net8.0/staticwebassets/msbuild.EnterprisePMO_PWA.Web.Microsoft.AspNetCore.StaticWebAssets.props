@@ -246,8 +246,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>atb1lnk2bw</Fingerprint>
-      <Integrity>8lxLEvsyg4SYCWp94+lQET8/DwcH/CC7mYAp7EYcxYQ=</Integrity>
+      <Fingerprint>j1dqgjbtx8</Fingerprint>
+      <Integrity>h/BKuvMw/shkSm45gyTd7u2Ls6mY6TcJ//z/Zzu012c=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\supabaseClient.js'))</OriginalItemSpec>
