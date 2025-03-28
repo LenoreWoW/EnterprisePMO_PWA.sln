@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Application.Services;
 using EnterprisePMO_PWA.Domain.Entities;
@@ -24,6 +25,13 @@ namespace EnterprisePMO_PWA.Web.Controllers
             _workflowService = workflowService;
             _context = context;
             _notificationService = notificationService;
+        }
+        
+        // MVC Actions for user interface
+        [HttpGet("ui")]
+        public IActionResult Index()
+        {
+            return Ok(new { message = "Test UI would go here" });
         }
 
         [HttpGet("setup")]

@@ -3,8 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Application.Services;
 using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EnterprisePMO_PWA.Web.Controllers
 {
@@ -12,10 +14,15 @@ namespace EnterprisePMO_PWA.Web.Controllers
     public class DepartmentController : Controller
     {
         private readonly DepartmentService _departmentService;
-        public DepartmentController(DepartmentService departmentService)
+        private readonly AppDbContext _context;
+
+        public DepartmentController(DepartmentService departmentService, AppDbContext context)
         {
             _departmentService = departmentService;
+            _context = context;
         }
+
+        // MVC Actions
 
         public IActionResult List()
         {
@@ -61,6 +68,21 @@ namespace EnterprisePMO_PWA.Web.Controllers
         {
             await _departmentService.DeleteDepartmentAsync(id);
             return RedirectToAction("List");
+        }
+
+        // API Endpoints
+
+        [HttpGet]
+        [Route("api/departments")]
+        public async Task<IActionResult> GetDepartments()
+        {
+            var departments = await _context.Departments
+                .Where(d => d.Name != "Holding") // Exclude Holding department from signup
+                .Select(d => new { d.Id, d.Name })
+                .OrderBy(d => d.Name)
+                .ToListAsync();
+
+            return Ok(departments);
         }
     }
 }
