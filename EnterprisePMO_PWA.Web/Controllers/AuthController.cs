@@ -56,6 +56,49 @@ namespace EnterprisePMO_PWA.Web.Controllers
             _httpClient.DefaultRequestHeaders.Add("apikey", _supabaseKey);
         }
 
+        [HttpPost("direct-login")]
+        public IActionResult DirectLogin([FromBody] LoginRequest request)
+        {
+            // Very simple login for development purposes only
+            if (request.Email == "admin@test.com" && request.Password == "Password123!")
+            {
+                // Create a fixed admin ID that won't change
+                var adminId = Guid.Parse("00000000-0000-0000-0000-000000000002");
+
+                // Create JWT token with simple claims
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"] ?? "your-development-fallback-key-with-at-least-32-chars");
+                
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[] 
+                    { 
+                        new Claim(ClaimTypes.Name, "admin@test.com"),
+                        new Claim(ClaimTypes.NameIdentifier, adminId.ToString()),
+                        new Claim(ClaimTypes.Role, "Admin")
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(1),
+                    SigningCredentials = new SigningCredentials(
+                        new SymmetricSecurityKey(key), 
+                        SecurityAlgorithms.HmacSha256Signature)
+                };
+                
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                
+                return Ok(new { 
+                    token = tokenHandler.WriteToken(token),
+                    refreshToken = "direct-login-refresh-token",
+                    user = new { 
+                        id = adminId, 
+                        username = "admin@test.com", 
+                        role = "Admin" 
+                    } 
+                });
+            }
+            
+            return Unauthorized(new { message = "Invalid credentials" });
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
@@ -108,7 +151,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
                     
                     // Create a test token
                     var tokenHandler = new JwtSecurityTokenHandler();
-                    var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"] ?? "your-temporary-secret-key-for-testing-only");
+                    var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"] ?? "your-temporary-secret-key-for-testing-only-make-it-at-least-32-chars");
                     var tokenDescriptor = new SecurityTokenDescriptor
                     {
                         Subject = new ClaimsIdentity(new[] 
@@ -374,7 +417,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
                 
                 // Call Supabase to invalidate the token (sign out)
                 // Skip if it's a test token
-                if (token != "temp-refresh-token-for-test-admin")
+                if (token != "temp-refresh-token-for-test-admin" && token != "direct-login-refresh-token")
                 {
                     _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
                     var signoutResponse = await _httpClient.PostAsync(
@@ -404,7 +447,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
             try
             {
                 // Skip Supabase for test token
-                if (request.RefreshToken == "temp-refresh-token-for-test-admin")
+                if (request.RefreshToken == "temp-refresh-token-for-test-admin" || request.RefreshToken == "direct-login-refresh-token")
                 {
                     var adminUser = await _context.Users
                         .FirstOrDefaultAsync(u => u.Username == "admin@test.com");
@@ -416,7 +459,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
                     
                     // Create a new test token
                     var tokenHandler = new JwtSecurityTokenHandler();
-                    var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"] ?? "your-temporary-secret-key-for-testing-only");
+                    var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"] ?? "your-temporary-secret-key-for-testing-only-make-it-at-least-32-chars");
                     var tokenDescriptor = new SecurityTokenDescriptor
                     {
                         Subject = new ClaimsIdentity(new[] 
@@ -435,7 +478,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
                     return Ok(new
                     {
                         token = tokenHandler.WriteToken(token),
-                        refreshToken = "temp-refresh-token-for-test-admin",
+                        refreshToken = request.RefreshToken, // return the same refresh token
                         user = new
                         {
                             id = adminUser.Id,

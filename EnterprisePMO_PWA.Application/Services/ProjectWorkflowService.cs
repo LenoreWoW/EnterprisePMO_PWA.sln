@@ -179,7 +179,7 @@ namespace EnterprisePMO_PWA.Application.Services
             
             // Update project status
             project.Status = ProjectStatus.Rejected;
-            project.StatusColor = StatusColor.Red;
+            project.StatusColor = "Red";
             await _context.SaveChangesAsync();
             
             // Notify the project manager
@@ -316,7 +316,7 @@ namespace EnterprisePMO_PWA.Application.Services
             
             // Update project status
             project.Status = ProjectStatus.Rejected;
-            project.StatusColor = StatusColor.Red;
+            project.StatusColor = "Red";
             await _context.SaveChangesAsync();
             
             // Notify the project manager
@@ -379,7 +379,7 @@ namespace EnterprisePMO_PWA.Application.Services
             
             // Update project status
             project.Status = ProjectStatus.Completed;
-            project.StatusColor = StatusColor.Green;
+            project.StatusColor = "Green";
             await _context.SaveChangesAsync();
             
             // Notify project stakeholders

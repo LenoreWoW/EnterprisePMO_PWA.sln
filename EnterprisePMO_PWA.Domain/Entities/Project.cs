@@ -1,86 +1,98 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EnterprisePMO_PWA.Domain.Entities
 {
-    /// <summary>
-    /// Enumerates the possible project statuses.
-    /// </summary>
+    public class Project
+    {
+        [Key]
+        public Guid Id { get; set; }
+        
+        [Required]
+        public string Name { get; set; } = string.Empty;
+        
+        public string Description { get; set; } = string.Empty;
+        
+        public DateTime StartDate { get; set; }
+        
+        public DateTime EndDate { get; set; }
+        
+        public ProjectStatus Status { get; set; }
+        
+        public decimal Budget { get; set; }
+        
+        public decimal EstimatedCost { get; set; }
+        
+        public string ClientName { get; set; } = string.Empty;
+        
+        public decimal PercentComplete { get; set; }
+        
+        public string StatusColor { get; set; } = string.Empty;
+        
+        public DateTime CreationDate { get; set; } = DateTime.UtcNow;
+        
+        public DateTime? ApprovedDate { get; set; }
+        
+        [ForeignKey("Department")]
+        public Guid DepartmentId { get; set; }
+        public virtual Department? Department { get; set; }
+        
+        [ForeignKey("ProjectManager")]
+        public Guid ProjectManagerId { get; set; }
+        public virtual User? ProjectManager { get; set; }
+        
+        [ForeignKey("StrategicGoal")]
+        public Guid? StrategicGoalId { get; set; }
+        public virtual StrategicGoal? StrategicGoal { get; set; }
+        
+        [ForeignKey("AnnualGoal")]
+        public Guid? AnnualGoalId { get; set; }
+        public virtual AnnualGoal? AnnualGoal { get; set; }
+        
+        public string Category { get; set; } = string.Empty;
+        
+        public virtual ICollection<WeeklyUpdate> WeeklyUpdates { get; set; } = new List<WeeklyUpdate>();
+        public virtual ICollection<ChangeRequest> ChangeRequests { get; set; } = new List<ChangeRequest>();
+        public virtual ICollection<ProjectTask> Tasks { get; set; } = new List<ProjectTask>();
+
+        /// <summary>
+        /// Computes the status color based on project metrics
+        /// </summary>
+        public string ComputeStatusColor()
+        {
+            // Default implementation
+            if (Status == ProjectStatus.Completed)
+                return "Green";
+            else if (Status == ProjectStatus.Rejected)
+                return "Red";
+                
+            // Calculate based on schedule and budget
+            var today = DateTime.UtcNow;
+            var totalDuration = (EndDate - StartDate).TotalDays;
+            var elapsedDuration = (today - StartDate).TotalDays;
+            
+            // Calculate expected progress percentage based on time elapsed
+            var expectedProgress = Math.Min(100, Math.Max(0, (elapsedDuration / totalDuration) * 100));
+            
+            // Determine status color
+            if (PercentComplete >= expectedProgress - 10)
+                return "Green";
+            else if (PercentComplete >= expectedProgress - 20)
+                return "Yellow";
+            else
+                return "Red";
+        }
+    }
+    
     public enum ProjectStatus
     {
         Proposed,
         Active,
-        Rejected,
-        Completed
-    }
-
-    /// <summary>
-    /// Enumerates color codes for visual status indication.
-    /// </summary>
-    public enum StatusColor
-    {
-        Green,   // > 30 days remaining
-        Blue,    // (Optional, for ongoing work)
-        Yellow,  // 10-30 days remaining
-        Red      // < 10 days remaining
-    }
-
-    /// <summary>
-    /// Represents a project with detailed lifecycle information.
-    /// </summary>
-    public class Project
-    {
-        public Guid Id { get; set; } // Unique project identifier
-
-        public string Name { get; set; } = string.Empty; // Project name
-        public string Description { get; set; } = string.Empty; // Detailed description
-
-        public Guid DepartmentId { get; set; } // FK to department
-        public Department? Department { get; set; } // Navigation property
-
-        public Guid ProjectManagerId { get; set; } // FK to project manager
-        public User? ProjectManager { get; set; } // Navigation property
-
-        public Guid? StrategicGoalId { get; set; } // Optional FK to strategic goal
-        public StrategicGoal? StrategicGoal { get; set; }
-
-        public Guid? AnnualGoalId { get; set; } // Optional FK to annual goal
-        public AnnualGoal? AnnualGoal { get; set; }
-
-        public DateTime StartDate { get; set; } // Start date
-        public DateTime EndDate { get; set; }   // Deadline
-
-        public decimal Budget { get; set; } // Approved budget
-        public decimal ActualCost { get; set; } // Incurred cost
-        public decimal EstimatedCost { get; set; } // New: Estimated cost
-        public string ClientName { get; set; } = string.Empty; // New: Client name
-
-        public StatusColor StatusColor { get; set; } // Visual status based on deadline
-        public ProjectStatus Status { get; set; } // Overall project status
-
-        public DateTime CreationDate { get; set; } // Creation timestamp
-        public DateTime? ApprovedDate { get; set; } // Approval timestamp (if applicable)
-
-        public string Category { get; set; } = string.Empty; // Category
-
-        // Navigation collections for related entities.
-        public ICollection<WeeklyUpdate>? WeeklyUpdates { get; set; }
-        public ICollection<ChangeRequest>? ChangeRequests { get; set; }
-        public ICollection<Document>? Documents { get; set; }
-        public ICollection<ProjectMember>? Members { get; set; }
-
-        /// <summary>
-        /// Computes the status color based on remaining days until deadline.
-        /// </summary>
-        public StatusColor ComputeStatusColor()
-        {
-            var daysLeft = (EndDate - DateTime.UtcNow).TotalDays;
-            if (daysLeft > 30)
-                return StatusColor.Green;
-            else if (daysLeft > 10)
-                return StatusColor.Yellow;
-            else
-                return StatusColor.Red;
-        }
+        OnHold,
+        Completed,
+        Cancelled,
+        Rejected
     }
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fix Service Worker</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 20px 0; }
+    button { background: #0078d7; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Fix Service Worker Issues</h1>
+    <p>This page will help fix service worker issues with your Enterprise PMO application.</p>
+    
+    <button id="fixButton">Unregister Service Worker</button>
+    <p id="result"></p>
+    
+    <div style="margin-top: 20px;">
+      <button onclick="window.location.href='/Account/Login'">Go to Login Page</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('fixButton').addEventListener('click', function() {
+      const result = document.getElementById('result');
+      
+      if ('serviceWorker' in navigator) {
+        result.textContent = 'Unregistering service worker...';
+        
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          if (registrations.length === 0) {
+            result.textContent = 'No service workers found to unregister.';
+            return;
+          }
+          
+          let unregistered = 0;
+          registrations.forEach(function(registration) {
+            registration.unregister().then(function(success) {
+              if (success) {
+                unregistered++;
+                result.textContent = `Successfully unregistered ${unregistered} service worker(s).`;
+                result.className = 'success';
+                
+                // Also clear caches
+                if ('caches' in window) {
+                  caches.keys().then(function(cacheNames) {
+                    cacheNames.forEach(function(cacheName) {
+                      caches.delete(cacheName);
+                    });
+                    result.textContent += ' Caches cleared.';
+                  });
+                }
+              } else {
+                result.textContent = 'Failed to unregister service worker.';
+                result.className = 'error';
+              }
+            });
+          });
+        }).catch(function(error) {
+          result.textContent = 'Error unregistering service worker: ' + error;
+          result.className = 'error';
+        });
+      } else {
+        result.textContent = 'Service workers not supported in this browser.';
+      }
+    });
+  </script>
+</body>
+</html>

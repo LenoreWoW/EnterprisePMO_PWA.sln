@@ -195,10 +195,10 @@ app.UseAuthentication();
 app.UseAuthenticationSync(); // Add our custom authentication middleware
 app.UseAuthorization();
 
-// Map controllers
+// Map controllers with a new default route to Account/Login
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 // SignalR hub for notifications
 app.MapHub<NotificationHub>("/notificationHub");

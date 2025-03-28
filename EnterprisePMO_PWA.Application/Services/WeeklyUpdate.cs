@@ -1,4 +1,5 @@
 using System;
+using EnterprisePMO_PWA.Domain.Entities; // This allows using Project.StatusColor
 
 namespace EnterprisePMO_PWA.Domain.Entities
 {

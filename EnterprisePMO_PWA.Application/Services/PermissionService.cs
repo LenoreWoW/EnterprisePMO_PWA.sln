@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Domain.Entities;
@@ -8,142 +9,83 @@ using Microsoft.EntityFrameworkCore;
 namespace EnterprisePMO_PWA.Application.Services
 {
     /// <summary>
-    /// Service for checking and managing user permissions based on roles.
+    /// Provides business logic for managing projects.
     /// </summary>
-    public class PermissionService
+    public class ProjectService
     {
         private readonly AppDbContext _context;
 
-        public PermissionService(AppDbContext context)
+        public ProjectService(AppDbContext context)
         {
             _context = context;
         }
 
         /// <summary>
-        /// Checks if the user has a specific permission either directly or via role inheritance.
+        /// Creates a new project.
         /// </summary>
-        /// <param name="userId">The user ID</param>
-        /// <param name="permissionName">The name of the permission to check</param>
-        /// <returns>True if the user has the permission, false otherwise</returns>
-        public async Task<bool> HasPermissionAsync(Guid userId, string permissionName)
+        public async Task<Project> CreateProjectAsync(Project project)
         {
-            var user = await _context.Users
-                .Include(u => u.Department)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-
-            if (user == null)
-                return false;
-
-            // Admin role has all permissions
-            if (user.Role == RoleType.Admin)
-                return true;
-
-            // For project-specific roles, we'd need to check the project membership
-            // This example just checks global roles
-            
-            // Find all roles that match the permission
-            var roles = await _context.Roles.ToListAsync();
-            
-            // Check if the user's global role has the permission
-            var hasPermission = false;
-            
-            switch (permissionName)
-            {
-                case "ManageProjects":
-                    hasPermission = user.Role == RoleType.ProjectManager || 
-                                    user.Role == RoleType.SubPMO || 
-                                    user.Role == RoleType.MainPMO;
-                    break;
-                case "ApproveRequests":
-                    hasPermission = user.Role == RoleType.SubPMO || 
-                                    user.Role == RoleType.MainPMO;
-                    break;
-                case "ManageUsers":
-                    hasPermission = user.Role == RoleType.Admin;
-                    break;
-                case "ViewReports":
-                    hasPermission = user.Role == RoleType.ProjectManager || 
-                                    user.Role == RoleType.SubPMO || 
-                                    user.Role == RoleType.MainPMO || 
-                                    user.Role == RoleType.DepartmentDirector || 
-                                    user.Role == RoleType.Executive;
-                    break;
-                case "ViewAuditLogs":
-                    hasPermission = user.Role == RoleType.Admin || 
-                                    user.Role == RoleType.MainPMO;
-                    break;
-                default:
-                    hasPermission = false;
-                    break;
-            }
-            
-            return hasPermission;
+            project.Id = Guid.NewGuid();
+            project.CreationDate = DateTime.UtcNow;
+            project.StatusColor = project.ComputeStatusColor();
+            project.Status = ProjectStatus.Proposed;
+            _context.Projects.Add(project);
+            await _context.SaveChangesAsync();
+            return project;
         }
 
         /// <summary>
-        /// Checks if the user has a higher role in the hierarchy than the target user.
+        /// Retrieves a project by ID.
         /// </summary>
-        /// <param name="userId">The user ID checking permissions</param>
-        /// <param name="targetUserId">The target user ID</param>
-        /// <returns>True if the user has a higher role, false otherwise</returns>
-        public async Task<bool> HasHigherRoleAsync(Guid userId, Guid targetUserId)
+        public Project? GetProjectById(Guid id)
         {
-            var user = await _context.Users.FindAsync(userId);
-            var targetUser = await _context.Users.FindAsync(targetUserId);
-
-            if (user == null || targetUser == null)
-                return false;
-
-            // Admin is always highest
-            if (user.Role == RoleType.Admin)
-                return true;
-
-            // Convert enum to hierarchy level
-            int userLevel = GetRoleHierarchyLevel(user.Role);
-            int targetLevel = GetRoleHierarchyLevel(targetUser.Role);
-
-            return userLevel > targetLevel;
+            return _context.Projects.FirstOrDefault(p => p.Id == id);
         }
 
         /// <summary>
-        /// Gets the hierarchy level for a role type.
+        /// Updates an existing project.
         /// </summary>
-        /// <param name="roleType">The role type</param>
-        /// <returns>The hierarchy level (higher = more permissions)</returns>
-        private int GetRoleHierarchyLevel(RoleType roleType)
+        public async Task UpdateProjectAsync(Project project)
         {
-            switch (roleType)
+            project.StatusColor = project.ComputeStatusColor();
+            _context.Entry(project).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes a project.
+        /// </summary>
+        public async Task DeleteProjectAsync(Guid id)
+        {
+            var project = await _context.Projects.FindAsync(id);
+            if (project != null)
             {
-                case RoleType.Admin:
-                    return 100;
-                case RoleType.MainPMO:
-                    return 90;
-                case RoleType.Executive:
-                    return 80;
-                case RoleType.DepartmentDirector:
-                    return 70;
-                case RoleType.SubPMO:
-                    return 60;
-                case RoleType.ProjectManager:
-                    return 50;
-                default:
-                    return 10;
+                _context.Projects.Remove(project);
+                await _context.SaveChangesAsync();
             }
         }
 
         /// <summary>
-        /// Gets all roles that a given role can manage.
+        /// Gets all active projects.
         /// </summary>
-        /// <param name="roleType">The role type</param>
-        /// <returns>Array of role types that can be managed</returns>
-        public RoleType[] GetManageableRoles(RoleType roleType)
+        public async Task<List<Project>> GetAllActiveProjects()
         {
-            int level = GetRoleHierarchyLevel(roleType);
-            
-            // Can manage all roles with lower hierarchy level
-            return Enum.GetValues<RoleType>()
-                .Where(r => GetRoleHierarchyLevel(r) < level)
-                .ToArray();
+            return await _context.Projects
+                .Where(p => p.Status == ProjectStatus.Active)
+                .Include(p => p.Department)
+                .Include(p => p.ProjectManager)
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Gets projects managed by a specific user.
+        /// </summary>
+        public async Task<List<Project>> GetProjectsByManager(Guid managerId)
+        {
+            return await _context.Projects
+                .Where(p => p.ProjectManagerId == managerId)
+                .Include(p => p.Department)
+                .ToListAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Domain.Entities;
@@ -62,6 +63,29 @@ namespace EnterprisePMO_PWA.Application.Services
                 _context.Projects.Remove(project);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        /// <summary>
+        /// Gets all active projects.
+        /// </summary>
+        public async Task<List<Project>> GetAllActiveProjects()
+        {
+            return await _context.Projects
+                .Where(p => p.Status == ProjectStatus.Active)
+                .Include(p => p.Department)
+                .Include(p => p.ProjectManager)
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Gets projects managed by a specific user.
+        /// </summary>
+        public async Task<List<Project>> GetProjectsByManager(Guid managerId)
+        {
+            return await _context.Projects
+                .Where(p => p.ProjectManagerId == managerId)
+                .Include(p => p.Department)
+                .ToListAsync();
         }
     }
 }

@@ -24,6 +24,7 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
         public DbSet<Role> Roles => Set<Role>();
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
         public DbSet<Notification> Notifications => Set<Notification>();
+        public DbSet<ProjectTask> Tasks => Set<ProjectTask>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -74,6 +75,12 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
                 .HasOne(w => w.Project)
                 .WithMany(p => p.WeeklyUpdates)
                 .HasForeignKey(w => w.ProjectId);
+                
+            // Configure relationship for ProjectTask
+            modelBuilder.Entity<ProjectTask>()
+                .HasOne(t => t.Project)
+                .WithMany(p => p.Tasks)
+                .HasForeignKey(t => t.ProjectId);
         }
     }
 }
