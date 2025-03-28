@@ -1,19 +1,13 @@
 using Microsoft.AspNetCore.Builder;
-using EnterprisePMO_PWA.Web.Middleware;
 
 namespace EnterprisePMO_PWA.Web.Extensions
 {
-    /// <summary>
-    /// Extensions for registering custom middleware
-    /// </summary>
-    public static class MiddlewareExtensions
+    public static class AuthenticationMiddlewareExtensions
     {
-        /// <summary>
-        /// Adds the authentication synchronization middleware to the application pipeline
-        /// </summary>
-        public static IApplicationBuilder UseAuthenticationSync(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseAuthenticationSync(
+            this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<AuthenticationMiddleware>();
+            return builder.UseMiddleware<EnterprisePMO_PWA.Web.Middleware.AuthenticationMiddleware>();
         }
     }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnterprisePMO_PWA.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a15043e2647561a86c8c27e692ab0b7c436ca8b1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+05cd740ed3920800ffb9b60fc0fcd79d4146a7d8")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnterprisePMO_PWA.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnterprisePMO_PWA.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

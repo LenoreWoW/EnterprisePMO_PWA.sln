@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Domain.Services;
 using EnterprisePMO_PWA.Infrastructure.Data;
-using EnterprisePMO_PWA.Application.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnterprisePMO_PWA.Application.Services
@@ -17,13 +17,13 @@ namespace EnterprisePMO_PWA.Application.Services
         private readonly AppDbContext _context;
         private readonly AuditService _auditService;
         private readonly INotificationService _notificationService;
-        private readonly PermissionService _permissionService;
+        private readonly IPermissionService _permissionService;
 
         public ProjectWorkflowService(
             AppDbContext context,
             AuditService auditService,
             INotificationService notificationService,
-            PermissionService permissionService)
+            IPermissionService permissionService)
         {
             _context = context;
             _auditService = auditService;
@@ -179,7 +179,7 @@ namespace EnterprisePMO_PWA.Application.Services
             
             // Update project status
             project.Status = ProjectStatus.Rejected;
-            project.StatusColor = "Red";
+            project.StatusColor = StatusColor.Red;
             await _context.SaveChangesAsync();
             
             // Notify the project manager
@@ -316,7 +316,7 @@ namespace EnterprisePMO_PWA.Application.Services
             
             // Update project status
             project.Status = ProjectStatus.Rejected;
-            project.StatusColor = "Red";
+            project.StatusColor = StatusColor.Red;
             await _context.SaveChangesAsync();
             
             // Notify the project manager
@@ -379,7 +379,7 @@ namespace EnterprisePMO_PWA.Application.Services
             
             // Update project status
             project.Status = ProjectStatus.Completed;
-            project.StatusColor = "Green";
+            project.StatusColor = StatusColor.Green;
             await _context.SaveChangesAsync();
             
             // Notify project stakeholders

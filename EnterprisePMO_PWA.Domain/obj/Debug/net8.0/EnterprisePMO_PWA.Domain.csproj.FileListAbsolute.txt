@@ -1,5 +1,12 @@
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/bin/Debug/net8.0/EnterprisePMO_PWA.Domain.deps.json
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/bin/Debug/net8.0/EnterprisePMO_PWA.Domain.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/bin/Debug/net8.0/EnterprisePMO_PWA.Domain.pdb
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net8.0/EnterprisePMO_PWA.Domain.GeneratedMSBuildEditorConfig.editorconfig
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net8.0/EnterprisePMO_PWA.Domain.AssemblyInfoInputs.cache
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net8.0/EnterprisePMO_PWA.Domain.AssemblyInfo.cs
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net8.0/EnterprisePMO_PWA.Domain.csproj.CoreCompileInputs.cache
 /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net8.0/EnterprisePMO_PWA.Domain.sourcelink.json
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net8.0/EnterprisePMO_PWA.Domain.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net8.0/refint/EnterprisePMO_PWA.Domain.dll
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net8.0/EnterprisePMO_PWA.Domain.pdb
+/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Domain/obj/Debug/net8.0/ref/EnterprisePMO_PWA.Domain.dll

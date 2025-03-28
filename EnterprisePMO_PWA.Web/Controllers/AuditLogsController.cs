@@ -30,7 +30,6 @@ namespace EnterprisePMO_PWA.Web.Controllers
         public async Task<IActionResult> GetEntityAuditLogs(string entityName, Guid entityId)
         {
             var logs = await _context.AuditLogs
-                .Include(a => a.User)
                 .Where(a => a.EntityName == entityName && a.EntityId == entityId)
                 .OrderByDescending(a => a.Timestamp)
                 .Select(a => new
@@ -38,7 +37,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
                     a.Id,
                     a.Action,
                     a.ChangeSummary,
-                    UserName = a.User != null ? a.User.Username : "Unknown",
+                    UserName = a.Username, // Use the Username property directly
                     a.Timestamp,
                     a.IpAddress
                 })
@@ -57,9 +56,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
             [FromQuery] Guid? userId = null,
             [FromQuery] int pageSize = 50)
         {
-            var query = _context.AuditLogs
-                .Include(a => a.User)
-                .AsQueryable();
+            var query = _context.AuditLogs.AsQueryable();
 
             // Apply filters if provided
             if (!string.IsNullOrEmpty(entityName))
@@ -87,7 +84,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
                     a.EntityId,
                     a.Action,
                     a.ChangeSummary,
-                    UserName = a.User != null ? a.User.Username : "Unknown",
+                    UserName = a.Username, // Use the Username property directly
                     a.Timestamp,
                     a.IpAddress
                 })

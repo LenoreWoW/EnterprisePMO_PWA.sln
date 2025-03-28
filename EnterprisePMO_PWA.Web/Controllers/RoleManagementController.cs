@@ -72,7 +72,8 @@ namespace EnterprisePMO_PWA.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        // Fixed: Removed async since there are no await operations
+        public IActionResult Edit(Guid id)
         {
             // Get the role
             var roles = _roleService.GetAllRoles();

@@ -66,6 +66,9 @@ builder.Services.AddScoped<AuditService>();
 builder.Services.AddScoped<PermissionService>();
 builder.Services.AddHttpContextAccessor();
 
+// Register IPermissionService explicitly
+builder.Services.AddScoped<EnterprisePMO_PWA.Domain.Services.IPermissionService, EnterprisePMO_PWA.Application.Services.PermissionService>();
+
 // Register new workflow and notification services
 builder.Services.AddScoped<ProjectWorkflowService>();
 
@@ -89,17 +92,12 @@ builder.Services.AddCors(options =>
     });
 });
 
-// JWT Authentication
-var supabaseProjectRef = builder.Configuration["Supabase:ProjectRef"];
-var supabaseJwtSecret = builder.Configuration["Supabase:JwtSecret"];
-var supabaseIssuer = $"https://{supabaseProjectRef}.supabase.co";
-var supabaseAudience = supabaseProjectRef;
+// JWT Authentication with detailed debugging
+var jwtSecretKey = builder.Configuration["Jwt:SecretKey"] ?? 
+                  Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? 
+                  "your-temporary-secret-key-for-testing-only-make-it-at-least-32-chars";
 
-if (string.IsNullOrEmpty(supabaseJwtSecret))
-{
-    supabaseJwtSecret = builder.Configuration["SUPABASE_JWT_SECRET"] ?? 
-                        Environment.GetEnvironmentVariable("SUPABASE_JWT_SECRET");
-}
+Console.WriteLine($"JWT Secret Key (first 10 chars): {jwtSecretKey.Substring(0, Math.Min(10, jwtSecretKey.Length))}...");
 
 builder.Services.AddAuthentication(options =>
 {
@@ -110,31 +108,51 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
+        ValidateIssuer = false, // Set to false for testing
+        ValidateAudience = false, // Set to false for testing
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = supabaseIssuer,
-        ValidAudience = supabaseAudience,
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(supabaseJwtSecret ?? "fallback-dev-key-not-for-production")),
-        // Add the following to handle clock skew
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey)),
         ClockSkew = TimeSpan.Zero
     };
     
-    // Add event handlers for successful token validation and token validation failure
+    // Add detailed logging for JWT authentication
     options.Events = new JwtBearerEvents
     {
-        OnTokenValidated = context =>
-        {
-            // This is called when the token is successfully validated
-            Console.WriteLine($"Token validated for user: {context.Principal?.Identity?.Name}");
-            return Task.CompletedTask;
-        },
         OnAuthenticationFailed = context =>
         {
-            // This is called when the authentication fails
-            Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+            Console.WriteLine($"JWT Authentication Failed: {context.Exception.Message}");
+            Console.WriteLine($"JWT Auth Failure Stack Trace: {context.Exception.StackTrace}");
+            return Task.CompletedTask;
+        },
+        OnMessageReceived = context =>
+        {
+            Console.WriteLine($"JWT Message Received Path: {context.Request.Path}");
+            Console.WriteLine($"JWT Message Token: {context.Token ?? "No token"}");
+            
+            if (string.IsNullOrEmpty(context.Token))
+            {
+                var authHeader = context.Request.Headers["Authorization"].ToString();
+                Console.WriteLine($"Authorization Header: {authHeader}");
+                
+                if (string.IsNullOrEmpty(authHeader))
+                {
+                    // Check for token in query string (for debugging only)
+                    var queryToken = context.Request.Query["auth_token"].ToString();
+                    if (!string.IsNullOrEmpty(queryToken))
+                    {
+                        Console.WriteLine($"Found token in query string: {queryToken.Substring(0, Math.Min(20, queryToken.Length))}...");
+                        context.Token = queryToken;
+                    }
+                }
+            }
+            
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = context =>
+        {
+            Console.WriteLine($"JWT Token Validated: {context.Principal?.Identity?.Name ?? "Unknown"}");
+            Console.WriteLine($"Token Claims: {string.Join(", ", context.Principal?.Claims.Select(c => $"{c.Type}={c.Value}") ?? Array.Empty<string>())}");
             return Task.CompletedTask;
         }
     };
@@ -191,14 +209,27 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseCors("AllowedOrigins");
 
+// Middleware to log request details
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"Request Path: {context.Request.Path}");
+    Console.WriteLine($"Request Method: {context.Request.Method}");
+    Console.WriteLine($"Authorization Header: {context.Request.Headers["Authorization"]}");
+    
+    await next.Invoke();
+});
+
 app.UseAuthentication();
-app.UseAuthenticationSync(); // Add our custom authentication middleware
+
+// Comment out for testing
+// app.UseAuthenticationSync();
+
 app.UseAuthorization();
 
-// Map controllers with a new default route to Account/Login
+// MODIFIED: Change default route to TestController for debugging
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}");
+    pattern: "{controller=Test}/{action=Index}/{id?}");
 
 // SignalR hub for notifications
 app.MapHub<NotificationHub>("/notificationHub");
@@ -216,6 +247,14 @@ using (var scope = app.Services.CreateScope())
     try
     {
         Console.WriteLine("Seeding database...");
+        // Make sure we're recreating the in-memory database if it exists
+        if (app.Environment.IsDevelopment() && dbContext.Database.IsInMemory())
+        {
+            Console.WriteLine("Recreating in-memory database...");
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.EnsureCreated();
+        }
+        
         DataSeeder.Seed(dbContext);
         Console.WriteLine("Database seeding completed successfully");
     }

@@ -1,0 +1,740 @@
+2025-03-29 01:12:12.611 +03:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2025-03-29 01:12:12.670 +03:00 [DBG] Registered SignalR Protocol: json, implemented by Microsoft.AspNetCore.SignalR.Protocol.JsonHubProtocol.
+2025-03-29 01:12:12.715 +03:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2025-03-29 01:12:12.893 +03:00 [DBG] Entity Framework Core 9.0.3 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory:9.0.3' with options: StoreName=EnterprisePMO 
+2025-03-29 01:12:12.896 +03:00 [INF] Saved 0 entities to in-memory store.
+2025-03-29 01:12:12.907 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .Any()'
+2025-03-29 01:12:12.955 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<bool>(
+    queryContext, 
+    new ResultEnumerable(() => new ValueBuffer(new object[]{ (object)InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Any() })), 
+    Func<QueryContext, ValueBuffer, bool>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .Single()'
+2025-03-29 01:12:12.986 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.987 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.987 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.987 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.987 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.987 +03:00 [DBG] Context 'AppDbContext' started tracking 'Department' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.988 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-29 01:12:12.989 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-29 01:12:12.991 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-29 01:12:12.995 +03:00 [INF] Saved 6 entities to in-memory store.
+2025-03-29 01:12:12.997 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.997 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.997 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.997 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.997 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.998 +03:00 [DBG] An entity of type 'Department' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:12.999 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 6 entities written to the database.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.007 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.008 +03:00 [DBG] Context 'AppDbContext' started tracking 'Role' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.008 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.008 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.011 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-29 01:12:13.011 +03:00 [INF] Saved 12 entities to in-memory store.
+2025-03-29 01:12:13.011 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.011 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.011 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.011 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.011 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.011 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.011 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.011 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.011 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.012 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.012 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.012 +03:00 [DBG] An entity of type 'Role' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.012 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 12 entities written to the database.
+2025-03-29 01:12:13.017 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "Holding")'
+2025-03-29 01:12:13.033 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "Holding"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.036 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "IT")'
+2025-03-29 01:12:13.038 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "IT"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.039 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "Finance")'
+2025-03-29 01:12:13.040 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "Finance"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.041 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "Marketing")'
+2025-03-29 01:12:13.042 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "Marketing"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.043 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "Operations")'
+2025-03-29 01:12:13.044 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "Operations"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.045 +03:00 [DBG] Compiling query expression: 
+'DbSet<Department>()
+    .FirstOrDefault(d => d.Name == "Human Resources")'
+2025-03-29 01:12:13.046 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<Department>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: Department)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required), 
+            right: "Human Resources"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: Department.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: Department.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, Department>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.059 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.063 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.063 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.063 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.063 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.063 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.063 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.063 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.063 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.063 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.064 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.064 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.064 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.064 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.065 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.065 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.065 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.065 +03:00 [DBG] The navigation 'User.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.065 +03:00 [DBG] Context 'AppDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.065 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.065 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.068 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-29 01:12:13.068 +03:00 [INF] Saved 11 entities to in-memory store.
+2025-03-29 01:12:13.068 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.068 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.068 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.069 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.069 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.069 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.069 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.069 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.071 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.071 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.071 +03:00 [DBG] An entity of type 'User' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.071 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 11 entities written to the database.
+2025-03-29 01:12:13.076 +03:00 [DBG] Context 'AppDbContext' started tracking 'StrategicGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.076 +03:00 [DBG] Context 'AppDbContext' started tracking 'StrategicGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.076 +03:00 [DBG] Context 'AppDbContext' started tracking 'StrategicGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.076 +03:00 [DBG] Context 'AppDbContext' started tracking 'StrategicGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.076 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.077 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.077 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-29 01:12:13.077 +03:00 [INF] Saved 4 entities to in-memory store.
+2025-03-29 01:12:13.077 +03:00 [DBG] An entity of type 'StrategicGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.077 +03:00 [DBG] An entity of type 'StrategicGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.077 +03:00 [DBG] An entity of type 'StrategicGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.078 +03:00 [DBG] An entity of type 'StrategicGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.078 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 4 entities written to the database.
+2025-03-29 01:12:13.078 +03:00 [DBG] Compiling query expression: 
+'DbSet<StrategicGoal>()
+    .FirstOrDefault(g => g.Name == "Digital Transformation")'
+2025-03-29 01:12:13.080 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<StrategicGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: StrategicGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required), 
+            right: "Digital Transformation"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: StrategicGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: StrategicGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, StrategicGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.081 +03:00 [DBG] Compiling query expression: 
+'DbSet<StrategicGoal>()
+    .FirstOrDefault(g => g.Name == "Customer Experience")'
+2025-03-29 01:12:13.082 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<StrategicGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: StrategicGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required), 
+            right: "Customer Experience"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: StrategicGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: StrategicGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, StrategicGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.083 +03:00 [DBG] Compiling query expression: 
+'DbSet<StrategicGoal>()
+    .FirstOrDefault(g => g.Name == "Operational Excellence")'
+2025-03-29 01:12:13.084 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<StrategicGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: StrategicGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required), 
+            right: "Operational Excellence"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: StrategicGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: StrategicGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, StrategicGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.085 +03:00 [DBG] Compiling query expression: 
+'DbSet<StrategicGoal>()
+    .FirstOrDefault(g => g.Name == "Market Expansion")'
+2025-03-29 01:12:13.086 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<StrategicGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: StrategicGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required), 
+            right: "Market Expansion"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: StrategicGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: StrategicGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: StrategicGoal.Name (string) Required) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, StrategicGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.093 +03:00 [DBG] The navigation 'AnnualGoal.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.093 +03:00 [DBG] Context 'AppDbContext' started tracking 'AnnualGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.093 +03:00 [DBG] The navigation 'AnnualGoal.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.093 +03:00 [DBG] Context 'AppDbContext' started tracking 'AnnualGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.093 +03:00 [DBG] The navigation 'AnnualGoal.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.093 +03:00 [DBG] Context 'AppDbContext' started tracking 'AnnualGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.093 +03:00 [DBG] The navigation 'AnnualGoal.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.093 +03:00 [DBG] Context 'AppDbContext' started tracking 'AnnualGoal' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.093 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.093 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.094 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-29 01:12:13.094 +03:00 [INF] Saved 4 entities to in-memory store.
+2025-03-29 01:12:13.095 +03:00 [DBG] An entity of type 'AnnualGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.095 +03:00 [DBG] An entity of type 'AnnualGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.095 +03:00 [DBG] An entity of type 'AnnualGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.095 +03:00 [DBG] An entity of type 'AnnualGoal' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.095 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 4 entities written to the database.
+2025-03-29 01:12:13.097 +03:00 [DBG] Compiling query expression: 
+'DbSet<User>()
+    .FirstOrDefault(u => u.Username == "pm1@company.com")'
+2025-03-29 01:12:13.099 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<User>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: User)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 4, 
+                property: Property: User.Username (string) Required Index), 
+            right: "pm1@company.com"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: User.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid?>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: User.DepartmentId (Guid?) FK), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<RoleType>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: User.Role (RoleType) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: User.SupabaseId (string)), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 4, 
+                property: Property: User.Username (string) Required Index) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, User>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.106 +03:00 [DBG] Compiling query expression: 
+'DbSet<User>()
+    .FirstOrDefault(u => u.Username == "pm3@company.com")'
+2025-03-29 01:12:13.131 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<User>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: User)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 4, 
+                property: Property: User.Username (string) Required Index), 
+            right: "pm3@company.com"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: User.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid?>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: User.DepartmentId (Guid?) FK), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<RoleType>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: User.Role (RoleType) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: User.SupabaseId (string)), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 4, 
+                property: Property: User.Username (string) Required Index) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, User>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.139 +03:00 [DBG] Compiling query expression: 
+'DbSet<AnnualGoal>()
+    .FirstOrDefault(g => g.Name == "Cloud Migration")'
+2025-03-29 01:12:13.141 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<AnnualGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: AnnualGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: AnnualGoal.Name (string) Required), 
+            right: "Cloud Migration"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: AnnualGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: AnnualGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: AnnualGoal.Name (string) Required), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid?>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: AnnualGoal.StrategicGoalId (Guid?) FK) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, AnnualGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.153 +03:00 [DBG] Compiling query expression: 
+'DbSet<AnnualGoal>()
+    .FirstOrDefault(g => g.Name == "Mobile App Development")'
+2025-03-29 01:12:13.158 +03:00 [DBG] Generated query execution expression: 
+'queryContext => new QueryingEnumerable<AnnualGoal>(
+    queryContext, 
+    new ResultEnumerable(() => InMemoryShapedQueryCompilingExpressionVisitor.Table(
+        queryContext: queryContext, 
+        entityType: EntityType: AnnualGoal)
+        .Where(valueBuffer => DefaultValueComparer<string>.Equals(
+            left: ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: AnnualGoal.Name (string) Required), 
+            right: "Mobile App Development"))
+        .Select(valueBuffer => new ValueBuffer(new object[]
+        { 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid>(
+                valueBuffer: valueBuffer, 
+                index: 0, 
+                property: Property: AnnualGoal.Id (Guid) Required PK AfterSave:Throw ValueGenerated.OnAdd), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 1, 
+                property: Property: AnnualGoal.Description (string) Required), 
+            ExpressionExtensions.ValueBufferTryReadValue<string>(
+                valueBuffer: valueBuffer, 
+                index: 2, 
+                property: Property: AnnualGoal.Name (string) Required), 
+            (object)ExpressionExtensions.ValueBufferTryReadValue<Guid?>(
+                valueBuffer: valueBuffer, 
+                index: 3, 
+                property: Property: AnnualGoal.StrategicGoalId (Guid?) FK) 
+        }))
+        .FirstOrDefault()), 
+    Func<QueryContext, ValueBuffer, AnnualGoal>, 
+    EnterprisePMO_PWA.Infrastructure.Data.AppDbContext, 
+    False, 
+    True
+)
+    .SingleOrDefault()'
+2025-03-29 01:12:13.184 +03:00 [DBG] The navigation 'Project.AnnualGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.185 +03:00 [DBG] The navigation 'Project.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.187 +03:00 [DBG] The navigation 'Project.ProjectManager' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.187 +03:00 [DBG] The navigation 'Project.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.188 +03:00 [DBG] Context 'AppDbContext' started tracking 'Project' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.188 +03:00 [DBG] The navigation 'Project.AnnualGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.188 +03:00 [DBG] The navigation 'Project.Department' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.188 +03:00 [DBG] The navigation 'Project.ProjectManager' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.188 +03:00 [DBG] The navigation 'Project.StrategicGoal' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.188 +03:00 [DBG] Context 'AppDbContext' started tracking 'Project' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.188 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.188 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.196 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-29 01:12:13.197 +03:00 [INF] Saved 2 entities to in-memory store.
+2025-03-29 01:12:13.197 +03:00 [DBG] An entity of type 'Project' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.197 +03:00 [DBG] An entity of type 'Project' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.197 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 2 entities written to the database.
+2025-03-29 01:12:13.208 +03:00 [DBG] The navigation 'WeeklyUpdate.Project' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.208 +03:00 [DBG] The navigation 'WeeklyUpdate.SubmittedByUser' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.208 +03:00 [DBG] Context 'AppDbContext' started tracking 'WeeklyUpdate' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.210 +03:00 [DBG] The navigation 'WeeklyUpdate.Project' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.210 +03:00 [DBG] The navigation 'WeeklyUpdate.SubmittedByUser' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.210 +03:00 [DBG] Context 'AppDbContext' started tracking 'WeeklyUpdate' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.211 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.211 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.216 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-29 01:12:13.216 +03:00 [INF] Saved 2 entities to in-memory store.
+2025-03-29 01:12:13.217 +03:00 [DBG] An entity of type 'WeeklyUpdate' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.217 +03:00 [DBG] An entity of type 'WeeklyUpdate' tracked by 'AppDbContext' changed state from '"Added"' to '"Unchanged"'. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-03-29 01:12:13.217 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 2 entities written to the database.
+2025-03-29 01:12:13.217 +03:00 [DBG] SaveChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.217 +03:00 [DBG] DetectChanges starting for 'AppDbContext'.
+2025-03-29 01:12:13.217 +03:00 [DBG] DetectChanges completed for 'AppDbContext'.
+2025-03-29 01:12:13.217 +03:00 [DBG] SaveChanges completed for 'AppDbContext' with 0 entities written to the database.
+2025-03-29 01:12:13.218 +03:00 [DBG] 'AppDbContext' disposed.
+2025-03-29 01:12:13.220 +03:00 [DBG] Hosting starting
+2025-03-29 01:12:13.227 +03:00 [INF] User profile is available. Using '/Users/hassanalsahli/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-03-29 01:12:13.234 +03:00 [DBG] Reading data from file '/Users/hassanalsahli/.aspnet/DataProtection-Keys/key-14907a38-0f8e-4337-83a4-acb728fc0219.xml'.
+2025-03-29 01:12:13.237 +03:00 [DBG] Found key {14907a38-0f8e-4337-83a4-acb728fc0219}.
+2025-03-29 01:12:13.240 +03:00 [DBG] Considering key {14907a38-0f8e-4337-83a4-acb728fc0219} with expiration date 2025-06-21 03:22:24Z as default key.
+2025-03-29 01:12:13.241 +03:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2025-03-29 01:12:13.243 +03:00 [DBG] Using managed symmetric algorithm 'System.Security.Cryptography.Aes'.
+2025-03-29 01:12:13.243 +03:00 [DBG] Using managed keyed hash algorithm 'System.Security.Cryptography.HMACSHA256'.
+2025-03-29 01:12:13.245 +03:00 [DBG] Using key {14907a38-0f8e-4337-83a4-acb728fc0219} as the default key.
+2025-03-29 01:12:13.245 +03:00 [DBG] Key ring with default key {14907a38-0f8e-4337-83a4-acb728fc0219} was loaded during application startup.
+2025-03-29 01:12:13.434 +03:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-03-29 01:12:13.439 +03:00 [INF] Now listening on: http://0.0.0.0:7000
+2025-03-29 01:12:13.439 +03:00 [INF] Now listening on: https://0.0.0.0:7001
+2025-03-29 01:12:13.439 +03:00 [DBG] Loaded hosting startup assembly EnterprisePMO_PWA.Web
+2025-03-29 01:12:13.442 +03:00 [INF] Starting Hangfire Server using job storage: 'Hangfire.MemoryStorage.MemoryStorage'
+2025-03-29 01:12:13.442 +03:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2025-03-29 01:12:13.448 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-29 01:12:13.448 +03:00 [INF] Hosting environment: Development
+2025-03-29 01:12:13.448 +03:00 [INF] Content root path: /Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web
+2025-03-29 01:12:13.448 +03:00 [DBG] Execution loop BackgroundServerProcess:ef4f37f4 has started in 1.0458 ms
+2025-03-29 01:12:13.449 +03:00 [DBG] Hosting started
+2025-03-29 01:12:13.478 +03:00 [INF] Server hassans-macbook-pro:17571:b20762bf successfully announced in 29.0477 ms
+2025-03-29 01:12:13.479 +03:00 [DBG] Execution loop ServerHeartbeatProcess:9036e6a3 has started in 0.3767 ms
+2025-03-29 01:12:13.479 +03:00 [INF] Server hassans-macbook-pro:17571:b20762bf is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2025-03-29 01:12:13.479 +03:00 [DBG] Execution loop ServerWatchdog:2c83f196 has started in 0.086 ms
+2025-03-29 01:12:13.479 +03:00 [DBG] Execution loop ServerJobCancellationWatcher:64eabf8a has started in 0.0662 ms
+2025-03-29 01:12:13.480 +03:00 [DBG] Execution loop ExpirationManager:6bcd8c07 has started in 0.1202 ms
+2025-03-29 01:12:13.480 +03:00 [DBG] Execution loop CountersAggregator:1952c9f8 has started in 0.1789 ms
+2025-03-29 01:12:13.480 +03:00 [DBG] Execution loop Worker:73936c6c has started in 0.166 ms
+2025-03-29 01:12:13.480 +03:00 [DBG] Execution loop Worker:e3295ed4 has started in 0.3122 ms
+2025-03-29 01:12:13.480 +03:00 [DBG] Execution loop Worker:6ef5aecc has started in 0.4455 ms
+2025-03-29 01:12:13.480 +03:00 [DBG] Execution loop Worker:98444bd6 has started in 0.6272 ms
+2025-03-29 01:12:13.480 +03:00 [DBG] Execution loop Worker:b629e719 has started in 0.7432 ms
+2025-03-29 01:12:13.480 +03:00 [DBG] Execution loop Worker:774819e7 has started in 0.7826 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:6a030df0 has started in 0.8874 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:bfa7bbd5 has started in 1.0235 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:5e527b98 has started in 1.1198 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:39d3ecaa has started in 1.2744 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:8a6668ad has started in 1.4622 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:133adf6a has started in 1.5321 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:e7f9ca7e has started in 1.5877 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:7af66191 has started in 1.6457 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:502556ee has started in 1.704 ms
+2025-03-29 01:12:13.481 +03:00 [DBG] Execution loop Worker:4d34c6ad has started in 1.7872 ms
+2025-03-29 01:12:13.482 +03:00 [DBG] Execution loop Worker:5cc803bd has started in 1.8508 ms
+2025-03-29 01:12:13.482 +03:00 [DBG] Execution loop Worker:e136f050 has started in 1.9525 ms
+2025-03-29 01:12:13.482 +03:00 [DBG] Execution loop Worker:37acfa14 has started in 2.001 ms
+2025-03-29 01:12:13.482 +03:00 [DBG] Execution loop Worker:ea9e800c has started in 2.0405 ms
+2025-03-29 01:12:13.482 +03:00 [DBG] Execution loop DelayedJobScheduler:d0fab980 has started in 0.0642 ms
+2025-03-29 01:12:13.482 +03:00 [DBG] Execution loop RecurringJobScheduler:3ae71d3d has started in 0.0739 ms
+2025-03-29 01:12:13.482 +03:00 [INF] Server hassans-macbook-pro:17571:b20762bf all the dispatchers started

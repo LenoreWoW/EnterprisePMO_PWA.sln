@@ -1,21 +1,25 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 using EnterprisePMO_PWA.Domain.Services;
 using EnterprisePMO_PWA.Web.Hubs;
-using Microsoft.AspNetCore.SignalR;
 
 namespace EnterprisePMO_PWA.Web.Services
 {
     /// <summary>
-    /// Implements real-time notifications using SignalR.
+    /// Provides real-time notifications using SignalR.
     /// </summary>
     public class SignalRNotificationService : IRealTimeNotificationService
     {
         private readonly IHubContext<NotificationHub> _hubContext;
+        private readonly ILogger<SignalRNotificationService> _logger;
 
-        public SignalRNotificationService(IHubContext<NotificationHub> hubContext)
+        public SignalRNotificationService(
+            IHubContext<NotificationHub> hubContext,
+            ILogger<SignalRNotificationService> logger)
         {
             _hubContext = hubContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -23,8 +27,23 @@ namespace EnterprisePMO_PWA.Web.Services
         /// </summary>
         public async Task SendToUserAsync(Guid userId, string message)
         {
-            await _hubContext.Clients.Group(userId.ToString())
-                .SendAsync("ReceiveNotification", message);
+            try
+            {
+                // In SignalR, we can send to a specific connection or user
+                await _hubContext.Clients.User(userId.ToString())
+                    .SendAsync("ReceiveNotification", new
+                    {
+                        message,
+                        timestamp = DateTime.UtcNow
+                    });
+                
+                _logger.LogInformation($"Sent notification to user {userId}: {message}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error sending notification to user {userId}");
+                // Don't rethrow - notifications are best-effort
+            }
         }
 
         /// <summary>
@@ -32,7 +51,21 @@ namespace EnterprisePMO_PWA.Web.Services
         /// </summary>
         public async Task BroadcastAsync(string message)
         {
-            await _hubContext.Clients.All.SendAsync("ReceiveNotification", message);
+            try
+            {
+                await _hubContext.Clients.All.SendAsync("ReceiveNotification", new
+                {
+                    message,
+                    timestamp = DateTime.UtcNow
+                });
+                
+                _logger.LogInformation($"Broadcast notification: {message}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error broadcasting notification");
+                // Don't rethrow - notifications are best-effort
+            }
         }
     }
 }

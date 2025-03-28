@@ -1,533 +1,387 @@
-@using System.Security.Claims
-
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-50">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Enterprise PMO</title>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="manifest" href="~/manifest.json" />
-    <script src="~/js/supabaseClient.js" type="module"></script>
-    @await RenderSectionAsync("Styles", required: false)
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
 </head>
-<body class="h-full bg-gray-50">
-    <div class="min-h-full flex flex-col">
-        <!-- Navigation -->
-        <nav class="bg-white shadow-sm border-b border-gray-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex h-16 justify-between">
-                    <div class="flex">
-                        <div class="flex flex-shrink-0 items-center">
-                            <a href="/">
-                                <span class="text-xl font-bold text-primary-600">Enterprise PMO</span>
-                            </a>
-                        </div>
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                                <a href="/Dashboard/Index" class="inline-flex items-center border-b-2 @(ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" ? "border-primary-500 text-gray-900" : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700") px-1 pt-1 text-sm font-medium">
-                                    Dashboard
-                                </a>
-                                <a href="/Project/List" class="inline-flex items-center border-b-2 @(ViewContext.RouteData.Values["Controller"].ToString() == "Project" ? "border-primary-500 text-gray-900" : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700") px-1 pt-1 text-sm font-medium">
-                                    Projects
-                                </a>
-                                <a href="/Kanban/Index" class="inline-flex items-center border-b-2 @(ViewContext.RouteData.Values["Controller"].ToString() == "Kanban" ? "border-primary-500 text-gray-900" : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700") px-1 pt-1 text-sm font-medium">
-                                    Tasks
-                                </a>
-                                
-                                @if (User.IsInRole("Admin") || User.IsInRole("MainPMO") || User.IsInRole("SubPMO"))
-                                {
-                                    <div class="relative inline-block text-left">
-                                        <button type="button" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700" id="reports-menu-button" aria-expanded="false" aria-haspopup="true">
-                                            Reports
-                                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-                                        <div class="hidden absolute z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="reports-menu-button" tabindex="-1" id="reports-menu">
-                                            <a href="/Reports/ProjectReport" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Project Reports</a>
-                                            <a href="/Reports/DepartmentPerformance" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Department Performance</a>
-                                            <a href="/Reports/GoalAlignment" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Goal Alignment</a>
-                                            <a href="/Reports/Custom" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Custom Reports</a>
-                                        </div>
-                                    </div>
-                                }
-                                
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <div class="relative inline-block text-left">
-                                        <button type="button" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700" id="admin-menu-button" aria-expanded="false" aria-haspopup="true">
-                                            Administration
-                                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-                                        <div class="hidden absolute z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="admin-menu-button" tabindex="-1" id="admin-menu">
-                                            <a href="/UserManagement/Index" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">User Management</a>
-                                            <a href="/RoleManagement/Index" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Role Management</a>
-                                            <a href="/Department/List" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Departments</a>
-                                            <a href="/AuditLogs/Index" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Audit Logs</a>
-                                            <a href="/Settings/Index" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">System Settings</a>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        }
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-blue-800 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="/Dashboard" class="text-xl font-bold">Enterprise PMO</a>
                     </div>
-                    
-                    <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            <!-- Notification dropdown -->
-                            <div class="relative ml-3">
-                                <button type="button" class="relative rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2" id="notification-button">
+                    @if (User?.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="hidden md:ml-6 md:flex md:space-x-8">
+                            <a href="/Dashboard" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
+                                <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+                            </a>
+                            @if (User?.IsInRole("ProjectManager") == true || User?.IsInRole("SubPMO") == true || User?.IsInRole("MainPMO") == true)
+                            {
+                                <a href="/Project/List" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
+                                    <i class="fas fa-project-diagram mr-1"></i> Projects
+                                </a>
+                            }
+                            @if (User?.IsInRole("Admin") == true || User?.IsInRole("MainPMO") == true)
+                            {
+                                <a href="/UserManagement" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
+                                    <i class="fas fa-users mr-1"></i> Users
+                                </a>
+                                <a href="/api/auditlogs/recent" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
+                                    <i class="fas fa-history mr-1"></i> Audit Logs
+                                </a>
+                            }
+                            @if (User?.IsInRole("Admin") == true)
+                            {
+                                <a href="/RoleHierarchy" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
+                                    <i class="fas fa-sitemap mr-1"></i> Roles
+                                </a>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="flex items-center">
+                    @if (User?.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
+                            <!-- Notifications -->
+                            <div x-data="{ notificationsOpen: false, unreadCount: 0 }" class="ml-3 relative">
+                                <button @@click="notificationsOpen = !notificationsOpen" class="p-1 rounded-full text-white hover:text-gray-200 focus:outline-none">
                                     <span class="sr-only">View notifications</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                    </svg>
-                                    <span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white hidden" id="notification-count">0</span>
+                                    <i class="fas fa-bell text-lg"></i>
+                                    <span x-show="unreadCount > 0" x-text="unreadCount" class="absolute top-0 right-0 -mt-1 -mr-1 inline-flex items-center justify-center px-2 py-1 text-xs leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
                                 </button>
-                                <div class="hidden absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" id="notification-menu">
-                                    <div class="px-4 py-2 border-b border-gray-200 flex justify-between items-center">
-                                        <h3 class="text-sm font-medium text-gray-900">Notifications</h3>
-                                        <button class="text-xs text-primary-600 hover:text-primary-800">Mark all as read</button>
-                                    </div>
-                                    <div id="notification-list" class="max-h-60 overflow-y-auto py-2">
-                                        <div class="px-4 py-2 text-sm text-gray-500 text-center">
-                                            No new notifications
+                                <div x-show="notificationsOpen" @@click.away="notificationsOpen = false" x-cloak
+                                     class="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div class="py-1">
+                                        <div class="px-4 py-2 border-b">
+                                            <div class="flex justify-between items-center">
+                                                <h3 class="text-sm font-medium text-gray-900">Notifications</h3>
+                                                <button @@click="markAllAsRead" class="text-xs text-blue-600 hover:text-blue-800">Mark all as read</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="border-t border-gray-200 px-4 py-2 text-center">
-                                        <a href="#" class="text-xs text-gray-500 hover:text-gray-700">View all notifications</a>
+                                        <div id="notifications-container" class="max-h-60 overflow-y-auto">
+                                            <div class="px-4 py-2 text-center text-sm text-gray-500">
+                                                Loading notifications...
+                                            </div>
+                                        </div>
+                                        <div class="border-t">
+                                            <a href="/notifications" class="block w-full px-4 py-2 text-xs text-center text-blue-600 hover:text-blue-800">
+                                                View all notifications
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <!-- Profile dropdown -->
-                            <div class="relative ml-3">
-                                <button type="button" class="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                    <span class="sr-only">Open user menu</span>
-                                    <div class="h-8 w-8 rounded-full bg-primary-600 flex items-center justify-content-center text-white">
-                                        @(User.Identity?.Name != null ? User.Identity.Name.Substring(0, 1).ToUpper() : "U")
+                            <div x-data="{ open: false }" class="ml-3 relative">
+                                <div>
+                                    <button @@click="open = !open" class="p-1 rounded-full text-white hover:text-gray-200 focus:outline-none">
+                                        <span class="sr-only">Open user menu</span>
+                                        <i class="fas fa-user-circle text-2xl"></i>
+                                    </button>
+                                </div>
+                                <div x-show="open" @@click.away="open = false" x-cloak
+                                     class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div class="px-4 py-2 text-sm text-gray-500 border-b">
+                                        Signed in as <span class="font-semibold text-gray-700">@User?.Identity?.Name</span>
                                     </div>
-                                </button>
-                                <div class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" id="user-menu">
-                                    <div class="px-4 py-2 text-xs text-gray-500 border-b border-gray-200">
-                                        Signed in as <strong>@User.Identity?.Name</strong>
-                                    </div>
-                                    <a href="/Account/Profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
-                                    <a href="/Account/Settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
-                                    <form asp-controller="Account" asp-action="Logout" method="post" id="logout-form">
-                                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100" role="menuitem">
-                                            Logout
+                                    <a href="/Account/Profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <i class="fas fa-user-cog mr-2"></i> Your Profile
+                                    </a>
+                                    <a href="/Account/Settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <i class="fas fa-cog mr-2"></i> Settings
+                                    </a>
+                                    <form id="logoutForm" action="/api/auth/logout" method="post" class="border-t">
+                                        <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            <i class="fas fa-sign-out-alt mr-2"></i> Sign out
                                         </button>
                                     </form>
                                 </div>
                             </div>
-                        }
-                        else
-                        {
-                            <div class="flex items-center space-x-4">
-                                <a href="/Account/Login" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md">Login</a>
-                                <a href="/Account/Signup" class="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md">Sign Up</a>
-                            </div>
-                        }
-                    </div>
-                    
-                    <div class="-mr-2 flex items-center sm:hidden">
+                        </div>
+                        
                         <!-- Mobile menu button -->
-                        <button type="button" class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
-                            <span class="sr-only">Open main menu</span>
-                            <!-- Icon when menu is closed -->
-                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                            <!-- Icon when menu is open -->
-                            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile menu, show/hide based on menu state. -->
-            <div class="sm:hidden hidden" id="mobile-menu">
-                <div class="space-y-1 pt-2 pb-3">
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <a href="/Dashboard/Index" class="block py-2 pl-3 pr-4 text-base font-medium @(ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" ? "text-primary-700 bg-primary-50 border-l-4 border-primary-500" : "text-gray-600 hover:bg-gray-50 hover:border-l-4 hover:border-gray-300 hover:text-gray-800")">Dashboard</a>
-                        <a href="/Project/List" class="block py-2 pl-3 pr-4 text-base font-medium @(ViewContext.RouteData.Values["Controller"].ToString() == "Project" ? "text-primary-700 bg-primary-50 border-l-4 border-primary-500" : "text-gray-600 hover:bg-gray-50 hover:border-l-4 hover:border-gray-300 hover:text-gray-800")">Projects</a>
-                        <a href="/Kanban/Index" class="block py-2 pl-3 pr-4 text-base font-medium @(ViewContext.RouteData.Values["Controller"].ToString() == "Kanban" ? "text-primary-700 bg-primary-50 border-l-4 border-primary-500" : "text-gray-600 hover:bg-gray-50 hover:border-l-4 hover:border-gray-300 hover:text-gray-800")">Tasks</a>
-                        
-                        @if (User.IsInRole("Admin") || User.IsInRole("MainPMO") || User.IsInRole("SubPMO"))
-                        {
-                            <button class="flex w-full items-center justify-between py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" id="mobile-reports-button">
-                                Reports
-                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
+                        <div class="md:hidden -mr-2 flex items-center">
+                            <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-100 hover:bg-blue-700 focus:outline-none">
+                                <span class="sr-only">Open main menu</span>
+                                <i class="fas fa-bars text-lg"></i>
                             </button>
-                            <div class="hidden pl-5 pr-2" id="mobile-reports-menu">
-                                <a href="/Reports/ProjectReport" class="block py-2 pl-3 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">Project Reports</a>
-                                <a href="/Reports/DepartmentPerformance" class="block py-2 pl-3 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">Department Performance</a>
-                                <a href="/Reports/GoalAlignment" class="block py-2 pl-3 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">Goal Alignment</a>
-                                <a href="/Reports/Custom" class="block py-2 pl-3 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">Custom Reports</a>
-                            </div>
-                        }
-                        
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <button class="flex w-full items-center justify-between py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" id="mobile-admin-button">
-                                Administration
-                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                            <div class="hidden pl-5 pr-2" id="mobile-admin-menu">
-                                <a href="/UserManagement/Index" class="block py-2 pl-3 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">User Management</a>
-                                <a href="/RoleManagement/Index" class="block py-2 pl-3 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">Role Management</a>
-                                <a href="/Department/List" class="block py-2 pl-3 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">Departments</a>
-                                <a href="/AuditLogs/Index" class="block py-2 pl-3 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">Audit Logs</a>
-                                <a href="/Settings/Index" class="block py-2 pl-3 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">System Settings</a>
-                            </div>
-                        }
-                        
-                        <div class="border-t border-gray-200 pt-4 pb-3">
-                            <div class="flex items-center px-4">
-                                <div class="flex-shrink-0">
-                                    <div class="h-10 w-10 rounded-full bg-primary-600 flex items-center justify-center text-white">
-                                        @(User.Identity.Name != null ? User.Identity.Name.Substring(0, 1).ToUpper() : "U")
-                                    </div>
-                                </div>
-                                <div class="ml-3">
-                                    <div class="text-base font-medium text-gray-800">@User.Identity.Name</div>
-                                    <div class="text-sm font-medium text-gray-500">@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value</div>
-                                </div>
-                                <button type="button" class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
-                                    <span class="sr-only">View notifications</span>
-                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="mt-3 space-y-1">
-                                <a href="/Account/Profile" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Profile</a>
-                                <a href="/Account/Settings" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Settings</a>
-                                <form asp-controller="Account" asp-action="Logout" method="post">
-                                    <button type="submit" class="block w-full text-left px-4 py-2 text-base font-medium text-red-600 hover:bg-gray-100">
-                                        Sign out
-                                    </button>
-                                </form>
-                            </div>
                         </div>
                     }
                     else
                     {
-                        <div class="flex flex-col space-y-3 px-4 py-3">
-                            <a href="/Account/Login" class="w-full py-2 text-center text-sm font-medium text-gray-700 hover:bg-gray-50 border border-gray-300 rounded-md">Login</a>
-                            <a href="/Account/Signup" class="w-full py-2 text-center text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md">Sign Up</a>
+                        <div class="flex items-center">
+                            <a href="/Account/Login" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Log in</a>
+                            <a href="/Account/Signup" class="ml-2 bg-white text-blue-800 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Sign up</a>
                         </div>
                     }
                 </div>
             </div>
-        </nav>
-
-        <!-- Page Content -->
-        <main class="flex-grow">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                @RenderBody()
-            </div>
-        </main>
+        </div>
         
-        <!-- Footer -->
-        <footer class="bg-white border-t border-gray-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div class="md:flex md:items-center md:justify-between">
-                    <div class="text-center md:text-left">
-                        <p class="text-sm text-gray-500">&copy; @DateTime.Now.Year - Enterprise PMO</p>
-                    </div>
-                    <div class="flex justify-center md:justify-end space-x-6 mt-4 md:mt-0">
-                        <a href="/Home/Privacy" class="text-sm text-gray-500 hover:text-gray-700">Privacy Policy</a>
-                        <a href="/Home/Terms" class="text-sm text-gray-500 hover:text-gray-700">Terms of Service</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-    
-    <!-- Application status indicator -->
-    <div id="app-status" class="fixed inset-x-0 bottom-0 flex items-center justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end hidden">
-        <div class="max-w-sm w-full bg-yellow-500 shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
-            <div class="p-4">
-                <div class="flex items-start">
-                    <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                        </svg>
-                    </div>
-                    <div class="ml-3 w-0 flex-1 pt-0.5">
-                        <p class="text-sm font-medium text-white">You are offline</p>
-                        <p class="mt-1 text-sm text-white opacity-80">Some features may be limited.</p>
-                    </div>
-                    <div class="ml-4 flex-shrink-0 flex">
-                        <button type="button" class="inline-flex text-white hover:text-gray-200" id="dismiss-offline-alert">
-                            <span class="sr-only">Close</span>
-                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
+        <!-- Mobile menu, show/hide based on menu state -->
+        <div id="mobile-menu" class="md:hidden hidden bg-blue-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/Dashboard" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+                </a>
+                @if (User?.IsInRole("ProjectManager") == true || User?.IsInRole("SubPMO") == true || User?.IsInRole("MainPMO") == true)
+                {
+                    <a href="/Project/List" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+                        <i class="fas fa-project-diagram mr-1"></i> Projects
+                    </a>
+                }
+                @if (User?.IsInRole("Admin") == true || User?.IsInRole("MainPMO") == true)
+                {
+                    <a href="/UserManagement" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+                        <i class="fas fa-users mr-1"></i> Users
+                    </a>
+                    <a href="/api/auditlogs/recent" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+                        <i class="fas fa-history mr-1"></i> Audit Logs
+                    </a>
+                }
+                @if (User?.IsInRole("Admin") == true)
+                {
+                    <a href="/RoleHierarchy" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+                        <i class="fas fa-sitemap mr-1"></i> Roles
+                    </a>
+                }
+                <div class="border-t border-blue-800 pt-2">
+                    <a href="/Account/Profile" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+                        <i class="fas fa-user-cog mr-2"></i> Your Profile
+                    </a>
+                    <form id="mobileLogoutForm" action="/api/auth/logout" method="post">
+                        <button type="submit" class="w-full text-left text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Sign out
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Toast container for notifications -->
-    <div id="toast-container" class="fixed bottom-0 right-0 p-4 space-y-4"></div>
+    </nav>
 
-    <!-- JavaScript Dependencies -->
+    <!-- Page header with breadcrumbs -->
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <h1 class="text-xl font-bold text-gray-900">@ViewData["Title"]</h1>
+                @if (ViewBag.User != null)
+                {
+                    <div class="text-sm text-gray-600">
+                        <span class="font-medium">@ViewBag.User?.Username</span> | 
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">@ViewBag.User?.Role</span>
+                        @if (!string.IsNullOrEmpty(ViewBag.User?.Department))
+                        {
+                            <span>| @ViewBag.User?.Department</span>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-10">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-500 text-sm">
+                    &copy; @DateTime.Now.Year - Enterprise PMO Platform
+                </div>
+                <div class="text-gray-500 text-sm">
+                    <a href="/Home/Privacy" class="hover:text-gray-700">Privacy</a> | 
+                    <a href="/Home/Terms" class="hover:text-gray-700">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
-        // Utility function to toggle elements
-        function toggleElement(elementId) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.classList.toggle('hidden');
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // Desktop menu toggling
-            const userMenuButton = document.getElementById('user-menu-button');
-            const userMenu = document.getElementById('user-menu');
-            if (userMenuButton && userMenu) {
-                userMenuButton.addEventListener('click', function() {
-                    toggleElement('user-menu');
-                    userMenuButton.setAttribute('aria-expanded', userMenu.classList.contains('hidden') ? 'false' : 'true');
-                });
-            }
-            
-            const notificationButton = document.getElementById('notification-button');
-            const notificationMenu = document.getElementById('notification-menu');
-            if (notificationButton && notificationMenu) {
-                notificationButton.addEventListener('click', function() {
-                    toggleElement('notification-menu');
-                });
-            }
-            
-            const adminMenuButton = document.getElementById('admin-menu-button');
-            const adminMenu = document.getElementById('admin-menu');
-            if (adminMenuButton && adminMenu) {
-                adminMenuButton.addEventListener('click', function() {
-                    toggleElement('admin-menu');
-                    adminMenuButton.setAttribute('aria-expanded', adminMenu.classList.contains('hidden') ? 'false' : 'true');
-                });
-            }
-            
-            const reportsMenuButton = document.getElementById('reports-menu-button');
-            const reportsMenu = document.getElementById('reports-menu');
-            if (reportsMenuButton && reportsMenu) {
-                reportsMenuButton.addEventListener('click', function() {
-                    toggleElement('reports-menu');
-                    reportsMenuButton.setAttribute('aria-expanded', reportsMenu.classList.contains('hidden') ? 'false' : 'true');
-                });
-            }
-            
-            // Mobile menu toggling
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', function() {
-                    toggleElement('mobile-menu');
-                    mobileMenuButton.setAttribute('aria-expanded', mobileMenu.classList.contains('hidden') ? 'false' : 'true');
-                    
-                    // Toggle the visible icon
-                    const openIcon = mobileMenuButton.querySelector('svg:first-child');
-                    const closeIcon = mobileMenuButton.querySelector('svg:last-child');
-                    if (openIcon && closeIcon) {
-                        openIcon.classList.toggle('hidden');
-                        closeIcon.classList.toggle('hidden');
-                    }
-                });
-            }
-            
-            const mobileReportsButton = document.getElementById('mobile-reports-button');
-            const mobileReportsMenu = document.getElementById('mobile-reports-menu');
-            if (mobileReportsButton && mobileReportsMenu) {
-                mobileReportsButton.addEventListener('click', function() {
-                    toggleElement('mobile-reports-menu');
-                });
-            }
-            
-            const mobileAdminButton = document.getElementById('mobile-admin-button');
-            const mobileAdminMenu = document.getElementById('mobile-admin-menu');
-            if (mobileAdminButton && mobileAdminMenu) {
-                mobileAdminButton.addEventListener('click', function() {
-                    toggleElement('mobile-admin-menu');
-                });
-            }
-            
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', function(event) {
-                // Close user menu when clicking outside
-                if (userMenuButton && userMenu && !userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
-                    userMenu.classList.add('hidden');
-                    userMenuButton.setAttribute('aria-expanded', 'false');
-                }
-                
-                // Close notification menu when clicking outside
-                if (notificationButton && notificationMenu && !notificationButton.contains(event.target) && !notificationMenu.contains(event.target)) {
-                    notificationMenu.classList.add('hidden');
-                }
-                
-                // Close admin menu when clicking outside
-                if (adminMenuButton && adminMenu && !adminMenuButton.contains(event.target) && !adminMenu.contains(event.target)) {
-                    adminMenu.classList.add('hidden');
-                    adminMenuButton.setAttribute('aria-expanded', 'false');
-                }
-                
-                // Close reports menu when clicking outside
-                if (reportsMenuButton && reportsMenu && !reportsMenuButton.contains(event.target) && !reportsMenu.contains(event.target)) {
-                    reportsMenu.classList.add('hidden');
-                    reportsMenuButton.setAttribute('aria-expanded', 'false');
-                }
-            });
-            
-            // Online/offline detection
-            function updateOnlineStatus() {
-                const statusIndicator = document.getElementById('app-status');
-                if (statusIndicator) {
-                    if (navigator.onLine) {
-                        statusIndicator.classList.add('hidden');
-                    } else {
-                        statusIndicator.classList.remove('hidden');
-                    }
-                }
-            }
-            
-            window.addEventListener('online', updateOnlineStatus);
-            window.addEventListener('offline', updateOnlineStatus);
-            updateOnlineStatus(); // Initial check
-            
-            const dismissOfflineAlert = document.getElementById('dismiss-offline-alert');
-            if (dismissOfflineAlert) {
-                dismissOfflineAlert.addEventListener('click', function() {
-                    const statusIndicator = document.getElementById('app-status');
-                    if (statusIndicator) {
-                        statusIndicator.classList.add('hidden');
-                    }
-                });
-            }
-            
-            // Check for authentication status
-            const token = localStorage.getItem('auth_token');
-            if (token) {
-                // Fetch unread notifications
-                fetchUnreadNotifications();
-                
-                // Set up refresh interval
-                setInterval(fetchUnreadNotifications, 60000); // Every minute
-            }
+            mobileMenu.classList.toggle('hidden');
         });
         
-        // Fetch unread notifications
-        function fetchUnreadNotifications() {
-            const token = localStorage.getItem('auth_token');
-            if (!token) return;
+        // Notifications handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Only run for authenticated users
+            if (!document.querySelector('[id^="logoutForm"]')) return;
             
-            fetch('/api/notifications/unread/count', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const notificationCount = document.getElementById('notification-count');
-                if (notificationCount && data.count > 0) {
-                    notificationCount.textContent = data.count;
-                    notificationCount.classList.remove('hidden');
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching notifications:', error);
+            let notificationsData = [];
+            
+            // Alpine.js store for notifications
+            document.addEventListener('alpine:init', () => {
+                Alpine.store('notifications', {
+                    unreadCount: 0,
+                    items: []
+                });
             });
-        }
-        
-        // Show toast notification
-        function showToast(message, type = 'info', duration = 5000) {
-            const toastContainer = document.getElementById('toast-container');
-            if (!toastContainer) return;
             
-            // Determine toast color based on type
-            let bgColor, textColor, iconColor;
-            let icon = '';
+            // Fetch notifications initially
+            fetchNotifications();
             
-            switch (type) {
-                case 'success':
-                    bgColor = 'bg-green-500';
-                    textColor = 'text-white';
-                    iconColor = 'text-white';
-                    icon = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>';
-                    break;
-                case 'error':
-                    bgColor = 'bg-red-500';
-                    textColor = 'text-white';
-                    iconColor = 'text-white';
-                    icon = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>';
-                    break;
-                case 'warning':
-                    bgColor = 'bg-yellow-500';
-                    textColor = 'text-white';
-                    iconColor = 'text-white';
-                    icon = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
-                    break;
-                case 'info':
-                default:
-                    bgColor = 'bg-blue-500';
-                    textColor = 'text-white';
-                    iconColor = 'text-white';
-                    icon = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>';
+            // Refresh notifications every 30 seconds
+            setInterval(fetchNotifications, 30000);
+            
+            function fetchNotifications() {
+                fetch('/api/notifications/unread')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            notificationsData = data.data;
+                            updateNotificationsUI(notificationsData);
+                            
+                            // Update unread count in Alpine.js store
+                            if (Alpine.store) {
+                                Alpine.store('notifications').unreadCount = notificationsData.length;
+                                Alpine.store('notifications').items = notificationsData;
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error fetching notifications:', error));
             }
             
-            // Create toast element
-            const toastId = `toast-${Date.now()}`;
-            const toast = document.createElement('div');
-            toast.id = toastId;
-            toast.className = `max-w-sm w-full ${bgColor} shadow-lg rounded-lg pointer-events-auto flex items-start`;
-            toast.innerHTML = `
-                <div class="p-4 flex-1 flex items-start">
-                    <div class="${iconColor} flex-shrink-0">
-                        ${icon}
-                    </div>
-                    <div class="ml-3 flex-1">
-                        <p class="text-sm font-medium ${textColor}">${message}</p>
-                    </div>
-                </div>
-                <div class="flex border-l border-white border-opacity-20">
-                    <button type="button" class="flex p-2 focus:outline-none" onclick="document.getElementById('${toastId}').remove()">
-                        <span class="sr-only">Close</span>
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </div>
-            `;
-            
-            // Add to container
-            toastContainer.appendChild(toast);
-            
-            // Remove after duration
-            setTimeout(() => {
-                if (document.getElementById(toastId)) {
-                    document.getElementById(toastId).remove();
+            function updateNotificationsUI(notifications) {
+                const container = document.getElementById('notifications-container');
+                if (!container) return;
+                
+                if (notifications.length === 0) {
+                    container.innerHTML = `
+                        <div class="px-4 py-2 text-center text-sm text-gray-500">
+                            No notifications at this time
+                        </div>
+                    `;
+                    return;
                 }
-            }, duration);
-        }
+                
+                let html = '';
+                notifications.forEach(notification => {
+                    html += `
+                        <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100">
+                            <div class="flex">
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-800">${notification.message}</p>
+                                    <p class="text-xs text-gray-500">${formatDate(notification.createdAt)}</p>
+                                </div>
+                                <button data-id="${notification.id}" class="mark-read text-xs text-blue-600 hover:text-blue-800">
+                                    Mark as read
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+                
+                // Add event listeners for mark as read buttons
+                container.querySelectorAll('.mark-read').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const id = this.getAttribute('data-id');
+                        markAsRead(id);
+                    });
+                });
+            }
+            
+            function markAsRead(id) {
+                fetch(`/api/notifications/${id}/read`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        fetchNotifications();
+                    }
+                })
+                .catch(error => console.error('Error marking notification as read:', error));
+            }
+            
+            function markAllAsRead() {
+                fetch('/api/notifications/mark-all-read', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        fetchNotifications();
+                    }
+                })
+                .catch(error => console.error('Error marking all notifications as read:', error));
+            }
+            
+            // Format date for notifications
+            function formatDate(dateStr) {
+                const date = new Date(dateStr);
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / 60000);
+                const diffHours = Math.floor(diffMs / 3600000);
+                const diffDays = Math.floor(diffMs / 86400000);
+                
+                if (diffMins < 1) {
+                    return 'Just now';
+                } else if (diffMins < 60) {
+                    return `${diffMins} minute${diffMins === 1 ? '' : 's'} ago`;
+                } else if (diffHours < 24) {
+                    return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+                } else if (diffDays < 7) {
+                    return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
+                } else {
+                    return date.toLocaleDateString();
+                }
+            }
+            
+            // Logout form handling
+            document.querySelectorAll('[id^="logoutForm"]').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    fetch('/api/auth/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('user');
+                        window.location.href = '/Account/Login';
+                    })
+                    .catch(error => {
+                        console.error('Logout error:', error);
+                        window.location.href = '/Account/Login';
+                    });
+                });
+            });
+        });
     </script>
     
     @await RenderSectionAsync("Scripts", required: false)
