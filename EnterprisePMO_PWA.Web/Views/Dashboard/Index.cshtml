@@ -1,390 +1,359 @@
 @{
     ViewData["Title"] = "Dashboard";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
 }
 
-<div class="container-fluid py-4">
-    <div class="row align-items-center mb-4">
-        <div class="col">
-            <h1 class="display-6 fw-bold mb-0">Welcome to your Dashboard</h1>
-            <p class="text-muted">Overview of your project portfolio and activities</p>
+<div class="mb-6">
+    <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
+    <p class="mt-1 text-sm text-gray-500">Welcome to your project management dashboard.</p>
+</div>
+
+<!-- Dashboard stats -->
+<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- Projects stat card -->
+    <div class="overflow-hidden rounded-lg bg-white shadow">
+        <div class="p-5">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Active Projects</dt>
+                        <dd>
+                            <div class="text-lg font-medium text-gray-900">12</div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
         </div>
-        <div class="col-auto">
-            <div class="btn-group">
-                <button type="button" class="btn btn-outline-primary" id="refreshDashboard">
-                    <i class="bi bi-arrow-clockwise me-1"></i> Refresh
-                </button>
-                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-funnel me-2"></i>Filter View</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-printer me-2"></i>Print Dashboard</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Dashboard Settings</a></li>
-                </ul>
+        <div class="bg-gray-50 px-5 py-3">
+            <div class="text-sm">
+                <a href="/Project/List" class="font-medium text-primary-600 hover:text-primary-700">View all projects</a>
             </div>
         </div>
     </div>
 
-    <!-- Dashboard Stats -->
-    <div class="row g-4 mb-4">
-        <div class="col-md-6 col-lg-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0 me-3 rounded-circle bg-primary bg-opacity-10 p-3">
-                            <i class="bi bi-kanban text-primary fs-4"></i>
-                        </div>
-                        <div>
-                            <h6 class="card-title text-muted mb-0">Active Projects</h6>
-                            <h2 class="fw-bold mb-0">12</h2>
-                        </div>
+    <!-- Tasks stat card -->
+    <div class="overflow-hidden rounded-lg bg-white shadow">
+        <div class="p-5">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Pending Tasks</dt>
+                        <dd>
+                            <div class="text-lg font-medium text-gray-900">18</div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3">
+            <div class="text-sm">
+                <a href="/Kanban/Index" class="font-medium text-primary-600 hover:text-primary-700">View kanban board</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Changes stat card -->
+    <div class="overflow-hidden rounded-lg bg-white shadow">
+        <div class="p-5">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                    </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Pending Changes</dt>
+                        <dd>
+                            <div class="text-lg font-medium text-gray-900">4</div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3">
+            <div class="text-sm">
+                <a href="/ChangeRequests/List" class="font-medium text-primary-600 hover:text-primary-700">View change requests</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status card -->
+    <div class="overflow-hidden rounded-lg bg-white shadow">
+        <div class="p-5">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Overall Progress</dt>
+                        <dd>
+                            <div class="text-lg font-medium text-gray-900">76%</div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3">
+            <div class="text-sm">
+                <a href="/Reports/ProjectReport" class="font-medium text-primary-600 hover:text-primary-700">View reports</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <!-- Left column - Project list -->
+    <div class="grid grid-cols-1 gap-6 lg:col-span-2">
+        <!-- Projects table -->
+        <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="p-6">
+                <div class="sm:flex sm:items-center sm:justify-between">
+                    <h3 class="text-base font-semibold leading-6 text-gray-900">Recent Projects</h3>
+                    <div class="mt-3 sm:ml-4 sm:mt-0">
+                        <a href="/Project/Create" permission="ManageProjects" class="inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-700">
+                            <svg class="-ml-0.5 mr-1.5 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>
+                            New Project
+                        </a>
                     </div>
-                    <div class="progress" style="height: 5px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="text-end mt-2">
-                        <a href="/Project/List" class="text-decoration-none small">View All <i class="bi bi-arrow-right"></i></a>
+                </div>
+                <div class="mt-6 flow-root">
+                    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                            <table class="min-w-full divide-y divide-gray-300">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
+                                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell">Client</th>
+                                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell">Deadline</th>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                                            <span class="sr-only">Actions</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">ERP System Migration</td>
+                                        <td class="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">Internal IT</td>
+                                        <td class="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">Jul 25, 2025</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                                            <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">On Track</span>
+                                        </td>
+                                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                            <a href="/Project/Details/1" class="text-primary-600 hover:text-primary-900">View</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Customer Mobile App</td>
+                                        <td class="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">Marketing Division</td>
+                                        <td class="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">Apr 23, 2025</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                                            <span class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800">At Risk</span>
+                                        </td>
+                                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                            <a href="/Project/Details/2" class="text-primary-600 hover:text-primary-900">View</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Digital Transformation</td>
+                                        <td class="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">Finance Dept</td>
+                                        <td class="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">Aug 12, 2025</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                                            <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">On Track</span>
+                                        </td>
+                                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                            <a href="/Project/Details/3" class="text-primary-600 hover:text-primary-900">View</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="col-md-6 col-lg-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0 me-3 rounded-circle bg-success bg-opacity-10 p-3">
-                            <i class="bi bi-check2-circle text-success fs-4"></i>
-                        </div>
-                        <div>
-                            <h6 class="card-title text-muted mb-0">Completed Tasks</h6>
-                            <h2 class="fw-bold mb-0">28</h2>
-                        </div>
-                    </div>
-                    <div class="progress" style="height: 5px;">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="text-end mt-2">
-                        <a href="/Kanban/Index" class="text-decoration-none small">View Board <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0 me-3 rounded-circle bg-warning bg-opacity-10 p-3">
-                            <i class="bi bi-exclamation-triangle text-warning fs-4"></i>
-                        </div>
-                        <div>
-                            <h6 class="card-title text-muted mb-0">Issues Reported</h6>
-                            <h2 class="fw-bold mb-0">4</h2>
-                        </div>
-                    </div>
-                    <div class="progress" style="height: 5px;">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="text-end mt-2">
-                        <a href="#" class="text-decoration-none small">View Issues <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0 me-3 rounded-circle bg-info bg-opacity-10 p-3">
-                            <i class="bi bi-calendar-check text-info fs-4"></i>
-                        </div>
-                        <div>
-                            <h6 class="card-title text-muted mb-0">Upcoming Deadlines</h6>
-                            <h2 class="fw-bold mb-0">7</h2>
-                        </div>
-                    </div>
-                    <div class="progress" style="height: 5px;">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="text-end mt-2">
-                        <a href="#" class="text-decoration-none small">View Calendar <i class="bi bi-arrow-right"></i></a>
+
+        <!-- Progress chart -->
+        <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="p-6">
+                <h3 class="text-base font-semibold leading-6 text-gray-900">Project Progress</h3>
+                <div class="mt-6">
+                    <!-- Canvas for chart -->
+                    <div class="h-72">
+                        <canvas id="progressChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="row g-4">
-        <!-- Projects List -->
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
-                    <h5 class="card-title mb-0">Active Projects</h5>
-                    <a href="/Project/Create" class="btn btn-sm btn-primary">
-                        <i class="bi bi-plus-circle me-1"></i> New Project
-                    </a>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Project Name</th>
-                                    <th>Client</th>
-                                    <th>Status</th>
-                                    <th>Deadline</th>
-                                    <th>Progress</th>
-                                    <th class="text-end">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                                <i class="bi bi-database text-primary"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-0">ERP System Migration</h6>
-                                                <small class="text-muted">IT Department</small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Internal IT</td>
-                                    <td><span class="badge bg-success">On Track</span></td>
-                                    <td>Jul 25, 2025</td>
-                                    <td width="15%">
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <small class="text-muted">75%</small>
-                                    </td>
-                                    <td class="text-end">
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-three-dots"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item" href="/Project/Details/1"><i class="bi bi-eye me-2"></i>View</a></li>
-                                                <li><a class="dropdown-item" href="/Project/Edit/1"><i class="bi bi-pencil me-2"></i>Edit</a></li>
-                                                <li><a class="dropdown-item" href="/WeeklyUpdates/Create?projectId=1"><i class="bi bi-arrow-clockwise me-2"></i>Update</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-danger bg-opacity-10 p-2 rounded me-3">
-                                                <i class="bi bi-phone text-danger"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-0">Customer Mobile App</h6>
-                                                <small class="text-muted">Marketing Division</small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Marketing Division</td>
-                                    <td><span class="badge bg-warning">At Risk</span></td>
-                                    <td>Apr 23, 2025</td>
-                                    <td width="15%">
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <small class="text-muted">45%</small>
-                                    </td>
-                                    <td class="text-end">
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-three-dots"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item" href="/Project/Details/2"><i class="bi bi-eye me-2"></i>View</a></li>
-                                                <li><a class="dropdown-item" href="/Project/Edit/2"><i class="bi bi-pencil me-2"></i>Edit</a></li>
-                                                <li><a class="dropdown-item" href="/WeeklyUpdates/Create?projectId=2"><i class="bi bi-arrow-clockwise me-2"></i>Update</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-success bg-opacity-10 p-2 rounded me-3">
-                                                <i class="bi bi-currency-dollar text-success"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-0">Digital Transformation</h6>
-                                                <small class="text-muted">Finance Dept</small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Finance Dept</td>
-                                    <td><span class="badge bg-success">On Track</span></td>
-                                    <td>Aug 12, 2025</td>
-                                    <td width="15%">
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <small class="text-muted">60%</small>
-                                    </td>
-                                    <td class="text-end">
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-three-dots"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item" href="/Project/Details/3"><i class="bi bi-eye me-2"></i>View</a></li>
-                                                <li><a class="dropdown-item" href="/Project/Edit/3"><i class="bi bi-pencil me-2"></i>Edit</a></li>
-                                                <li><a class="dropdown-item" href="/WeeklyUpdates/Create?projectId=3"><i class="bi bi-arrow-clockwise me-2"></i>Update</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card-footer bg-white text-center py-3">
-                    <a href="/Project/List" class="text-decoration-none">View All Projects <i class="bi bi-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Project Progress Chart -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white py-3">
-                    <h5 class="card-title mb-0">Project Progress</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="projectProgressChart" height="300"></canvas>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sidebar Content -->
-        <div class="col-lg-4">
-            <!-- Upcoming Deadlines -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white py-3">
-                    <h5 class="card-title mb-0">Upcoming Deadlines</h5>
-                </div>
-                <div class="card-body p-0">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item border-0 py-3">
-                            <div class="d-flex w-100 justify-content-between mb-1">
-                                <h6 class="mb-0">Security Compliance Audit</h6>
-                                <small class="text-danger"><i class="bi bi-clock"></i> 5 days left</small>
-                            </div>
-                            <div class="mb-2 small text-muted">Apr 1, 2025</div>
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="text-end mt-1">
-                                <small class="text-muted">85% complete</small>
+    <!-- Right column -->
+    <div class="grid grid-cols-1 gap-6">
+        <!-- Upcoming deadlines -->
+        <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="p-6">
+                <h3 class="text-base font-semibold leading-6 text-gray-900">Upcoming Deadlines</h3>
+                <div class="mt-6 flow-root">
+                    <ul role="list" class="-my-5 divide-y divide-gray-200">
+                        <li class="py-5">
+                            <div class="relative focus-within:ring-2 focus-within:ring-primary-500">
+                                <h4 class="text-sm font-semibold text-gray-800">
+                                    <a href="/Project/Details/2" class="hover:underline focus:outline-none">
+                                        <!-- Extend touch target to entire panel -->
+                                        <span class="absolute inset-0" aria-hidden="true"></span>
+                                        Customer Mobile App
+                                    </a>
+                                </h4>
+                                <p class="mt-1 text-sm text-gray-600">Due in 28 days on Apr 23, 2025</p>
+                                <div class="mt-2 h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="bg-yellow-500 h-1.5" style="width: 65%"></div>
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">65% complete</p>
                             </div>
                         </li>
-                        <li class="list-group-item border-0 py-3">
-                            <div class="d-flex w-100 justify-content-between mb-1">
-                                <h6 class="mb-0">Customer Mobile App</h6>
-                                <small class="text-warning"><i class="bi bi-clock"></i> 28 days left</small>
-                            </div>
-                            <div class="mb-2 small text-muted">Apr 23, 2025</div>
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="text-end mt-1">
-                                <small class="text-muted">45% complete</small>
+                        <li class="py-5">
+                            <div class="relative focus-within:ring-2 focus-within:ring-primary-500">
+                                <h4 class="text-sm font-semibold text-gray-800">
+                                    <a href="/Project/Details/4" class="hover:underline focus:outline-none">
+                                        <span class="absolute inset-0" aria-hidden="true"></span>
+                                        Data Center Migration
+                                    </a>
+                                </h4>
+                                <p class="mt-1 text-sm text-gray-600">Due in 45 days on May 10, 2025</p>
+                                <div class="mt-2 h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="bg-green-500 h-1.5" style="width: 40%"></div>
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">40% complete</p>
                             </div>
                         </li>
-                        <li class="list-group-item border-0 py-3">
-                            <div class="d-flex w-100 justify-content-between mb-1">
-                                <h6 class="mb-0">Data Center Migration</h6>
-                                <small class="text-primary"><i class="bi bi-clock"></i> 45 days left</small>
-                            </div>
-                            <div class="mb-2 small text-muted">May 10, 2025</div>
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="text-end mt-1">
-                                <small class="text-muted">40% complete</small>
+                        <li class="py-5">
+                            <div class="relative focus-within:ring-2 focus-within:ring-primary-500">
+                                <h4 class="text-sm font-semibold text-gray-800">
+                                    <a href="/Project/Details/5" class="hover:underline focus:outline-none">
+                                        <span class="absolute inset-0" aria-hidden="true"></span>
+                                        Security Compliance Audit
+                                    </a>
+                                </h4>
+                                <p class="mt-1 text-sm text-gray-600">Due in 5 days on Apr 1, 2025</p>
+                                <div class="mt-2 h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="bg-red-500 h-1.5" style="width: 85%"></div>
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">85% complete</p>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div class="card-footer bg-white text-center py-3">
-                    <a href="#" class="text-decoration-none">View Full Calendar <i class="bi bi-arrow-right"></i></a>
+                <div class="mt-6">
+                    <a href="/Project/List" class="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        View all projects
+                    </a>
                 </div>
             </div>
-            
-            <!-- Recent Activities -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white py-3">
-                    <h5 class="card-title mb-0">Recent Activities</h5>
+        </div>
+
+        <!-- Recent activity -->
+        <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="p-6">
+                <h3 class="text-base font-semibold leading-6 text-gray-900">Recent Activity</h3>
+                <div class="mt-6 flow-root">
+                    <ul role="list" class="-mb-8">
+                        <li>
+                            <div class="relative pb-8">
+                                <span class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                <div class="relative flex items-start space-x-3">
+                                    <div class="relative">
+                                        <div class="h-10 w-10 rounded-full bg-primary-600 flex items-center justify-center ring-8 ring-white">
+                                            <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <div>
+                                            <div class="text-sm">
+                                                <a href="#" class="font-medium text-gray-900">Alex Johnson</a> created a new project
+                                            </div>
+                                            <p class="mt-0.5 text-sm text-gray-500">2 hours ago</p>
+                                        </div>
+                                        <div class="mt-2 text-sm text-gray-700">
+                                            <p>Digital Transformation initiative for Finance department.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="relative pb-8">
+                                <span class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                <div class="relative flex items-start space-x-3">
+                                    <div class="relative">
+                                        <div class="h-10 w-10 rounded-full bg-green-600 flex items-center justify-center ring-8 ring-white">
+                                            <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <div>
+                                            <div class="text-sm">
+                                                <a href="#" class="font-medium text-gray-900">Sarah Taylor</a> completed a milestone
+                                            </div>
+                                            <p class="mt-0.5 text-sm text-gray-500">4 hours ago</p>
+                                        </div>
+                                        <div class="mt-2 text-sm text-gray-700">
+                                            <p>Customer Mobile App - UI Design phase completed.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="relative pb-8">
+                                <div class="relative flex items-start space-x-3">
+                                    <div class="relative">
+                                        <div class="h-10 w-10 rounded-full bg-yellow-600 flex items-center justify-center ring-8 ring-white">
+                                            <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <div>
+                                            <div class="text-sm">
+                                                <a href="#" class="font-medium text-gray-900">Michael Brown</a> flagged an issue
+                                            </div>
+                                            <p class="mt-0.5 text-sm text-gray-500">6 hours ago</p>
+                                        </div>
+                                        <div class="mt-2 text-sm text-gray-700">
+                                            <p>Potential delay with third-party integration in Mobile App project.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="card-body p-0">
-                    <div class="p-3">
-                        <div class="d-flex align-items-start mb-3">
-                            <div class="flex-shrink-0 me-3">
-                                <div class="avatar-sm bg-primary bg-opacity-10 rounded-circle p-2">
-                                    <i class="bi bi-plus-circle text-primary"></i>
-                                </div>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1">Alex Johnson created a new project</h6>
-                                <p class="mb-0 small text-muted">Digital Transformation for Finance department</p>
-                                <small class="text-muted">2 hours ago</small>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-start mb-3">
-                            <div class="flex-shrink-0 me-3">
-                                <div class="avatar-sm bg-success bg-opacity-10 rounded-circle p-2">
-                                    <i class="bi bi-check-circle text-success"></i>
-                                </div>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1">Sarah Taylor completed a milestone</h6>
-                                <p class="mb-0 small text-muted">Customer Mobile App - UI Design phase</p>
-                                <small class="text-muted">4 hours ago</small>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-start mb-3">
-                            <div class="flex-shrink-0 me-3">
-                                <div class="avatar-sm bg-warning bg-opacity-10 rounded-circle p-2">
-                                    <i class="bi bi-exclamation-circle text-warning"></i>
-                                </div>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1">Michael Brown flagged an issue</h6>
-                                <p class="mb-0 small text-muted">Delay with third-party integration in Mobile App</p>
-                                <small class="text-muted">6 hours ago</small>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-start">
-                            <div class="flex-shrink-0 me-3">
-                                <div class="avatar-sm bg-info bg-opacity-10 rounded-circle p-2">
-                                    <i class="bi bi-arrow-repeat text-info"></i>
-                                </div>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1">Weekly update submitted</h6>
-                                <p class="mb-0 small text-muted">ERP System Migration - Progress report</p>
-                                <small class="text-muted">Yesterday</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer bg-white text-center py-3">
-                    <a href="/AuditLogs/Index" class="text-decoration-none">View All Activities <i class="bi bi-arrow-right"></i></a>
+                <div class="mt-6">
+                    <a href="/AuditLogs/Index" permission="ViewAuditLogs" class="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        View activity log
+                    </a>
                 </div>
             </div>
         </div>
@@ -395,8 +364,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Project Progress Chart
-            const progressCtx = document.getElementById('projectProgressChart').getContext('2d');
+            // Project progress chart
+            const progressCtx = document.getElementById('progressChart').getContext('2d');
             const progressChart = new Chart(progressCtx, {
                 type: 'line',
                 data: {
@@ -405,8 +374,8 @@
                         {
                             label: 'Actual Progress',
                             data: [10, 25, 38, 52, 65, 76],
-                            borderColor: '#0078D7',
-                            backgroundColor: 'rgba(0, 120, 215, 0.1)',
+                            borderColor: '#0ea5e9',
+                            backgroundColor: 'rgba(14, 165, 233, 0.1)',
                             tension: 0.3,
                             fill: true
                         },
@@ -441,48 +410,6 @@
                         }
                     }
                 }
-            });
-            
-            // Refresh dashboard functionality
-            document.getElementById('refreshDashboard').addEventListener('click', function() {
-                const button = this;
-                const originalContent = button.innerHTML;
-                
-                // Show loading spinner
-                button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Refreshing...';
-                button.disabled = true;
-                
-                // Simulate API call to refresh data
-                setTimeout(function() {
-                    button.innerHTML = originalContent;
-                    button.disabled = false;
-                    
-                    // Show success message
-                    const toast = `
-                        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050">
-                            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                                <div class="toast-header">
-                                    <strong class="me-auto">Dashboard</strong>
-                                    <small>Just now</small>
-                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                                </div>
-                                <div class="toast-body">
-                                    Dashboard data refreshed successfully.
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Add toast to the document
-                    const toastContainer = document.createElement('div');
-                    toastContainer.innerHTML = toast;
-                    document.body.appendChild(toastContainer);
-                    
-                    // Auto remove toast after 3 seconds
-                    setTimeout(function() {
-                        toastContainer.remove();
-                    }, 3000);
-                }, 1500);
             });
         });
     </script>

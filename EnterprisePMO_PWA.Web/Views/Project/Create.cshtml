@@ -1,55 +1,224 @@
 @model EnterprisePMO_PWA.Domain.Entities.Project
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Create Project";
+    ViewData["Title"] = "Create Project";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
 }
-<h1>Create Project</h1>
-<form asp-action="Create" method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Description" class="form-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="ClientName" class="form-label">Client Name</label>
-        <input asp-for="ClientName" class="form-control" />
-        <span asp-validation-for="ClientName" class="text-danger"></span>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label asp-for="StartDate" class="form-label"></label>
-            <input asp-for="StartDate" type="date" class="form-control" />
-            <span asp-validation-for="StartDate" class="text-danger"></span>
+
+<div class="mb-6">
+    <h1 class="text-2xl font-semibold text-gray-900">Create New Project</h1>
+    <p class="mt-1 text-sm text-gray-500">Enter the project details to create a new project.</p>
+</div>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="bg-red-50 border-l-4 border-red-400 p-4 mb-6" role="alert">
+            <p class="font-medium text-red-800">Please correct the following errors:</p>
+            <ul class="ml-4 mt-1 text-sm text-red-700 list-disc list-inside"></ul>
         </div>
-        <div class="col-md-6 mb-3">
-            <label asp-for="EndDate" class="form-label"></label>
-            <input asp-for="EndDate" type="date" class="form-control" />
-            <span asp-validation-for="EndDate" class="text-danger"></span>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+            <!-- Project name -->
+            <div class="col-span-1 md:col-span-2">
+                <label asp-for="Name" class="block text-sm font-medium text-gray-700">Project Name</label>
+                <input asp-for="Name" class="mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Enter project name">
+                <span asp-validation-for="Name" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <!-- Description -->
+            <div class="col-span-1 md:col-span-2">
+                <label asp-for="Description" class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea asp-for="Description" rows="3" class="mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Enter project description"></textarea>
+                <span asp-validation-for="Description" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <!-- Department & Project Manager -->
+            <div>
+                <label asp-for="DepartmentId" class="block text-sm font-medium text-gray-700">Department</label>
+                <select asp-for="DepartmentId" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                    <option value="">Select Department</option>
+                    @foreach (var department in ViewBag.Departments ?? Enumerable.Empty<dynamic>())
+                    {
+                        <option value="@department.Id">@department.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="DepartmentId" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <div>
+                <label asp-for="ProjectManagerId" class="block text-sm font-medium text-gray-700">Project Manager</label>
+                <select asp-for="ProjectManagerId" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                    <option value="">Select Project Manager</option>
+                    @foreach (var manager in ViewBag.ProjectManagers ?? Enumerable.Empty<dynamic>())
+                    {
+                        <option value="@manager.Id">@manager.Username</option>
+                    }
+                </select>
+                <span asp-validation-for="ProjectManagerId" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <!-- Strategic & Annual Goals -->
+            <div>
+                <label asp-for="StrategicGoalId" class="block text-sm font-medium text-gray-700">Strategic Goal</label>
+                <select asp-for="StrategicGoalId" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                    <option value="">Select Strategic Goal (Optional)</option>
+                    @foreach (var goal in ViewBag.StrategicGoals ?? Enumerable.Empty<dynamic>())
+                    {
+                        <option value="@goal.Id">@goal.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="StrategicGoalId" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <div>
+                <label asp-for="AnnualGoalId" class="block text-sm font-medium text-gray-700">Annual Goal</label>
+                <select asp-for="AnnualGoalId" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                    <option value="">Select Annual Goal (Optional)</option>
+                    @foreach (var goal in ViewBag.AnnualGoals ?? Enumerable.Empty<dynamic>())
+                    {
+                        <option value="@goal.Id">@goal.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="AnnualGoalId" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <!-- Dates -->
+            <div>
+                <label asp-for="StartDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+                <input asp-for="StartDate" type="date" class="mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <span asp-validation-for="StartDate" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <div>
+                <label asp-for="EndDate" class="block text-sm font-medium text-gray-700">End Date</label>
+                <input asp-for="EndDate" type="date" class="mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <span asp-validation-for="EndDate" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <!-- Budget & Cost -->
+            <div>
+                <label asp-for="Budget" class="block text-sm font-medium text-gray-700">Budget</label>
+                <div class="mt-1 relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input asp-for="Budget" type="number" min="0" step="0.01" class="focus:ring-primary-500 focus:border-primary-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <span class="text-gray-500 sm:text-sm">USD</span>
+                    </div>
+                </div>
+                <span asp-validation-for="Budget" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <div>
+                <label asp-for="EstimatedCost" class="block text-sm font-medium text-gray-700">Estimated Cost</label>
+                <div class="mt-1 relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input asp-for="EstimatedCost" type="number" min="0" step="0.01" class="focus:ring-primary-500 focus:border-primary-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <span class="text-gray-500 sm:text-sm">USD</span>
+                    </div>
+                </div>
+                <span asp-validation-for="EstimatedCost" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <!-- Client & Category -->
+            <div>
+                <label asp-for="ClientName" class="block text-sm font-medium text-gray-700">Client Name</label>
+                <input asp-for="ClientName" class="mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Enter client name">
+                <span asp-validation-for="ClientName" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <div>
+                <label asp-for="Category" class="block text-sm font-medium text-gray-700">Category</label>
+                <select asp-for="Category" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                    <option value="">Select Category</option>
+                    <option value="IT Infrastructure">IT Infrastructure</option>
+                    <option value="Software Development">Software Development</option>
+                    <option value="Business Intelligence">Business Intelligence</option>
+                    <option value="Digital Transformation">Digital Transformation</option>
+                    <option value="Security & Compliance">Security & Compliance</option>
+                    <option value="Process Improvement">Process Improvement</option>
+                    <option value="Marketing Campaign">Marketing Campaign</option>
+                    <option value="Customer Experience">Customer Experience</option>
+                    <option value="Research & Development">Research & Development</option>
+                </select>
+                <span asp-validation-for="Category" class="mt-1 text-sm text-red-600"></span>
+            </div>
+            
+            <!-- Documents/Attachments -->
+            <div class="col-span-1 md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700">Documents & Attachments</label>
+                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div class="space-y-1 text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="flex text-sm text-gray-600">
+                            <label for="attachments" class="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500">
+                                <span>Upload files</span>
+                                <input id="attachments" name="attachments" type="file" class="sr-only" multiple>
+                            </label>
+                            <p class="pl-1">or drag and drop</p>
+                        </div>
+                        <p class="text-xs text-gray-500">
+                            PDF, DOC, XLS, PPT, JPG up to 10MB each
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label asp-for="Budget" class="form-label"></label>
-            <input asp-for="Budget" type="number" step="0.01" class="form-control" />
-            <span asp-validation-for="Budget" class="text-danger"></span>
+        
+        <!-- Form actions -->
+        <div class="bg-gray-50 px-6 py-4 flex items-center justify-end space-x-3">
+            <a href="@Url.Action("List", "Project")" class="py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                Cancel
+            </a>
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                Create Project
+            </button>
         </div>
-        <div class="col-md-6 mb-3">
-            <label asp-for="EstimatedCost" class="form-label">Estimated Cost</label>
-            <input asp-for="EstimatedCost" type="number" step="0.01" class="form-control" />
-            <span asp-validation-for="EstimatedCost" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Attachments</label>
-        <input type="file" name="attachments" multiple class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Create Project</button>
-</form>
+    </form>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Initialize form validation
+        $(document).ready(function() {
+            // File upload preview
+            const attachmentsInput = document.getElementById('attachments');
+            if (attachmentsInput) {
+                attachmentsInput.addEventListener('change', function(e) {
+                    const fileCount = e.target.files.length;
+                    const fileInfoDiv = document.createElement('div');
+                    fileInfoDiv.className = 'mt-2 text-sm text-gray-600';
+                    
+                    if (fileCount > 0) {
+                        fileInfoDiv.textContent = `${fileCount} file${fileCount > 1 ? 's' : ''} selected`;
+                        attachmentsInput.parentNode.parentNode.appendChild(fileInfoDiv);
+                    }
+                });
+            }
+            
+            // Date validation
+            const startDateInput = document.getElementById('StartDate');
+            const endDateInput = document.getElementById('EndDate');
+            
+            if (startDateInput && endDateInput) {
+                startDateInput.addEventListener('change', function() {
+                    endDateInput.min = startDateInput.value;
+                });
+                
+                endDateInput.addEventListener('change', function() {
+                    if (startDateInput.value && new Date(endDateInput.value) < new Date(startDateInput.value)) {
+                        endDateInput.setCustomValidity('End date must be after start date');
+                    } else {
+                        endDateInput.setCustomValidity('');
+                    }
+                });
+            }
+        });
+    </script>
 }
