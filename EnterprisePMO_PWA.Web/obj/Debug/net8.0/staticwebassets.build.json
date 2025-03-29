@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pgSkn9RP44aEYklZbZ5CZn4JlWzQatJzY2T87Dh600w=",
+  "Hash": "NbgVF+X7zGmY2pWIpX6V/hmgiuw2Fq85sMNrpHFJfE0=",
   "Source": "EnterprisePMO_PWA.Web",
   "BasePath": "_content/EnterprisePMO_PWA.Web",
   "Mode": "Default",
@@ -199,8 +199,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "y7l0k7qgwu",
-      "Integrity": "kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV+Z2e0Kr3k=",
+      "Fingerprint": "jqqq95jq7l",
+      "Integrity": "JWnFDDHGRv++Q6/xV37lIt00OnuP6JywFVyn8+8DpyA=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/auth.js"
@@ -1200,6 +1200,51 @@
       ]
     },
     {
+      "Route": "js/auth.jqqq95jq7l.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9259"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JWnFDDHGRv++Q6/xV37lIt00OnuP6JywFVyn8+8DpyA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 29 Mar 2025 13:59:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jqqq95jq7l"
+        },
+        {
+          "Name": "label",
+          "Value": "js/auth.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-JWnFDDHGRv++Q6/xV37lIt00OnuP6JywFVyn8+8DpyA="
+        }
+      ]
+    },
+    {
       "Route": "js/auth.js",
       "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth.js",
       "Selectors": [],
@@ -1210,7 +1255,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7664"
+          "Value": "9259"
         },
         {
           "Name": "Content-Type",
@@ -1218,11 +1263,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV+Z2e0Kr3k=\""
+          "Value": "\"JWnFDDHGRv++Q6/xV37lIt00OnuP6JywFVyn8+8DpyA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 29 Mar 2025 07:46:35 GMT"
+          "Value": "Sat, 29 Mar 2025 13:59:22 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1232,52 +1277,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV+Z2e0Kr3k="
-        }
-      ]
-    },
-    {
-      "Route": "js/auth.y7l0k7qgwu.js",
-      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "7664"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV+Z2e0Kr3k=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 29 Mar 2025 07:46:35 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "y7l0k7qgwu"
-        },
-        {
-          "Name": "label",
-          "Value": "js/auth.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV+Z2e0Kr3k="
+          "Value": "sha256-JWnFDDHGRv++Q6/xV37lIt00OnuP6JywFVyn8+8DpyA="
         }
       ]
     },

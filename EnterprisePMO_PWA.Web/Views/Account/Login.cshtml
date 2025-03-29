@@ -40,7 +40,7 @@
       <div>
         <label for="Email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
         <div class="mt-2">
-          <input id="Email" name="Email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
+          <input id="Email" name="Email" type="email" autocomplete="email" required value="admin@test.com" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
         </div>
       </div>
 
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="mt-2">
-          <input id="Password" name="Password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
+          <input id="Password" name="Password" type="password" autocomplete="current-password" required value="Password123!" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
         </div>
       </div>
 
@@ -69,7 +69,6 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/auth.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // Clear any existing token when arriving at login page
