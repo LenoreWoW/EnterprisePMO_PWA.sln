@@ -3,107 +3,79 @@
     Layout = "_TailwindLayout";
 }
 
-<div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8 mt-10">
-    <h2 class="text-2xl font-bold mb-6 text-center">Login to Enterprise PMO</h2>
-    
-    <div id="loginError" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
-        <p class="font-bold">Error</p>
-        <p id="loginErrorMessage">Invalid email or password.</p>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <!-- Alert for errors -->
+    <div id="loginErrorMessage" class="mb-4 rounded-md bg-red-50 p-4 text-sm text-red-700 hidden">
+      <div class="flex items-center">
+        <svg class="h-5 w-5 text-red-400 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+        <span id="errorText">Invalid email or password</span>
+      </div>
     </div>
     
-    <form id="loginForm" method="post">
-        <div class="mb-4">
-            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-            <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+    <!-- Test account info -->
+    <div class="mb-6 rounded-md bg-blue-50 p-4 text-sm text-blue-700">
+      <div class="flex">
+        <svg class="h-5 w-5 text-blue-400 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+        </svg>
+        <div>
+          <h3 class="font-medium text-blue-800">Test Account</h3>
+          <p>For testing, use these credentials:</p>
+          <ul class="list-disc pl-5 mt-1">
+            <li>Email: <span class="font-mono bg-blue-100 px-1">admin@test.com</span></li>
+            <li>Password: <span class="font-mono bg-blue-100 px-1">Password123!</span></li>
+          </ul>
         </div>
-        
-        <div class="mb-6">
-            <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
-            <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+      </div>
+    </div>
+    
+    <form id="loginForm" class="space-y-6">
+      <div>
+        <label for="Email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+        <div class="mt-2">
+          <input id="Email" name="Email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
         </div>
-        
-        <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center">
-                <input id="rememberMe" name="rememberMe" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                <label for="rememberMe" class="ml-2 block text-sm text-gray-900">Remember me</label>
-            </div>
-            <a href="/Account/ResetPassword" class="text-sm text-blue-600 hover:text-blue-800">Forgot password?</a>
-        </div>
-        
+      </div>
+
+      <div>
         <div class="flex items-center justify-between">
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Sign In
-            </button>
+          <label for="Password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+          <div class="text-sm">
+            <a href="/Account/ResetPassword" class="font-semibold text-blue-600 hover:text-blue-500">Forgot password?</a>
+          </div>
         </div>
+        <div class="mt-2">
+          <input id="Password" name="Password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Sign in</button>
+      </div>
     </form>
-    
-    <hr class="my-6 border-t border-gray-300">
-    
-    <div class="text-center">
-        <p class="text-sm text-gray-600">Don't have an account? <a href="/Account/Signup" class="text-blue-600 hover:text-blue-800">Sign up</a></p>
-    </div>
+
+    <p class="mt-10 text-center text-sm text-gray-500">
+      Not a member?
+      <a href="/Account/Signup" class="font-semibold leading-6 text-blue-600 hover:text-blue-500">Sign up now</a>
+    </p>
+  </div>
 </div>
 
 @section Scripts {
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Check if the loginForm element exists before adding event listener
-        const loginForm = document.getElementById('loginForm');
-        if (loginForm) {
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const errorDiv = document.getElementById('loginError');
-                const errorMessage = document.getElementById('loginErrorMessage');
-                
-                // Hide any previous errors
-                errorDiv.classList.add('hidden');
-                
-                // Get form data
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                const rememberMe = document.getElementById('rememberMe').checked;
-                
-                // Call API
-                fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password,
-                        rememberMe: rememberMe
-                    })
-                })
-                .then(response => {
-                    // Check if the response is ok (status 200-299)
-                    if (!response.ok) {
-                        return response.json().then(data => {
-                            throw new Error(data.message || 'Login failed');
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Store token and user info
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('refreshToken', data.refreshToken);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    // Redirect to dashboard
-                    window.location.href = '/Dashboard';
-                })
-                .catch(error => {
-                    // Show error message
-                    errorDiv.classList.remove('hidden');
-                    errorMessage.textContent = error.message || 'An error occurred during login';
-                    console.error('Login error:', error);
-                });
-            });
-        } else {
-            console.warn('Login form not found in the DOM');
+    <script src="~/js/auth.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Clear any existing token when arriving at login page
+        if (window.authManager) {
+          window.authManager.clearToken();
         }
-    });
-</script>
+      });
+    </script>
 }

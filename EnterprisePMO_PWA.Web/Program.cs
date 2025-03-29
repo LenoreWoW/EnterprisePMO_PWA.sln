@@ -81,7 +81,7 @@ builder.Services.AddScoped<IRealTimeNotificationService, SignalRNotificationServ
 // Register notification service (Application layer)
 builder.Services.AddScoped<INotificationService, EnhancedNotificationService>();
 
-// Add CORS
+// Add CORS with more permissive policy for development
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowedOrigins", corsBuilder =>
@@ -92,12 +92,12 @@ builder.Services.AddCors(options =>
     });
 });
 
-// JWT Authentication with detailed debugging
+// JWT Authentication with simplified configuration for development
 var jwtSecretKey = builder.Configuration["Jwt:SecretKey"] ?? 
                   Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? 
                   "your-temporary-secret-key-for-testing-only-make-it-at-least-32-chars";
 
-Console.WriteLine($"JWT Secret Key (first 10 chars): {jwtSecretKey.Substring(0, Math.Min(10, jwtSecretKey.Length))}...");
+Console.WriteLine($"JWT Secret Key configured: {(string.IsNullOrEmpty(jwtSecretKey) ? "No" : "Yes")}");
 
 builder.Services.AddAuthentication(options =>
 {
@@ -106,53 +106,39 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
+    // For development, disable all validations except signing key
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = false, // Set to false for testing
-        ValidateAudience = false, // Set to false for testing
+        ValidateIssuer = false,
+        ValidateAudience = false,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey)),
         ClockSkew = TimeSpan.Zero
     };
     
-    // Add detailed logging for JWT authentication
+    // Set auth token from query string for API calls
     options.Events = new JwtBearerEvents
     {
-        OnAuthenticationFailed = context =>
-        {
-            Console.WriteLine($"JWT Authentication Failed: {context.Exception.Message}");
-            Console.WriteLine($"JWT Auth Failure Stack Trace: {context.Exception.StackTrace}");
-            return Task.CompletedTask;
-        },
         OnMessageReceived = context =>
         {
-            Console.WriteLine($"JWT Message Received Path: {context.Request.Path}");
-            Console.WriteLine($"JWT Message Token: {context.Token ?? "No token"}");
-            
-            if (string.IsNullOrEmpty(context.Token))
+            // Check for token in query string for client-side apps
+            var accessToken = context.Request.Query["auth_token"].ToString();
+            if (!string.IsNullOrEmpty(accessToken))
             {
-                var authHeader = context.Request.Headers["Authorization"].ToString();
-                Console.WriteLine($"Authorization Header: {authHeader}");
-                
-                if (string.IsNullOrEmpty(authHeader))
-                {
-                    // Check for token in query string (for debugging only)
-                    var queryToken = context.Request.Query["auth_token"].ToString();
-                    if (!string.IsNullOrEmpty(queryToken))
-                    {
-                        Console.WriteLine($"Found token in query string: {queryToken.Substring(0, Math.Min(20, queryToken.Length))}...");
-                        context.Token = queryToken;
-                    }
-                }
+                context.Token = accessToken;
+                Console.WriteLine($"Using token from query string: {accessToken[..Math.Min(10, accessToken.Length)]}...");
             }
-            
+            return Task.CompletedTask;
+        },
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine($"Authentication failed: {context.Exception.Message}");
             return Task.CompletedTask;
         },
         OnTokenValidated = context =>
         {
-            Console.WriteLine($"JWT Token Validated: {context.Principal?.Identity?.Name ?? "Unknown"}");
-            Console.WriteLine($"Token Claims: {string.Join(", ", context.Principal?.Claims.Select(c => $"{c.Type}={c.Value}") ?? Array.Empty<string>())}");
+            Console.WriteLine($"Token validated for: {context.Principal?.Identity?.Name ?? "Unknown"}");
             return Task.CompletedTask;
         }
     };
@@ -183,6 +169,15 @@ builder.Services.AddAuthorization(options =>
         policy.Requirements.Add(new PermissionRequirement("ViewReports")));
     options.AddPolicy("Permission:ViewAuditLogs", policy => 
         policy.Requirements.Add(new PermissionRequirement("ViewAuditLogs")));
+    
+    // IMPORTANT: Configure a fallback policy for development
+    // This makes authentication optional but still available through User.Identity.IsAuthenticated
+    if (builder.Environment.IsDevelopment())
+    {
+        options.FallbackPolicy = new AuthorizationPolicyBuilder()
+            .RequireAssertion(_ => true) // Always succeed
+            .Build();
+    }
 });
 
 // Add Hangfire with in-memory storage for development
@@ -209,38 +204,53 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseCors("AllowedOrigins");
 
-// Middleware to log request details
+// Middleware to log request details for debugging
 app.Use(async (context, next) =>
 {
-    Console.WriteLine($"Request Path: {context.Request.Path}");
-    Console.WriteLine($"Request Method: {context.Request.Method}");
-    Console.WriteLine($"Authorization Header: {context.Request.Headers["Authorization"]}");
+    if (context.Request.Path.StartsWithSegments("/api"))
+    {
+        var authHeader = context.Request.Headers["Authorization"].ToString();
+        Console.WriteLine($"API Request: {context.Request.Method} {context.Request.Path}");
+        Console.WriteLine($"Auth Header: {(string.IsNullOrEmpty(authHeader) ? "None" : $"{authHeader[..Math.Min(20, authHeader.Length)]}...")}");
+        
+        // Check for token in query string
+        var queryToken = context.Request.Query["auth_token"].ToString();
+        if (!string.IsNullOrEmpty(queryToken))
+        {
+            Console.WriteLine($"Query token: {queryToken[..Math.Min(10, queryToken.Length)]}...");
+            // Add it to headers if not present
+            if (string.IsNullOrEmpty(authHeader))
+            {
+                context.Request.Headers["Authorization"] = $"Bearer {queryToken}";
+            }
+        }
+    }
     
-    await next.Invoke();
+    await next();
 });
 
 app.UseAuthentication();
 
-// Comment out for testing
-// app.UseAuthenticationSync();
+// Add our custom authentication middleware
+app.UseMiddleware<EnterprisePMO_PWA.Web.Middleware.AuthenticationMiddleware>();
 
 app.UseAuthorization();
 
-// MODIFIED: Change default route to TestController for debugging
+// Map controllers - for development direct to Dashboard
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Test}/{action=Index}/{id?}");
+    pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 
 // SignalR hub for notifications
 app.MapHub<NotificationHub>("/notificationHub");
 
-// Add Hangfire dashboard
+// Add Hangfire dashboard with simplified auth for development
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
     Authorization = new[] { new EnterprisePMO_PWA.Web.Filters.DashboardAuthorizationFilter(builder.Configuration) }
 });
 
-// Seed data
+// Seed data with more robust error handling
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -257,10 +267,49 @@ using (var scope = app.Services.CreateScope())
         
         DataSeeder.Seed(dbContext);
         Console.WriteLine("Database seeding completed successfully");
+        
+        // Create admin user if it doesn't exist
+        var adminUser = dbContext.Users.FirstOrDefault(u => u.Username == "admin@test.com");
+        if (adminUser == null)
+        {
+            Console.WriteLine("Creating admin test user...");
+            
+            // First ensure we have an admin department
+            var adminDept = dbContext.Departments.FirstOrDefault(d => d.Name == "Administration");
+            if (adminDept == null)
+            {
+                adminDept = new EnterprisePMO_PWA.Domain.Entities.Department
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Administration"
+                };
+                dbContext.Departments.Add(adminDept);
+                await dbContext.SaveChangesAsync();
+            }
+            
+            // Then create the admin user
+            adminUser = new EnterprisePMO_PWA.Domain.Entities.User
+            {
+                Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), // Fixed ID for easy reference
+                Username = "admin@test.com",
+                Role = EnterprisePMO_PWA.Domain.Entities.RoleType.Admin,
+                DepartmentId = adminDept.Id,
+                SupabaseId = "test-admin-id"
+            };
+            dbContext.Users.Add(adminUser);
+            await dbContext.SaveChangesAsync();
+            
+            Console.WriteLine($"Admin test user created with ID: {adminUser.Id}");
+        }
+        else
+        {
+            Console.WriteLine($"Admin test user already exists with ID: {adminUser.Id}");
+        }
     }
     catch (Exception ex)
     {
         Console.WriteLine($"Error seeding database: {ex.Message}");
+        Console.WriteLine($"Stack trace: {ex.StackTrace}");
     }
 }
 

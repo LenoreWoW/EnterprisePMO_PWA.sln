@@ -1,247 +1,240 @@
-/**
- * Authentication handler for the EnterprisePMO application
- * Consolidates functionality from login.js and direct-login.js
- */
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('loginForm');
-    const messageContainer = document.getElementById('message-container');
-    
-    if (form) {
-        // Toggle password visibility
-        setupPasswordToggle();
+// auth.js - Place this in your wwwroot/js folder
+(function() {
+    // Auth Token Management
+    const TOKEN_KEY = 'auth_token';
+    const USER_KEY = 'auth_user';
+  
+    // Get token from localStorage or query string
+    function getToken() {
+      // First try from localStorage
+      let token = localStorage.getItem(TOKEN_KEY);
+      
+      // If not in localStorage, check query string
+      if (!token) {
+        const urlParams = new URLSearchParams(window.location.search);
+        token = urlParams.get('auth_token');
         
-        // Set up form submission
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            if (!form.checkValidity()) {
-                event.stopPropagation();
-                form.classList.add('was-validated');
-                return;
-            }
-            
-            // Clear previous messages
-            if (messageContainer) {
-                messageContainer.innerHTML = '';
-            }
-            
-            // Show loading indicator
-            showLoadingIndicator();
-            
-            // Get form data
-            const formData = new FormData(form);
-            const jsonData = {
-                email: formData.get('email'),
-                password: formData.get('password'),
-                rememberMe: formData.get('rememberMe') === 'on'
-            };
-            
-            console.log('Login attempt with email:', jsonData.email);
-            
-            // Check if this is a test account
-            if (jsonData.email === "admin@test.com" && jsonData.password === "Password123!") {
-                handleDirectLogin(jsonData);
-            } else {
-                handleStandardLogin(jsonData);
-            }
+        // If found in query string, save to localStorage
+        if (token) {
+          localStorage.setItem(TOKEN_KEY, token);
+          
+          // Clean up URL by removing token parameter
+          const newUrl = window.location.pathname + 
+            window.location.search.replace(/[\?&]auth_token=[^&]+(&|$)/, '$1');
+          window.history.replaceState({}, document.title, newUrl);
+        }
+      }
+      
+      return token;
+    }
+  
+    // Set token with optional expiration
+    function setToken(token, user) {
+      localStorage.setItem(TOKEN_KEY, token);
+      
+      if (user) {
+        localStorage.setItem(USER_KEY, JSON.stringify(user));
+      }
+      
+      // Update UI state
+      updateAuthUI(true);
+    }
+  
+    // Remove token and user info (logout)
+    function clearToken() {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      
+      // Update UI state
+      updateAuthUI(false);
+    }
+  
+    // Get current user info
+    function getCurrentUser() {
+      const userJson = localStorage.getItem(USER_KEY);
+      return userJson ? JSON.parse(userJson) : null;
+    }
+  
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return !!getToken();
+    }
+  
+    // Update UI based on authentication state
+    function updateAuthUI(isAuth) {
+      document.body.dataset.authenticated = isAuth ? 'true' : 'false';
+      
+      // Hide/show login/signup buttons and profile menu
+      const authButtons = document.querySelectorAll('.auth-buttons');
+      const profileMenu = document.querySelectorAll('.profile-menu');
+      
+      if (authButtons.length) {
+        authButtons.forEach(el => {
+          el.style.display = isAuth ? 'none' : 'flex';
         });
-    }
-});
-
-/**
- * Sets up password visibility toggle functionality
- */
-function setupPasswordToggle() {
-    const togglePassword = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('password');
-    
-    if (togglePassword && passwordInput) {
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            // Toggle eye icon
-            const eyeIcon = this.querySelector('i');
-            if (eyeIcon) {
-                eyeIcon.classList.toggle('bi-eye');
-                eyeIcon.classList.toggle('bi-eye-slash');
-            }
+      }
+      
+      if (profileMenu.length) {
+        profileMenu.forEach(el => {
+          el.style.display = isAuth ? 'flex' : 'none';
         });
-    }
-}
-
-/**
- * Shows a loading indicator in the message container
- */
-function showLoadingIndicator() {
-    const messageContainer = document.getElementById('message-container');
-    const submitButton = document.querySelector('button[type="submit"]');
-    
-    // Show loading state
-    if (submitButton) {
-        submitButton.originalInnerHTML = submitButton.innerHTML;
-        submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Logging in...';
-        submitButton.disabled = true;
-    }
-    
-    // Add loading message
-    if (messageContainer) {
-        const loadingIndicator = document.createElement('div');
-        loadingIndicator.className = 'alert alert-info';
-        loadingIndicator.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Signing in, please wait...';
-        messageContainer.appendChild(loadingIndicator);
-    }
-}
-
-/**
- * Handles login for the test admin account using simplified direct login
- * @param {Object} jsonData - The login form data
- */
-function handleDirectLogin(jsonData) {
-    const messageContainer = document.getElementById('message-container');
-    
-    console.log("Using simplified login for test admin");
-    
-    // Use the simpler direct-login endpoint that bypasses complex authentication
-    fetch('/api/auth/direct-login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jsonData)
-    })
-    .then(response => {
-        // Remove loading indicator
-        if (messageContainer) {
-            messageContainer.innerHTML = '';
+      }
+      
+      // Update username display if available
+      const user = getCurrentUser();
+      if (user) {
+        const usernameDivs = document.querySelectorAll('.current-username');
+        if (usernameDivs.length) {
+          usernameDivs.forEach(el => {
+            el.textContent = user.username;
+          });
         }
         
-        if (response.ok) {
-            return response.json().then(data => {
-                handleLoginSuccess(data);
-                return data;
-            });
-        } else {
-            return response.json().then(errorData => {
-                throw new Error(errorData.message || 'Test login failed');
-            }).catch(error => {
-                if (error instanceof SyntaxError) {
-                    throw new Error('Test login failed');
-                }
-                throw error;
-            });
-        }
-    })
-    .catch(error => {
-        handleLoginError(error, jsonData);
-    });
-}
-
-/**
- * Handles standard login through the normal auth flow
- * @param {Object} jsonData - The login form data
- */
-function handleStandardLogin(jsonData) {
-    const messageContainer = document.getElementById('message-container');
-    
-    fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jsonData)
-    })
-    .then(response => {
-        // Remove loading indicator
-        if (messageContainer) {
-            messageContainer.innerHTML = '';
+        const roleDivs = document.querySelectorAll('.current-role');
+        if (roleDivs.length) {
+          roleDivs.forEach(el => {
+            el.textContent = user.role;
+          });
         }
         
-        if (response.ok) {
-            return response.json().then(data => {
-                handleLoginSuccess(data);
-                return data;
-            });
+        // Show/hide role-specific elements
+        if (user.role === 'Admin' || user.role === 'MainPMO') {
+          document.querySelectorAll('.admin-only').forEach(el => {
+            el.style.display = '';
+          });
         } else {
-            return response.json().then(errorData => {
-                throw new Error(errorData.message || 'Invalid email or password');
-            }).catch(error => {
-                // If response is not valid JSON
-                if (error instanceof SyntaxError) {
-                    throw new Error('Invalid email or password');
-                }
-                throw error;
+          document.querySelectorAll('.admin-only').forEach(el => {
+            el.style.display = 'none';
+          });
+        }
+      }
+      
+      // Add auth token to all protected links
+      if (isAuth) {
+        const token = getToken();
+        if (token) {
+          document.querySelectorAll('[data-requires-auth="true"]').forEach(link => {
+            if (!link.href.includes('auth_token=')) {
+              const url = new URL(link.href, window.location.origin);
+              url.searchParams.set('auth_token', token);
+              link.href = url.toString();
+            }
+          });
+        }
+      }
+    }
+  
+    // Setup fetch interceptor to add authorization header
+    function setupFetchInterceptor() {
+      const originalFetch = window.fetch;
+      
+      window.fetch = function(url, options = {}) {
+        // Don't add auth header for login/signup requests
+        if (typeof url === 'string' && (url.includes('/api/auth/login') || url.includes('/api/auth/signup') || url.includes('/api/auth/direct-login'))) {
+          return originalFetch(url, options);
+        }
+        
+        // Clone the options to avoid modifying the original object
+        const newOptions = { ...options };
+        newOptions.headers = newOptions.headers || {};
+        
+        // Add authorization header if token exists
+        const token = getToken();
+        if (token && !newOptions.headers.Authorization) {
+          newOptions.headers.Authorization = `Bearer ${token}`;
+        }
+        
+        return originalFetch(url, newOptions)
+          .then(response => {
+            // Handle 401 Unauthorized
+            if (response.status === 401) {
+              clearToken();
+              window.location.href = '/Account/Login';
+              return Promise.reject(new Error('Unauthorized'));
+            }
+            return response;
+          });
+      };
+    }
+  
+    // Initialize auth system
+    function init() {
+      // Setup fetch interceptor
+      setupFetchInterceptor();
+      
+      // Wait for DOM to be ready before setting up form handlers and UI
+      document.addEventListener('DOMContentLoaded', function() {
+        // Setup login form handler
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+          loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailField = document.getElementById('Email');
+            const passwordField = document.getElementById('Password');
+            
+            if (!emailField || !passwordField) {
+              console.error('Email or password field not found');
+              return;
+            }
+            
+            const email = emailField.value;
+            const password = passwordField.value;
+            
+            // Use direct login for admin@test.com
+            const endpoint = email === 'admin@test.com' 
+              ? '/api/auth/direct-login'
+              : '/api/auth/login';
+            
+            fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                email: email,
+                password: password
+              })
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Login failed');
+              }
+              return response.json();
+            })
+            .then(data => {
+              // Save token and user info
+              setToken(data.token, data.user);
+              
+              // Redirect to dashboard
+              window.location.href = '/Dashboard';
+            })
+            .catch(error => {
+              console.error('Login error:', error);
+              const errorMsg = document.getElementById('loginErrorMessage');
+              if (errorMsg) {
+                errorMsg.textContent = 'Invalid email or password. Please try again.';
+                errorMsg.style.display = 'block';
+              }
             });
+          });
         }
-    })
-    .catch(error => {
-        handleLoginError(error, jsonData);
-    });
-}
-
-/**
- * Handles a successful login response
- * @param {Object} data - The successful login response data
- */
-function handleLoginSuccess(data) {
-    const messageContainer = document.getElementById('message-container');
-    
-    // Store auth tokens
-    if (data.token) {
-        localStorage.setItem('auth_token', data.token);
+        
+        // Initial UI update based on authentication state
+        updateAuthUI(isAuthenticated());
+      });
     }
-    if (data.refreshToken) {
-        localStorage.setItem('refresh_token', data.refreshToken);
-    }
-    if (data.user) {
-        localStorage.setItem('user_info', JSON.stringify(data.user));
-    }
+  
+    // Export auth functions to window
+    window.authManager = {
+      getToken,
+      setToken,
+      clearToken,
+      getCurrentUser,
+      isAuthenticated,
+      updateAuthUI
+    };
     
-    // Show success message
-    const successDiv = document.createElement('div');
-    successDiv.className = 'alert alert-success';
-    successDiv.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Login successful! Redirecting...';
-    if (messageContainer) {
-        messageContainer.appendChild(successDiv);
-    }
-    
-    // Redirect to home page or dashboard
-    setTimeout(() => {
-        window.location.href = '/Dashboard/Index';
-    }, 1000);
-}
-
-/**
- * Handles login errors and displays appropriate messages
- * @param {Error} error - The error that occurred
- * @param {Object} jsonData - The login form data
- */
-function handleLoginError(error, jsonData) {
-    const messageContainer = document.getElementById('message-container');
-    const submitButton = document.querySelector('button[type="submit"]');
-    
-    console.error('Login error:', error);
-    
-    // Show error message
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'alert alert-danger';
-    
-    // Try using the admin test account as a fallback suggestion
-    if (jsonData.email !== "admin@test.com") {
-        errorDiv.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i>${error.message || 'An error occurred during login.'} <br><small>Try using the test account: admin@test.com / Password123!</small>`;
-    } else {
-        errorDiv.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i>${error.message || 'An error occurred during login. Please try again.'}`;
-    }
-    
-    if (messageContainer) {
-        messageContainer.appendChild(errorDiv);
-    }
-    
-    // Re-enable the submit button
-    if (submitButton) {
-        if (submitButton.originalInnerHTML) {
-            submitButton.innerHTML = submitButton.originalInnerHTML;
-        }
-        submitButton.disabled = false;
-    }
-}
+    // Initialize
+    init();
+  })();

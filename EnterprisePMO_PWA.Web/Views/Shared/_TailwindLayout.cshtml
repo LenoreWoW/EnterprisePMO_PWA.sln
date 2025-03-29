@@ -14,7 +14,7 @@
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 min-h-screen" data-authenticated="false">
     <!-- Navbar -->
     <nav class="bg-blue-800 text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,95 +23,85 @@
                     <div class="flex-shrink-0 flex items-center">
                         <a href="/Dashboard" class="text-xl font-bold">Enterprise PMO</a>
                     </div>
-                    @if (User?.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="hidden md:ml-6 md:flex md:space-x-8">
-                            <a href="/Dashboard" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
-                                <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
-                            </a>
-                            @if (User?.IsInRole("ProjectManager") == true || User?.IsInRole("SubPMO") == true || User?.IsInRole("MainPMO") == true)
-                            {
-                                <a href="/Project/List" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
-                                    <i class="fas fa-project-diagram mr-1"></i> Projects
-                                </a>
-                            }
-                            @if (User?.IsInRole("Admin") == true || User?.IsInRole("MainPMO") == true)
-                            {
-                                <a href="/UserManagement" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
-                                    <i class="fas fa-users mr-1"></i> Users
-                                </a>
-                                <a href="/api/auditlogs/recent" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
-                                    <i class="fas fa-history mr-1"></i> Audit Logs
-                                </a>
-                            }
-                            @if (User?.IsInRole("Admin") == true)
-                            {
-                                <a href="/RoleHierarchy" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white">
-                                    <i class="fas fa-sitemap mr-1"></i> Roles
-                                </a>
-                            }
-                        </div>
-                    }
+                    <div class="hidden md:ml-6 md:flex md:space-x-8 auth-nav-items">
+                        <a href="/Dashboard" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white" data-requires-auth="true">
+                            <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+                        </a>
+                        <a href="/Project/List" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white" data-requires-auth="true">
+                            <i class="fas fa-project-diagram mr-1"></i> Projects
+                        </a>
+                        <a href="/UserManagement" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white admin-only" data-requires-auth="true">
+                            <i class="fas fa-users mr-1"></i> Users
+                        </a>
+                        <a href="/api/auditlogs/recent" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white admin-only" data-requires-auth="true">
+                            <i class="fas fa-history mr-1"></i> Audit Logs
+                        </a>
+                        <a href="/RoleHierarchy" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white admin-only" data-requires-auth="true">
+                            <i class="fas fa-sitemap mr-1"></i> Roles
+                        </a>
+                    </div>
                 </div>
                 <div class="flex items-center">
-                    @if (User?.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-                            <!-- Notifications -->
-                            <div x-data="{ notificationsOpen: false, unreadCount: 0 }" class="ml-3 relative">
-                                <button @@click="notificationsOpen = !notificationsOpen" class="p-1 rounded-full text-white hover:text-gray-200 focus:outline-none">
-                                    <span class="sr-only">View notifications</span>
-                                    <i class="fas fa-bell text-lg"></i>
-                                    <span x-show="unreadCount > 0" x-text="unreadCount" class="absolute top-0 right-0 -mt-1 -mr-1 inline-flex items-center justify-center px-2 py-1 text-xs leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
-                                </button>
-                                <div x-show="notificationsOpen" @@click.away="notificationsOpen = false" x-cloak
-                                     class="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <div class="py-1">
-                                        <div class="px-4 py-2 border-b">
-                                            <div class="flex justify-between items-center">
-                                                <h3 class="text-sm font-medium text-gray-900">Notifications</h3>
-                                                <button @@click="markAllAsRead" class="text-xs text-blue-600 hover:text-blue-800">Mark all as read</button>
-                                            </div>
+                    <div class="auth-buttons">
+                        <a href="/Account/Login" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Log in</a>
+                        <a href="/Account/Signup" class="ml-2 bg-white text-blue-800 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Sign up</a>
+                    </div>
+                    
+                    <div class="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center profile-menu" style="display: none;">
+                        <!-- Notifications -->
+                        <div x-data="{ notificationsOpen: false, unreadCount: 0 }" class="ml-3 relative">
+                            <button x-on:click="notificationsOpen = !notificationsOpen" class="p-1 rounded-full text-white hover:text-gray-200 focus:outline-none">
+                                <span class="sr-only">View notifications</span>
+                                <i class="fas fa-bell text-lg"></i>
+                                <span x-show="unreadCount > 0" x-text="unreadCount" class="absolute top-0 right-0 -mt-1 -mr-1 inline-flex items-center justify-center px-2 py-1 text-xs leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
+                            </button>
+                            <div x-show="notificationsOpen" x-on:click.away="notificationsOpen = false" x-cloak
+                                class="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+                                <div class="py-1">
+                                    <div class="px-4 py-2 border-b">
+                                        <div class="flex justify-between items-center">
+                                            <h3 class="text-sm font-medium text-gray-900">Notifications</h3>
+                                            <button x-on:click="markAllAsRead()" class="text-xs text-blue-600 hover:text-blue-800">Mark all as read</button>
                                         </div>
-                                        <div id="notifications-container" class="max-h-60 overflow-y-auto">
-                                            <div class="px-4 py-2 text-center text-sm text-gray-500">
-                                                Loading notifications...
-                                            </div>
+                                    </div>
+                                    <div id="notifications-container" class="max-h-60 overflow-y-auto">
+                                        <div class="px-4 py-2 text-center text-sm text-gray-500">
+                                            Loading notifications...
                                         </div>
-                                        <div class="border-t">
-                                            <a href="/notifications" class="block w-full px-4 py-2 text-xs text-center text-blue-600 hover:text-blue-800">
-                                                View all notifications
-                                            </a>
-                                        </div>
+                                    </div>
+                                    <div class="border-t">
+                                        <a href="/notifications" class="block w-full px-4 py-2 text-xs text-center text-blue-600 hover:text-blue-800">
+                                            View all notifications
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Profile dropdown -->
-                            <div x-data="{ open: false }" class="ml-3 relative">
-                                <div>
-                                    <button @@click="open = !open" class="p-1 rounded-full text-white hover:text-gray-200 focus:outline-none">
-                                        <span class="sr-only">Open user menu</span>
-                                        <i class="fas fa-user-circle text-2xl"></i>
+                        </div>
+                        
+                        <!-- Profile dropdown -->
+                        <div x-data="{ open: false }" class="ml-3 relative">
+                            <div>
+                                <button x-on:click="open = !open" class="p-1 rounded-full text-white hover:text-gray-200 focus:outline-none">
+                                    <span class="sr-only">Open user menu</span>
+                                    <i class="fas fa-user-circle text-2xl"></i>
+                                </button>
+                            </div>
+                            <div x-show="open" x-on:click.away="open = false" x-cloak
+                                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+                                <div class="px-4 py-2 text-sm text-gray-500 border-b">
+                                    Signed in as <span class="font-semibold text-gray-700 current-username">User</span>
+                                </div>
+                                <a href="/Account/Profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-user-cog mr-2"></i> Your Profile
+                                </a>
+                                <a href="/Account/Settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-cog mr-2"></i> Settings
+                                </a>
+                                <form id="logoutForm" action="/api/auth/logout" method="post" class="border-t">
+                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Sign out
                                     </button>
-                                </div>
-                                <div x-show="open" @@click.away="open = false" x-cloak
-                                     class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <div class="px-4 py-2 text-sm text-gray-500 border-b">
-                                        Signed in as <span class="font-semibold text-gray-700">@User?.Identity?.Name</span>
-                                    </div>
-                                    <a href="/Account/Profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        <i class="fas fa-user-cog mr-2"></i> Your Profile
-                                    </a>
-                                    <a href="/Account/Settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        <i class="fas fa-cog mr-2"></i> Settings
-                                    </a>
-                                    <form id="logoutForm" action="/api/auth/logout" method="post" class="border-t">
-                                        <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                            <i class="fas fa-sign-out-alt mr-2"></i> Sign out
-                                        </button>
-                                    </form>
-                                </div>
+                                </form>
                             </div>
                         </div>
                         
@@ -122,14 +112,7 @@
                                 <i class="fas fa-bars text-lg"></i>
                             </button>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="flex items-center">
-                            <a href="/Account/Login" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Log in</a>
-                            <a href="/Account/Signup" class="ml-2 bg-white text-blue-800 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Sign up</a>
-                        </div>
-                    }
+                    </div>
                 </div>
             </div>
         </div>
@@ -137,30 +120,21 @@
         <!-- Mobile menu, show/hide based on menu state -->
         <div id="mobile-menu" class="md:hidden hidden bg-blue-700">
             <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="/Dashboard" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+                <a href="/Dashboard" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium" data-requires-auth="true">
                     <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
                 </a>
-                @if (User?.IsInRole("ProjectManager") == true || User?.IsInRole("SubPMO") == true || User?.IsInRole("MainPMO") == true)
-                {
-                    <a href="/Project/List" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
-                        <i class="fas fa-project-diagram mr-1"></i> Projects
-                    </a>
-                }
-                @if (User?.IsInRole("Admin") == true || User?.IsInRole("MainPMO") == true)
-                {
-                    <a href="/UserManagement" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
-                        <i class="fas fa-users mr-1"></i> Users
-                    </a>
-                    <a href="/api/auditlogs/recent" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
-                        <i class="fas fa-history mr-1"></i> Audit Logs
-                    </a>
-                }
-                @if (User?.IsInRole("Admin") == true)
-                {
-                    <a href="/RoleHierarchy" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
-                        <i class="fas fa-sitemap mr-1"></i> Roles
-                    </a>
-                }
+                <a href="/Project/List" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium" data-requires-auth="true">
+                    <i class="fas fa-project-diagram mr-1"></i> Projects
+                </a>
+                <a href="/UserManagement" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium admin-only" data-requires-auth="true">
+                    <i class="fas fa-users mr-1"></i> Users
+                </a>
+                <a href="/api/auditlogs/recent" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium admin-only" data-requires-auth="true">
+                    <i class="fas fa-history mr-1"></i> Audit Logs
+                </a>
+                <a href="/RoleHierarchy" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium admin-only" data-requires-auth="true">
+                    <i class="fas fa-sitemap mr-1"></i> Roles
+                </a>
                 <div class="border-t border-blue-800 pt-2">
                     <a href="/Account/Profile" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
                         <i class="fas fa-user-cog mr-2"></i> Your Profile
@@ -215,18 +189,59 @@
         </div>
     </footer>
 
+    <!-- Auth.js script -->
+    <script src="~/js/auth.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function() {
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // Initialize auth state
+            if (window.authManager) {
+                // Initialize the auth UI based on token
+                window.authManager.updateAuthUI(window.authManager.isAuthenticated());
+                
+                // Add auth token to all links with data-requires-auth
+                if (window.authManager.isAuthenticated()) {
+                    const authLinks = document.querySelectorAll('[data-requires-auth="true"]');
+                    const token = window.authManager.getToken();
+                    
+                    if (authLinks.length && token) {
+                        authLinks.forEach(link => {
+                            if (!link.href.includes('auth_token=')) {
+                                const url = new URL(link.href, window.location.origin);
+                                url.searchParams.set('auth_token', token);
+                                link.href = url.toString();
+                            }
+                        });
+                    }
+                    
+                    // Show/hide admin items based on user role
+                    const currentUser = window.authManager.getCurrentUser();
+                    if (currentUser && (currentUser.role === "Admin" || currentUser.role === "MainPMO")) {
+                        document.querySelectorAll('.admin-only').forEach(el => {
+                            el.style.display = '';
+                        });
+                    } else {
+                        document.querySelectorAll('.admin-only').forEach(el => {
+                            el.style.display = 'none';
+                        });
+                    }
+                }
+            }
         });
         
         // Notifications handling
         document.addEventListener('DOMContentLoaded', function() {
             // Only run for authenticated users
-            if (!document.querySelector('[id^="logoutForm"]')) return;
+            if (!document.querySelector('[id^="logoutForm"]') || !window.authManager || !window.authManager.isAuthenticated()) return;
             
             let notificationsData = [];
             
@@ -245,28 +260,40 @@
             setInterval(fetchNotifications, 30000);
             
             function fetchNotifications() {
-                fetch('/api/notifications/unread')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            notificationsData = data.data;
-                            updateNotificationsUI(notificationsData);
-                            
-                            // Update unread count in Alpine.js store
-                            if (Alpine.store) {
-                                Alpine.store('notifications').unreadCount = notificationsData.length;
-                                Alpine.store('notifications').items = notificationsData;
-                            }
+                const token = window.authManager ? window.authManager.getToken() : null;
+                if (!token) return;
+                
+                fetch('/api/notifications/unread', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch notifications');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        notificationsData = data.data;
+                        updateNotificationsUI(notificationsData);
+                        
+                        // Update unread count in Alpine.js store
+                        if (typeof Alpine !== 'undefined' && Alpine.store) {
+                            Alpine.store('notifications').unreadCount = notificationsData.length;
+                            Alpine.store('notifications').items = notificationsData;
                         }
-                    })
-                    .catch(error => console.error('Error fetching notifications:', error));
+                    }
+                })
+                .catch(error => console.error('Error fetching notifications:', error));
             }
             
             function updateNotificationsUI(notifications) {
                 const container = document.getElementById('notifications-container');
                 if (!container) return;
                 
-                if (notifications.length === 0) {
+                if (!notifications || notifications.length === 0) {
                     container.innerHTML = `
                         <div class="px-4 py-2 text-center text-sm text-gray-500">
                             No notifications at this time
@@ -305,13 +332,22 @@
             }
             
             function markAsRead(id) {
+                const token = window.authManager ? window.authManager.getToken() : null;
+                if (!token) return;
+                
                 fetch(`/api/notifications/${id}/read`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to mark notification as read');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.success) {
                         fetchNotifications();
@@ -320,14 +356,24 @@
                 .catch(error => console.error('Error marking notification as read:', error));
             }
             
-            function markAllAsRead() {
+            // Called from Alpine component
+            window.markAllAsRead = function() {
+                const token = window.authManager ? window.authManager.getToken() : null;
+                if (!token) return;
+                
                 fetch('/api/notifications/mark-all-read', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to mark all notifications as read');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.success) {
                         fetchNotifications();
@@ -358,25 +404,40 @@
                 }
             }
             
-            // Logout form handling
+            // Logout form handling with auth token
             document.querySelectorAll('[id^="logoutForm"]').forEach(form => {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
+                    const token = window.authManager ? window.authManager.getToken() : null;
+                    
                     fetch('/api/auth/logout', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Authorization': token ? `Bearer ${token}` : ''
                         }
                     })
                     .then(response => response.json())
                     .then(data => {
-                        localStorage.removeItem('token');
-                        localStorage.removeItem('user');
+                        // Always clear token regardless of response
+                        if (window.authManager) {
+                            window.authManager.clearToken();
+                        } else {
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('user');
+                        }
                         window.location.href = '/Account/Login';
                     })
                     .catch(error => {
                         console.error('Logout error:', error);
+                        // Force logout anyway
+                        if (window.authManager) {
+                            window.authManager.clearToken();
+                        } else {
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('user');
+                        }
                         window.location.href = '/Account/Login';
                     });
                 });

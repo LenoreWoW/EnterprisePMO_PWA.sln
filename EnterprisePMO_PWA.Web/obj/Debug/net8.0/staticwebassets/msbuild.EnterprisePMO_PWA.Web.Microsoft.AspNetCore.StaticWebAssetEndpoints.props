@@ -96,17 +96,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"ppsby5k12r"},{"Name":"integrity","Value":"sha256-HXzeh8nOLiJIJxocC1Q4Y1V0c6qZr3xTeEXyzPvsPi4="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/js/auth-handler.js"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5627"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022HXzeh8nOLiJIJxocC1Q4Y1V0c6qZr3xTeEXyzPvsPi4=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 23:13:15 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/auth.3tjmnfrbvz.js">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth.js'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"3tjmnfrbvz"},{"Name":"integrity","Value":"sha256-OW9kOVuB1w73\u002BEsecGP05YBTDjslsn89yL5rj8Df6Ls="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/js/auth.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"8274"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022OW9kOVuB1w73\u002BEsecGP05YBTDjslsn89yL5rj8Df6Ls=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Mar 2025 10:28:08 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/auth.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-OW9kOVuB1w73\u002BEsecGP05YBTDjslsn89yL5rj8Df6Ls="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"8274"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022OW9kOVuB1w73\u002BEsecGP05YBTDjslsn89yL5rj8Df6Ls=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Mar 2025 10:28:08 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV\u002BZ2e0Kr3k="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7664"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV\u002BZ2e0Kr3k=\u0022"},{"Name":"Last-Modified","Value":"Sat, 29 Mar 2025 07:46:35 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/auth.y7l0k7qgwu.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"y7l0k7qgwu"},{"Name":"integrity","Value":"sha256-kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV\u002BZ2e0Kr3k="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/js/auth.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7664"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV\u002BZ2e0Kr3k=\u0022"},{"Name":"Last-Modified","Value":"Sat, 29 Mar 2025 07:46:35 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/components/ApprovalWorkflowDiagram.jsx">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\components\ApprovalWorkflowDiagram.jsx'))</AssetFile>

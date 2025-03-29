@@ -659,51 +659,6 @@
       ]
     },
     {
-      "Route": "js/auth.3tjmnfrbvz.js",
-      "AssetFile": "js/auth.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "8274"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"OW9kOVuB1w73+EsecGP05YBTDjslsn89yL5rj8Df6Ls=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 28 Mar 2025 10:28:08 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "3tjmnfrbvz"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-OW9kOVuB1w73+EsecGP05YBTDjslsn89yL5rj8Df6Ls="
-        },
-        {
-          "Name": "label",
-          "Value": "js/auth.js"
-        }
-      ]
-    },
-    {
       "Route": "js/auth.js",
       "AssetFile": "js/auth.js",
       "Selectors": [],
@@ -718,7 +673,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8274"
+          "Value": "7664"
         },
         {
           "Name": "Content-Type",
@@ -726,17 +681,62 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"OW9kOVuB1w73+EsecGP05YBTDjslsn89yL5rj8Df6Ls=\""
+          "Value": "\"kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV+Z2e0Kr3k=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 28 Mar 2025 10:28:08 GMT"
+          "Value": "Sat, 29 Mar 2025 07:46:35 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-OW9kOVuB1w73+EsecGP05YBTDjslsn89yL5rj8Df6Ls="
+          "Value": "sha256-kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV+Z2e0Kr3k="
+        }
+      ]
+    },
+    {
+      "Route": "js/auth.y7l0k7qgwu.js",
+      "AssetFile": "js/auth.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7664"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV+Z2e0Kr3k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 29 Mar 2025 07:46:35 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "y7l0k7qgwu"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-kuQA8z6qebHdkQlmrwz9LOwtihTBhHwhSV+Z2e0Kr3k="
+        },
+        {
+          "Name": "label",
+          "Value": "js/auth.js"
         }
       ]
     },
