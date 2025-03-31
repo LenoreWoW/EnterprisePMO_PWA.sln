@@ -1,53 +1,73 @@
 @model IEnumerable<EnterprisePMO_PWA.Domain.Entities.User>
 @{
     ViewData["Title"] = "Assign Users to Departments";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
 }
 
-<div class="container-fluid py-4">
-    <h1 class="mb-4">Assign Users to Departments</h1>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Assign Users to Departments</h1>
 
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Users in Holding Department</h5>
+    <div class="bg-white shadow rounded-lg overflow-hidden mb-6">
+        <div class="px-4 py-5 sm:px-6 bg-blue-600 text-white">
+            <h2 class="text-lg font-medium leading-6">Users in Holding Department</h2>
         </div>
-        <div class="card-body">
+        <div class="px-4 py-5 sm:p-6">
             @if (!Model.Any())
             {
-                <div class="alert alert-info">
-                    <i class="bi bi-info-circle me-2"></i>
-                    There are currently no users in the holding department.
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-blue-700">
+                                There are currently no users in the holding department.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             }
             else
             {
                 <form asp-action="ProcessBulkMove" method="post">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <th width="5%">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="selectAll">
+                                    <th scope="col" class="w-12 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <div class="flex items-center">
+                                            <input id="selectAll" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                                         </div>
                                     </th>
-                                    <th>Username</th>
-                                    <th>Current Role</th>
-                                    <th>Registration Date</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Username
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Current Role
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Registration Date
+                                    </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach (var user in Model)
                                 {
                                     <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input user-checkbox" type="checkbox" name="selectedUsers" value="@user.Id">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <input class="user-checkbox h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" type="checkbox" name="selectedUsers" value="@user.Id">
                                             </div>
                                         </td>
-                                        <td>@user.Username</td>
-                                        <td>@user.Role</td>
-                                        <td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            @user.Username
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            @user.Role
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             @{
                                                 // Get the creation date from audit logs if available
                                                 var creationDate = ViewBag.UserCreationDates != null && ViewBag.UserCreationDates.ContainsKey(user.Id) 
@@ -62,34 +82,33 @@
                         </table>
                     </div>
 
-                    <div class="row mt-4">
-                        <div class="col-md-5">
-                            <div class="mb-3">
-                                <label for="targetDepartmentId" class="form-label">Target Department</label>
-                                <select class="form-select" id="targetDepartmentId" name="targetDepartmentId" required>
-                                    <option value="">Select Department</option>
-                                    @foreach (var dept in ViewBag.Departments)
-                                    {
-                                        <option value="@dept.Id">@dept.Name</option>
-                                    }
-                                </select>
-                            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mt-6">
+                        <div class="md:col-span-2">
+                            <label for="targetDepartmentId" class="block text-sm font-medium text-gray-700">Target Department</label>
+                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md" id="targetDepartmentId" name="targetDepartmentId" required>
+                                <option value="">Select Department</option>
+                                @foreach (var dept in ViewBag.Departments)
+                                {
+                                    <option value="@dept.Id">@dept.Name</option>
+                                }
+                            </select>
                         </div>
-                        <div class="col-md-5">
-                            <div class="mb-3">
-                                <label for="targetRole" class="form-label">Assign Role</label>
-                                <select class="form-select" id="targetRole" name="targetRole" required>
-                                    <option value="">Select Role</option>
-                                    @foreach (RoleType role in Enum.GetValues(typeof(RoleType)))
-                                    {
-                                        <option value="@((int)role)">@role</option>
-                                    }
-                                </select>
-                            </div>
+                        <div class="md:col-span-2">
+                            <label for="targetRole" class="block text-sm font-medium text-gray-700">Assign Role</label>
+                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md" id="targetRole" name="targetRole" required>
+                                <option value="">Select Role</option>
+                                @foreach (RoleType role in Enum.GetValues(typeof(RoleType)))
+                                {
+                                    <option value="@((int)role)">@role</option>
+                                }
+                            </select>
                         </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                            <button type="submit" class="btn btn-primary w-100" id="moveButton" disabled>
-                                <i class="bi bi-arrow-right me-2"></i>Assign Users
+                        <div class="md:col-span-1 flex items-end">
+                            <button type="submit" id="moveButton" disabled class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                                Assign Users
                             </button>
                         </div>
                     </div>
@@ -98,49 +117,70 @@
         </div>
     </div>
 
-    <div class="text-end mt-3">
-        <a href="@Url.Action("Index")" class="btn btn-secondary">
-            <i class="bi bi-arrow-left me-2"></i>Back to User List
+    <div class="text-right mt-6">
+        <a href="@Url.Action("Index")" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+            </svg>
+            Back to User List
         </a>
     </div>
 </div>
 
 @section Scripts {
     <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
             // Select all checkbox functionality
-            $("#selectAll").change(function() {
-                $(".user-checkbox").prop('checked', this.checked);
-                updateMoveButtonState();
-            });
+            const selectAll = document.getElementById('selectAll');
+            const userCheckboxes = document.querySelectorAll('.user-checkbox');
+            const moveButton = document.getElementById('moveButton');
+            const targetDepartmentId = document.getElementById('targetDepartmentId');
+            const targetRole = document.getElementById('targetRole');
+
+            if (selectAll) {
+                selectAll.addEventListener('change', function() {
+                    userCheckboxes.forEach(checkbox => {
+                        checkbox.checked = this.checked;
+                    });
+                    updateMoveButtonState();
+                });
+            }
 
             // Update when individual checkboxes change
-            $(".user-checkbox").change(function() {
-                updateMoveButtonState();
-                
-                // Update select all checkbox
-                if ($(".user-checkbox:checked").length === $(".user-checkbox").length) {
-                    $("#selectAll").prop('checked', true);
-                } else {
-                    $("#selectAll").prop('checked', false);
-                }
+            userCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateMoveButtonState();
+                    
+                    // Update select all checkbox
+                    if (selectAll) {
+                        const allChecked = Array.from(userCheckboxes).every(cb => cb.checked);
+                        const someChecked = Array.from(userCheckboxes).some(cb => cb.checked);
+                        
+                        selectAll.checked = allChecked;
+                        selectAll.indeterminate = someChecked && !allChecked;
+                    }
+                });
             });
+
+            // Update when dropdowns change
+            if (targetDepartmentId) {
+                targetDepartmentId.addEventListener('change', updateMoveButtonState);
+            }
+            
+            if (targetRole) {
+                targetRole.addEventListener('change', updateMoveButtonState);
+            }
 
             // Function to update move button state
             function updateMoveButtonState() {
-                if ($(".user-checkbox:checked").length > 0 &&
-                    $("#targetDepartmentId").val() !== "" &&
-                    $("#targetRole").val() !== "") {
-                    $("#moveButton").prop('disabled', false);
-                } else {
-                    $("#moveButton").prop('disabled', true);
+                if (moveButton) {
+                    const hasSelectedUsers = Array.from(userCheckboxes).some(cb => cb.checked);
+                    const hasDepartment = targetDepartmentId && targetDepartmentId.value;
+                    const hasRole = targetRole && targetRole.value;
+                    
+                    moveButton.disabled = !(hasSelectedUsers && hasDepartment && hasRole);
                 }
             }
-
-            // Update when dropdowns change
-            $("#targetDepartmentId, #targetRole").change(function() {
-                updateMoveButtonState();
-            });
         });
     </script>
 }
