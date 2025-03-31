@@ -1,62 +1,75 @@
 @model EnterprisePMO_PWA.Web.Models.ErrorViewModel
 @{
     ViewData["Title"] = "Error";
+    Layout = "_TailwindLayout";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 text-center">
-            <div class="card shadow-sm border-0">
-                <div class="card-body p-5">
-                    <i class="bi bi-exclamation-triangle text-danger" style="font-size: 5rem;"></i>
-                    <h1 class="mt-4 mb-3 display-4">Oops! Something went wrong.</h1>
-                    <p class="lead text-muted mb-4">
-                        We're sorry, but we encountered an error while processing your request.
-                        Our technical team has been notified and is working to resolve the issue.
-                    </p>
-                    
-                    @if (Model?.ShowRequestId ?? false)
-                    {
-                        <div class="alert alert-info mb-4">
-                            <strong>Request ID:</strong> <code>@Model?.RequestId</code>
+<div class="container mx-auto px-4 mt-10">
+    <div class="flex justify-center">
+        <div class="w-full md:w-2/3 lg:w-1/2 text-center">
+            <div class="bg-white rounded-lg shadow-sm border-0 p-6">
+                <svg class="mx-auto h-20 w-20 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <h1 class="mt-4 mb-3 text-4xl font-bold text-gray-900">Oops! Something went wrong.</h1>
+                <p class="text-xl text-gray-500 mb-4">
+                    We're sorry, but we encountered an error while processing your request.
+                    Our technical team has been notified and is working to resolve the issue.
+                </p>
+                
+                @if (Model?.ShowRequestId ?? false)
+                {
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                        <div class="flex">
+                            <div class="ml-3">
+                                <p class="text-sm text-blue-700">
+                                    <span class="font-medium">Request ID:</span> <code class="bg-blue-100 px-1 py-0.5 rounded">@Model?.RequestId</code>
+                                </p>
+                            </div>
                         </div>
-                    }
-                    
-                    @if (ViewData["Exception"] is Exception exception)
-                    {
-                        <div class="alert alert-danger text-start mb-4">
-                            <h4 class="alert-heading">Error Details</h4>
-                            <p class="mb-0">@exception.Message</p>
-                            
-                            @if (exception.InnerException != null)
-                            {
-                                <hr>
-                                <p class="mb-0">Inner Exception: @exception.InnerException.Message</p>
-                            }
-                            
-                            @if (!string.IsNullOrEmpty(exception.StackTrace))
-                            {
-                                <hr>
-                                <div class="small">
-                                    <pre>@exception.StackTrace</pre>
-                                </div>
-                            }
-                        </div>
-                    }
-                    
-                    <div class="mt-4">
-                        <a href="/" class="btn btn-primary me-2">
-                            <i class="bi bi-house-door me-2"></i>Go Home
-                        </a>
-                        <button onclick="window.history.back()" class="btn btn-outline-secondary">
-                            <i class="bi bi-arrow-left me-2"></i>Go Back
-                        </button>
                     </div>
+                }
+                
+                @if (ViewData["Exception"] is Exception exception)
+                {
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 text-left mb-4">
+                        <h4 class="font-medium text-red-800">Error Details</h4>
+                        <p class="mt-2 text-sm text-red-700">@exception.Message</p>
+                        
+                        @if (exception.InnerException != null)
+                        {
+                            <hr class="my-2 border-red-200">
+                            <p class="text-sm text-red-700">Inner Exception: @exception.InnerException.Message</p>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(exception.StackTrace))
+                        {
+                            <hr class="my-2 border-red-200">
+                            <div class="text-xs">
+                                <pre class="bg-red-100 p-2 rounded overflow-x-auto">@exception.StackTrace</pre>
+                            </div>
+                        }
+                    </div>
+                }
+                
+                <div class="mt-6">
+                    <a href="/" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mr-2">
+                        <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        Go Home
+                    </a>
+                    <button onclick="window.history.back()" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Go Back
+                    </button>
                 </div>
             </div>
             
-            <div class="mt-4 text-muted">
-                <p class="small">
+            <div class="mt-4 text-sm text-gray-500">
+                <p>
                     Error ID: @DateTime.UtcNow.Ticks
                     <br>
                     Date/Time: @DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC")

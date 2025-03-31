@@ -1,48 +1,44 @@
 @{
-    Layout = "_Layout";
+    Layout = "_TailwindLayout";
+    ViewData["Title"] = "Kanban Board";
 }
-<!--
-    Kanban Board view for managing tasks.
-    Each card includes a data-id attribute for ordering.
--->
-<h1>Kanban Board</h1>
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <h3>To Do</h3>
-            <div class="kanban-column" id="todoColumn">
-                <div class="card mb-2" data-id="task1">
-                    <div class="card-body">
-                        <h5 class="card-title">Task 1</h5>
-                        <p class="card-text">Description of Task 1</p>
-                    </div>
+
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-6">Kanban Board</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+            <h3 class="text-lg font-medium mb-4">To Do</h3>
+            <div class="kanban-column bg-gray-100 p-4 rounded-lg min-h-[12rem]" id="todoColumn">
+                <div class="card mb-2 bg-white p-4 rounded shadow cursor-move" data-id="task1">
+                    <h5 class="font-medium mb-1">Task 1</h5>
+                    <p class="text-gray-600 text-sm">Description of Task 1</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <h3>In Progress</h3>
-            <div class="kanban-column" id="inProgressColumn">
-                <div class="card mb-2" data-id="task2">
-                    <div class="card-body">
-                        <h5 class="card-title">Task 2</h5>
-                        <p class="card-text">Description of Task 2</p>
-                    </div>
+        
+        <div>
+            <h3 class="text-lg font-medium mb-4">In Progress</h3>
+            <div class="kanban-column bg-blue-100 p-4 rounded-lg min-h-[12rem]" id="inProgressColumn">
+                <div class="card mb-2 bg-white p-4 rounded shadow cursor-move" data-id="task2">
+                    <h5 class="font-medium mb-1">Task 2</h5>
+                    <p class="text-gray-600 text-sm">Description of Task 2</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <h3>Done</h3>
-            <div class="kanban-column" id="doneColumn">
-                <div class="card mb-2" data-id="task3">
-                    <div class="card-body">
-                        <h5 class="card-title">Task 3</h5>
-                        <p class="card-text">Description of Task 3</p>
-                    </div>
+        
+        <div>
+            <h3 class="text-lg font-medium mb-4">Done</h3>
+            <div class="kanban-column bg-green-100 p-4 rounded-lg min-h-[12rem]" id="doneColumn">
+                <div class="card mb-2 bg-white p-4 rounded shadow cursor-move" data-id="task3">
+                    <h5 class="font-medium mb-1">Task 3</h5>
+                    <p class="text-gray-600 text-sm">Description of Task 3</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Include SortableJS and custom kanban.js -->
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <script src="/js/kanban.js"></script>
