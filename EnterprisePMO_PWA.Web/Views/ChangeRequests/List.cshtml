@@ -1,46 +1,87 @@
 @model IEnumerable<EnterprisePMO_PWA.Domain.Entities.ChangeRequest>
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
     ViewBag.Title = "Change Requests List";
 }
-<h1>Change Requests</h1>
-@if (User.IsInRole("ProjectManager"))
-{
-    <a href="/ChangeRequests/Create" class="btn btn-primary mb-3">Create New Change Request</a>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>Change Type</th>
-            <th>Request Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var cr in Model) {
-            <tr>
-                <td>@cr.ChangeType</td>
-                <td>@cr.RequestDate.ToShortDateString()</td>
-                <td>@cr.ApprovalStatus</td>
-                <td>
-                    @if (User.IsInRole("ProjectManager"))
-                    {
-                        <a href="/ChangeRequests/Edit/@cr.Id" class="btn btn-sm btn-primary">Edit</a>
-                    }
-                    @if (User.IsInRole("SubPMO") || User.IsInRole("MainPMO"))
-                    {
-                        <form asp-action="Approve" method="post" style="display:inline;">
-                            <input type="hidden" name="id" value="@cr.Id" />
-                            <button type="submit" class="btn btn-sm btn-success">Approve</button>
-                        </form>
-                        <form asp-action="Reject" method="post" style="display:inline;">
-                            <input type="hidden" name="id" value="@cr.Id" />
-                            <button type="submit" class="btn btn-sm btn-danger">Reject</button>
-                        </form>
-                    }
-                </td>
-            </tr>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="md:flex md:items-center md:justify-between mb-6">
+        <div class="flex-1 min-w-0">
+            <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate">
+                Change Requests
+            </h1>
+        </div>
+        @if (User.IsInRole("ProjectManager"))
+        {
+            <div class="mt-4 flex md:mt-0 md:ml-4">
+                <a href="/ChangeRequests/Create" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Create New Change Request
+                </a>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-md">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Change Type
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Request Date
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach(var cr in Model) {
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            @cr.ChangeType
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            @cr.RequestDate.ToShortDateString()
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                   @(cr.ApprovalStatus == "Approved" ? "bg-green-100 text-green-800" : 
+                                     cr.ApprovalStatus == "Rejected" ? "bg-red-100 text-red-800" : 
+                                     "bg-yellow-100 text-yellow-800")">
+                                @cr.ApprovalStatus
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <div class="flex space-x-2">
+                                @if (User.IsInRole("ProjectManager"))
+                                {
+                                    <a href="/ChangeRequests/Edit/@cr.Id" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                }
+                                @if (User.IsInRole("SubPMO") || User.IsInRole("MainPMO"))
+                                {
+                                    <form asp-action="Approve" method="post" class="inline">
+                                        <input type="hidden" name="id" value="@cr.Id" />
+                                        <button type="submit" class="text-green-600 hover:text-green-900 bg-transparent border-none p-0 cursor-pointer">
+                                            Approve
+                                        </button>
+                                    </form>
+                                    <form asp-action="Reject" method="post" class="inline ml-2">
+                                        <input type="hidden" name="id" value="@cr.Id" />
+                                        <button type="submit" class="text-red-600 hover:text-red-900 bg-transparent border-none p-0 cursor-pointer">
+                                            Reject
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

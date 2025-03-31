@@ -1,52 +1,102 @@
 @model EnterprisePMO_PWA.Domain.Entities.Project
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
     ViewBag.Title = "Edit Project";
 }
-<h1>Edit Project</h1>
-<form asp-action="Edit" method="post" enctype="multipart/form-data">
-    <input type="hidden" asp-for="Id" />
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Description" class="form-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="ClientName" class="form-label">Client Name</label>
-        <input asp-for="ClientName" class="form-control" />
-        <span asp-validation-for="ClientName" class="text-danger"></span>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label asp-for="StartDate" class="form-label"></label>
-            <input asp-for="StartDate" type="date" class="form-control" />
-            <span asp-validation-for="StartDate" class="text-danger"></span>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label asp-for="EndDate" class="form-label"></label>
-            <input asp-for="EndDate" type="date" class="form-control" />
-            <span asp-validation-for="EndDate" class="text-danger"></span>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="md:flex md:items-center md:justify-between mb-6">
+        <div class="flex-1 min-w-0">
+            <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate">
+                Edit Project
+            </h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label asp-for="Budget" class="form-label"></label>
-            <input asp-for="Budget" type="number" step="0.01" class="form-control" />
-            <span asp-validation-for="Budget" class="text-danger"></span>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label asp-for="EstimatedCost" class="form-label">Estimated Cost</label>
-            <input asp-for="EstimatedCost" type="number" step="0.01" class="form-control" />
-            <span asp-validation-for="EstimatedCost" class="text-danger"></span>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                
+                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                    <div class="sm:col-span-6">
+                        <label asp-for="Name" class="block text-sm font-medium text-gray-700">Project Name</label>
+                        <div class="mt-1">
+                            <input asp-for="Name" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                            <span asp-validation-for="Name" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-6">
+                        <label asp-for="Description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <div class="mt-1">
+                            <textarea asp-for="Description" rows="3" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                            <span asp-validation-for="Description" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-6">
+                        <label asp-for="ClientName" class="block text-sm font-medium text-gray-700">Client Name</label>
+                        <div class="mt-1">
+                            <input asp-for="ClientName" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                            <span asp-validation-for="ClientName" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-3">
+                        <label asp-for="StartDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+                        <div class="mt-1">
+                            <input asp-for="StartDate" type="date" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                            <span asp-validation-for="StartDate" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-3">
+                        <label asp-for="EndDate" class="block text-sm font-medium text-gray-700">End Date</label>
+                        <div class="mt-1">
+                            <input asp-for="EndDate" type="date" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                            <span asp-validation-for="EndDate" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-3">
+                        <label asp-for="Budget" class="block text-sm font-medium text-gray-700">Budget</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="text-gray-500 sm:text-sm">$</span>
+                            </div>
+                            <input asp-for="Budget" type="number" step="0.01" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" />
+                            <span asp-validation-for="Budget" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-3">
+                        <label asp-for="EstimatedCost" class="block text-sm font-medium text-gray-700">Estimated Cost</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="text-gray-500 sm:text-sm">$</span>
+                            </div>
+                            <input asp-for="EstimatedCost" type="number" step="0.01" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" />
+                            <span asp-validation-for="EstimatedCost" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pt-5">
+                    <div class="flex justify-end">
+                        <a href="/Project/List" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Cancel
+                        </a>
+                        <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

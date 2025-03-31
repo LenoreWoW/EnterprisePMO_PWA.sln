@@ -1,23 +1,53 @@
 @model EnterprisePMO_PWA.Domain.Entities.Role
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
     ViewBag.Title = "Edit Role";
 }
-<h1>Edit Role</h1>
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Id" />
-    <div class="mb-3">
-        <label asp-for="RoleName" class="form-label"></label>
-        <input asp-for="RoleName" class="form-control" />
-        <span asp-validation-for="RoleName" class="text-danger"></span>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="md:flex md:items-center md:justify-between mb-6">
+        <div class="flex-1 min-w-0">
+            <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate">
+                Edit Role
+            </h1>
+        </div>
     </div>
-    <div class="mb-3">
-        <label asp-for="Description" class="form-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="space-y-6">
+                    <div>
+                        <label asp-for="RoleName" class="block text-sm font-medium text-gray-700">Role Name</label>
+                        <div class="mt-1">
+                            <input asp-for="RoleName" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                            <span asp-validation-for="RoleName" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label asp-for="Description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <div class="mt-1">
+                            <textarea asp-for="Description" rows="3" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                            <span asp-validation-for="Description" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Save Changes
+                        </button>
+                        <a href="/Role/List" class="ml-3 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -1,179 +1,251 @@
 @{
     ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 p-0">
-            <!-- Hero Banner -->
-            <div class="bg-primary text-white py-5">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-7">
-                            <h1 class="display-4 fw-bold mb-4">Enterprise PMO Platform</h1>
-                            <p class="lead mb-4">
-                                A comprehensive solution for managing your organization's project portfolio with standardized 
-                                workflows, governance, and reporting capabilities.
-                            </p>
-                            <div class="d-flex gap-3">
-                                <a href="/Account/Login" class="btn btn-light btn-lg">
-                                    <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
-                                </a>
-                                <a href="/Account/Signup" class="btn btn-outline-light btn-lg">
-                                    <i class="bi bi-person-plus me-2"></i>Sign Up
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-5 d-none d-md-block">
-                            <img src="/img/hero-dashboard.svg" alt="Dashboard Illustration" class="img-fluid" />
-                        </div>
+<div>
+    <!-- Hero Banner -->
+    <div class="bg-blue-600 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h1 class="text-4xl font-bold mb-4">Enterprise PMO Platform</h1>
+                    <p class="text-xl mb-8">
+                        A comprehensive solution for managing your organization's project portfolio with standardized 
+                        workflows, governance, and reporting capabilities.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="/Account/Login" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-gray-800 bg-white hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Sign In
+                        </a>
+                        <a href="/Account/Signup" class="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-blue-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+                            </svg>
+                            Sign Up
+                        </a>
                     </div>
+                </div>
+                <div class="hidden md:block">
+                    <img src="/img/hero-dashboard.svg" alt="Dashboard Illustration" class="w-full" />
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Key Features Section -->
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Key Features</h2>
-            <p class="lead text-muted">Designed to streamline your project management processes</p>
-        </div>
+    <div class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Key Features</h2>
+                <p class="mt-4 text-xl text-gray-600">Designed to streamline your project management processes</p>
+            </div>
 
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center p-4">
-                        <div class="rounded-circle bg-primary bg-opacity-10 p-3 d-inline-flex mb-3">
-                            <i class="bi bi-kanban text-primary fs-1"></i>
-                        </div>
-                        <h4 class="card-title">Project Governance</h4>
-                        <p class="card-text">Standardized workflows, approvals, and escalation paths ensure projects follow organizational guidelines.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                    <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-2">Project Governance</h3>
+                    <p class="text-gray-600">Standardized workflows, approvals, and escalation paths ensure projects follow organizational guidelines.</p>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center p-4">
-                        <div class="rounded-circle bg-success bg-opacity-10 p-3 d-inline-flex mb-3">
-                            <i class="bi bi-people text-success fs-1"></i>
-                        </div>
-                        <h4 class="card-title">Role-Based Access</h4>
-                        <p class="card-text">Tailored views and permissions for Project Managers, Sub PMOs, Main PMO, Directors, and Executives.</p>
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                    <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-2">Role-Based Access</h3>
+                    <p class="text-gray-600">Tailored views and permissions for Project Managers, Sub PMOs, Main PMO, Directors, and Executives.</p>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center p-4">
-                        <div class="rounded-circle bg-warning bg-opacity-10 p-3 d-inline-flex mb-3">
-                            <i class="bi bi-graph-up text-warning fs-1"></i>
-                        </div>
-                        <h4 class="card-title">Advanced Analytics</h4>
-                        <p class="card-text">Comprehensive dashboards and reports provide actionable insights for decision-making at all levels.</p>
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                    <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 text-yellow-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-2">Advanced Analytics</h3>
+                    <p class="text-gray-600">Comprehensive dashboards and reports provide actionable insights for decision-making at all levels.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- How It Works Section -->
-    <div class="bg-light py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">How It Works</h2>
-                <p class="lead text-muted">A streamlined workflow for effective project management</p>
+    <div class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">How It Works</h2>
+                <p class="mt-4 text-xl text-gray-600">A streamlined workflow for effective project management</p>
             </div>
 
-            <div class="row align-items-center">
-                <div class="col-md-6 order-md-2">
-                    <img src="/img/workflow.svg" alt="Workflow Illustration" class="img-fluid mb-4 mb-md-0" />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="space-y-8">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">1</div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-xl font-medium text-gray-900">Project Registration</h4>
+                                <p class="mt-2 text-gray-600">Project Managers create project proposals with required details, following standardized templates.</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">2</div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-xl font-medium text-gray-900">Review & Approval</h4>
+                                <p class="mt-2 text-gray-600">Sub PMOs and Main PMO review proposals, ensuring alignment with organizational strategy and standards.</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">3</div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-xl font-medium text-gray-900">Execution & Monitoring</h4>
+                                <p class="mt-2 text-gray-600">Project Managers submit weekly updates, tracking progress, risks, and issues with visual indicators.</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">4</div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-xl font-medium text-gray-900">Reporting & Analytics</h4>
+                                <p class="mt-2 text-gray-600">Stakeholders access dashboards and reports for informed decision-making and strategic planning.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 order-md-1">
-                    <div class="d-flex mb-4">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="bg-primary text-white rounded-circle fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">1</div>
-                        </div>
-                        <div>
-                            <h4>Project Registration</h4>
-                            <p>Project Managers create project proposals with required details, following standardized templates.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-4">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="bg-primary text-white rounded-circle fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">2</div>
-                        </div>
-                        <div>
-                            <h4>Review & Approval</h4>
-                            <p>Sub PMOs and Main PMO review proposals, ensuring alignment with organizational strategy and standards.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-4">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="bg-primary text-white rounded-circle fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">3</div>
-                        </div>
-                        <div>
-                            <h4>Execution & Monitoring</h4>
-                            <p>Project Managers submit weekly updates, tracking progress, risks, and issues with visual indicators.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="bg-primary text-white rounded-circle fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">4</div>
-                        </div>
-                        <div>
-                            <h4>Reporting & Analytics</h4>
-                            <p>Stakeholders access dashboards and reports for informed decision-making and strategic planning.</p>
-                        </div>
-                    </div>
+                <div class="order-1 md:order-2">
+                    <img src="/img/workflow.svg" alt="Workflow Illustration" class="w-full" />
                 </div>
             </div>
         </div>
     </div>
 
     <!-- User Roles Section -->
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Designed for Every Stakeholder</h2>
-            <p class="lead text-muted">Tailored experiences for different roles in your organization</p>
-        </div>
+    <div class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Designed for Every Stakeholder</h2>
+                <p class="mt-4 text-xl text-gray-600">Tailored experiences for different roles in your organization</p>
+            </div>
 
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body p-4">
-                        <h4 class="card-title"><i class="bi bi-person-badge me-2 text-primary"></i>Project Managers</h4>
-                        <ul class="list-unstyled mt-3">
-                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Create and manage project details</li>
-                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Submit weekly status updates</li>
-                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Manage project team members</li>
-                            <li><i class="bi bi-check2-circle me-2 text-success"></i>Request changes to scope, budget, or timeline</li>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="p-6">
+                        <h4 class="text-xl font-medium text-gray-900 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            Project Managers
+                        </h4>
+                        <ul class="mt-4 space-y-3">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Create and manage project details</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Submit weekly status updates</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Manage project team members</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Request changes to scope, budget, or timeline</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body p-4">
-                        <h4 class="card-title"><i class="bi bi-people me-2 text-success"></i>PMO Team</h4>
-                        <ul class="list-unstyled mt-3">
-                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Review and approve project proposals</li>
-                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Monitor project performance across departments</li>
-                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Enforce governance and standards</li>
-                            <li><i class="bi bi-check2-circle me-2 text-success"></i>Generate portfolio-level reports</li>
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="p-6">
+                        <h4 class="text-xl font-medium text-gray-900 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            PMO Team
+                        </h4>
+                        <ul class="mt-4 space-y-3">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Review and approve project proposals</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Monitor project performance across departments</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Enforce governance and standards</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Generate portfolio-level reports</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body p-4">
-                        <h4 class="card-title"><i class="bi bi-briefcase me-2 text-warning"></i>Executives</h4>
-                        <ul class="list-unstyled mt-3">
-                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>View high-level portfolio dashboards</li>
-                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Monitor strategic goal alignment</li>
-                            <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Track department performance</li>
-                            <li><i class="bi bi-check2-circle me-2 text-success"></i>Access executive-level reports</li>
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="p-6">
+                        <h4 class="text-xl font-medium text-gray-900 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            Executives
+                        </h4>
+                        <ul class="mt-4 space-y-3">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">View high-level portfolio dashboards</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Monitor strategic goal alignment</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Track department performance</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-gray-600">Access executive-level reports</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -182,16 +254,19 @@
     </div>
 
     <!-- Call to Action -->
-    <div class="bg-primary text-white py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-7">
-                    <h2 class="fw-bold mb-3">Ready to Transform Your Project Management?</h2>
-                    <p class="lead mb-4">Join organizations that are streamlining their PMO operations with our comprehensive solution.</p>
+    <div class="bg-blue-600 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-7 gap-8 items-center">
+                <div class="md:col-span-5">
+                    <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Project Management?</h2>
+                    <p class="text-xl text-blue-100">Join organizations that are streamlining their PMO operations with our comprehensive solution.</p>
                 </div>
-                <div class="col-md-5 text-md-end">
-                    <a href="/Account/Signup" class="btn btn-light btn-lg">
-                        <i class="bi bi-rocket-takeoff me-2"></i>Get Started Today
+                <div class="md:col-span-2 flex justify-center md:justify-end">
+                    <a href="/Account/Signup" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-600 bg-white hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd" />
+                        </svg>
+                        Get Started Today
                     </a>
                 </div>
             </div>

@@ -1,87 +1,112 @@
 @{
     ViewData["Title"] = "Sign Up";
-    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
 }
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-7">
-            <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header">
-                    <h3 class="text-center font-weight-light my-4">Create Account</h3>
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Create Account</h2>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <div id="message-container"></div>
+            
+            <form id="signupForm" class="space-y-6">
+                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                        <div class="mt-1">
+                            <input id="firstName" name="firstName" type="text" required 
+                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <div class="mt-1">
+                            <input id="lastName" name="lastName" type="text" required
+                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div id="message-container"></div>
-                    
-                    <form id="signupForm" class="needs-validation" novalidate>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" id="firstName" name="firstName" type="text" placeholder="Enter your first name" required />
-                                    <label for="firstName">First Name</label>
-                                    <div class="invalid-feedback">Please enter your first name.</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Enter your last name" required />
-                                    <label for="lastName">Last Name</label>
-                                    <div class="invalid-feedback">Please enter your last name.</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
-                            <label for="email">Email address</label>
-                            <div class="invalid-feedback">Please enter a valid email address.</div>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="department" name="departmentId" required>
-                                <option value="" disabled selected>Select department</option>
-                            </select>
-                            <label for="department">Department</label>
-                            <div class="invalid-feedback">Please select a department.</div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" id="password" name="password" type="password" placeholder="Create a password" required minlength="8" />
-                                    <label for="password">Password</label>
-                                    <div class="invalid-feedback">Password must be at least 8 characters.</div>
-                                    <div class="input-group-append">
-                                        <button id="togglePassword" class="btn btn-outline-secondary" type="button">
-                                            <i class="bi bi-eye-slash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required />
-                                    <label for="confirmPassword">Confirm Password</label>
-                                    <div class="invalid-feedback">Passwords do not match.</div>
-                                    <div class="input-group-append">
-                                        <button id="toggleConfirmPassword" class="btn btn-outline-secondary" type="button">
-                                            <i class="bi bi-eye-slash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" id="termsAgreed" name="termsAgreed" type="checkbox" required />
-                            <label class="form-check-label" for="termsAgreed">I agree to the <a href="/Home/Terms">terms of service</a> and <a href="/Home/Privacy">privacy policy</a>.</label>
-                            <div class="invalid-feedback">You must agree to the terms.</div>
-                        </div>
-                        <div class="mt-4 mb-0">
-                            <div class="d-grid">
-                                <button class="btn btn-primary btn-block" type="submit">Create Account</button>
-                            </div>
-                        </div>
-                    </form>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+                    <div class="mt-1">
+                        <input id="email" name="email" type="email" autocomplete="email" required
+                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
+                    </div>
                 </div>
-                <div class="card-footer text-center py-3">
-                    <div class="small"><a href="/Account/Login">Already have an account? Go to login</a></div>
+
+                <div>
+                    <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
+                    <div class="mt-1">
+                        <select id="department" name="departmentId" required
+                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
+                            <option value="" disabled selected>Select department</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <input id="password" name="password" type="password" required minlength="8"
+                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
+                        <button id="togglePassword" type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <input id="confirmPassword" name="confirmPassword" type="password" required
+                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
+                        <button id="toggleConfirmPassword" type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <input id="termsAgreed" name="termsAgreed" type="checkbox" required
+                           class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+                    <label for="termsAgreed" class="ml-2 block text-sm text-gray-900">
+                        I agree to the <a href="/Home/Terms" class="text-blue-600 hover:text-blue-500">terms of service</a> and 
+                        <a href="/Home/Privacy" class="text-blue-600 hover:text-blue-500">privacy policy</a>.
+                    </label>
+                </div>
+
+                <div>
+                    <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Create Account
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-6">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="bg-white px-2 text-gray-500">Already have an account?</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <a href="/Account/Login" class="font-medium text-blue-600 hover:text-blue-500">
+                        Go to Login
+                    </a>
                 </div>
             </div>
         </div>

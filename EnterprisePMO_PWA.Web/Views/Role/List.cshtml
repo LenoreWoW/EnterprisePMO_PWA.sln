@@ -1,31 +1,59 @@
 @model IEnumerable<EnterprisePMO_PWA.Domain.Entities.Role>
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
     ViewBag.Title = "Roles List";
 }
-<h1>Roles</h1>
-<a href="/Role/Create" class="btn btn-primary mb-3">Create New Role</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Role Name</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var role in Model) {
-            <tr>
-                <td>@role.RoleName</td>
-                <td>@role.Description</td>
-                <td>
-                    <a href="/Role/Edit?id=@role.Id" class="btn btn-sm btn-primary">Edit</a>
-                    <form asp-action="Delete" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@role.Id" />
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="md:flex md:items-center md:justify-between mb-6">
+        <div class="flex-1 min-w-0">
+            <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate">
+                Roles
+            </h1>
+        </div>
+        <div class="mt-4 flex md:mt-0 md:ml-4">
+            <a href="/Role/Create" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Create New Role
+            </a>
+        </div>
+    </div>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Role Name
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Description
+                    </th>
+                    <th scope="col" class="relative px-6 py-3">
+                        <span class="sr-only">Actions</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach(var role in Model) {
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            @role.RoleName
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-500">
+                            @role.Description
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a href="/Role/Edit?id=@role.Id" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+                            <form asp-action="Delete" method="post" class="inline">
+                                <input type="hidden" name="id" value="@role.Id" />
+                                <button type="submit" class="text-red-600 hover:text-red-900 bg-transparent border-none p-0 cursor-pointer">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

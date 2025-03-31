@@ -1,35 +1,58 @@
 @model EnterprisePMO_PWA.Domain.Entities.Project
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
     ViewBag.Title = "Project Details";
     var userRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "Guest";
 }
 
-<div class="container-fluid py-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/Project/List">Projects</a></li>
-            <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+<div class="bg-gray-50 min-h-screen pb-10">
+    <nav class="bg-white border-b border-gray-200 px-4 py-4 sm:px-6 lg:px-8">
+        <ol class="flex items-center space-x-4">
+            <li>
+                <div>
+                    <a href="/Project/List" class="text-gray-400 hover:text-gray-500">
+                        Projects
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="flex-shrink-0 h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                        <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                    </svg>
+                    <span class="ml-4 text-sm font-medium text-gray-500" aria-current="page">@Model.Name</span>
+                </div>
+            </li>
         </ol>
     </nav>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="mb-0">@Model.Name</h1>
-        <div class="d-flex">
-            @if (User.IsInRole("ProjectManager"))
-            {
-                <a href="/Project/Edit/@Model.Id" class="btn btn-primary me-2">
-                    <i class="bi bi-pencil me-2"></i>Edit
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">@Model.Name</h1>
+            </div>
+            <div class="mt-4 md:mt-0 flex space-x-3">
+                @if (User.IsInRole("ProjectManager"))
+                {
+                    <a href="/Project/Edit/@Model.Id" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                        Edit
+                    </a>
+                }
+                <a href="/Project/List" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Back to List
                 </a>
-            }
-            <a href="/Project/List" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-2"></i>Back to List
-            </a>
+            </div>
         </div>
-    </div>
 
-    <!-- React Component Root - This will be replaced with the React component tree -->
-    <div id="project-details-root" data-project-id="@Model.Id" data-user-role="@userRole"></div>
+        <!-- React Component Root -->
+        <div id="project-details-root" data-project-id="@Model.Id" data-user-role="@userRole" class="bg-white shadow-sm rounded-lg overflow-hidden"></div>
+    </div>
 </div>
 
 @section Scripts {

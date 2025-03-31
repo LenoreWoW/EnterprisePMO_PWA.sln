@@ -1,39 +1,79 @@
 @model EnterprisePMO_PWA.Domain.Entities.WeeklyUpdate
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
     ViewBag.Title = "Edit Weekly Update";
 }
-<h1>Edit Weekly Update</h1>
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Id" />
-    <input type="hidden" asp-for="ProjectId" />
-    <div class="mb-3">
-        <label asp-for="WeekEndingDate" class="form-label"></label>
-        <input asp-for="WeekEndingDate" type="date" class="form-control" />
-        <span asp-validation-for="WeekEndingDate" class="text-danger"></span>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="md:flex md:items-center md:justify-between mb-6">
+        <div class="flex-1 min-w-0">
+            <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate">
+                Edit Weekly Update
+            </h1>
+        </div>
     </div>
-    <div class="mb-3">
-        <label asp-for="Accomplishments" class="form-label"></label>
-        <textarea asp-for="Accomplishments" class="form-control"></textarea>
-        <span asp-validation-for="Accomplishments" class="text-danger"></span>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ProjectId" />
+                
+                <div class="space-y-6">
+                    <div>
+                        <label asp-for="WeekEndingDate" class="block text-sm font-medium text-gray-700">Week Ending Date</label>
+                        <div class="mt-1">
+                            <input asp-for="WeekEndingDate" type="date" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                            <span asp-validation-for="WeekEndingDate" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label asp-for="Accomplishments" class="block text-sm font-medium text-gray-700">Accomplishments</label>
+                        <div class="mt-1">
+                            <textarea asp-for="Accomplishments" rows="3" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                            <span asp-validation-for="Accomplishments" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label asp-for="NextSteps" class="block text-sm font-medium text-gray-700">Next Steps</label>
+                        <div class="mt-1">
+                            <textarea asp-for="NextSteps" rows="3" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                            <span asp-validation-for="NextSteps" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label asp-for="IssuesOrRisks" class="block text-sm font-medium text-gray-700">Issues or Risks</label>
+                        <div class="mt-1">
+                            <textarea asp-for="IssuesOrRisks" rows="3" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                            <span asp-validation-for="IssuesOrRisks" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label asp-for="PercentComplete" class="block text-sm font-medium text-gray-700">Percent Complete</label>
+                        <div class="mt-1">
+                            <input asp-for="PercentComplete" type="number" min="0" max="100" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                            <span asp-validation-for="PercentComplete" class="mt-1 text-sm text-red-600"></span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Save Changes
+                        </button>
+                        <a href="/WeeklyUpdates/List?projectId=@Model.ProjectId" class="ml-3 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="mb-3">
-        <label asp-for="NextSteps" class="form-label"></label>
-        <textarea asp-for="NextSteps" class="form-control"></textarea>
-        <span asp-validation-for="NextSteps" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="IssuesOrRisks" class="form-label"></label>
-        <textarea asp-for="IssuesOrRisks" class="form-control"></textarea>
-        <span asp-validation-for="IssuesOrRisks" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="PercentComplete" class="form-label"></label>
-        <input asp-for="PercentComplete" type="number" class="form-control" />
-        <span asp-validation-for="PercentComplete" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
