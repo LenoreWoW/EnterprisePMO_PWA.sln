@@ -1,169 +1,125 @@
-@model EnterprisePMO_PWA.Domain.Entities.Role
+@model IEnumerable<EnterprisePMO_PWA.Domain.Entities.Role>
 @{
-    ViewData["Title"] = "Edit Role";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    
-    // Get the current user's role hierarchy level to enforce limits
-    int currentUserHierarchyLevel = ViewBag.CurrentUserRole switch
-    {
-        EnterprisePMO_PWA.Domain.Entities.RoleType.Admin => 100,
-        EnterprisePMO_PWA.Domain.Entities.RoleType.MainPMO => 90,
-        EnterprisePMO_PWA.Domain.Entities.RoleType.Executive => 80,
-        EnterprisePMO_PWA.Domain.Entities.RoleType.DepartmentDirector => 70,
-        EnterprisePMO_PWA.Domain.Entities.RoleType.SubPMO => 60,
-        EnterprisePMO_PWA.Domain.Entities.RoleType.ProjectManager => 50,
-        _ => 10
-    };
-    
-    int maxAllowedLevel = currentUserHierarchyLevel - 1;
+    ViewData["Title"] = "Role Management";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
 }
 
-<div class="container my-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="@Url.Action("Index", "RoleManagement")">Roles</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Role</li>
-        </ol>
-    </nav>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="md:flex md:items-center md:justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Role Management</h1>
+            <p class="mt-1 text-sm text-gray-500">
+                Manage user roles and their permissions in the system
+            </p>
+        </div>
+        <div class="mt-4 md:mt-0">
+            <a href="@Url.Action("Create", "RoleManagement")" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                Create New Role
+            </a>
+        </div>
+    </div>
 
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="card-title mb-0">Edit Role: @Model.RoleName</h3>
-                </div>
-                <div class="card-body">
-                    <form asp-action="Edit" method="post">
-                        <input type="hidden" asp-for="Id" />
-                        
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
-                        
-                        <div class="mb-3">
-                            <label asp-for="RoleName" class="form-label">Role Name</label>
-                            <input asp-for="RoleName" class="form-control" />
-                            <span asp-validation-for="RoleName" class="text-danger"></span>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label asp-for="Description" class="form-label">Description</label>
-                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-                            <span asp-validation-for="Description" class="text-danger"></span>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label asp-for="HierarchyLevel" class="form-label">Hierarchy Level (1-@maxAllowedLevel)</label>
-                            <div class="input-group">
-                                <input asp-for="HierarchyLevel" class="form-control" type="number" min="1" max="@maxAllowedLevel" />
-                                <span class="input-group-text">
-                                    <i class="bi bi-info-circle" data-bs-toggle="tooltip" 
-                                       title="Higher numbers have more permissions. Maximum allowed is @maxAllowedLevel for your role."></i>
-                                </span>
-                            </div>
-                            <small class="form-text text-muted">Your current role has a hierarchy level of @currentUserHierarchyLevel</small>
-                            <span asp-validation-for="HierarchyLevel" class="text-danger"></span>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input asp-for="InheritsPermissions" class="form-check-input" type="checkbox" role="switch" id="permInherit">
-                                <label class="form-check-label" for="permInherit">
-                                    Inherit Permissions (Discord-like inheritance)
-                                </label>
-                            </div>
-                            <small class="form-text text-muted">If enabled, this role inherits all permissions from lower roles in the hierarchy</small>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="form-label">Permissions</label>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row g-3">
-                                        <div class="col-md-6">
-                                            <div class="form-check form-switch">
-                                                <input asp-for="CanManageProjects" class="form-check-input" type="checkbox" role="switch">
-                                                <label class="form-check-label" asp-for="CanManageProjects">
-                                                    Manage Projects
-                                                </label>
-                                                <div class="form-text">Create, edit, and delete projects</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            <div class="form-check form-switch">
-                                                <input asp-for="CanManageUsers" class="form-check-input" type="checkbox" role="switch">
-                                                <label class="form-check-label" asp-for="CanManageUsers">
-                                                    Manage Users
-                                                </label>
-                                                <div class="form-text">Create, edit, and manage user accounts</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            <div class="form-check form-switch">
-                                                <input asp-for="CanApproveRequests" class="form-check-input" type="checkbox" role="switch">
-                                                <label class="form-check-label" asp-for="CanApproveRequests">
-                                                    Approve Requests
-                                                </label>
-                                                <div class="form-text">Approve/reject change requests and updates</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            <div class="form-check form-switch">
-                                                <input asp-for="CanManageRoles" class="form-check-input" type="checkbox" role="switch">
-                                                <label class="form-check-label" asp-for="CanManageRoles">
-                                                    Manage Roles
-                                                </label>
-                                                <div class="form-text">Create, edit, and delete roles</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            <div class="form-check form-switch">
-                                                <input asp-for="CanViewReports" class="form-check-input" type="checkbox" role="switch">
-                                                <label class="form-check-label" asp-for="CanViewReports">
-                                                    View Reports
-                                                </label>
-                                                <div class="form-text">Access reports and analytics</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            <div class="form-check form-switch">
-                                                <input asp-for="CanViewAuditLogs" class="form-check-input" type="checkbox" role="switch">
-                                                <label class="form-check-label" asp-for="CanViewAuditLogs">
-                                                    View Audit Logs
-                                                </label>
-                                                <div class="form-text">Access audit trails and system logs</div>
-                                            </div>
-                                        </div>
-                                    </div>
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Role Name
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Description
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Hierarchy Level
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Permissions
+                        </th>
+                        <th scope="col" class="relative px-6 py-3">
+                            <span class="sr-only">Actions</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach(var role in Model.OrderByDescending(r => r.HierarchyLevel)) {
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">@role.RoleName</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-sm text-gray-500">@role.Description</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        Level @role.HierarchyLevel
+                                    </span>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <div class="d-flex justify-content-between">
-                            <a href="@Url.Action("Index", "RoleManagement")" class="btn btn-secondary">
-                                <i class="bi bi-arrow-left me-2"></i>Back to List
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save me-2"></i>Save Changes
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    @if (role.CanManageProjects)
+                                    {
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                            Projects
+                                        </span>
+                                    }
+                                    @if (role.CanManageUsers)
+                                    {
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                            Users
+                                        </span>
+                                    }
+                                    @if (role.CanApproveRequests)
+                                    {
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                            Approvals
+                                        </span>
+                                    }
+                                    @if (role.CanManageRoles)
+                                    {
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                            Roles
+                                        </span>
+                                    }
+                                    @if (role.CanViewReports)
+                                    {
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                            Reports
+                                        </span>
+                                    }
+                                    @if (role.CanViewAuditLogs)
+                                    {
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                            Audit Logs
+                                        </span>
+                                    }
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end space-x-2">
+                                    <a href="@Url.Action("Edit", "RoleManagement", new { id = role.Id })" class="text-indigo-600 hover:text-indigo-900">
+                                        Edit
+                                    </a>
+                                    @if (ViewBag.CurrentUserRole == EnterprisePMO_PWA.Domain.Entities.RoleType.Admin)
+                                    {
+                                        <form asp-action="Delete" method="post" class="inline" onsubmit="return confirm('Are you sure you want to delete this role?');">
+                                            <input type="hidden" name="id" value="@role.Id" />
+                                            <button type="submit" class="text-red-600 hover:text-red-900 bg-transparent border-none p-0 cursor-pointer">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        // Initialize tooltips
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-    </script>
-}
