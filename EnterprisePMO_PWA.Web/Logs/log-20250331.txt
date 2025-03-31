@@ -272,3 +272,301 @@
 2025-03-31 14:13:17.478 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
 2025-03-31 14:13:18.791 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
 2025-03-31 14:13:18.791 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0023ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:13:28.793 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:13:28.793 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0025ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:13:38.795 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:13:38.795 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.003ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:13:47.480 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:13:48.796 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:13:48.796 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:13:58.798 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:13:58.798 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.001ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:14:08.799 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:14:08.799 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:14:17.482 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:14:18.800 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:14:18.800 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:14:28.802 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:14:28.802 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:14:38.803 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:14:38.804 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:14:47.484 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:14:48.805 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:14:48.806 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0023ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:14:58.808 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:14:58.808 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0025ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:15:08.809 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:15:08.810 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:15:17.485 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:15:18.811 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:15:18.811 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0019ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:15:28.813 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:15:28.813 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:15:38.815 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:15:38.816 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0019ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:15:47.487 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:15:48.817 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:15:48.817 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0023ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:15:58.820 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:15:58.820 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:16:08.820 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:16:08.821 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0017ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:16:17.490 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:16:18.822 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:16:18.823 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0015ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:16:28.824 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:16:28.824 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0016ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:16:38.827 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:16:38.827 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:16:47.491 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:16:48.828 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:16:48.829 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0014ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:16:58.830 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:16:58.831 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0025ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:17:08.832 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:17:08.832 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:17:17.493 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:17:18.834 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:17:18.835 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0016ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:17:28.836 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:17:28.838 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:17:38.839 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:17:38.839 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.001ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:17:47.495 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:17:48.840 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:17:48.841 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0014ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:17:58.843 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:17:58.843 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0015ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:18:08.845 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:18:08.845 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0061ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:18:17.497 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:18:18.846 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:18:18.846 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0013ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:18:28.849 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:18:28.849 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0012ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:18:38.850 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:18:38.851 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0015ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:18:47.499 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:18:48.853 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:18:48.853 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0027ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:18:58.855 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:18:58.855 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0011ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:19:08.857 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:19:08.857 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0015ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:19:17.501 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:19:18.860 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:19:18.860 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.001ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:19:28.862 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:19:28.862 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0012ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:19:38.864 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:19:38.865 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0015ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:19:47.503 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:19:48.866 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:19:48.867 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0012ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:19:58.869 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:19:58.869 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0007ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:20:08.871 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:20:08.871 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0024ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:20:17.505 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:20:18.873 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:20:18.874 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0013ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:20:28.874 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:20:28.875 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0016ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:20:38.875 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:20:38.875 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0017ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:20:47.503 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:20:48.874 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:20:48.874 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0014ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:20:58.874 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:20:58.875 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0017ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:21:08.876 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:21:08.877 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0014ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:21:17.502 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:21:18.877 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:21:18.878 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0012ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:21:28.880 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:21:28.881 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0019ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:21:38.881 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:21:38.882 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0015ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:21:47.504 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:21:48.882 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:21:48.883 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0016ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:21:58.884 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:21:58.885 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0027ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:22:08.886 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:22:08.887 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:22:17.506 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:22:18.888 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:22:18.888 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0026ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:22:28.890 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:22:28.890 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0027ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:22:38.891 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:22:38.892 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0023ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:22:47.508 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:22:48.894 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:22:48.894 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0026ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:22:58.896 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:22:58.896 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0027ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:23:08.898 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:23:08.898 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0012ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:23:17.509 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:23:18.899 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:23:18.900 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0017ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:23:28.901 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:23:28.901 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0013ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:23:38.903 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:23:38.903 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.001ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:23:47.511 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:23:48.905 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:23:48.905 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0011ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:23:58.907 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:23:58.907 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0012ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:24:08.908 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:24:08.908 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0012ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:24:17.513 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:24:18.909 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:24:18.910 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0011ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:24:28.911 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:24:28.911 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0021ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:24:38.912 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:24:38.913 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0027ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:24:47.515 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:24:48.914 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:24:48.915 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0028ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:24:58.916 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:24:58.916 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0027ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:25:08.918 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:25:08.918 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0028ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:25:17.517 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:25:18.920 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:25:18.921 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0026ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:25:28.923 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:25:28.923 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0023ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:25:38.925 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:25:38.925 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0023ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:25:47.519 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:25:48.926 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:25:48.926 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0029ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:25:58.928 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:25:58.930 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0034ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:26:08.931 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:26:08.932 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0029ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:26:17.521 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:26:18.933 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:26:18.933 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0021ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:26:28.934 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:26:28.935 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:26:38.936 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:26:38.937 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.003ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:26:47.524 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:26:48.938 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:26:48.939 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0027ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:26:58.941 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:26:58.941 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0029ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:27:08.942 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:27:08.942 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0026ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:27:17.526 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:27:18.944 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:27:18.945 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0064ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:27:28.947 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:27:28.948 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:27:38.950 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:27:38.950 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.001ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:27:47.530 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:27:48.951 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:27:48.951 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0031ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:27:58.952 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:27:58.953 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0025ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:28:08.954 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:28:08.956 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0026ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:28:17.532 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:28:18.957 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:28:18.958 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:28:28.959 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:28:28.959 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0032ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:28:38.961 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:28:38.962 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0006ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:28:47.534 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:28:48.963 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:28:48.964 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0021ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:28:58.966 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:28:58.967 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0037ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:29:08.967 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:29:08.968 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:29:17.537 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:29:18.969 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:29:18.970 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0026ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:29:28.971 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:29:28.972 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0028ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:29:38.974 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:29:38.974 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0026ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:29:47.539 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:29:48.976 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:29:48.980 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0039ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:29:58.982 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:29:58.983 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0084ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:30:08.984 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:30:08.986 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0034ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:30:17.542 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:30:18.988 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:30:18.988 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.003ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:30:28.989 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:30:28.990 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:30:38.992 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:30:38.993 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0008ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:30:47.545 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:30:48.994 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:30:48.995 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0078ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:30:58.997 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:30:58.997 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0009ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:31:08.999 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:31:09.000 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0009ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:31:17.547 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:31:19.001 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:31:19.002 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0031ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:31:29.004 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:31:29.005 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0024ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:31:39.007 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:31:39.008 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0008ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:31:47.550 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:31:49.009 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:31:49.009 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0011ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:31:59.011 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:31:59.012 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0027ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:32:09.013 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:32:09.013 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0032ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:32:17.553 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:32:19.015 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:32:19.015 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0024ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:32:29.017 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:32:29.017 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:32:39.019 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:32:39.020 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.002ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:32:47.555 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:32:49.022 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:32:49.022 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0011ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:32:59.024 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:32:59.025 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0017ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:33:09.026 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:33:09.028 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0165ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:33:17.558 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:33:19.028 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:33:19.029 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0014ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:33:29.031 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:33:29.034 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0339ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:33:39.035 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:33:39.036 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0007ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:33:47.561 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:33:49.037 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:33:49.038 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0049ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:33:59.039 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:33:59.041 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0021ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:34:09.042 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:34:09.043 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0172ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:34:17.564 +03:00 [DBG] Server hassans-macbook-pro:24429:ccecc170 heartbeat successfully sent
+2025-03-31 14:34:19.044 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:34:19.045 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0022ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:34:29.046 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:34:29.047 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0026ms - processed: 0 items - remaining: 1 items
+2025-03-31 14:34:39.049 +03:00 [DBG] Starting HttpMessageHandler cleanup cycle with 1 items
+2025-03-31 14:34:39.050 +03:00 [DBG] Ending HttpMessageHandler cleanup cycle after 0.0045ms - processed: 0 items - remaining: 1 items
