@@ -1,192 +1,382 @@
 @{
     ViewData["Title"] = "Dashboard";
+    Layout = "_TailwindLayout";
 }
 
-<div class="container">
-    <div class="mb-4">
-        <h2>Dashboard</h2>
-        <p class="text-muted">Welcome to your project management dashboard.</p>
-    </div>
-
-    <!-- Summary Cards -->
-    <div class="row mb-4">
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm h-100">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="me-3 text-primary">
-                            <i class="bi bi-clipboard-data fs-4"></i>
-                        </div>
-                        <h5 class="card-title mb-0">Active Projects</h5>
-                    </div>
-                    <h2 class="display-5 mb-0 fw-bold mt-auto">@(ViewBag.ActiveProjects ?? 12)</h2>
-                    <div class="mt-2">
-                        <a href="/Project/List" class="btn btn-sm btn-outline-primary" data-requires-auth="true">View all projects</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm h-100">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="me-3 text-success">
-                            <i class="bi bi-list-check fs-4"></i>
-                        </div>
-                        <h5 class="card-title mb-0">Pending Tasks</h5>
-                    </div>
-                    <h2 class="display-5 mb-0 fw-bold mt-auto">@(ViewBag.PendingTasks ?? 18)</h2>
-                    <div class="mt-2">
-                        <a href="#" class="btn btn-sm btn-outline-success" data-requires-auth="true">View kanban board</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm h-100">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="me-3 text-info">
-                            <i class="bi bi-arrow-repeat fs-4"></i>
-                        </div>
-                        <h5 class="card-title mb-0">Pending Changes</h5>
-                    </div>
-                    <h2 class="display-5 mb-0 fw-bold mt-auto">@(ViewBag.PendingChanges ?? 4)</h2>
-                    <div class="mt-2">
-                        <a href="#" class="btn btn-sm btn-outline-info" data-requires-auth="true">View change requests</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm h-100">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="me-3 text-dark">
-                            <i class="bi bi-graph-up fs-4"></i>
-                        </div>
-                        <h5 class="card-title mb-0">Overall Progress</h5>
-                    </div>
-                    <h2 class="display-5 mb-0 fw-bold mt-auto">@(ViewBag.OverallProgress ?? 76)%</h2>
-                    <div class="mt-2">
-                        <a href="#" class="btn btn-sm btn-outline-dark" data-requires-auth="true">View reports</a>
-                    </div>
-                </div>
-            </div>
+<div class="bg-gray-50 min-h-screen">
+    <!-- Dashboard Header -->
+    <div class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+            <p class="mt-1 text-sm text-gray-500">Welcome to your Enterprise PMO dashboard. Here's an overview of your projects and tasks.</p>
         </div>
     </div>
 
-    <!-- Upcoming Deadlines section -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <div class="card shadow-sm">
-                <div class="card-header bg-light">
-                    <h5 class="mb-0">Upcoming Deadlines</h5>
+    <!-- Dashboard content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <!-- Active Projects Card -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-primary-100 rounded-md p-3">
+                            <svg class="h-6 w-6 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Active Projects</dt>
+                                <dd>
+                                    <div class="text-lg font-medium text-gray-900">@(ViewBag.ActiveProjects ?? 12)</div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body p-0">
-                    <div class="list-group list-group-flush">
-                        <!-- Deadline 1 -->
-                        <div class="list-group-item p-3">
-                            <h6 class="mb-1">Customer Mobile App</h6>
-                            <div class="text-muted small mb-2">Due in 28 days on Apr 23, 2025</div>
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="bg-gray-50 px-4 py-4 sm:px-6">
+                    <div class="text-sm">
+                        <a href="/Project/List" class="font-medium text-primary-600 hover:text-primary-500" data-requires-auth="true">
+                            View all projects
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Tasks Card -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                            <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Pending Tasks</dt>
+                                <dd>
+                                    <div class="text-lg font-medium text-gray-900">@(ViewBag.PendingTasks ?? 18)</div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-4 sm:px-6">
+                    <div class="text-sm">
+                        <a href="/Kanban" class="font-medium text-blue-600 hover:text-blue-500" data-requires-auth="true">
+                            View kanban board
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Change Requests Card -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-yellow-100 rounded-md p-3">
+                            <svg class="h-6 w-6 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Pending Changes</dt>
+                                <dd>
+                                    <div class="text-lg font-medium text-gray-900">@(ViewBag.PendingChanges ?? 4)</div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-4 sm:px-6">
+                    <div class="text-sm">
+                        <a href="/ChangeRequests/List" class="font-medium text-yellow-600 hover:text-yellow-500" data-requires-auth="true">
+                            View change requests
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Card -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
+                            <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Overall Progress</dt>
+                                <dd>
+                                    <div class="text-lg font-medium text-gray-900">@(ViewBag.OverallProgress ?? 76)%</div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-4 sm:px-6">
+                    <div class="text-sm">
+                        <a href="/Reports" class="font-medium text-green-600 hover:text-green-500" data-requires-auth="true">
+                            View reports
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Deadlines Section -->
+        <div class="mt-8">
+            <h2 class="text-lg font-medium text-gray-900">Upcoming Deadlines</h2>
+            <div class="mt-4 bg-white shadow overflow-hidden sm:rounded-md">
+                <ul role="list" class="divide-y divide-gray-200">
+                    <!-- Deadline 1 -->
+                    <li>
+                        <div class="px-4 py-4 sm:px-6">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <span class="inline-flex items-center justify-center h-10 w-10 rounded-md bg-primary-100 text-primary-600">
+                                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-sm font-medium text-gray-900">Customer Mobile App</h3>
+                                        <p class="text-sm text-gray-500">Due in 28 days on Apr 23, 2025</p>
+                                    </div>
+                                </div>
+                                <div class="ml-2 flex-shrink-0">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                        At Risk
+                                    </span>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small">65% complete</span>
-                                <a href="#" class="btn btn-sm btn-link p-0" data-requires-auth="true">View</a>
+                            <div class="mt-2">
+                                <div class="relative pt-1">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <span class="text-xs font-semibold inline-block text-primary-600">
+                                                65% complete
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+                                        <div style="width: 65%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-yellow-500"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end">
+                                    <a href="#" class="text-sm font-medium text-primary-600 hover:text-primary-500" data-requires-auth="true">View</a>
+                                </div>
                             </div>
                         </div>
-                        <!-- Deadline 2 -->
-                        <div class="list-group-item p-3">
-                            <h6 class="mb-1">Data Center Migration</h6>
-                            <div class="text-muted small mb-2">Due in 45 days on May 10, 2025</div>
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </li>
+
+                    <!-- Deadline 2 -->
+                    <li>
+                        <div class="px-4 py-4 sm:px-6">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <span class="inline-flex items-center justify-center h-10 w-10 rounded-md bg-green-100 text-green-600">
+                                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-sm font-medium text-gray-900">Data Center Migration</h3>
+                                        <p class="text-sm text-gray-500">Due in 45 days on May 10, 2025</p>
+                                    </div>
+                                </div>
+                                <div class="ml-2 flex-shrink-0">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        On Track
+                                    </span>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small">40% complete</span>
-                                <a href="#" class="btn btn-sm btn-link p-0" data-requires-auth="true">View</a>
+                            <div class="mt-2">
+                                <div class="relative pt-1">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <span class="text-xs font-semibold inline-block text-primary-600">
+                                                40% complete
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+                                        <div style="width: 40%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end">
+                                    <a href="#" class="text-sm font-medium text-primary-600 hover:text-primary-500" data-requires-auth="true">View</a>
+                                </div>
                             </div>
                         </div>
-                        <!-- Deadline 3 -->
-                        <div class="list-group-item p-3">
-                            <h6 class="mb-1">Security Compliance Audit</h6>
-                            <div class="text-muted small mb-2">Due in 5 days on Apr 1, 2025</div>
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                    </li>
+
+                    <!-- Deadline 3 -->
+                    <li>
+                        <div class="px-4 py-4 sm:px-6">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <span class="inline-flex items-center justify-center h-10 w-10 rounded-md bg-red-100 text-red-600">
+                                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-sm font-medium text-gray-900">Security Compliance Audit</h3>
+                                        <p class="text-sm text-gray-500">Due in 5 days on Apr 1, 2025</p>
+                                    </div>
+                                </div>
+                                <div class="ml-2 flex-shrink-0">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        Urgent
+                                    </span>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small">85% complete</span>
-                                <a href="#" class="btn btn-sm btn-link p-0" data-requires-auth="true">View</a>
+                            <div class="mt-2">
+                                <div class="relative pt-1">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <span class="text-xs font-semibold inline-block text-primary-600">
+                                                85% complete
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+                                        <div style="width: 85%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end">
+                                    <a href="#" class="text-sm font-medium text-primary-600 hover:text-primary-500" data-requires-auth="true">View</a>
+                                </div>
                             </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Recent Projects Section -->
+        <div class="mt-8">
+            <h2 class="text-lg font-medium text-gray-900">Recent Projects</h2>
+            <div class="mt-4 flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Name
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Client
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Deadline
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Status
+                                        </th>
+                                        <th scope="col" class="relative px-6 py-3">
+                                            <span class="sr-only">View</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <!-- Project 1 -->
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">ERP System Migration</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-500">Internal IT</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-500">Jul 25, 2025</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                On Track
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="#" class="text-primary-600 hover:text-primary-900" data-requires-auth="true">View</a>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Project 2 -->
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">Customer Mobile App</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-500">Marketing Division</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-500">Apr 23, 2025</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                At Risk
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="#" class="text-primary-600 hover:text-primary-900" data-requires-auth="true">View</a>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Project 3 -->
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">Digital Transformation</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-500">Finance Dept</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-500">Aug 12, 2025</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                On Track
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="#" class="text-primary-600 hover:text-primary-900" data-requires-auth="true">View</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Recent Projects -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <div class="card shadow-sm">
-                <div class="card-header bg-light">
-                    <h5 class="mb-0">Recent Projects</h5>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Client</th>
-                                    <th>Deadline</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Project 1 -->
-                                <tr>
-                                    <td>ERP System Migration</td>
-                                    <td>Internal IT</td>
-                                    <td>Jul 25, 2025</td>
-                                    <td><span class="badge bg-success">On Track</span></td>
-                                    <td><a href="#" class="btn btn-sm btn-outline-primary" data-requires-auth="true">View</a></td>
-                                </tr>
-                                <!-- Project 2 -->
-                                <tr>
-                                    <td>Customer Mobile App</td>
-                                    <td>Marketing Division</td>
-                                    <td>Apr 23, 2025</td>
-                                    <td><span class="badge bg-warning text-dark">At Risk</span></td>
-                                    <td><a href="#" class="btn btn-sm btn-outline-primary" data-requires-auth="true">View</a></td>
-                                </tr>
-                                <!-- Project 3 -->
-                                <tr>
-                                    <td>Digital Transformation</td>
-                                    <td>Finance Dept</td>
-                                    <td>Aug 12, 2025</td>
-                                    <td><span class="badge bg-success">On Track</span></td>
-                                    <td><a href="#" class="btn btn-sm btn-outline-primary" data-requires-auth="true">View</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+
+        <!-- Create Project Button -->
+        <div class="mt-8 flex justify-center">
+            <a href="/Project/Create" data-requires-auth="true" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Create New Project
+            </a>
         </div>
-    </div>
-    
-    <!-- Create Project Button -->
-    <div class="text-center my-4">
-        <a href="/Project/Create" class="btn btn-primary" data-requires-auth="true">
-            <i class="bi bi-plus-circle me-1"></i> Create New Project
-        </a>
     </div>
 </div>
 

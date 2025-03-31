@@ -1,225 +1,375 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Enterprise PMO</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Bootstrap Icons (for compatibility) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>
-        [x-cloak] { display: none !important; }
-        
-        /* Hide nav items by default until auth is confirmed */
-        .nav-auth-item {
-            display: none;
-        }
-        
-        body[data-authenticated="true"] .nav-auth-item {
-            display: flex;
-        }
-        
-        body[data-authenticated="true"] .nav-no-auth-item {
-            display: none;
-        }
-    </style>
-</head>
-<body class="bg-gray-100 min-h-screen" data-authenticated="false">
-    <!-- Navbar -->
-    <nav class="bg-blue-800 text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <a href="/" class="text-xl font-bold">Enterprise PMO</a>
+@model IEnumerable<EnterprisePMO_PWA.Domain.Entities.Project>
+@{
+    ViewData["Title"] = "Projects";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
+}
+
+<div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl font-semibold text-gray-900">Projects</h1>
+            <p class="mt-1 text-sm text-gray-500">View and manage all your projects in one place.</p>
+        </div>
+        <div>
+            <a href="/Project/Create" data-requires-auth="true" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Create New Project
+            </a>
+        </div>
+    </div>
+
+    <!-- Filter & Search Section -->
+    <div class="px-4 py-3 border-t border-gray-200 bg-gray-50 sm:px-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="flex-1">
+                <div class="relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
                     </div>
-                    <div class="hidden md:ml-6 md:flex md:space-x-8 nav-auth-item">
-                        <a href="/Dashboard" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white" data-requires-auth="true">
-                            <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
-                        </a>
-                        <a href="/Project/List" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white" data-requires-auth="true">
-                            <i class="fas fa-project-diagram mr-1"></i> Projects
-                        </a>
-                        <a href="/UserManagement" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white admin-only" data-requires-auth="true">
-                            <i class="fas fa-users mr-1"></i> Users
-                        </a>
-                        <a href="/api/auditlogs/recent" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white admin-only" data-requires-auth="true">
-                            <i class="fas fa-history mr-1"></i> Audit Logs
-                        </a>
-                        <a href="/RoleHierarchy" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-white hover:border-white admin-only" data-requires-auth="true">
-                            <i class="fas fa-sitemap mr-1"></i> Roles
-                        </a>
-                    </div>
+                    <input type="text" id="searchInput" class="focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md" placeholder="Search projects by name or client...">
                 </div>
-                <div class="flex items-center">
-                    <!-- Login/Signup buttons for non-authenticated users -->
-                    <div class="auth-buttons nav-no-auth-item">
-                        <a href="/Account/Login" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Log in</a>
-                        <a href="/Account/Signup" class="ml-2 bg-white text-blue-800 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Sign up</a>
-                    </div>
-                    
-                    <!-- User menu for authenticated users -->
-                    <div class="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center profile-menu nav-auth-item" style="display: none;">
-                        <!-- Notifications -->
-                        <div x-data="{ notificationsOpen: false, unreadCount: 0 }" class="ml-3 relative">
-                            <button x-on:click="notificationsOpen = !notificationsOpen" class="p-1 rounded-full text-white hover:text-gray-200 focus:outline-none">
-                                <span class="sr-only">View notifications</span>
-                                <i class="fas fa-bell text-lg"></i>
-                                <span x-show="unreadCount > 0" x-text="unreadCount" class="absolute top-0 right-0 -mt-1 -mr-1 inline-flex items-center justify-center px-2 py-1 text-xs leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
-                            </button>
-                            <div x-show="notificationsOpen" x-on:click.away="notificationsOpen = false" x-cloak
-                                class="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-                                <div class="py-1">
-                                    <div class="px-4 py-2 border-b">
-                                        <div class="flex justify-between items-center">
-                                            <h3 class="text-sm font-medium text-gray-900">Notifications</h3>
-                                            <button x-on:click="markAllAsRead()" class="text-xs text-blue-600 hover:text-blue-800">Mark all as read</button>
-                                        </div>
-                                    </div>
-                                    <div id="notifications-container" class="max-h-60 overflow-y-auto">
-                                        <div class="px-4 py-2 text-center text-sm text-gray-500">
-                                            Loading notifications...
-                                        </div>
-                                    </div>
-                                    <div class="border-t">
-                                        <a href="/notifications" class="block w-full px-4 py-2 text-xs text-center text-blue-600 hover:text-blue-800">
-                                            View all notifications
-                                        </a>
-                                    </div>
-                                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <label for="statusFilter" class="block text-sm font-medium text-gray-700">Status:</label>
+                <select id="statusFilter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md">
+                    <option value="">All Statuses</option>
+                    <option value="Proposed">Proposed</option>
+                    <option value="Active">Active</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <label for="departmentFilter" class="block text-sm font-medium text-gray-700">Department:</label>
+                <select id="departmentFilter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md">
+                    <option value="">All Departments</option>
+                    @foreach (var dept in ViewBag.Departments ?? Enumerable.Empty<dynamic>())
+                    {
+                        <option value="@dept.Id">@dept.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Project Name
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Client
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Department
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Deadline
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Progress
+                    </th>
+                    <th scope="col" class="relative px-6 py-3">
+                        <span class="sr-only">Actions</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="projectsTableBody">
+                @foreach(var project in Model) {
+                    <tr data-department="@project.DepartmentId" data-status="@project.Status" class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">@project.Name</div>
+                            <div class="text-sm text-gray-500">@project.Description?.Substring(0, Math.Min(project.Description?.Length ?? 0, 50))@(project.Description?.Length > 50 ? "..." : "")</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">@(project.ClientName ?? "Internal")</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">@(project.Department?.Name ?? "Unassigned")</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">@project.EndDate.ToShortDateString()</div>
+                            @{
+                                var daysLeft = (project.EndDate - DateTime.Now).Days;
+                                var daysLeftClass = daysLeft < 7 ? "text-red-600" : daysLeft < 14 ? "text-yellow-600" : "text-green-600";
+                            }
+                            <div class="text-xs @daysLeftClass">
+                                @(daysLeft > 0 ? $"{daysLeft} days left" : "Overdue")
                             </div>
-                        </div>
-                        
-                        <!-- Profile dropdown -->
-                        <div x-data="{ open: false }" class="ml-3 relative">
-                            <div>
-                                <button x-on:click="open = !open" class="p-1 rounded-full text-white hover:text-gray-200 focus:outline-none">
-                                    <span class="sr-only">Open user menu</span>
-                                    <i class="fas fa-user-circle text-2xl"></i>
-                                </button>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @{
+                                string badgeColor = "bg-gray-100 text-gray-800";
+                                
+                                switch(project.Status)
+                                {
+                                    case "Proposed":
+                                        badgeColor = "bg-blue-100 text-blue-800";
+                                        break;
+                                    case "Active":
+                                        badgeColor = "bg-green-100 text-green-800";
+                                        break;
+                                    case "Completed":
+                                        badgeColor = "bg-purple-100 text-purple-800";
+                                        break;
+                                    case "Rejected":
+                                        badgeColor = "bg-red-100 text-red-800";
+                                        break;
+                                }
+                            }
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @badgeColor">
+                                @project.Status
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-1">
+                                @{
+                                    var progressColor = "bg-green-600";
+                                    
+                                    if (project.PercentComplete < 25)
+                                    {
+                                        progressColor = "bg-red-600";
+                                    }
+                                    else if (project.PercentComplete < 75)
+                                    {
+                                        progressColor = "bg-yellow-600";
+                                    }
+                                }
+                                <div class="@progressColor h-2.5 rounded-full" style="width: @(project.PercentComplete)%"></div>
                             </div>
-                            <div x-show="open" x-on:click.away="open = false" x-cloak
-                                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-                                <div class="px-4 py-2 text-sm text-gray-500 border-b">
-                                    Signed in as <span class="font-semibold text-gray-700 current-username">User</span>
-                                </div>
-                                <a href="/Account/Profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-user-cog mr-2"></i> Your Profile
+                            <div class="text-xs text-gray-500 text-right">@project.PercentComplete%</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <div class="flex justify-end items-center space-x-2">
+                                <a href="/Project/Details/@project.Id" class="text-primary-600 hover:text-primary-900">
+                                    <span class="sr-only">View</span>
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
                                 </a>
-                                <a href="/Account/Settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-cog mr-2"></i> Settings
+                                <a href="/Project/Edit/@project.Id" class="text-blue-600 hover:text-blue-900">
+                                    <span class="sr-only">Edit</span>
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
                                 </a>
-                                <form id="logoutForm" action="/api/auth/logout" method="post" class="border-t">
-                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        <i class="fas fa-sign-out-alt mr-2"></i> Sign out
+                                @if (User.IsInRole("Admin") || User.IsInRole("MainPMO"))
+                                {
+                                    <button type="button" class="text-red-600 hover:text-red-900" onclick="confirmDelete('@project.Id', '@project.Name')">
+                                        <span class="sr-only">Delete</span>
+                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
                                     </button>
-                                </form>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden py-12">
+        <div class="text-center">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No projects found</h3>
+            <p class="mt-1 text-sm text-gray-500">No projects match your current search and filters.</p>
+            <div class="mt-6">
+                <button id="resetFilters" type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Reset Filters
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div class="flex-1 flex justify-between sm:hidden">
+            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300<!-- Separator -->
+            <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
+
+            <!-- Breadcrumb -->
+            <nav class="flex" aria-label="Breadcrumb">
+                <ol role="list" class="flex items-center space-x-2">
+                    <li>
+                        <div class="flex">
+                            <a href="/" class="text-sm font-medium text-gray-500 hover:text-gray-700">Home</a>
+                        </div>
+                    </li>
+                    @if (ViewContext.RouteData.Values["controller"] != null && ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                    {
+                        <li>
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                </svg>
+                                <a href="/@ViewContext.RouteData.Values["controller"]" class="ml-2 text-sm font-medium text-gray-500 hover:text-gray-700">@ViewContext.RouteData.Values["controller"]</a>
+                            </div>
+                        </li>
+                    }
+                    @if (ViewContext.RouteData.Values["action"] != null && ViewContext.RouteData.Values["action"].ToString() != "Index")
+                    {
+                        <li>
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                </svg>
+                                <a href="#" class="ml-2 text-sm font-medium text-gray-500 hover:text-gray-700" aria-current="page">@ViewContext.RouteData.Values["action"]</a>
+                            </div>
+                        </li>
+                    }
+                </ol>
+            </nav>
+
+            <div class="flex flex-1 justify-end items-center gap-x-4 self-stretch lg:gap-x-6">
+                <!-- Search -->
+                <div class="relative flex flex-1 ml-auto max-w-xs lg:max-w-md">
+                    <label for="search" class="sr-only">Search</label>
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input id="search" name="search" class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-sm text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:leading-6" placeholder="Search projects..." type="search">
+                </div>
+
+                <!-- Notifications dropdown -->
+                <div class="nav-auth-item" x-data="{ notificationsOpen: false }" style="display: none;">
+                    <button type="button" class="relative rounded-full bg-white p-1.5 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500" @click="notificationsOpen = !notificationsOpen">
+                        <span class="sr-only">View notifications</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                        </svg>
+                        <!-- Notification badge -->
+                        <span id="notificationBadge" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full" style="display: none;">0</span>
+                    </button>
+                    
+                    <!-- Notifications dropdown panel -->
+                    <div x-show="notificationsOpen" 
+                         @click.away="notificationsOpen = false"
+                         x-transition:enter="transition ease-out duration-100"
+                         x-transition:enter-start="transform opacity-0 scale-95"
+                         x-transition:enter-end="transform opacity-100 scale-100"
+                         x-transition:leave="transition ease-in duration-75"
+                         x-transition:leave-start="transform opacity-100 scale-100"
+                         x-transition:leave-end="transform opacity-0 scale-95"
+                         class="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" 
+                         x-cloak>
+                        <div class="px-4 py-2 border-b border-gray-100">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-sm font-medium text-gray-900">Notifications</h3>
+                                <button type="button" class="text-xs text-primary-600 hover:text-primary-800" @click="markAllAsRead()">Mark all as read</button>
                             </div>
                         </div>
-                        
-                        <!-- Mobile menu button -->
-                        <div class="md:hidden -mr-2 flex items-center">
-                            <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-100 hover:bg-blue-700 focus:outline-none">
-                                <span class="sr-only">Open main menu</span>
-                                <i class="fas fa-bars text-lg"></i>
-                            </button>
+                        <div id="notifications-container" class="max-h-60 overflow-y-auto">
+                            <!-- Notifications will be populated here -->
+                            <div class="px-4 py-3 text-center text-sm text-gray-500">
+                                No new notifications
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-100 py-2 px-4 text-center">
+                            <a href="/Notifications" class="text-xs text-primary-600 hover:text-primary-800">View all notifications</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Mobile menu, show/hide based on menu state -->
-        <div id="mobile-menu" class="md:hidden hidden bg-blue-700 nav-auth-item">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="/Dashboard" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium" data-requires-auth="true">
-                    <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
-                </a>
-                <a href="/Project/List" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium" data-requires-auth="true">
-                    <i class="fas fa-project-diagram mr-1"></i> Projects
-                </a>
-                <a href="/UserManagement" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium admin-only" data-requires-auth="true">
-                    <i class="fas fa-users mr-1"></i> Users
-                </a>
-                <a href="/api/auditlogs/recent" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium admin-only" data-requires-auth="true">
-                    <i class="fas fa-history mr-1"></i> Audit Logs
-                </a>
-                <a href="/RoleHierarchy" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium admin-only" data-requires-auth="true">
-                    <i class="fas fa-sitemap mr-1"></i> Roles
-                </a>
-                <div class="border-t border-blue-800 pt-2">
-                    <a href="/Account/Profile" class="text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
-                        <i class="fas fa-user-cog mr-2"></i> Your Profile
-                    </a>
-                    <form id="mobileLogoutForm" action="/api/auth/logout" method="post">
-                        <button type="submit" class="w-full text-left text-white hover:bg-blue-600 block px-3 py-2 rounded-md text-base font-medium">
-                            <i class="fas fa-sign-out-alt mr-2"></i> Sign out
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Page header with breadcrumbs -->
-    <header class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
-                <h1 class="text-xl font-bold text-gray-900">@ViewData["Title"]</h1>
-                @if (ViewBag.User != null)
-                {
-                    <div class="text-sm text-gray-600">
-                        <span class="font-medium">@ViewBag.User?.Username</span> | 
-                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">@ViewBag.User?.Role</span>
-                        @if (!string.IsNullOrEmpty(ViewBag.User?.Department))
-                        {
-                            <span>| @ViewBag.User?.Department</span>
-                        }
+                <!-- Profile dropdown -->
+                <div class="nav-auth-item relative" x-data="{ userMenuOpen: false }" style="display: none;">
+                    <button type="button" class="flex items-center gap-x-4 text-sm font-semibold leading-6 text-gray-900" @click="userMenuOpen = !userMenuOpen">
+                        <span class="hidden lg:flex lg:items-center">
+                            <span aria-hidden="true" class="current-username">User</span>
+                            <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100">
+                            <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </span>
+                    </button>
+                    
+                    <!-- User menu dropdown -->
+                    <div x-show="userMenuOpen" 
+                         @click.away="userMenuOpen = false"
+                         x-transition:enter="transition ease-out duration-100"
+                         x-transition:enter-start="transform opacity-0 scale-95"
+                         x-transition:enter-end="transform opacity-100 scale-100"
+                         x-transition:leave="transition ease-in duration-75"
+                         x-transition:leave-start="transform opacity-100 scale-100"
+                         x-transition:leave-end="transform opacity-0 scale-95"
+                         class="absolute right-0 z-10 mt-2.5 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" 
+                         x-cloak>
+                        <div class="px-4 py-2 text-sm text-gray-500 border-b">
+                            Signed in as <span class="font-medium text-gray-900 current-username">User</span>
+                        </div>
+                        <a href="/Account/Profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+                        <a href="/Account/Settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                        <form id="logoutForm" action="/api/auth/logout" method="post" class="border-t">
+                            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</button>
+                        </form>
                     </div>
-                }
-            </div>
-        </div>
-    </header>
-
-    <!-- Main content -->
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        @RenderBody()
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-10">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-gray-500 text-sm">
-                    &copy; @DateTime.Now.Year - Enterprise PMO Platform
                 </div>
-                <div class="text-gray-500 text-sm">
-                    <a href="/Home/Privacy" class="hover:text-gray-700">Privacy</a> | 
-                    <a href="/Home/Terms" class="hover:text-gray-700">Terms</a>
+
+                <!-- Login/Register buttons (for non-authenticated users) -->
+                <div class="nav-no-auth-item flex items-center gap-2">
+                    <a href="/Account/Login" class="text-sm font-medium text-gray-700 hover:text-primary-600">Log in</a>
+                    <a href="/Account/Signup" class="ml-2 inline-flex items-center justify-center rounded-md bg-primary-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">Sign up</a>
                 </div>
             </div>
         </div>
-    </footer>
+
+        <!-- Main content area -->
+        <main class="py-6 px-4 sm:px-6 lg:px-8">
+            @RenderBody()
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-gray-200 mt-auto">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="py-6 md:flex md:items-center md:justify-between">
+                    <div class="text-center md:text-left">
+                        <p class="text-sm text-gray-500">&copy; @DateTime.Now.Year Enterprise PMO. All rights reserved.</p>
+                    </div>
+                    <div class="mt-4 flex items-center justify-center md:mt-0">
+                        <a href="/Home/Privacy" class="text-sm text-gray-500 hover:text-gray-600 mr-4">Privacy</a>
+                        <a href="/Home/Terms" class="text-sm text-gray-500 hover:text-gray-600">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Notification toast container -->
+    <div id="toast-container" class="fixed bottom-0 right-0 p-4 z-50"></div>
 
     <!-- Auth.js script -->
     <script src="~/js/auth.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+    
     <script>
-        // Mobile menu toggle
         document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            if (mobileMenuButton) {
-                mobileMenuButton.addEventListener('click', function() {
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-            
             // Initialize auth state
             if (window.authManager) {
                 // Initialize the auth UI based on token
@@ -253,154 +403,76 @@
                     }
                 }
             }
-        });
-        
-        // Notifications handling
-        document.addEventListener('DOMContentLoaded', function() {
-            // Only run for authenticated users
-            if (!document.querySelector('[id^="logoutForm"]') || !window.authManager || !window.authManager.isAuthenticated()) return;
             
-            let notificationsData = [];
-            
-            // Alpine.js store for notifications
-            document.addEventListener('alpine:init', () => {
-                Alpine.store('notifications', {
-                    unreadCount: 0,
-                    items: []
-                });
-            });
-            
-            // Fetch notifications initially
-            fetchNotifications();
-            
-            // Refresh notifications every 30 seconds
-            setInterval(fetchNotifications, 30000);
-            
-            function fetchNotifications() {
-                const token = window.authManager ? window.authManager.getToken() : null;
-                if (!token) return;
+            // Notifications handling
+            const loadNotifications = async () => {
+                if (!window.authManager || !window.authManager.isAuthenticated()) return;
                 
-                fetch('/api/notifications/unread', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch notifications');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        notificationsData = data.data;
-                        updateNotificationsUI(notificationsData);
-                        
-                        // Update unread count in Alpine.js store
-                        if (typeof Alpine !== 'undefined' && Alpine.store) {
-                            Alpine.store('notifications').unreadCount = notificationsData.length;
-                            Alpine.store('notifications').items = notificationsData;
+                try {
+                    const token = window.authManager.getToken();
+                    const response = await fetch('/api/notifications/unread', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
                         }
-                    }
-                })
-                .catch(error => console.error('Error fetching notifications:', error));
-            }
-            
-            function updateNotificationsUI(notifications) {
-                const container = document.getElementById('notifications-container');
-                if (!container) return;
-                
-                if (!notifications || notifications.length === 0) {
-                    container.innerHTML = `
-                        <div class="px-4 py-2 text-center text-sm text-gray-500">
-                            No notifications at this time
-                        </div>
-                    `;
-                    return;
-                }
-                
-                let html = '';
-                notifications.forEach(notification => {
-                    html += `
-                        <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100">
-                            <div class="flex">
-                                <div class="flex-1">
-                                    <p class="text-sm text-gray-800">${notification.message}</p>
-                                    <p class="text-xs text-gray-500">${formatDate(notification.createdAt)}</p>
-                                </div>
-                                <button data-id="${notification.id}" class="mark-read text-xs text-blue-600 hover:text-blue-800">
-                                    Mark as read
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                container.innerHTML = html;
-                
-                // Add event listeners for mark as read buttons
-                container.querySelectorAll('.mark-read').forEach(button => {
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const id = this.getAttribute('data-id');
-                        markAsRead(id);
                     });
-                });
+                    
+                    if (!response.ok) throw new Error('Failed to fetch notifications');
+                    
+                    const data = await response.json();
+                    const badge = document.getElementById('notificationBadge');
+                    const container = document.getElementById('notifications-container');
+                    
+                    if (data.length > 0) {
+                        // Update notification badge
+                        badge.textContent = data.length;
+                        badge.style.display = 'inline-flex';
+                        
+                        // Update notifications container
+                        container.innerHTML = data.map(notification => `
+                            <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100">
+                                <div class="flex">
+                                    <div class="flex-1">
+                                        <p class="text-sm text-gray-800">${notification.message}</p>
+                                        <p class="text-xs text-gray-500">${formatDate(notification.createdAt)}</p>
+                                    </div>
+                                    <button data-id="${notification.id}" class="mark-read text-xs text-primary-600 hover:text-primary-800">
+                                        Mark as read
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('');
+                        
+                        // Add event listeners for mark as read buttons
+                        container.querySelectorAll('.mark-read').forEach(button => {
+                            button.addEventListener('click', async function(e) {
+                                e.preventDefault();
+                                const id = this.getAttribute('data-id');
+                                await markAsRead(id);
+                                loadNotifications(); // Reload notifications
+                            });
+                        });
+                    } else {
+                        badge.style.display = 'none';
+                        container.innerHTML = `
+                            <div class="px-4 py-3 text-center text-sm text-gray-500">
+                                No new notifications
+                            </div>
+                        `;
+                    }
+                } catch (err) {
+                    console.error('Error loading notifications:', err);
+                }
+            };
+            
+            // Initialize notifications if authenticated
+            if (document.body.getAttribute('data-authenticated') === 'true') {
+                loadNotifications();
+                // Set up polling for new notifications every 30 seconds
+                setInterval(loadNotifications, 30000);
             }
             
-            function markAsRead(id) {
-                const token = window.authManager ? window.authManager.getToken() : null;
-                if (!token) return;
-                
-                fetch(`/api/notifications/${id}/read`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to mark notification as read');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        fetchNotifications();
-                    }
-                })
-                .catch(error => console.error('Error marking notification as read:', error));
-            }
-            
-            // Called from Alpine component
-            window.markAllAsRead = function() {
-                const token = window.authManager ? window.authManager.getToken() : null;
-                if (!token) return;
-                
-                fetch('/api/notifications/mark-all-read', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to mark all notifications as read');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        fetchNotifications();
-                    }
-                })
-                .catch(error => console.error('Error marking all notifications as read:', error));
-            }
-            
-            // Format date for notifications
-            function formatDate(dateStr) {
+            // Format date helper
+            window.formatDate = function(dateStr) {
                 const date = new Date(dateStr);
                 const now = new Date();
                 const diffMs = now - date;
@@ -411,7 +483,7 @@
                 if (diffMins < 1) {
                     return 'Just now';
                 } else if (diffMins < 60) {
-                    return `${diffMins} minute${diffMins === 1 ? '' : 's'} ago`;
+                    return `${diffMins} min${diffMins === 1 ? '' : 's'} ago`;
                 } else if (diffHours < 24) {
                     return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
                 } else if (diffDays < 7) {
@@ -419,49 +491,47 @@
                 } else {
                     return date.toLocaleDateString();
                 }
-            }
+            };
             
-            // Logout form handling with auth token
-            document.querySelectorAll('[id^="logoutForm"]').forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const token = window.authManager ? window.authManager.getToken() : null;
-                    
-                    fetch('/api/auth/logout', {
+            // Mark notification as read
+            window.markAsRead = async function(id) {
+                if (!window.authManager || !window.authManager.isAuthenticated()) return;
+                
+                try {
+                    const token = window.authManager.getToken();
+                    await fetch(`/api/notifications/${id}/read`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': token ? `Bearer ${token}` : ''
+                            'Authorization': `Bearer ${token}`
                         }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Always clear token regardless of response
-                        if (window.authManager) {
-                            window.authManager.clearToken();
-                        } else {
-                            localStorage.removeItem('token');
-                            localStorage.removeItem('user');
-                        }
-                        window.location.href = '/Account/Login';
-                    })
-                    .catch(error => {
-                        console.error('Logout error:', error);
-                        // Force logout anyway
-                        if (window.authManager) {
-                            window.authManager.clearToken();
-                        } else {
-                            localStorage.removeItem('token');
-                            localStorage.removeItem('user');
-                        }
-                        window.location.href = '/Account/Login';
                     });
-                });
-            });
+                } catch (err) {
+                    console.error('Error marking notification as read:', err);
+                }
+            };
+            
+            // Mark all notifications as read
+            window.markAllAsRead = async function() {
+                if (!window.authManager || !window.authManager.isAuthenticated()) return;
+                
+                try {
+                    const token = window.authManager.getToken();
+                    await fetch('/api/notifications/mark-all-read', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    // Reload notifications
+                    loadNotifications();
+                } catch (err) {
+                    console.error('Error marking all notifications as read:', err);
+                }
+            };
         });
     </script>
-    
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

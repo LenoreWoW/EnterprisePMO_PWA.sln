@@ -577,6 +577,88 @@
       ]
     },
     {
+      "Route": "js/auth-fix.j3k4xgum34.js",
+      "AssetFile": "js/auth-fix.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6946"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 30 Mar 2025 09:39:47 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "j3k4xgum34"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs="
+        },
+        {
+          "Name": "label",
+          "Value": "js/auth-fix.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/auth-fix.js",
+      "AssetFile": "js/auth-fix.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6946"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 30 Mar 2025 09:39:47 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs="
+        }
+      ]
+    },
+    {
       "Route": "js/auth-handler.js",
       "AssetFile": "js/auth-handler.js",
       "Selectors": [],
@@ -1147,88 +1229,6 @@
         {
           "Name": "integrity",
           "Value": "sha256-1KDSxfk+tC1lpZcF927/YeXntT3wYTJ9C85uvE8cM+c="
-        }
-      ]
-    },
-    {
-      "Route": "js/fix-auth.69lhaohjz1.js",
-      "AssetFile": "js/fix-auth.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "829"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 23:30:57 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "69lhaohjz1"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk="
-        },
-        {
-          "Name": "label",
-          "Value": "js/fix-auth.js"
-        }
-      ]
-    },
-    {
-      "Route": "js/fix-auth.js",
-      "AssetFile": "js/fix-auth.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "829"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 23:30:57 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk="
         }
       ]
     },

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NbgVF+X7zGmY2pWIpX6V/hmgiuw2Fq85sMNrpHFJfE0=",
+  "Hash": "fI19tUJOZma51ITpYD1umYrEiSCP8jSfDOZ4MnOqE7g=",
   "Source": "EnterprisePMO_PWA.Web",
   "BasePath": "_content/EnterprisePMO_PWA.Web",
   "Mode": "Default",
@@ -164,6 +164,27 @@
       "OriginalItemSpec": "wwwroot/Images/user-avatar.jpeg"
     },
     {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth-fix.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/auth-fix#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "j3k4xgum34",
+      "Integrity": "v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/auth-fix.js"
+    },
+    {
       "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth-handler.js",
       "SourceId": "EnterprisePMO_PWA.Web",
       "SourceType": "Discovered",
@@ -309,27 +330,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/components/ProjectGanttChart.jsx"
-    },
-    {
-      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/fix-auth.js",
-      "SourceId": "EnterprisePMO_PWA.Web",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
-      "BasePath": "_content/EnterprisePMO_PWA.Web",
-      "RelativePath": "js/fix-auth#[.{fingerprint}]?.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "69lhaohjz1",
-      "Integrity": "2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/fix-auth.js"
     },
     {
       "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/forgot-password.js",
@@ -1118,6 +1118,88 @@
       ]
     },
     {
+      "Route": "js/auth-fix.j3k4xgum34.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth-fix.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6946"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 30 Mar 2025 09:39:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "j3k4xgum34"
+        },
+        {
+          "Name": "label",
+          "Value": "js/auth-fix.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs="
+        }
+      ]
+    },
+    {
+      "Route": "js/auth-fix.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth-fix.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6946"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 30 Mar 2025 09:39:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs="
+        }
+      ]
+    },
+    {
       "Route": "js/auth-handler.js",
       "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth-handler.js",
       "Selectors": [],
@@ -1688,88 +1770,6 @@
         {
           "Name": "integrity",
           "Value": "sha256-1KDSxfk+tC1lpZcF927/YeXntT3wYTJ9C85uvE8cM+c="
-        }
-      ]
-    },
-    {
-      "Route": "js/fix-auth.69lhaohjz1.js",
-      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/fix-auth.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "829"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 23:30:57 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "69lhaohjz1"
-        },
-        {
-          "Name": "label",
-          "Value": "js/fix-auth.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk="
-        }
-      ]
-    },
-    {
-      "Route": "js/fix-auth.js",
-      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/fix-auth.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "829"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 23:30:57 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk="
         }
       ]
     },

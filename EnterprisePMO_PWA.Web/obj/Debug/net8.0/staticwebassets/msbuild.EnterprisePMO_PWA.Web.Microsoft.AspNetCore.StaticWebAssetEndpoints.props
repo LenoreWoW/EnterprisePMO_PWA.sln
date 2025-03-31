@@ -84,6 +84,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"m9wjkvzuct"},{"Name":"integrity","Value":"sha256-5rVsNEgXySjdc8SDW9Q6eMrjAdzIncMy7iKNStswxvM="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/Images/user-avatar.jpeg"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"11258"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u00225rVsNEgXySjdc8SDW9Q6eMrjAdzIncMy7iKNStswxvM=\u0022"},{"Name":"Last-Modified","Value":"Sun, 23 Mar 2025 07:25:55 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/auth-fix.j3k4xgum34.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth-fix.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"j3k4xgum34"},{"Name":"integrity","Value":"sha256-v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/js/auth-fix.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6946"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs=\u0022"},{"Name":"Last-Modified","Value":"Sun, 30 Mar 2025 09:39:47 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/auth-fix.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth-fix.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6946"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs=\u0022"},{"Name":"Last-Modified","Value":"Sun, 30 Mar 2025 09:39:47 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/auth-handler.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth-handler.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -167,18 +179,6 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-1KDSxfk\u002BtC1lpZcF927/YeXntT3wYTJ9C85uvE8cM\u002Bc="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"12440"},{"Name":"Content-Type","Value":"text/jscript"},{"Name":"ETag","Value":"\u00221KDSxfk\u002BtC1lpZcF927/YeXntT3wYTJ9C85uvE8cM\u002Bc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Mar 2025 10:56:27 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/fix-auth.69lhaohjz1.js">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\fix-auth.js'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"69lhaohjz1"},{"Name":"integrity","Value":"sha256-2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk="},{"Name":"label","Value":"_content/EnterprisePMO_PWA.Web/js/fix-auth.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"829"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00222v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 23:30:57 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/fix-auth.js">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\fix-auth.js'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"829"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00222v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 23:30:57 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/EnterprisePMO_PWA.Web/js/forgot-password.3l43yglnkd.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\forgot-password.js'))</AssetFile>

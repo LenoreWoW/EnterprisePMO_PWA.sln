@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth-fix.js",
+      "PackagePath": "staticwebassets/js/auth-fix.js"
+    },
+    {
       "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth-handler.js",
       "PackagePath": "staticwebassets/js/auth-handler.js"
     },
@@ -55,10 +59,6 @@
     {
       "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectGanttChart.jsx",
       "PackagePath": "staticwebassets/js/components/ProjectGanttChart.jsx"
-    },
-    {
-      "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/fix-auth.js",
-      "PackagePath": "staticwebassets/js/fix-auth.js"
     },
     {
       "Id": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/forgot-password.js",

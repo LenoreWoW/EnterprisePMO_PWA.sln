@@ -144,6 +144,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth.js'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth-fix.js'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EnterprisePMO_PWA.Web</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EnterprisePMO_PWA.Web</BasePath>
+      <RelativePath>js/auth-fix.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>j3k4xgum34</Fingerprint>
+      <Integrity>v5/rPmo6IvZQhLex9PItrwn8ROqJoO8LEhgNxPdvnGs=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth-fix.js'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\auth-handler.js'))">
       <SourceType>Package</SourceType>
       <SourceId>EnterprisePMO_PWA.Web</SourceId>
@@ -251,24 +269,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\components\ProjectGanttChart.jsx'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\fix-auth.js'))">
-      <SourceType>Package</SourceType>
-      <SourceId>EnterprisePMO_PWA.Web</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/EnterprisePMO_PWA.Web</BasePath>
-      <RelativePath>js/fix-auth.js</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>69lhaohjz1</Fingerprint>
-      <Integrity>2v/RYH6Ip1Qjo72RiKlOgz6TytTKj8q0mo0kTHtvCJk=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\fix-auth.js'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\forgot-password.js'))">
       <SourceType>Package</SourceType>
