@@ -5,6 +5,7 @@ using EnterprisePMO_PWA.Web.Services;
 using EnterprisePMO_PWA.Web.Authorization;
 using EnterprisePMO_PWA.Web.Extensions;
 using EnterprisePMO_PWA.Domain.Services;
+using EnterprisePMO_PWA.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ using Serilog;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using System.Text;
+using System.Security.Claims;
 
 // Setup the web server with in-memory database
 var builder = WebApplication.CreateBuilder(args);
@@ -54,6 +56,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     }
 });
 
+// Configure Supabase client
+builder.Services.AddHttpClient<SupabaseClient>(client =>
+{
+    var supabaseUrl = builder.Configuration["Supabase:Url"] ?? 
+                      "https://pffjdvahsgmtybxrhnla.supabase.co";
+    var supabaseKey = builder.Configuration["Supabase:Key"] ?? 
+                      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmZmpkdmFoc2dtdHlieHJobmxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI2ODk3NDYsImV4cCI6MjA1ODI2NTc0Nn0.6OPXiW2QwxvA42F1XcN83bHmtdM7NhulvDaqXxIE9hk";
+                      
+    client.BaseAddress = new Uri(supabaseUrl);
+    client.DefaultRequestHeaders.Add("apikey", supabaseKey);
+});
+
 // Register application services
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<WeeklyUpdateService>();
@@ -68,6 +82,9 @@ builder.Services.AddHttpContextAccessor();
 
 // Register IPermissionService explicitly
 builder.Services.AddScoped<EnterprisePMO_PWA.Domain.Services.IPermissionService, EnterprisePMO_PWA.Application.Services.PermissionService>();
+
+// Register authentication services
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Register new workflow and notification services
 builder.Services.AddScoped<ProjectWorkflowService>();
@@ -92,10 +109,14 @@ builder.Services.AddCors(options =>
     });
 });
 
-// JWT Authentication with simplified configuration for development
-var jwtSecretKey = builder.Configuration["Jwt:SecretKey"] ?? 
-                  Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? 
-                  "your-temporary-secret-key-for-testing-only-make-it-at-least-32-chars";
+// Supabase JWT Configuration
+var jwtSecretKey = builder.Configuration["Supabase:JWT:Secret"] ?? 
+                   builder.Configuration["Jwt:SecretKey"] ?? 
+                   Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? 
+                   "your-temporary-secret-key-for-testing-only-make-it-at-least-32-chars";
+
+var issuer = builder.Configuration["Supabase:Url"] ?? 
+            "https://pffjdvahsgmtybxrhnla.supabase.co";
 
 Console.WriteLine($"JWT Secret Key configured: {(string.IsNullOrEmpty(jwtSecretKey) ? "No" : "Yes")}");
 
@@ -106,18 +127,19 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    // For development, disable all validations except signing key
+    // Configure to handle both Supabase JWT and our existing JWT tokens
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
+        ValidateIssuer = builder.Environment.IsProduction(),
+        ValidateAudience = builder.Environment.IsProduction(),
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        ValidIssuer = issuer,
+        ValidAudience = "authenticated",
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey)),
         ClockSkew = TimeSpan.Zero
     };
     
-    // Set auth token from query string for API calls
     options.Events = new JwtBearerEvents
     {
         OnMessageReceived = context =>
@@ -136,10 +158,52 @@ builder.Services.AddAuthentication(options =>
             Console.WriteLine($"Authentication failed: {context.Exception.Message}");
             return Task.CompletedTask;
         },
-        OnTokenValidated = context =>
+        OnTokenValidated = async context =>
         {
             Console.WriteLine($"Token validated for: {context.Principal?.Identity?.Name ?? "Unknown"}");
-            return Task.CompletedTask;
+            
+            // Get the user from database using Supabase ID
+            var authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
+            var supabaseId = context.Principal.FindFirstValue("sub");
+            
+            if (!string.IsNullOrEmpty(supabaseId))
+            {
+                try {
+                    var user = await authService.GetUserBySupabaseIdAsync(supabaseId);
+                    
+                    if (user == null)
+                    {
+                        // User not found in our database, create it
+                        var email = context.Principal.FindFirstValue("email");
+                        if (!string.IsNullOrEmpty(email))
+                        {
+                            user = await authService.SyncUserWithSupabaseAsync(email, supabaseId);
+                        }
+                    }
+                    
+                    // Add application-specific claims
+                    if (user != null)
+                    {
+                        var identity = context.Principal.Identity as ClaimsIdentity;
+                        identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
+                        identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                        
+                        if (!string.IsNullOrEmpty(user.Username))
+                        {
+                            identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
+                        }
+                        
+                        if (user.Department != null)
+                        {
+                            identity.AddClaim(new Claim("Department", user.Department.Id.ToString()));
+                            identity.AddClaim(new Claim("DepartmentName", user.Department.Name));
+                        }
+                    }
+                }
+                catch (Exception ex) {
+                    Console.WriteLine($"Error during token validation user sync: {ex.Message}");
+                }
+            }
         }
     };
 });
@@ -231,7 +295,7 @@ app.Use(async (context, next) =>
 
 app.UseAuthentication();
 
-// Add our custom authentication middleware
+// Add our custom authentication middleware for user synchronization
 app.UseMiddleware<EnterprisePMO_PWA.Web.Middleware.AuthenticationMiddleware>();
 
 app.UseAuthorization();
@@ -287,6 +351,20 @@ using (var scope = app.Services.CreateScope())
                 await dbContext.SaveChangesAsync();
             }
             
+            // Create holding department if needed
+            var holdingDept = dbContext.Departments.FirstOrDefault(d => d.Name == "Holding");
+            if (holdingDept == null)
+            {
+                holdingDept = new EnterprisePMO_PWA.Domain.Entities.Department
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Holding",
+                    Description = "Default department for new users"
+                };
+                dbContext.Departments.Add(holdingDept);
+                await dbContext.SaveChangesAsync();
+            }
+            
             // Then create the admin user
             adminUser = new EnterprisePMO_PWA.Domain.Entities.User
             {
@@ -303,6 +381,14 @@ using (var scope = app.Services.CreateScope())
         }
         else
         {
+            // Update SupabaseId if missing
+            if (string.IsNullOrEmpty(adminUser.SupabaseId))
+            {
+                adminUser.SupabaseId = "test-admin-id";
+                await dbContext.SaveChangesAsync();
+                Console.WriteLine($"Updated admin user with Supabase ID");
+            }
+            
             Console.WriteLine($"Admin test user already exists with ID: {adminUser.Id}");
         }
     }
