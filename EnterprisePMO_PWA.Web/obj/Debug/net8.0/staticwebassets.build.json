@@ -1,0 +1,2803 @@
+{
+  "Version": 1,
+  "Hash": "xcHbt/O2WV2413r1ql1kvI2fWyHAXhy3NnMOV+Mnwww=",
+  "Source": "EnterprisePMO_PWA.Web",
+  "BasePath": "_content/EnterprisePMO_PWA.Web",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "EnterprisePMO_PWA.Web/wwwroot",
+      "Source": "EnterprisePMO_PWA.Web",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/auth-debug.html",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "auth-debug#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "vsf5cyouk6",
+      "Integrity": "wcx9yevAePGj/sCs/1eq0emjVlIQ7wZ7FxunYpGiko4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/auth-debug.html"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/css/tailwind-input.css",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "css/tailwind-input#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "j29xfnb7fa",
+      "Integrity": "K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/tailwind-input.css"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/favicon.ico",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "favicon#[.{fingerprint}]?.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2aojdz48ei",
+      "Integrity": "ViVsHvdbAmqfSRf2mZIXfEw3HClsjSJgn9wi14K8Pf8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/favicon.ico"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Icons/ icon-512.jpeg",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "Icons/ icon-512#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "0mxfqrojas",
+      "Integrity": "6D1X64b2NjMl8fRRY+93ciNkP9LiQueJGZIyCe9rpjg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Icons/ icon-512.jpeg"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Icons/icon-192.jpeg",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "Icons/icon-192#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hlgfsc4gmd",
+      "Integrity": "xY1C6UUL51J/Z6cCcByP6I+mLYWE/u4779ZM+FoLDQY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Icons/icon-192.jpeg"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Images/logo.jpeg",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "Images/logo#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ncj26tcine",
+      "Integrity": "iZcLG2r5FoTQZO3nheS7OPDooJi/+nCgIEsytvTkLIU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Images/logo.jpeg"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Images/user-avatar.jpeg",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "Images/user-avatar#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "m9wjkvzuct",
+      "Integrity": "5rVsNEgXySjdc8SDW9Q6eMrjAdzIncMy7iKNStswxvM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Images/user-avatar.jpeg"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/auth#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5yyca9imqm",
+      "Integrity": "7enzmg8nnboZaVvcKgVmCLQFv9gXC5S6UTyA24HMFBk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/auth.js"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ApprovalWorkflowDiagram.jsx.",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/ApprovalWorkflowDiagram.jsx#[.{fingerprint}]?",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "xw36vbm4ys",
+      "Integrity": "UUR65XsLav5HFEsw5HysKMJuK522DfdynHyevihtlZA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/ApprovalWorkflowDiagram.jsx."
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Dashboard/DashboardOverview.jsx",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/Dashboard/DashboardOverview#[.{fingerprint}]?.jsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "7xtjv98exd",
+      "Integrity": "O2FtuWfL+C97yOlqp1bbURXye2g8jPGojn4t+sqnots=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/Dashboard/DashboardOverview.jsx"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/NotificationBadge.jsx",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/NotificationBadge#[.{fingerprint}]?.jsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ihy94yo2uo",
+      "Integrity": "Kp30vfur9QXUrO526kvAmUByx7mE1DzdQGeRxRy/9Sw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/NotificationBadge.jsx"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Project/ProjectDetailsView.jsx",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/Project/ProjectDetailsView#[.{fingerprint}]?.jsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "xwujbnvlhd",
+      "Integrity": "vwWABd+qI6/4a3AnoV5HEfyXBND9omHBCmXcUC2dTZs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/Project/ProjectDetailsView.jsx"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Project/ProjectWorkflowVisualizer.jsx",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/Project/ProjectWorkflowVisualizer#[.{fingerprint}]?.jsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "iaule47xqm",
+      "Integrity": "ZmUt187iRtnxYj6a4k+yoapDgOJ1NWJIDO322zsatCA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/Project/ProjectWorkflowVisualizer.jsx"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectApprovalWorkflow.jsx",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/ProjectApprovalWorkflow#[.{fingerprint}]?.jsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8lh33ni94c",
+      "Integrity": "NIU4uIRKsnSREasg7hXlm2e3zenhNHM48J9cRLGgCIM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/ProjectApprovalWorkflow.jsx"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectDetailsView.js ",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/ProjectDetailsView#[.{fingerprint}]?.js ",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "p98p9n7xnj",
+      "Integrity": "HQuwc8zJwaE/p8tXzMOIb1VSZCVJpm2E1LdhntaQKSo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/ProjectDetailsView.js "
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectGanttChart.jsx",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/ProjectGanttChart#[.{fingerprint}]?.jsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "cyc1p8xra4",
+      "Integrity": "1KDSxfk+tC1lpZcF927/YeXntT3wYTJ9C85uvE8cM+c=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/ProjectGanttChart.jsx"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/RoleManagement/RoleHierarchyVisualizer.jsx",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/RoleManagement/RoleHierarchyVisualizer#[.{fingerprint}]?.jsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5k3q2mroyz",
+      "Integrity": "hZ5KupnvOr5K7Gg+aHjFUe8v+qsAArVWocVE6s85OVA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/RoleManagement/RoleHierarchyVisualizer.jsx"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Tasks/ProjectKanbanBoard.jsx",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/components/Tasks/ProjectKanbanBoard#[.{fingerprint}]?.jsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "y78y9f230h",
+      "Integrity": "4nwU2BU+c86W3keG2eAITLpNAmy3enVWg/nblX0pmUY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/components/Tasks/ProjectKanbanBoard.jsx"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/forgot-password.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/forgot-password#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jdqrldqxf6",
+      "Integrity": "udjyYNRO8lG1OMWOrrV2eCgerxuCRYggn0ugFVRjTrA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/forgot-password.js"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/kanban.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/kanban#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8jckgy8yh1",
+      "Integrity": "jKuLqM+vxHO58U+y0h1p57ll5lJVpVrH0uPEJQkYGqs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/kanban.js"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/notificationHubClient.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/notificationHubClient#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "73tvpw6c70",
+      "Integrity": "Az6ougd2RT4H0cWbuL21nnKB+MK+9cj5mBADCvuoXhk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/notificationHubClient.js"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/reset-password.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/reset-password#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "a12q4f4ybm",
+      "Integrity": "zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/reset-password.js"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/signup.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/signup#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "a12q4f4ybm",
+      "Integrity": "zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/signup.js"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/site.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/site#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "vuy6hp7196",
+      "Integrity": "91pLPvvPrRAOos0CvLBw8hQ0K2KD6oRlEMKy7NsRhxM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/site.js"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/tailwind-components.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "js/tailwind-components#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "72axc0fov5",
+      "Integrity": "Ly1GlrGDij1GAP9odi582drP92fOq92bpFj3Qc14WEI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/tailwind-components.js"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/manifest.json",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "manifest#[.{fingerprint}]?.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4o3l7zi2t8",
+      "Integrity": "1HgPOnw6DhJOdJ7tcv6tUvOxFqarHHeqOd2nz9vGa+g=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/manifest.json"
+    },
+    {
+      "Identity": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/service-worker.js",
+      "SourceId": "EnterprisePMO_PWA.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/",
+      "BasePath": "_content/EnterprisePMO_PWA.Web",
+      "RelativePath": "service-worker#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "c74tnhmqs8",
+      "Integrity": "iPWQWv6w/HA3tPbkkfKjsHf7bFPnD6vQQz4p69bmrSc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/service-worker.js"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "auth-debug.html",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/auth-debug.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "727"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wcx9yevAePGj/sCs/1eq0emjVlIQ7wZ7FxunYpGiko4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 23:20:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wcx9yevAePGj/sCs/1eq0emjVlIQ7wZ7FxunYpGiko4="
+        }
+      ]
+    },
+    {
+      "Route": "auth-debug.vsf5cyouk6.html",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/auth-debug.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "727"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wcx9yevAePGj/sCs/1eq0emjVlIQ7wZ7FxunYpGiko4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 23:20:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vsf5cyouk6"
+        },
+        {
+          "Name": "label",
+          "Value": "auth-debug.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wcx9yevAePGj/sCs/1eq0emjVlIQ7wZ7FxunYpGiko4="
+        }
+      ]
+    },
+    {
+      "Route": "css/tailwind-input.css",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/css/tailwind-input.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2694"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 11:10:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso="
+        }
+      ]
+    },
+    {
+      "Route": "css/tailwind-input.j29xfnb7fa.css",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/css/tailwind-input.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2694"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 11:10:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "j29xfnb7fa"
+        },
+        {
+          "Name": "label",
+          "Value": "css/tailwind-input.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-K0etiSISkj04zImtKmlk2Xkxh4scQ8I9ujTJnmrTMso="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.2aojdz48ei.ico",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/favicon.ico",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "512"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ViVsHvdbAmqfSRf2mZIXfEw3HClsjSJgn9wi14K8Pf8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 03:48:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2aojdz48ei"
+        },
+        {
+          "Name": "label",
+          "Value": "favicon.ico"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ViVsHvdbAmqfSRf2mZIXfEw3HClsjSJgn9wi14K8Pf8="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.ico",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/favicon.ico",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "512"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ViVsHvdbAmqfSRf2mZIXfEw3HClsjSJgn9wi14K8Pf8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 03:48:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ViVsHvdbAmqfSRf2mZIXfEw3HClsjSJgn9wi14K8Pf8="
+        }
+      ]
+    },
+    {
+      "Route": "Icons/ icon-512.0mxfqrojas.jpeg",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Icons/ icon-512.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5300"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6D1X64b2NjMl8fRRY+93ciNkP9LiQueJGZIyCe9rpjg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 03:51:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "0mxfqrojas"
+        },
+        {
+          "Name": "label",
+          "Value": "Icons/ icon-512.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-6D1X64b2NjMl8fRRY+93ciNkP9LiQueJGZIyCe9rpjg="
+        }
+      ]
+    },
+    {
+      "Route": "Icons/ icon-512.jpeg",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Icons/ icon-512.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5300"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6D1X64b2NjMl8fRRY+93ciNkP9LiQueJGZIyCe9rpjg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 03:51:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-6D1X64b2NjMl8fRRY+93ciNkP9LiQueJGZIyCe9rpjg="
+        }
+      ]
+    },
+    {
+      "Route": "Icons/icon-192.hlgfsc4gmd.jpeg",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Icons/icon-192.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6235"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xY1C6UUL51J/Z6cCcByP6I+mLYWE/u4779ZM+FoLDQY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 03:49:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hlgfsc4gmd"
+        },
+        {
+          "Name": "label",
+          "Value": "Icons/icon-192.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xY1C6UUL51J/Z6cCcByP6I+mLYWE/u4779ZM+FoLDQY="
+        }
+      ]
+    },
+    {
+      "Route": "Icons/icon-192.jpeg",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Icons/icon-192.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6235"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xY1C6UUL51J/Z6cCcByP6I+mLYWE/u4779ZM+FoLDQY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 03:49:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xY1C6UUL51J/Z6cCcByP6I+mLYWE/u4779ZM+FoLDQY="
+        }
+      ]
+    },
+    {
+      "Route": "Images/logo.jpeg",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Images/logo.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9034"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"iZcLG2r5FoTQZO3nheS7OPDooJi/+nCgIEsytvTkLIU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 07:03:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-iZcLG2r5FoTQZO3nheS7OPDooJi/+nCgIEsytvTkLIU="
+        }
+      ]
+    },
+    {
+      "Route": "Images/logo.ncj26tcine.jpeg",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Images/logo.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9034"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"iZcLG2r5FoTQZO3nheS7OPDooJi/+nCgIEsytvTkLIU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 07:03:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ncj26tcine"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/logo.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-iZcLG2r5FoTQZO3nheS7OPDooJi/+nCgIEsytvTkLIU="
+        }
+      ]
+    },
+    {
+      "Route": "Images/user-avatar.jpeg",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Images/user-avatar.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11258"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5rVsNEgXySjdc8SDW9Q6eMrjAdzIncMy7iKNStswxvM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 07:25:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-5rVsNEgXySjdc8SDW9Q6eMrjAdzIncMy7iKNStswxvM="
+        }
+      ]
+    },
+    {
+      "Route": "Images/user-avatar.m9wjkvzuct.jpeg",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/Images/user-avatar.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11258"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5rVsNEgXySjdc8SDW9Q6eMrjAdzIncMy7iKNStswxvM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 07:25:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "m9wjkvzuct"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/user-avatar.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-5rVsNEgXySjdc8SDW9Q6eMrjAdzIncMy7iKNStswxvM="
+        }
+      ]
+    },
+    {
+      "Route": "js/auth.5yyca9imqm.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "18700"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7enzmg8nnboZaVvcKgVmCLQFv9gXC5S6UTyA24HMFBk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 09:36:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5yyca9imqm"
+        },
+        {
+          "Name": "label",
+          "Value": "js/auth.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-7enzmg8nnboZaVvcKgVmCLQFv9gXC5S6UTyA24HMFBk="
+        }
+      ]
+    },
+    {
+      "Route": "js/auth.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/auth.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "18700"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7enzmg8nnboZaVvcKgVmCLQFv9gXC5S6UTyA24HMFBk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 09:36:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-7enzmg8nnboZaVvcKgVmCLQFv9gXC5S6UTyA24HMFBk="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/ApprovalWorkflowDiagram.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ApprovalWorkflowDiagram.jsx.",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11401"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UUR65XsLav5HFEsw5HysKMJuK522DfdynHyevihtlZA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 12:56:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UUR65XsLav5HFEsw5HysKMJuK522DfdynHyevihtlZA="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/ApprovalWorkflowDiagram.jsx.xw36vbm4ys",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ApprovalWorkflowDiagram.jsx.",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11401"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UUR65XsLav5HFEsw5HysKMJuK522DfdynHyevihtlZA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 12:56:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xw36vbm4ys"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/ApprovalWorkflowDiagram.jsx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UUR65XsLav5HFEsw5HysKMJuK522DfdynHyevihtlZA="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/Dashboard/DashboardOverview.7xtjv98exd.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Dashboard/DashboardOverview.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "19207"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"O2FtuWfL+C97yOlqp1bbURXye2g8jPGojn4t+sqnots=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:31:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "7xtjv98exd"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/Dashboard/DashboardOverview.jsx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-O2FtuWfL+C97yOlqp1bbURXye2g8jPGojn4t+sqnots="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/Dashboard/DashboardOverview.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Dashboard/DashboardOverview.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "19207"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"O2FtuWfL+C97yOlqp1bbURXye2g8jPGojn4t+sqnots=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:31:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-O2FtuWfL+C97yOlqp1bbURXye2g8jPGojn4t+sqnots="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/NotificationBadge.ihy94yo2uo.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/NotificationBadge.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2551"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Kp30vfur9QXUrO526kvAmUByx7mE1DzdQGeRxRy/9Sw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 28 Mar 2025 10:58:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ihy94yo2uo"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/NotificationBadge.jsx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Kp30vfur9QXUrO526kvAmUByx7mE1DzdQGeRxRy/9Sw="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/NotificationBadge.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/NotificationBadge.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2551"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Kp30vfur9QXUrO526kvAmUByx7mE1DzdQGeRxRy/9Sw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 28 Mar 2025 10:58:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Kp30vfur9QXUrO526kvAmUByx7mE1DzdQGeRxRy/9Sw="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/Project/ProjectDetailsView.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Project/ProjectDetailsView.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23142"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vwWABd+qI6/4a3AnoV5HEfyXBND9omHBCmXcUC2dTZs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:47:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-vwWABd+qI6/4a3AnoV5HEfyXBND9omHBCmXcUC2dTZs="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/Project/ProjectDetailsView.xwujbnvlhd.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Project/ProjectDetailsView.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23142"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vwWABd+qI6/4a3AnoV5HEfyXBND9omHBCmXcUC2dTZs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:47:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xwujbnvlhd"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/Project/ProjectDetailsView.jsx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-vwWABd+qI6/4a3AnoV5HEfyXBND9omHBCmXcUC2dTZs="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/Project/ProjectWorkflowVisualizer.iaule47xqm.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Project/ProjectWorkflowVisualizer.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10111"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZmUt187iRtnxYj6a4k+yoapDgOJ1NWJIDO322zsatCA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:31:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "iaule47xqm"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/Project/ProjectWorkflowVisualizer.jsx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZmUt187iRtnxYj6a4k+yoapDgOJ1NWJIDO322zsatCA="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/Project/ProjectWorkflowVisualizer.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Project/ProjectWorkflowVisualizer.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10111"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZmUt187iRtnxYj6a4k+yoapDgOJ1NWJIDO322zsatCA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:31:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZmUt187iRtnxYj6a4k+yoapDgOJ1NWJIDO322zsatCA="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/ProjectApprovalWorkflow.8lh33ni94c.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectApprovalWorkflow.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "19703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"NIU4uIRKsnSREasg7hXlm2e3zenhNHM48J9cRLGgCIM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 17:17:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8lh33ni94c"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/ProjectApprovalWorkflow.jsx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-NIU4uIRKsnSREasg7hXlm2e3zenhNHM48J9cRLGgCIM="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/ProjectApprovalWorkflow.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectApprovalWorkflow.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "19703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"NIU4uIRKsnSREasg7hXlm2e3zenhNHM48J9cRLGgCIM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 17:17:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-NIU4uIRKsnSREasg7hXlm2e3zenhNHM48J9cRLGgCIM="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/ProjectDetailsView.js ",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectDetailsView.js ",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "25647"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HQuwc8zJwaE/p8tXzMOIb1VSZCVJpm2E1LdhntaQKSo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 13:53:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-HQuwc8zJwaE/p8tXzMOIb1VSZCVJpm2E1LdhntaQKSo="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/ProjectDetailsView.p98p9n7xnj.js ",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectDetailsView.js ",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "25647"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HQuwc8zJwaE/p8tXzMOIb1VSZCVJpm2E1LdhntaQKSo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 13:53:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "p98p9n7xnj"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/ProjectDetailsView.js "
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-HQuwc8zJwaE/p8tXzMOIb1VSZCVJpm2E1LdhntaQKSo="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/ProjectGanttChart.cyc1p8xra4.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectGanttChart.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12440"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1KDSxfk+tC1lpZcF927/YeXntT3wYTJ9C85uvE8cM+c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 28 Mar 2025 10:56:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cyc1p8xra4"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/ProjectGanttChart.jsx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1KDSxfk+tC1lpZcF927/YeXntT3wYTJ9C85uvE8cM+c="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/ProjectGanttChart.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/ProjectGanttChart.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12440"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1KDSxfk+tC1lpZcF927/YeXntT3wYTJ9C85uvE8cM+c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 28 Mar 2025 10:56:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1KDSxfk+tC1lpZcF927/YeXntT3wYTJ9C85uvE8cM+c="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/RoleManagement/RoleHierarchyVisualizer.5k3q2mroyz.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/RoleManagement/RoleHierarchyVisualizer.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6932"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hZ5KupnvOr5K7Gg+aHjFUe8v+qsAArVWocVE6s85OVA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:31:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5k3q2mroyz"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/RoleManagement/RoleHierarchyVisualizer.jsx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hZ5KupnvOr5K7Gg+aHjFUe8v+qsAArVWocVE6s85OVA="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/RoleManagement/RoleHierarchyVisualizer.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/RoleManagement/RoleHierarchyVisualizer.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6932"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hZ5KupnvOr5K7Gg+aHjFUe8v+qsAArVWocVE6s85OVA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:31:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hZ5KupnvOr5K7Gg+aHjFUe8v+qsAArVWocVE6s85OVA="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/Tasks/ProjectKanbanBoard.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Tasks/ProjectKanbanBoard.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21954"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4nwU2BU+c86W3keG2eAITLpNAmy3enVWg/nblX0pmUY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:29:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4nwU2BU+c86W3keG2eAITLpNAmy3enVWg/nblX0pmUY="
+        }
+      ]
+    },
+    {
+      "Route": "js/components/Tasks/ProjectKanbanBoard.y78y9f230h.jsx",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/components/Tasks/ProjectKanbanBoard.jsx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21954"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/jscript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4nwU2BU+c86W3keG2eAITLpNAmy3enVWg/nblX0pmUY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 11:29:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "y78y9f230h"
+        },
+        {
+          "Name": "label",
+          "Value": "js/components/Tasks/ProjectKanbanBoard.jsx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4nwU2BU+c86W3keG2eAITLpNAmy3enVWg/nblX0pmUY="
+        }
+      ]
+    },
+    {
+      "Route": "js/forgot-password.jdqrldqxf6.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/forgot-password.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3372"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"udjyYNRO8lG1OMWOrrV2eCgerxuCRYggn0ugFVRjTrA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 17:36:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jdqrldqxf6"
+        },
+        {
+          "Name": "label",
+          "Value": "js/forgot-password.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-udjyYNRO8lG1OMWOrrV2eCgerxuCRYggn0ugFVRjTrA="
+        }
+      ]
+    },
+    {
+      "Route": "js/forgot-password.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/forgot-password.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3372"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"udjyYNRO8lG1OMWOrrV2eCgerxuCRYggn0ugFVRjTrA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 17:36:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-udjyYNRO8lG1OMWOrrV2eCgerxuCRYggn0ugFVRjTrA="
+        }
+      ]
+    },
+    {
+      "Route": "js/kanban.8jckgy8yh1.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/kanban.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2150"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jKuLqM+vxHO58U+y0h1p57ll5lJVpVrH0uPEJQkYGqs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:56:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8jckgy8yh1"
+        },
+        {
+          "Name": "label",
+          "Value": "js/kanban.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-jKuLqM+vxHO58U+y0h1p57ll5lJVpVrH0uPEJQkYGqs="
+        }
+      ]
+    },
+    {
+      "Route": "js/kanban.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/kanban.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2150"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jKuLqM+vxHO58U+y0h1p57ll5lJVpVrH0uPEJQkYGqs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:56:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-jKuLqM+vxHO58U+y0h1p57ll5lJVpVrH0uPEJQkYGqs="
+        }
+      ]
+    },
+    {
+      "Route": "js/notificationHubClient.73tvpw6c70.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/notificationHubClient.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "545"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Az6ougd2RT4H0cWbuL21nnKB+MK+9cj5mBADCvuoXhk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 04:07:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "73tvpw6c70"
+        },
+        {
+          "Name": "label",
+          "Value": "js/notificationHubClient.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Az6ougd2RT4H0cWbuL21nnKB+MK+9cj5mBADCvuoXhk="
+        }
+      ]
+    },
+    {
+      "Route": "js/notificationHubClient.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/notificationHubClient.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "545"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Az6ougd2RT4H0cWbuL21nnKB+MK+9cj5mBADCvuoXhk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 04:07:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Az6ougd2RT4H0cWbuL21nnKB+MK+9cj5mBADCvuoXhk="
+        }
+      ]
+    },
+    {
+      "Route": "js/reset-password.a12q4f4ybm.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/reset-password.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6897"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:56:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "a12q4f4ybm"
+        },
+        {
+          "Name": "label",
+          "Value": "js/reset-password.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo="
+        }
+      ]
+    },
+    {
+      "Route": "js/reset-password.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/reset-password.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6897"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:56:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo="
+        }
+      ]
+    },
+    {
+      "Route": "js/signup.a12q4f4ybm.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/signup.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6897"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:55:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "a12q4f4ybm"
+        },
+        {
+          "Name": "label",
+          "Value": "js/signup.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo="
+        }
+      ]
+    },
+    {
+      "Route": "js/signup.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/signup.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6897"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:55:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-zmwc6unSk49pp0izV1YVC33WsIKnFK3AznRLDZ7P8Vo="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4347"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"91pLPvvPrRAOos0CvLBw8hQ0K2KD6oRlEMKy7NsRhxM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:55:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-91pLPvvPrRAOos0CvLBw8hQ0K2KD6oRlEMKy7NsRhxM="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.vuy6hp7196.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4347"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"91pLPvvPrRAOos0CvLBw8hQ0K2KD6oRlEMKy7NsRhxM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:55:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vuy6hp7196"
+        },
+        {
+          "Name": "label",
+          "Value": "js/site.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-91pLPvvPrRAOos0CvLBw8hQ0K2KD6oRlEMKy7NsRhxM="
+        }
+      ]
+    },
+    {
+      "Route": "js/tailwind-components.72axc0fov5.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/tailwind-components.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "18804"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ly1GlrGDij1GAP9odi582drP92fOq92bpFj3Qc14WEI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 16:40:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "72axc0fov5"
+        },
+        {
+          "Name": "label",
+          "Value": "js/tailwind-components.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ly1GlrGDij1GAP9odi582drP92fOq92bpFj3Qc14WEI="
+        }
+      ]
+    },
+    {
+      "Route": "js/tailwind-components.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/js/tailwind-components.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "18804"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ly1GlrGDij1GAP9odi582drP92fOq92bpFj3Qc14WEI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 31 Mar 2025 16:40:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ly1GlrGDij1GAP9odi582drP92fOq92bpFj3Qc14WEI="
+        }
+      ]
+    },
+    {
+      "Route": "manifest.4o3l7zi2t8.json",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/manifest.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "415"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1HgPOnw6DhJOdJ7tcv6tUvOxFqarHHeqOd2nz9vGa+g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 17:55:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4o3l7zi2t8"
+        },
+        {
+          "Name": "label",
+          "Value": "manifest.json"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1HgPOnw6DhJOdJ7tcv6tUvOxFqarHHeqOd2nz9vGa+g="
+        }
+      ]
+    },
+    {
+      "Route": "manifest.json",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/manifest.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "415"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1HgPOnw6DhJOdJ7tcv6tUvOxFqarHHeqOd2nz9vGa+g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 17:55:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1HgPOnw6DhJOdJ7tcv6tUvOxFqarHHeqOd2nz9vGa+g="
+        }
+      ]
+    },
+    {
+      "Route": "service-worker.c74tnhmqs8.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/service-worker.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "881"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"iPWQWv6w/HA3tPbkkfKjsHf7bFPnD6vQQz4p69bmrSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 04:07:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "c74tnhmqs8"
+        },
+        {
+          "Name": "label",
+          "Value": "service-worker.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-iPWQWv6w/HA3tPbkkfKjsHf7bFPnD6vQQz4p69bmrSc="
+        }
+      ]
+    },
+    {
+      "Route": "service-worker.js",
+      "AssetFile": "/Users/hassanalsahli/Desktop/EnterprisePMO_PWA.sln/EnterprisePMO_PWA.Web/wwwroot/service-worker.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "881"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"iPWQWv6w/HA3tPbkkfKjsHf7bFPnD6vQQz4p69bmrSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 04:07:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-iPWQWv6w/HA3tPbkkfKjsHf7bFPnD6vQQz4p69bmrSc="
+        }
+      ]
+    }
+  ]
+}
