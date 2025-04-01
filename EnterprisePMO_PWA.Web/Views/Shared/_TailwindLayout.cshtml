@@ -292,6 +292,18 @@
                     }
                 }
             }
+            
+            // Define the click function for handling menu toggling if needed
+            window.onClick = function(elementId) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    if (element.classList.contains('hidden')) {
+                        element.classList.remove('hidden');
+                    } else {
+                        element.classList.add('hidden');
+                    }
+                }
+            };
         });
     </script>
 </body>

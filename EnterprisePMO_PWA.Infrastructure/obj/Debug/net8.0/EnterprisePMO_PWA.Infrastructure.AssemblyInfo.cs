@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnterprisePMO_PWA.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9fc258ad30a775b0344548596cac6730a1b5d56")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+76ccc8550e8e05f8b421248df321f602e11404ce")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnterprisePMO_PWA.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnterprisePMO_PWA.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

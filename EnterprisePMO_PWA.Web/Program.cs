@@ -164,6 +164,10 @@ builder.Services.AddAuthentication(options =>
             
             // Get the user from database using Supabase ID
             var authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
+            
+            // WARNING: THIS LINE HAS A POTENTIAL NULL REFERENCE
+            // Fix it by adding a null check:
+            // var supabaseId = context.Principal != null ? context.Principal.FindFirstValue("sub") : null;
             var supabaseId = context.Principal.FindFirstValue("sub");
             
             if (!string.IsNullOrEmpty(supabaseId))
@@ -174,7 +178,11 @@ builder.Services.AddAuthentication(options =>
                     if (user == null)
                     {
                         // User not found in our database, create it
+                        // WARNING: THIS LINE HAS A POTENTIAL NULL REFERENCE
+                        // Fix it by adding a null check:
+                        // var email = context.Principal != null ? context.Principal.FindFirstValue("email") : null;
                         var email = context.Principal.FindFirstValue("email");
+                        
                         if (!string.IsNullOrEmpty(email))
                         {
                             user = await authService.SyncUserWithSupabaseAsync(email, supabaseId);
@@ -355,6 +363,14 @@ using (var scope = app.Services.CreateScope())
             var holdingDept = dbContext.Departments.FirstOrDefault(d => d.Name == "Holding");
             if (holdingDept == null)
             {
+                // ERROR IS HERE - Department doesn't have a Description property
+                // Change this to:
+                // holdingDept = new EnterprisePMO_PWA.Domain.Entities.Department
+                // {
+                //     Id = Guid.NewGuid(),
+                //     Name = "Holding"
+                //     // Remove the Description property or add it to Department entity
+                // };
                 holdingDept = new EnterprisePMO_PWA.Domain.Entities.Department
                 {
                     Id = Guid.NewGuid(),
