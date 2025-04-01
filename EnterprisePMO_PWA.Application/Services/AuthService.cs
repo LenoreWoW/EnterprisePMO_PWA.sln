@@ -1,138 +1,402 @@
-// Program.cs - Configuration for Authentication Integration
-
-using EnterprisePMO_PWA.Application.Services;
-using EnterprisePMO_PWA.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
+using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Infrastructure.Data;
+using EnterprisePMO_PWA.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-// Configure Supabase client
-builder.Services.AddHttpClient<SupabaseClient>(client =>
+namespace EnterprisePMO_PWA.Application.Services
 {
-    client.BaseAddress = new Uri(builder.Configuration["Supabase:Url"]);
-    client.DefaultRequestHeaders.Add("apikey", builder.Configuration["Supabase:Key"]);
-});
-
-// Register services
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<AuditService>();
-
-// Configure authentication
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    // Configure to use Supabase JWT
-    options.TokenValidationParameters = new TokenValidationParameters
+    public class AuthService : IAuthService
     {
-        // For Supabase JWT validation
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Supabase:Url"],
-        ValidAudience = "authenticated",
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Supabase:JWT:Secret"]))
-    };
+        private readonly SupabaseClient _supabaseClient;
+        private readonly AppDbContext _dbContext;
+        private readonly AuditService _auditService;
+        private readonly ILogger<AuthService> _logger;
+        private readonly IConfiguration _configuration;
 
-    options.Events = new JwtBearerEvents
-    {
-        OnMessageReceived = context =>
+        public AuthService(
+            SupabaseClient supabaseClient, 
+            AppDbContext dbContext,
+            AuditService auditService,
+            ILogger<AuthService> logger,
+            IConfiguration configuration)
         {
-            // Allow JWT token to be provided in query string for certain scenarios (like file downloads)
-            var accessToken = context.Request.Query["auth_token"];
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                context.Token = accessToken;
-            }
-            return Task.CompletedTask;
-        },
-        
-        OnTokenValidated = async context =>
+            _supabaseClient = supabaseClient;
+            _dbContext = dbContext;
+            _auditService = auditService;
+            _logger = logger;
+            _configuration = configuration;
+        }
+
+        public async Task<AuthResult> LoginAsync(string email, string password)
         {
-            // Get the user from database using Supabase ID
-            var authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
-            var supabaseId = context.Principal.FindFirstValue("sub");
-            
-            if (!string.IsNullOrEmpty(supabaseId))
+            try
             {
-                var user = await authService.GetUserBySupabaseIdAsync(supabaseId);
-                
+                // Authenticate with Supabase
+                var response = await _supabaseClient.Auth.SignInWithPassword(email, password);
+
+                if (response.Error != null)
+                {
+                    return new AuthResult
+                    {
+                        Success = false,
+                        ErrorMessage = response.Error.Message
+                    };
+                }
+
+                // Get or create user in our database
+                var user = await GetUserByEmailAsync(email);
                 if (user == null)
                 {
-                    // User not found in our database, create it
-                    var email = context.Principal.FindFirstValue("email");
-                    if (!string.IsNullOrEmpty(email))
-                    {
-                        user = await authService.SyncUserWithSupabaseAsync(email, supabaseId);
-                    }
-                    else
-                    {
-                        context.Fail("User not found in application database");
-                    }
+                    // First-time login with Supabase - create user
+                    user = await SyncUserWithSupabaseAsync(email, response.User.Id);
                 }
-                
-                // Add application-specific claims
-                if (user != null)
+                else if (string.IsNullOrEmpty(user.SupabaseId))
                 {
-                    var identity = context.Principal.Identity as ClaimsIdentity;
-                    identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
-                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-                    
-                    if (!string.IsNullOrEmpty(user.Username))
-                    {
-                        identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
-                    }
-                    
-                    if (user.Department != null)
-                    {
-                        identity.AddClaim(new Claim("Department", user.Department.Id.ToString()));
-                        identity.AddClaim(new Claim("DepartmentName", user.Department.Name));
-                    }
+                    // Update existing user with Supabase ID
+                    user.SupabaseId = response.User.Id;
+                    await _dbContext.SaveChangesAsync();
                 }
+
+                // Log the successful login
+                await _auditService.LogActionAsync(
+                    "Authentication",
+                    user.Id,
+                    "Login",
+                    "User logged in successfully via Supabase"
+                );
+
+                return new AuthResult
+                {
+                    Success = true,
+                    Token = response.Session.AccessToken,
+                    RefreshToken = response.Session.RefreshToken,
+                    User = user,
+                    ExpiresIn = response.Session.ExpiresIn
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during login");
+                return new AuthResult
+                {
+                    Success = false,
+                    ErrorMessage = "An unexpected error occurred during login."
+                };
             }
         }
-    };
-});
 
-// Add middleware
-builder.Services.AddScoped<AuthenticationMiddleware>();
+        public async Task<AuthResult> SignupAsync(SignupRequest request)
+        {
+            try
+            {
+                // Check if user already exists in our database
+                var existingUser = await _dbContext.Users
+                    .FirstOrDefaultAsync(u => u.Username == request.Email);
 
-// Configure DbContext
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                if (existingUser != null)
+                {
+                    return new AuthResult
+                    {
+                        Success = false,
+                        ErrorMessage = "A user with this email already exists"
+                    };
+                }
 
-var app = builder.Build();
+                // Register with Supabase
+                var signUpOptions = new SignUpOptions
+                {
+                    Data = new Dictionary<string, object>
+                    {
+                        { "first_name", request.FirstName },
+                        { "last_name", request.LastName }
+                    }
+                };
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+                var response = await _supabaseClient.Auth.SignUp(request.Email, request.Password, signUpOptions);
+
+                if (response.Error != null)
+                {
+                    return new AuthResult
+                    {
+                        Success = false,
+                        ErrorMessage = response.Error.Message
+                    };
+                }
+
+                // Create user in our database
+                var holdingDepartment = await _dbContext.Departments
+                    .FirstOrDefaultAsync(d => d.Name == "Holding");
+
+                if (holdingDepartment == null)
+                {
+                    // Create a holding department if it doesn't exist
+                    holdingDepartment = new Department
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Holding"
+                    };
+                    _dbContext.Departments.Add(holdingDepartment);
+                    await _dbContext.SaveChangesAsync();
+                }
+
+                var newUser = new User
+                {
+                    Id = Guid.NewGuid(),
+                    Username = request.Email,
+                    Role = RoleType.ProjectManager, // Default role
+                    DepartmentId = request.DepartmentId ?? holdingDepartment.Id,
+                    SupabaseId = response.User.Id
+                };
+
+                _dbContext.Users.Add(newUser);
+                await _dbContext.SaveChangesAsync();
+
+                // Log the registration
+                await _auditService.LogActionAsync(
+                    "Authentication",
+                    newUser.Id,
+                    "Registration",
+                    "New user registered successfully"
+                );
+
+                // Return the result
+                return new AuthResult
+                {
+                    Success = true,
+                    Message = "Account created successfully",
+                    Token = response.Session?.AccessToken,
+                    RefreshToken = response.Session?.RefreshToken,
+                    User = newUser,
+                    ExpiresIn = response.Session?.ExpiresIn ?? 0
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during signup");
+                return new AuthResult
+                {
+                    Success = false,
+                    ErrorMessage = "An unexpected error occurred during registration."
+                };
+            }
+        }
+
+        public async Task<bool> LogoutAsync(string token)
+        {
+            try
+            {
+                // Logout from Supabase
+                await _supabaseClient.Auth.SignOut();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during logout");
+                return false;
+            }
+        }
+
+        public async Task<AuthResult> RefreshTokenAsync(string refreshToken)
+        {
+            try
+            {
+                // Call Supabase to refresh the token
+                var response = await _supabaseClient.Auth.RefreshSession(refreshToken);
+
+                if (response.Error != null)
+                {
+                    return new AuthResult
+                    {
+                        Success = false,
+                        ErrorMessage = response.Error.Message
+                    };
+                }
+
+                // Get user from our database
+                var user = await GetUserBySupabaseIdAsync(response.User.Id);
+
+                return new AuthResult
+                {
+                    Success = true,
+                    Token = response.Session.AccessToken,
+                    RefreshToken = response.Session.RefreshToken,
+                    User = user,
+                    ExpiresIn = response.Session.ExpiresIn
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error refreshing token");
+                return new AuthResult
+                {
+                    Success = false,
+                    ErrorMessage = "An error occurred while refreshing the token."
+                };
+            }
+        }
+
+        public async Task<PasswordResetResult> ResetPasswordAsync(string email)
+        {
+            try
+            {
+                string redirectUrl = _configuration["AppUrl"] + "/account/reset-password";
+                
+                // Call Supabase to send reset password email
+                var response = await _supabaseClient.Auth.ResetPasswordForEmail(
+                    email, 
+                    new ResetPasswordForEmailOptions
+                    {
+                        RedirectTo = redirectUrl
+                    });
+
+                if (response.Error != null)
+                {
+                    // Log the error but always return success to prevent email enumeration
+                    _logger.LogWarning($"Password reset failed for {email}: {response.Error.Message}");
+                }
+
+                // Always return success to prevent email enumeration attacks
+                return new PasswordResetResult
+                {
+                    Success = true,
+                    Message = "If your email is registered, you will receive a password reset link."
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error in password reset for {email}");
+                // Always return success to prevent email enumeration attacks
+                return new PasswordResetResult
+                {
+                    Success = true,
+                    Message = "If your email is registered, you will receive a password reset link."
+                };
+            }
+        }
+
+        public async Task<AuthResult> VerifyTokenAsync(string token)
+        {
+            try
+            {
+                // Verify token with Supabase
+                var user = await _supabaseClient.Auth.GetUser(token);
+
+                if (user.Error != null)
+                {
+                    return new AuthResult
+                    {
+                        Success = false,
+                        ErrorMessage = user.Error.Message
+                    };
+                }
+
+                // Get user from our database
+                var appUser = await GetUserBySupabaseIdAsync(user.User.Id);
+                
+                if (appUser == null)
+                {
+                    return new AuthResult
+                    {
+                        Success = false,
+                        ErrorMessage = "User not found in application database"
+                    };
+                }
+
+                return new AuthResult
+                {
+                    Success = true,
+                    User = appUser
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error verifying token");
+                return new AuthResult
+                {
+                    Success = false,
+                    ErrorMessage = "An error occurred while verifying the token."
+                };
+            }
+        }
+
+        public async Task<User> GetUserBySupabaseIdAsync(string supabaseId)
+        {
+            return await _dbContext.Users
+                .Include(u => u.Department)
+                .FirstOrDefaultAsync(u => u.SupabaseId == supabaseId);
+        }
+
+        private async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _dbContext.Users
+                .Include(u => u.Department)
+                .FirstOrDefaultAsync(u => u.Username == email);
+        }
+
+        public async Task<User> SyncUserWithSupabaseAsync(string email, string supabaseId)
+        {
+            // Check if user exists in our database
+            var user = await _dbContext.Users
+                .Include(u => u.Department)
+                .FirstOrDefaultAsync(u => u.Username == email);
+
+            if (user != null)
+            {
+                // Update Supabase ID if not set
+                if (string.IsNullOrEmpty(user.SupabaseId))
+                {
+                    user.SupabaseId = supabaseId;
+                    await _dbContext.SaveChangesAsync();
+                }
+                return user;
+            }
+
+            // User doesn't exist, create a new one
+            var holdingDepartment = await _dbContext.Departments
+                .FirstOrDefaultAsync(d => d.Name == "Holding");
+
+            if (holdingDepartment == null)
+            {
+                // Create a holding department if it doesn't exist
+                holdingDepartment = new Department
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Holding"
+                };
+                _dbContext.Departments.Add(holdingDepartment);
+                await _dbContext.SaveChangesAsync();
+            }
+
+            // Create new user
+            var newUser = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = email,
+                SupabaseId = supabaseId,
+                Role = RoleType.ProjectManager, // Default role
+                DepartmentId = holdingDepartment.Id
+            };
+
+            _dbContext.Users.Add(newUser);
+            await _dbContext.SaveChangesAsync();
+
+            // Log the user creation
+            await _auditService.LogActionAsync(
+                "Authentication",
+                newUser.Id,
+                "UserCreation",
+                "User automatically created during authentication sync"
+            );
+
+            return newUser;
+        }
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-// Use the authentication middleware
-app.UseMiddleware<AuthenticationMiddleware>();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();
