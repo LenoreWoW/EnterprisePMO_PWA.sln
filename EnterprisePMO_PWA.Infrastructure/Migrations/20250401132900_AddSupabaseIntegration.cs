@@ -11,7 +11,7 @@ namespace EnterprisePMO_PWA.Infrastructure.Data.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "SupabaseId",
                 table: "Users",
-                type: "nvarchar(255)",
+                type: "character varying(255)",
                 maxLength: 255,
                 nullable: true);
             
@@ -23,11 +23,13 @@ namespace EnterprisePMO_PWA.Infrastructure.Data.Migrations
             
             // Check if Holding department exists
             migrationBuilder.Sql(@"
-                IF NOT EXISTS (SELECT 1 FROM dbo.Departments WHERE Name = 'Holding')
+                DO $$
                 BEGIN
-                    INSERT INTO dbo.Departments (Id, Name, Description, CreatedDate, IsActive)
-                    VALUES (NEWID(), 'Holding', 'Default department for new users', GETUTCDATE(), 1);
-                END
+                    IF NOT EXISTS (SELECT 1 FROM ""Departments"" WHERE ""Name"" = 'Holding') THEN
+                        INSERT INTO ""Departments"" (""Id"", ""Name"", ""Description"", ""CreatedDate"", ""IsActive"")
+                        VALUES (uuid_generate_v4(), 'Holding', 'Default department for new users', NOW(), TRUE);
+                    END IF;
+                END $$;
             ");
         }
 

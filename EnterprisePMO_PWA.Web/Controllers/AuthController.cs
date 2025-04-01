@@ -1,9 +1,7 @@
-// EnterprisePMO_PWA.Web/Controllers/AuthController.cs
-
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Application.Services;
-using EnterprisePMO_PWA.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +11,11 @@ namespace EnterprisePMO_PWA.Web.Controllers
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly SupabaseAuthService _authService;
+        private readonly IAuthService _authService;
         private readonly AuditService _auditService;
 
         public AuthController(
-            SupabaseAuthService authService,
+            IAuthService authService,
             AuditService auditService)
         {
             _authService = authService;
@@ -39,34 +37,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
         }
 
         /// <summary>
-        /// Direct login endpoint for test accounts
-        /// </summary>
-        [HttpPost("direct-login")]
-        public async Task<IActionResult> DirectLogin([FromBody] LoginRequest request)
-        {
-            if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
-            {
-                return BadRequest(new { message = "Email and password are required" });
-            }
-
-            // Use the same auth service for consistency
-            var result = await _authService.LoginAsync(request.Email, request.Password);
-            
-            if (!result.Success)
-            {
-                return Unauthorized(new { message = result.ErrorMessage ?? "Invalid credentials" });
-            }
-            
-            // Return auth data
-            return Ok(new { 
-                token = result.Token,
-                refreshToken = result.RefreshToken,
-                user = result.User
-            });
-        }
-
-        /// <summary>
-        /// Standard login endpoint using Supabase
+        /// Login endpoint
         /// </summary>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
@@ -83,14 +54,12 @@ namespace EnterprisePMO_PWA.Web.Controllers
                 return Unauthorized(new { message = result.ErrorMessage ?? "Invalid credentials" });
             }
             
-            // Log successful login
-            await LogLoginSuccess(result.User?.Id.ToString() ?? "unknown", result.User?.Username ?? "unknown");
-            
             // Return auth data
             return Ok(new { 
                 token = result.Token,
                 refreshToken = result.RefreshToken,
-                user = result.User
+                user = result.User,
+                expiresIn = result.ExpiresIn
             });
         }
         
@@ -122,20 +91,13 @@ namespace EnterprisePMO_PWA.Web.Controllers
                 return BadRequest(new { message = result.ErrorMessage ?? "Failed to create account" });
             }
             
-            // Log successful registration
-            await _auditService.LogActionAsync(
-                "Authentication",
-                result.User?.Id ?? Guid.Empty,
-                "Registration",
-                "New user account created successfully"
-            );
-            
-            // Return auth data (if auto-login enabled) or success message
+            // Return auth data or success message
             return Ok(new { 
                 message = result.Message ?? "Account created successfully",
                 token = result.Token,
                 refreshToken = result.RefreshToken,
-                user = result.User
+                user = result.User,
+                expiresIn = result.ExpiresIn
             });
         }
         
@@ -188,7 +150,8 @@ namespace EnterprisePMO_PWA.Web.Controllers
             return Ok(new { 
                 token = result.Token,
                 refreshToken = result.RefreshToken,
-                user = result.User
+                user = result.User,
+                expiresIn = result.ExpiresIn
             });
         }
         
@@ -210,57 +173,44 @@ namespace EnterprisePMO_PWA.Web.Controllers
                 message = result.Message ?? "If your email is registered, you will receive a password reset link."
             });
         }
-        
+
         /// <summary>
-        /// Logs a successful login attempt for audit purposes
+        /// Sync user with Supabase endpoint
         /// </summary>
-        private async Task LogLoginSuccess(string userId, string username)
+        [Authorize]
+        [HttpPost("sync-user")]
+        public async Task<IActionResult> SyncUser()
         {
-            try
+            var email = User.Identity?.Name;
+            var supabaseId = User.FindFirst("sub")?.Value;
+            
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(supabaseId))
             {
-                if (Guid.TryParse(userId, out Guid userGuid))
-                {
-                    await _auditService.LogActionAsync(
-                        "Authentication",
-                        userGuid,
-                        "Login",
-                        "User logged in successfully"
-                    );
-                }
-                else
-                {
-                    // Fallback if we don't have a valid user ID
-                    await _auditService.LogAction(
-                        username,
-                        "Login",
-                        "Authentication",
-                        "User logged in successfully"
-                    );
-                }
+                return BadRequest(new { message = "Unable to identify user" });
             }
-            catch (Exception ex)
-            {
-                // Log but don't throw - authentication should still succeed
-                Console.Error.WriteLine($"Error logging authentication: {ex.Message}");
-            }
+            
+            var user = await _authService.SyncUserWithSupabaseAsync(email, supabaseId);
+            
+            return Ok(new { 
+                message = "User synchronized successfully",
+                user = user
+            });
         }
     }
-    
-    // Request models for the API
+
     public class LoginRequest
     {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public bool RememberMe { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 
     public class RefreshTokenRequest
     {
-        public string RefreshToken { get; set; } = string.Empty;
+        public string RefreshToken { get; set; }
     }
 
     public class ResetPasswordRequest
     {
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; }
     }
 }

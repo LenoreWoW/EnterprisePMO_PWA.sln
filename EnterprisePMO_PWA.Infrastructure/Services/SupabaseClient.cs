@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -9,9 +9,6 @@ using Microsoft.Extensions.Logging;
 
 namespace EnterprisePMO_PWA.Infrastructure.Services
 {
-    /// <summary>
-    /// Client for interacting with Supabase API
-    /// </summary>
     public class SupabaseClient
     {
         private readonly HttpClient _httpClient;
@@ -24,65 +21,300 @@ namespace EnterprisePMO_PWA.Infrastructure.Services
             HttpClient httpClient,
             ILogger<SupabaseClient> logger)
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            
-            _supabaseUrl = configuration["Supabase:Url"] ?? 
-                throw new ArgumentException("Supabase:Url configuration is missing");
-            
-            _supabaseKey = configuration["Supabase:Key"] ?? 
-                throw new ArgumentException("Supabase:Key configuration is missing");
+            _httpClient = httpClient;
+            _supabaseUrl = configuration["Supabase:Url"];
+            _supabaseKey = configuration["Supabase:Key"];
+            _logger = logger;
             
             // Configure HTTP client
-            if (_httpClient.BaseAddress == null)
-            {
-                _httpClient.BaseAddress = new Uri(_supabaseUrl);
-            }
-            
-            // Ensure apikey header is set
-            if (!_httpClient.DefaultRequestHeaders.Contains("apikey"))
-            {
-                _httpClient.DefaultRequestHeaders.Add("apikey", _supabaseKey);
-            }
+            _httpClient.BaseAddress = new Uri(_supabaseUrl);
+            _httpClient.DefaultRequestHeaders.Add("apikey", _supabaseKey);
             
             // Initialize auth client
-            Auth = new SupabaseAuthClient(_httpClient, _logger);
+            Auth = new SupabaseAuthClient(httpClient, logger);
         }
         
-        /// <summary>
-        /// Authentication client for Supabase
-        /// </summary>
+        // Authentication methods delegated to Auth property
         public SupabaseAuthClient Auth { get; }
+    }
+    
+    public class SupabaseAuthClient
+    {
+        private readonly HttpClient _httpClient;
+        private readonly ILogger _logger;
         
-        /// <summary>
-        /// Makes a raw HTTP request to Supabase
-        /// </summary>
-        public async Task<HttpResponseMessage> RawRequestAsync(
-            HttpMethod method, 
-            string endpoint, 
-            object? data = null, 
-            string? token = null)
+        public SupabaseAuthClient(HttpClient httpClient, ILogger logger)
         {
-            var request = new HttpRequestMessage(method, endpoint);
-            
-            // Add Bearer token if provided
-            if (!string.IsNullOrEmpty(token))
+            _httpClient = httpClient;
+            _logger = logger;
+        }
+        
+        public async Task<SupabaseAuthResponse> SignInWithPassword(string email, string password)
+        {
+            try
             {
-                request.Headers.Add("Authorization", $"Bearer {token}");
-            }
-            
-            // Add request body if provided
-            if (data != null)
-            {
-                var json = JsonSerializer.Serialize(data, new JsonSerializerOptions
+                var response = await _httpClient.PostAsJsonAsync("/auth/v1/token?grant_type=password", new
                 {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    email,
+                    password
                 });
                 
-                request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<SupabaseAuthSuccessResponse>();
+                    return new SupabaseAuthResponse
+                    {
+                        User = result.User,
+                        Session = result.Session
+                    };
+                }
+                
+                var error = await response.Content.ReadFromJsonAsync<SupabaseErrorResponse>();
+                return new SupabaseAuthResponse
+                {
+                    Error = error
+                };
             }
-            
-            return await _httpClient.SendAsync(request);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error signing in with password");
+                return new SupabaseAuthResponse
+                {
+                    Error = new SupabaseErrorResponse
+                    {
+                        Message = "An unexpected error occurred"
+                    }
+                };
+            }
         }
+        
+        public async Task<SupabaseAuthResponse> SignUp(string email, string password, SignUpOptions options = null)
+        {
+            try
+            {
+                var payload = new
+                {
+                    email,
+                    password,
+                    data = options?.Data
+                };
+                
+                var response = await _httpClient.PostAsJsonAsync("/auth/v1/signup", payload);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<SupabaseAuthSuccessResponse>();
+                    return new SupabaseAuthResponse
+                    {
+                        User = result.User,
+                        Session = result.Session
+                    };
+                }
+                
+                var error = await response.Content.ReadFromJsonAsync<SupabaseErrorResponse>();
+                return new SupabaseAuthResponse
+                {
+                    Error = error
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error signing up");
+                return new SupabaseAuthResponse
+                {
+                    Error = new SupabaseErrorResponse
+                    {
+                        Message = "An unexpected error occurred"
+                    }
+                };
+            }
+        }
+        
+        public async Task<SupabaseAuthResponse> RefreshSession(string refreshToken)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync("/auth/v1/token?grant_type=refresh_token", new
+                {
+                    refresh_token = refreshToken
+                });
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<SupabaseAuthSuccessResponse>();
+                    return new SupabaseAuthResponse
+                    {
+                        User = result.User,
+                        Session = result.Session
+                    };
+                }
+                
+                var error = await response.Content.ReadFromJsonAsync<SupabaseErrorResponse>();
+                return new SupabaseAuthResponse
+                {
+                    Error = error
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error refreshing session");
+                return new SupabaseAuthResponse
+                {
+                    Error = new SupabaseErrorResponse
+                    {
+                        Message = "An unexpected error occurred"
+                    }
+                };
+            }
+        }
+        
+        public async Task<SupabaseAuthResponse> ResetPasswordForEmail(string email, ResetPasswordForEmailOptions options = null)
+        {
+            try
+            {
+                var payload = new
+                {
+                    email,
+                    redirect_to = options?.RedirectTo
+                };
+                
+                var response = await _httpClient.PostAsJsonAsync("/auth/v1/recover", payload);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    return new SupabaseAuthResponse();
+                }
+                
+                var error = await response.Content.ReadFromJsonAsync<SupabaseErrorResponse>();
+                return new SupabaseAuthResponse
+                {
+                    Error = error
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error resetting password");
+                return new SupabaseAuthResponse
+                {
+                    Error = new SupabaseErrorResponse
+                    {
+                        Message = "An unexpected error occurred"
+                    }
+                };
+            }
+        }
+        
+        public async Task<SupabaseAuthResponse> GetUser(string accessToken)
+        {
+            try
+            {
+                _httpClient.DefaultRequestHeaders.Remove("Authorization");
+                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
+                
+                var response = await _httpClient.GetAsync("/auth/v1/user");
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var user = await response.Content.ReadFromJsonAsync<SupabaseUser>();
+                    return new SupabaseAuthResponse
+                    {
+                        User = user
+                    };
+                }
+                
+                var error = await response.Content.ReadFromJsonAsync<SupabaseErrorResponse>();
+                return new SupabaseAuthResponse
+                {
+                    Error = error
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting user");
+                return new SupabaseAuthResponse
+                {
+                    Error = new SupabaseErrorResponse
+                    {
+                        Message = "An unexpected error occurred"
+                    }
+                };
+            }
+        }
+        
+        public async Task<SupabaseAuthResponse> SignOut()
+        {
+            try
+            {
+                var response = await _httpClient.PostAsync("/auth/v1/logout", null);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    return new SupabaseAuthResponse();
+                }
+                
+                var error = await response.Content.ReadFromJsonAsync<SupabaseErrorResponse>();
+                return new SupabaseAuthResponse
+                {
+                    Error = error
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error signing out");
+                return new SupabaseAuthResponse
+                {
+                    Error = new SupabaseErrorResponse
+                    {
+                        Message = "An unexpected error occurred"
+                    }
+                };
+            }
+        }
+    }
+    
+    public class SupabaseAuthSuccessResponse
+    {
+        public SupabaseUser User { get; set; }
+        public SupabaseSession Session { get; set; }
+    }
+    
+    public class SupabaseAuthResponse
+    {
+        public SupabaseUser User { get; set; }
+        public SupabaseSession Session { get; set; }
+        public SupabaseErrorResponse Error { get; set; }
+    }
+    
+    public class SupabaseUser
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public JsonElement? UserMetadata { get; set; }
+        public JsonElement? AppMetadata { get; set; }
+        public DateTime? CreatedAt { get; set; }
+    }
+    
+    public class SupabaseSession
+    {
+        public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
+        public int ExpiresIn { get; set; }
+        public string TokenType { get; set; }
+    }
+    
+    public class SupabaseErrorResponse
+    {
+        public string Message { get; set; }
+        public string Code { get; set; }
+    }
+    
+    public class SignUpOptions
+    {
+        public Dictionary<string, object> Data { get; set; }
+    }
+    
+    public class ResetPasswordForEmailOptions
+    {
+        public string RedirectTo { get; set; }
     }
 }

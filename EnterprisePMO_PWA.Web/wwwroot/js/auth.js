@@ -1,7 +1,3 @@
-/**
- * Unified Authentication Client for EnterprisePMO
- * Combines functionality from auth.js and supabaseClient.js
- */
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase configuration
@@ -11,20 +7,17 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 // Initialize the Supabase client
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-(function() {
-  // Constants
-  const TOKEN_KEY = 'auth_token';
-  const REFRESH_TOKEN_KEY = 'refresh_token';
-  const USER_KEY = 'user_info';
-  const EXPIRES_AT_KEY = 'expires_at';
-
+/**
+ * Unified authentication service for EnterprisePMO
+ */
+class AuthManager {
   /**
    * Get token from localStorage or query string
    * @returns {string|null} Authentication token
    */
-  function getToken() {
+  getToken() {
     // First try from localStorage
-    let token = localStorage.getItem(TOKEN_KEY);
+    let token = localStorage.getItem('auth_token');
     
     // If not in localStorage, check query string
     if (!token) {
@@ -33,7 +26,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       
       // If found in query string, save to localStorage
       if (token) {
-        localStorage.setItem(TOKEN_KEY, token);
+        localStorage.setItem('auth_token', token);
         
         // Clean up URL by removing token parameter
         const newUrl = window.location.pathname + 
@@ -47,57 +40,44 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
   /**
    * Store authentication data in localStorage
-   * @param {Object} authData - Authentication data
+   * @param {Object} authData - Authentication data from server
    */
-  function setTokens(authData) {
+  setTokens(authData) {
     if (authData.token) {
-      localStorage.setItem(TOKEN_KEY, authData.token);
+      localStorage.setItem('auth_token', authData.token);
     }
     
     if (authData.refreshToken) {
-      localStorage.setItem(REFRESH_TOKEN_KEY, authData.refreshToken);
+      localStorage.setItem('refresh_token', authData.refreshToken);
     }
     
     if (authData.user) {
-      localStorage.setItem(USER_KEY, JSON.stringify(authData.user));
-    } else if (authData.token) {
-      // Try to extract user info from token
-      try {
-        const payload = JSON.parse(atob(authData.token.split('.')[1]));
-        const userInfo = {
-          id: payload.nameid || payload.sub,
-          username: payload.unique_name || payload.email,
-          role: payload.role
-        };
-        localStorage.setItem(USER_KEY, JSON.stringify(userInfo));
-      } catch (e) {
-        console.error('Failed to extract user info from token:', e);
-      }
+      localStorage.setItem('user_info', JSON.stringify(authData.user));
     }
     
     if (authData.expiresIn) {
       const expiresAt = new Date();
       expiresAt.setSeconds(expiresAt.getSeconds() + authData.expiresIn);
-      localStorage.setItem(EXPIRES_AT_KEY, expiresAt.toISOString());
+      localStorage.setItem('expires_at', expiresAt.toISOString());
     }
   }
 
   /**
    * Clear all auth data from localStorage (logout)
    */
-  function clearTokens() {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(REFRESH_TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
-    localStorage.removeItem(EXPIRES_AT_KEY);
+  clearTokens() {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user_info');
+    localStorage.removeItem('expires_at');
   }
 
   /**
    * Get current authenticated user info
    * @returns {Object|null} User info object or null
    */
-  function getCurrentUser() {
-    const userJson = localStorage.getItem(USER_KEY);
+  getCurrentUser() {
+    const userJson = localStorage.getItem('user_info');
     if (!userJson) return null;
     
     try {
@@ -112,12 +92,12 @@ const supabase = createClient(supabaseUrl, supabaseKey);
    * Check if user is authenticated
    * @returns {boolean} True if authenticated
    */
-  function isAuthenticated() {
-    const token = getToken();
+  isAuthenticated() {
+    const token = this.getToken();
     if (!token) return false;
     
     // Check if token is expired
-    const expiresAt = localStorage.getItem(EXPIRES_AT_KEY);
+    const expiresAt = localStorage.getItem('expires_at');
     if (expiresAt) {
       const expiryDate = new Date(expiresAt);
       if (expiryDate < new Date()) {
@@ -134,7 +114,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
    * @param {string} password - User password
    * @returns {Promise<Object>} Login result
    */
-  async function login(email, password) {
+  async login(email, password) {
     try {
       // First authenticate with Supabase directly
       const { data: supabaseData, error: supabaseError } = await supabase.auth.signInWithPassword({
@@ -162,15 +142,10 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       const data = await response.json();
       
       // Save authentication data
-      setTokens({
-        token: data.token,
-        refreshToken: data.refreshToken,
-        user: data.user,
-        expiresIn: data.expiresIn
-      });
+      this.setTokens(data);
       
       // Update UI state
-      updateAuthUI(true);
+      this.updateAuthUI(true);
       
       return data;
     } catch (error) {
@@ -184,8 +159,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
    * @param {Object} formData - User signup data
    * @returns {Promise<Object>} Signup result
    */
-  async function signup(formData) {
+  async signup(formData) {
     try {
+      // Register with our backend API, which handles Supabase registration
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
@@ -203,13 +179,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       
       // Auto login if token returned
       if (data.token) {
-        setTokens({
-          token: data.token,
-          refreshToken: data.refreshToken,
-          user: data.user,
-          expiresIn: data.expiresIn
-        });
-        updateAuthUI(true);
+        this.setTokens(data);
+        this.updateAuthUI(true);
       }
       
       return data;
@@ -223,8 +194,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
    * Logout user
    * @returns {Promise<void>}
    */
-  async function logout() {
-    const token = getToken();
+  async logout() {
+    const token = this.getToken();
     
     try {
       // Sign out from Supabase
@@ -244,8 +215,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       console.error('Logout error:', error);
     } finally {
       // Always clear tokens regardless of API success
-      clearTokens();
-      updateAuthUI(false);
+      this.clearTokens();
+      this.updateAuthUI(false);
       
       // Redirect to login
       window.location.href = '/Account/Login';
@@ -256,8 +227,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
    * Refresh authentication token
    * @returns {Promise<Object>} New token data
    */
-  async function refreshToken() {
-    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+  async refreshToken() {
+    const refreshToken = localStorage.getItem('refresh_token');
     if (!refreshToken) {
       throw new Error('No refresh token available');
     }
@@ -276,7 +247,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ refreshToken: supabaseData.session.refresh_token })
+        body: JSON.stringify({ refreshToken })
       });
       
       if (!response.ok) {
@@ -285,7 +256,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       
       const data = await response.json();
       
-      setTokens({
+      this.setTokens({
         token: data.token,
         refreshToken: data.refreshToken,
         user: data.user,
@@ -295,7 +266,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       return data;
     } catch (error) {
       console.error('Token refresh error:', error);
-      clearTokens();
+      this.clearTokens();
       throw error;
     }
   }
@@ -305,16 +276,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
    * @param {string} email - User email
    * @returns {Promise<Object>} Password reset result
    */
-  async function resetPassword(email) {
+  async resetPassword(email) {
     try {
-      // First request reset from Supabase
-      const { error: supabaseError } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + '/account/reset-password'
-      });
-      
-      if (supabaseError) throw new Error(supabaseError.message);
-      
-      // Then notify our backend
       const response = await fetch('/api/auth/reset-password', {
         method: 'POST',
         headers: {
@@ -332,18 +295,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       return data;
     } catch (error) {
       console.error('Password reset error:', error);
-      // Always return generic message for security
-      return { 
-        success: true, 
-        message: "If your email is registered, you will receive a password reset link."
-      };
+      throw error;
     }
   }
 
   /**
    * Set up fetch interceptor to add auth token to requests
    */
-  function setupFetchInterceptor() {
+  setupFetchInterceptor() {
     const originalFetch = window.fetch;
     
     window.fetch = async (url, options = {}) => {
@@ -351,7 +310,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       if (typeof url === 'string' && 
           (url.includes('/api/auth/login') || 
            url.includes('/api/auth/signup') || 
-           url.includes('/api/auth/reset-password'))) {
+           url.includes('/api/auth/direct-login'))) {
         return originalFetch(url, options);
       }
       
@@ -360,13 +319,13 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       newOptions.headers = newOptions.headers || {};
       
       // Add auth token if available and not already added
-      const token = getToken();
+      const token = this.getToken();
       if (token && !newOptions.headers.Authorization && !newOptions.headers.authorization) {
         newOptions.headers.Authorization = `Bearer ${token}`;
       }
       
       // Check if token is about to expire and refresh if needed
-      const expiresAt = localStorage.getItem(EXPIRES_AT_KEY);
+      const expiresAt = localStorage.getItem('expires_at');
       if (expiresAt) {
         const expiryDate = new Date(expiresAt);
         const now = new Date();
@@ -374,9 +333,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         // If token expires within the next 5 minutes, refresh it
         if (expiryDate <= new Date(now.getTime() + 5 * 60 * 1000)) {
           try {
-            await refreshToken();
+            await this.refreshToken();
             // Update token in headers after refresh
-            const newToken = getToken();
+            const newToken = this.getToken();
             if (newToken) {
               newOptions.headers.Authorization = `Bearer ${newToken}`;
             }
@@ -397,17 +356,17 @@ const supabase = createClient(supabaseUrl, supabaseKey);
           // Try to refresh token once
           if (!url.includes('/api/auth/refresh-token')) {
             try {
-              await refreshToken();
+              await this.refreshToken();
               
               // Retry the original request with new token
-              const retryToken = getToken();
+              const retryToken = this.getToken();
               if (retryToken) {
                 newOptions.headers.Authorization = `Bearer ${retryToken}`;
                 return originalFetch(url, newOptions);
               }
             } catch (refreshError) {
               // If refresh fails, clear tokens and redirect to login
-              clearTokens();
+              this.clearTokens();
               
               // Redirect to login if not already there
               if (!window.location.pathname.includes('/Account/Login')) {
@@ -416,7 +375,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
             }
           } else {
             // If the refresh token request itself fails with 401, clear tokens
-            clearTokens();
+            this.clearTokens();
             
             // Redirect to login if not already there
             if (!window.location.pathname.includes('/Account/Login')) {
@@ -436,8 +395,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
   /**
    * Apply auth token to links with data-requires-auth attribute
    */
-  function applyAuthToLinks() {
-    const token = getToken();
+  applyAuthToLinks() {
+    const token = this.getToken();
     if (!token) return;
     
     // Add token to links
@@ -458,7 +417,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
    * Update UI elements based on auth state
    * @param {boolean} isAuth - Whether user is authenticated
    */
-  function updateAuthUI(isAuth) {
+  updateAuthUI(isAuth) {
     // Set data attribute on body
     document.body.setAttribute('data-authenticated', isAuth ? 'true' : 'false');
     
@@ -482,7 +441,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     
     // Update username display if authenticated
     if (isAuth) {
-      const user = getCurrentUser();
+      const user = this.getCurrentUser();
       if (user) {
         const usernameDivs = document.querySelectorAll('.current-username');
         usernameDivs.forEach(el => {
@@ -502,40 +461,40 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       }
       
       // Apply auth token to links
-      applyAuthToLinks();
+      this.applyAuthToLinks();
     }
   }
 
   /**
    * Sets up auth state change listener with Supabase
    */
-  function setupAuthListener() {
+  setupAuthListener() {
     supabase.auth.onAuthStateChange((event, session) => {
       console.log('Supabase auth state changed:', event);
       
       if (event === 'SIGNED_IN' && session) {
         // We'll let our login/signup handlers handle this case
         // Just ensure we have correct token
-        if (!getToken() && session.access_token) {
-          setTokens({
+        if (!this.getToken() && session.access_token) {
+          this.setTokens({
             token: session.access_token,
             refreshToken: session.refresh_token,
-            expiresIn: 3600 // Default 1 hour if not specified
+            expiresIn: session.expires_in
           });
           
           // Sync with backend
-          syncWithBackend(session.access_token).catch(console.error);
+          this.syncWithBackend(session.access_token).catch(console.error);
         }
       } else if (event === 'SIGNED_OUT') {
         // Clear tokens and update UI
-        clearTokens();
-        updateAuthUI(false);
+        this.clearTokens();
+        this.updateAuthUI(false);
       } else if (event === 'TOKEN_REFRESHED' && session) {
         // Update tokens
-        setTokens({
+        this.setTokens({
           token: session.access_token,
           refreshToken: session.refresh_token,
-          expiresIn: 3600 // Default 1 hour if not specified
+          expiresIn: session.expires_in
         });
       }
     });
@@ -546,7 +505,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
    * @param {string} token - Access token
    * @returns {Promise<Object>} Sync result
    */
-  async function syncWithBackend(token) {
+  async syncWithBackend(token) {
     const response = await fetch('/api/auth/sync-user', {
       method: 'POST',
       headers: {
@@ -564,125 +523,105 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     
     // Update user info
     if (data.user) {
-      localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+      localStorage.setItem('user_info', JSON.stringify(data.user));
     }
     
     return data;
   }
+}
 
-  /**
-   * Initialize the auth system
-   */
-  function init() {
-    console.log('Initializing unified auth system...');
-    
-    // Set up fetch interceptor
-    setupFetchInterceptor();
-    
-    // Setup auth listener
-    setupAuthListener();
-    
-    // Wait for DOM to be loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check initial auth state
-      const isAuth = isAuthenticated();
-      updateAuthUI(isAuth);
+// Create and export the auth service instance
+const authManager = new AuthManager();
+
+// Initialize auth on module load
+document.addEventListener('DOMContentLoaded', async () => {
+  // Setup fetch interceptor
+  authManager.setupFetchInterceptor();
+  
+  // Setup auth listener
+  authManager.setupAuthListener();
+  
+  // Check initial auth state
+  const isAuthenticated = authManager.isAuthenticated();
+  
+  // Update UI based on auth state
+  authManager.updateAuthUI(isAuthenticated);
+  
+  // If authenticated, check if token needs refresh
+  if (isAuthenticated) {
+    const expiresAt = localStorage.getItem('expires_at');
+    if (expiresAt) {
+      const expiresAtDate = new Date(expiresAt);
+      const now = new Date();
       
-      // If authenticated, check if token needs refresh
-      if (isAuth) {
-        const expiresAt = localStorage.getItem(EXPIRES_AT_KEY);
-        if (expiresAt) {
-          const expiresAtDate = new Date(expiresAt);
-          const now = new Date();
-          
-          // If token expires within the next hour, refresh it
-          if (expiresAtDate <= new Date(now.getTime() + 60 * 60 * 1000)) {
-            refreshToken().catch(error => {
-              console.warn('Token refresh failed:', error);
-            });
-          }
-        }
+      // If token expires within the next hour, refresh it
+      if (expiresAtDate <= new Date(now.getTime() + 60 * 60 * 1000)) {
+        authManager.refreshToken().catch(error => {
+          console.warn('Token refresh failed:', error);
+        });
       }
-    });
-
-    // Set up login form handler
-    document.addEventListener('DOMContentLoaded', function() {
-      const loginForm = document.getElementById('loginForm');
-      if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          
-          const emailField = document.getElementById('Email');
-          const passwordField = document.getElementById('Password');
-          const errorDiv = document.getElementById('loginErrorMessage');
-          
-          if (!emailField || !passwordField) {
-            console.error('Email or password field not found');
-            return;
-          }
-          
-          // Show loading state
+    }
+  }
+  
+  // Set up login form handler
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const emailField = document.getElementById('Email');
+      const passwordField = document.getElementById('Password');
+      const errorDiv = document.getElementById('loginErrorMessage');
+      
+      if (!emailField || !passwordField) {
+        console.error('Email or password field not found');
+        return;
+      }
+      
+      // Show loading state
+      if (errorDiv) {
+        errorDiv.style.display = 'none';
+      }
+      
+      const submitBtn = loginForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Signing in...';
+      }
+      
+      const email = emailField.value;
+      const password = passwordField.value;
+      
+      authManager.login(email, password)
+        .then(() => {
+          // Redirect to dashboard
+          window.location.href = '/Dashboard';
+        })
+        .catch(error => {
+          // Show error
           if (errorDiv) {
-            errorDiv.style.display = 'none';
+            errorDiv.textContent = error.message || 'Invalid email or password';
+            errorDiv.style.display = 'block';
           }
           
-          const submitBtn = loginForm.querySelector('button[type="submit"]');
+          // Reset submit button
           if (submitBtn) {
-            submitBtn.disabled = true;
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Signing in...';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Sign in';
           }
-          
-          const email = emailField.value;
-          const password = passwordField.value;
-          
-          login(email, password)
-            .then(() => {
-              // Redirect to dashboard
-              window.location.href = '/Dashboard';
-            })
-            .catch(error => {
-              // Show error
-              if (errorDiv) {
-                errorDiv.textContent = error.message || 'Invalid email or password';
-                errorDiv.style.display = 'block';
-              }
-              
-              // Reset submit button
-              if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Sign in';
-              }
-            });
         });
-      }
-      
-      // Set up logout form handler
-      document.querySelectorAll('form#logoutForm, [data-action="logout"]').forEach(element => {
-        element.addEventListener(element.tagName === 'FORM' ? 'submit' : 'click', function(e) {
-          e.preventDefault();
-          logout();
-        });
-      });
     });
   }
-
-  // Export the auth API
-  window.authManager = {
-    getToken,
-    setTokens,
-    clearTokens,
-    getCurrentUser,
-    isAuthenticated,
-    login,
-    signup,
-    logout,
-    refreshToken,
-    resetPassword,
-    updateAuthUI,
-    applyAuthToLinks
-  };
   
-  // Initialize
-  init();
-})();
+  // Set up logout handler
+  document.querySelectorAll('form#logoutForm, [data-action="logout"]').forEach(element => {
+    element.addEventListener(element.tagName === 'FORM' ? 'submit' : 'click', function(e) {
+      e.preventDefault();
+      authManager.logout();
+    });
+  });
+});
+
+// Export the auth API
+window.authManager = authManager;

@@ -3,9 +3,9 @@ using System;
 using EnterprisePMO_PWA.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EnterprisePMO_PWA.Infrastructure.Data.Migrations
 {
@@ -17,47 +17,48 @@ namespace EnterprisePMO_PWA.Infrastructure.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "6.0.0")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("EnterprisePMO_PWA.Domain.Entities.AuditLog", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uniqueidentifier");
+                    .HasColumnType("uuid");
 
                 b.Property<string>("Action")
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnType("nvarchar(100)");
+                    .HasColumnType("character varying(100)");
 
                 b.Property<string>("ChangeSummary")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("text");
 
                 b.Property<string>("EntityId")
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnType("nvarchar(100)");
+                    .HasColumnType("character varying(100)");
 
                 b.Property<string>("EntityName")
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnType("nvarchar(100)");
+                    .HasColumnType("character varying(100)");
 
                 b.Property<string>("IpAddress")
                     .HasMaxLength(50)
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("character varying(50)");
 
                 b.Property<DateTime>("Timestamp")
-                    .HasColumnType("datetime2");
+                    .HasColumnType("timestamp with time zone");
 
                 b.Property<Guid?>("UserId")
-                    .HasColumnType("uniqueidentifier");
+                    .HasColumnType("uuid");
 
                 b.Property<string>("Username")
                     .HasMaxLength(100)
-                    .HasColumnType("nvarchar(100)");
+                    .HasColumnType("character varying(100)");
 
                 b.HasKey("Id");
 
@@ -72,54 +73,49 @@ namespace EnterprisePMO_PWA.Infrastructure.Data.Migrations
                 b.ToTable("AuditLogs");
             });
 
-            modelBuilder.Entity("EnterprisePMO_PWA.Domain.Entities.ChangeRequest", b =>
-            {
-                // Entity properties...
-            });
-
-            // Other entity configurations...
+            // Skipping other entity configurations...
 
             modelBuilder.Entity("EnterprisePMO_PWA.Domain.Entities.User", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uniqueidentifier");
+                    .HasColumnType("uuid");
 
                 b.Property<DateTime>("CreatedDate")
-                    .HasColumnType("datetime2");
+                    .HasColumnType("timestamp with time zone");
 
                 b.Property<Guid?>("DepartmentId")
-                    .HasColumnType("uniqueidentifier");
+                    .HasColumnType("uuid");
 
                 b.Property<string>("Email")
                     .HasMaxLength(255)
-                    .HasColumnType("nvarchar(255)");
+                    .HasColumnType("character varying(255)");
 
                 b.Property<string>("FirstName")
                     .HasMaxLength(100)
-                    .HasColumnType("nvarchar(100)");
+                    .HasColumnType("character varying(100)");
 
                 b.Property<bool>("IsActive")
-                    .HasColumnType("bit");
+                    .HasColumnType("boolean");
 
                 b.Property<string>("LastName")
                     .HasMaxLength(100)
-                    .HasColumnType("nvarchar(100)");
+                    .HasColumnType("character varying(100)");
 
                 b.Property<DateTime?>("LastUpdated")
-                    .HasColumnType("datetime2");
+                    .HasColumnType("timestamp with time zone");
 
                 b.Property<int>("Role")
-                    .HasColumnType("int");
+                    .HasColumnType("integer");
 
                 b.Property<string>("SupabaseId")
                     .HasMaxLength(255)
-                    .HasColumnType("nvarchar(255)");
+                    .HasColumnType("character varying(255)");
 
                 b.Property<string>("Username")
                     .IsRequired()
                     .HasMaxLength(255)
-                    .HasColumnType("nvarchar(255)");
+                    .HasColumnType("character varying(255)");
 
                 b.HasKey("Id");
 
