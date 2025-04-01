@@ -165,10 +165,8 @@ builder.Services.AddAuthentication(options =>
             // Get the user from database using Supabase ID
             var authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
             
-            // WARNING: THIS LINE HAS A POTENTIAL NULL REFERENCE
-            // Fix it by adding a null check:
-            // var supabaseId = context.Principal != null ? context.Principal.FindFirstValue("sub") : null;
-            var supabaseId = context.Principal.FindFirstValue("sub");
+            // Fix potential null reference by adding a null check
+            var supabaseId = context.Principal?.FindFirstValue("sub");
             
             if (!string.IsNullOrEmpty(supabaseId))
             {
@@ -178,10 +176,8 @@ builder.Services.AddAuthentication(options =>
                     if (user == null)
                     {
                         // User not found in our database, create it
-                        // WARNING: THIS LINE HAS A POTENTIAL NULL REFERENCE
-                        // Fix it by adding a null check:
-                        // var email = context.Principal != null ? context.Principal.FindFirstValue("email") : null;
-                        var email = context.Principal.FindFirstValue("email");
+                        // Fix potential null reference by adding a null check
+                        var email = context.Principal?.FindFirstValue("email");
                         
                         if (!string.IsNullOrEmpty(email))
                         {
@@ -192,19 +188,22 @@ builder.Services.AddAuthentication(options =>
                     // Add application-specific claims
                     if (user != null)
                     {
-                        var identity = context.Principal.Identity as ClaimsIdentity;
-                        identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
-                        identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-                        
-                        if (!string.IsNullOrEmpty(user.Username))
+                        var identity = context.Principal?.Identity as ClaimsIdentity;
+                        if (identity != null)
                         {
-                            identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
-                        }
-                        
-                        if (user.Department != null)
-                        {
-                            identity.AddClaim(new Claim("Department", user.Department.Id.ToString()));
-                            identity.AddClaim(new Claim("DepartmentName", user.Department.Name));
+                            identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
+                            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                            
+                            if (!string.IsNullOrEmpty(user.Username))
+                            {
+                                identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
+                            }
+                            
+                            if (user.Department != null)
+                            {
+                                identity.AddClaim(new Claim("Department", user.Department.Id.ToString()));
+                                identity.AddClaim(new Claim("DepartmentName", user.Department.Name));
+                            }
                         }
                     }
                 }
@@ -289,7 +288,7 @@ app.Use(async (context, next) =>
         var queryToken = context.Request.Query["auth_token"].ToString();
         if (!string.IsNullOrEmpty(queryToken))
         {
-            Console.WriteLine($"Query token: {queryToken[..Math.Min(10, queryToken.Length)]}...");
+            Console.WriteLine($"Query token found: {queryToken[..Math.Min(10, queryToken.Length)]}...");
             // Add it to headers if not present
             if (string.IsNullOrEmpty(authHeader))
             {
@@ -363,19 +362,12 @@ using (var scope = app.Services.CreateScope())
             var holdingDept = dbContext.Departments.FirstOrDefault(d => d.Name == "Holding");
             if (holdingDept == null)
             {
-                // ERROR IS HERE - Department doesn't have a Description property
-                // Change this to:
-                // holdingDept = new EnterprisePMO_PWA.Domain.Entities.Department
-                // {
-                //     Id = Guid.NewGuid(),
-                //     Name = "Holding"
-                //     // Remove the Description property or add it to Department entity
-                // };
+                // Fixed: Remove the Description property or add it to Department entity
                 holdingDept = new EnterprisePMO_PWA.Domain.Entities.Department
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Holding",
-                    Description = "Default department for new users"
+                    Name = "Holding"
+                    // Description property removed since it doesn't exist in the Department class
                 };
                 dbContext.Departments.Add(holdingDept);
                 await dbContext.SaveChangesAsync();

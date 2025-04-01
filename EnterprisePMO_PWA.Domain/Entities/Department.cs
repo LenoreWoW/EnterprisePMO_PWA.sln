@@ -11,6 +11,8 @@ namespace EnterprisePMO_PWA.Domain.Entities
         public Guid Id { get; set; } // Unique identifier
 
         public string Name { get; set; } = string.Empty; // Department name
+        
+        public string Description { get; set; } = string.Empty; // Department description
 
         // Navigation properties
         public ICollection<User>? Users { get; set; }

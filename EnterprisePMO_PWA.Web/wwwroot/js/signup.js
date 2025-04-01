@@ -2,11 +2,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load departments
     fetchDepartmentsForDropdown();
     
-    // Toggle password visibility functions
+    // Toggle password visibility
     setupPasswordToggles();
     
-    // Form validation and submission
-    setupFormValidation();
+    // Initialize Tailwind form validation
+    window.TailwindUI.Form.initValidation('signupForm', {
+        errorClass: 'border-red-500',
+        successClass: 'border-green-500',
+        errorMessageClass: 'text-sm text-red-500 mt-1'
+    });
 });
 
 /**
@@ -34,15 +38,12 @@ function fetchDepartmentsForDropdown() {
         })
         .catch(function(error) {
             console.error('Error loading departments:', error);
-            const messageContainer = document.getElementById('message-container');
-            if (messageContainer) {
-                messageContainer.innerHTML = `
-                    <div class="alert alert-warning" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        Could not load departments. Please try refreshing the page.
-                    </div>
-                `;
-            }
+            
+            // Use Tailwind toast for error notification
+            window.TailwindUI.Toast.show({
+                message: 'Could not load departments. Please try refreshing the page.',
+                type: 'warning'
+            });
         });
 }
 
@@ -55,15 +56,13 @@ function setupPasswordToggles() {
     
     if (togglePassword && passwordInput) {
         togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
             
-            // Toggle eye icon
-            const eyeIcon = this.querySelector('i');
-            if (eyeIcon) {
-                eyeIcon.classList.toggle('bi-eye');
-                eyeIcon.classList.toggle('bi-eye-slash');
-            }
+            // Toggle visibility icon (assuming you're using Lucide icons or similar)
+            this.innerHTML = type === 'password' 
+                ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off"><path d="M9.88 9.88a3 3 0 104.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0112 5c7 0 10 7 10 7a13.16 13.16 0 01-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 002 12s3 7 10 7a9.74 9.74 0 005.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>';
         });
     }
     
@@ -72,148 +71,78 @@ function setupPasswordToggles() {
     
     if (toggleConfirmPassword && confirmPasswordInput) {
         toggleConfirmPassword.addEventListener('click', function() {
-            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            confirmPasswordInput.setAttribute('type', type);
+            const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+            confirmPasswordInput.type = type;
             
-            // Toggle eye icon
-            const eyeIcon = this.querySelector('i');
-            if (eyeIcon) {
-                eyeIcon.classList.toggle('bi-eye');
-                eyeIcon.classList.toggle('bi-eye-slash');
-            }
+            // Toggle visibility icon
+            this.innerHTML = type === 'password' 
+                ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off"><path d="M9.88 9.88a3 3 0 104.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0112 5c7 0 10 7 10 7a13.16 13.16 0 01-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 002 12s3 7 10 7a9.74 9.74 0 005.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>';
         });
     }
 }
 
-/**
- * Sets up form validation and handles form submission
- */
-function setupFormValidation() {
+// Form submission logic (slightly modified to use Tailwind UI)
+document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('signupForm');
     
-    if (!form) return;
-    
-    // Real-time password confirmation validation
-    const confirmPasswordInput = document.getElementById('confirmPassword');
-    const passwordInput = document.getElementById('password');
-    
-    if (confirmPasswordInput && passwordInput) {
-        confirmPasswordInput.addEventListener('input', function() {
-            const password = passwordInput.value;
-            const confirmPassword = this.value;
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
             
-            if (password !== confirmPassword) {
-                this.setCustomValidity('Passwords do not match');
-            } else {
-                this.setCustomValidity('');
+            // Validate form using Tailwind UI validation
+            if (window.TailwindUI.Form.validateForm(form)) {
+                // Prepare form data
+                const formData = new FormData(form);
+                const jsonData = {};
+                
+                formData.forEach((value, key) => {
+                    jsonData[key] = value;
+                });
+                
+                // Disable submit button
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                
+                // Send signup request
+                fetch('/api/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Signup failed');
+                })
+                .then(data => {
+                    // Use Tailwind toast for success
+                    window.TailwindUI.Toast.show({
+                        message: 'Account created successfully!',
+                        type: 'success'
+                    });
+                    
+                    // Redirect to login
+                    setTimeout(() => {
+                        window.location.href = '/Account/Login';
+                    }, 2000);
+                })
+                .catch(error => {
+                    // Use Tailwind toast for error
+                    window.TailwindUI.Toast.show({
+                        message: error.message || 'Signup failed. Please try again.',
+                        type: 'error'
+                    });
+                    
+                    // Re-enable submit button
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                });
             }
         });
     }
-    
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        
-        // Basic validation
-        if (!form.checkValidity()) {
-            form.classList.add('was-validated');
-            return;
-        }
-        
-        // Check if passwords match
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        
-        if (password !== confirmPassword) {
-            document.getElementById('confirmPassword').setCustomValidity('Passwords do not match');
-            form.classList.add('was-validated');
-            return;
-        }
-        
-        // Prepare form data for submission
-        const formData = new FormData(form);
-        const jsonData = {};
-        
-        formData.forEach(function(value, key) {
-            jsonData[key] = value;
-        });
-        
-        // Log the data being sent (for debugging)
-        console.log("Sending signup data:", jsonData);
-        
-        // Clear any previous messages
-        const messageContainer = document.getElementById('message-container');
-        messageContainer.innerHTML = '';
-        
-        // Show loading indicator
-        const loadingIndicator = document.createElement('div');
-        loadingIndicator.className = 'alert alert-info';
-        loadingIndicator.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Creating your account, please wait...';
-        messageContainer.appendChild(loadingIndicator);
-        
-        // Disable the submit button to prevent multiple submissions
-        const submitButton = form.querySelector('button[type="submit"]');
-        if (submitButton) {
-            submitButton.disabled = true;
-        }
-        
-        // Send the request
-        fetch('/api/auth/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(jsonData)
-        })
-        .then(function(response) {
-            // Remove loading indicator
-            messageContainer.innerHTML = '';
-            
-            if (response.ok) {
-                return response.json().then(function(data) {
-                    // Show success message
-                    const successDiv = document.createElement('div');
-                    successDiv.className = 'alert alert-success';
-                    successDiv.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Account created successfully! Redirecting to login...';
-                    messageContainer.appendChild(successDiv);
-                    
-                    // Store authentication token if provided
-                    if (data.token) {
-                        localStorage.setItem('auth_token', data.token);
-                    }
-                    if (data.refreshToken) {
-                        localStorage.setItem('refresh_token', data.refreshToken);
-                    }
-                    
-                    // Redirect after a delay
-                    setTimeout(function() {
-                        window.location.href = '/Account/Login';
-                    }, 2000);
-                    
-                    return data;
-                });
-            } else {
-                // Handle HTTP errors (400, 500, etc.)
-                return response.json().then(function(errorData) {
-                    throw new Error(errorData.message || 'Failed to create account');
-                });
-            }
-        })
-        .catch(function(error) {
-            // Show error message
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'alert alert-danger';
-            errorDiv.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i>${error.message || 'An error occurred. Please try again.'}`;
-            messageContainer.innerHTML = '';
-            messageContainer.appendChild(errorDiv);
-            
-            // Re-enable the submit button
-            if (submitButton) {
-                submitButton.disabled = false;
-            }
-            
-            // Log the error for debugging
-            console.error('Signup error:', error);
-        });
-    });
-}
+});

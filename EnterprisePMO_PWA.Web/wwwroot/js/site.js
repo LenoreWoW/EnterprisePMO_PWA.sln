@@ -1,12 +1,13 @@
 /**
  * Global site JavaScript for the EnterprisePMO application
+ * Migrated to use Tailwind UI components
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize any tooltips
-    initTooltips();
+    // Initialize tooltips using Tailwind UI
+    window.TailwindUI.Tooltip.init();
     
-    // Initialize any date pickers
+    // Initialize date pickers
     initDatePickers();
     
     // Register service worker for PWA
@@ -15,16 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize header notification badge (only if authenticated)
     initNotificationBadge();
 });
-
-/**
- * Initializes Bootstrap tooltips
- */
-function initTooltips() {
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    if (typeof bootstrap !== 'undefined') {
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-    }
-}
 
 /**
  * Initializes date picker elements
@@ -60,8 +51,7 @@ function registerServiceWorker() {
  * Initializes the notification badge in the header
  */
 function initNotificationBadge() {
-    // Check if user is authenticated by looking for auth token in localStorage
-    // or by checking a data attribute on the body element
+    // Check if user is authenticated
     const isAuthenticated = 
         (document.body.getAttribute('data-authenticated') === 'true') || 
         (localStorage.getItem('auth_token') !== null);
@@ -84,98 +74,19 @@ function initNotificationBadge() {
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Don't show error message to user for notification count - fail silently
             });
     }
 }
 
 /**
- * Global form validation helper
- * @param {HTMLFormElement} form - The form element to validate
- * @returns {boolean} - True if valid, false otherwise
- */
-function validateForm(form) {
-    if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-        form.classList.add('was-validated');
-        return false;
-    }
-    return true;
-}
-
-/**
- * Formats a date in a user-friendly format
- * @param {string} dateString - ISO date string
- * @returns {string} - Formatted date string
- */
-function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-}
-
-/**
- * Formats currency values
- * @param {number} value - The value to format
- * @returns {string} - Formatted currency string
- */
-function formatCurrency(value) {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-    }).format(value);
-}
-
-/**
- * Shows a toast notification
+ * Shows a toast notification using Tailwind UI
  * @param {string} message - The message to display
  * @param {string} type - The type of message (success, warning, error, info)
  */
 function showToast(message, type = 'info') {
-    // Create toast container if it doesn't exist
-    let toastContainer = document.querySelector('.toast-container');
-    if (!toastContainer) {
-        toastContainer = document.createElement('div');
-        toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
-        document.body.appendChild(toastContainer);
-    }
-    
-    // Map type to Bootstrap class
-    const typeClass = {
-        'success': 'bg-success',
-        'warning': 'bg-warning',
-        'error': 'bg-danger',
-        'info': 'bg-info'
-    }[type] || 'bg-info';
-    
-    // Create toast element
-    const toastId = 'toast-' + Date.now();
-    const toastHtml = `
-        <div id="${toastId}" class="toast align-items-center ${typeClass} text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    ${message}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
-    `;
-    
-    // Add toast to container
-    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
-    
-    // Initialize and show the toast
-    const toastElement = document.getElementById(toastId);
-    if (typeof bootstrap !== 'undefined') {
-        const toast = new bootstrap.Toast(toastElement, { autohide: true, delay: 5000 });
-        toast.show();
-    }
-    
-    // Remove toast from DOM after it's hidden
-    toastElement.addEventListener('hidden.bs.toast', function() {
-        toastElement.remove();
+    window.TailwindUI.Toast.show({ 
+        message, 
+        type 
     });
 }
 
@@ -185,6 +96,7 @@ function showToast(message, type = 'info') {
  * @param {function} callback - Function to call if confirmed
  */
 function confirmAction(message, callback) {
+    // Use browser's native confirm, or create a Tailwind modal for more styling
     if (confirm(message)) {
         callback();
     }
@@ -197,7 +109,8 @@ function confirmAction(message, callback) {
  * @param {function} errorCallback - Function to call on error
  */
 function submitFormAjax(form, successCallback, errorCallback) {
-    if (!validateForm(form)) {
+    // Use Tailwind's form validation
+    if (!window.TailwindUI.Form.validateForm(form)) {
         return;
     }
     
@@ -230,3 +143,12 @@ function submitFormAjax(form, successCallback, errorCallback) {
         }
     });
 }
+
+// Export utility functions
+window.SiteUtils = {
+    showToast,
+    confirmAction,
+    submitFormAjax,
+    formatDate,
+    formatCurrency
+};

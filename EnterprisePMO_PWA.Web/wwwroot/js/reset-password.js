@@ -1,174 +1,148 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const resetPasswordForm = document.getElementById('resetPasswordForm');
-    const passwordInput = document.getElementById('password');
-    const confirmPasswordInput = document.getElementById('confirmPassword');
-    const messageContainer = document.getElementById('message-container');
-    const passwordStrengthContainer = document.getElementById('password-strength-container');
-
-    // Password strength and validation function
-    function checkPasswordStrength(password) {
-        // Minimum requirements
-        const minLength = 8;
-        const hasUpperCase = /[A-Z]/.test(password);
-        const hasLowerCase = /[a-z]/.test(password);
-        const hasNumbers = /\d/.test(password);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-        // Create strength indicators
-        passwordStrengthContainer.innerHTML = `
-            <div class="progress mt-2" style="height: 5px;">
-                <div id="passwordStrengthBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
-            </div>
-            <small id="passwordStrengthText" class="text-muted"></small>
-            <ul class="list-unstyled mt-2 small">
-                <li id="lengthCheck" class="text-danger">
-                    <i class="bi ${password.length >= minLength ? 'bi-check-circle text-success' : 'bi-x-circle'}"></i>
-                    At least 8 characters long
-                </li>
-                <li id="uppercaseCheck" class="text-danger">
-                    <i class="bi ${hasUpperCase ? 'bi-check-circle text-success' : 'bi-x-circle'}"></i>
-                    Contains uppercase letter
-                </li>
-                <li id="lowercaseCheck" class="text-danger">
-                    <i class="bi ${hasLowerCase ? 'bi-check-circle text-success' : 'bi-x-circle'}"></i>
-                    Contains lowercase letter
-                </li>
-                <li id="numberCheck" class="text-danger">
-                    <i class="bi ${hasNumbers ? 'bi-check-circle text-success' : 'bi-x-circle'}"></i>
-                    Contains a number
-                </li>
-                <li id="specialCharCheck" class="text-danger">
-                    <i class="bi ${hasSpecialChar ? 'bi-check-circle text-success' : 'bi-x-circle'}"></i>
-                    Contains a special character
-                </li>
-            </ul>
-        `;
-
-        // Determine strength
-        const strengthIndicators = [
-            password.length >= minLength,
-            hasUpperCase,
-            hasLowerCase,
-            hasNumbers,
-            hasSpecialChar
-        ];
-
-        const passedCount = strengthIndicators.filter(Boolean).length;
-        const passwordStrengthBar = document.getElementById('passwordStrengthBar');
-        const passwordStrengthText = document.getElementById('passwordStrengthText');
-
-        if (passedCount < 2) {
-            passwordStrengthBar.style.width = '20%';
-            passwordStrengthBar.classList.remove('bg-warning', 'bg-success');
-            passwordStrengthBar.classList.add('bg-danger');
-            passwordStrengthText.textContent = 'Weak';
-        } else if (passedCount < 4) {
-            passwordStrengthBar.style.width = '50%';
-            passwordStrengthBar.classList.remove('bg-danger', 'bg-success');
-            passwordStrengthBar.classList.add('bg-warning');
-            passwordStrengthText.textContent = 'Medium';
-        } else {
-            passwordStrengthBar.style.width = '100%';
-            passwordStrengthBar.classList.remove('bg-danger', 'bg-warning');
-            passwordStrengthBar.classList.add('bg-success');
-            passwordStrengthText.textContent = 'Strong';
-        }
-    }
-
-    // Password visibility toggle
-    const togglePassword = document.getElementById('togglePassword');
-    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-
-    function togglePasswordVisibility(input, toggleBtn) {
-        const type = input.type === 'password' ? 'text' : 'password';
-        input.type = type;
-        const icon = toggleBtn.querySelector('i');
-        icon.classList.toggle('bi-eye');
-        icon.classList.toggle('bi-eye-slash');
-    }
-
-    togglePassword.addEventListener('click', () => togglePasswordVisibility(passwordInput, togglePassword));
-    toggleConfirmPassword.addEventListener('click', () => togglePasswordVisibility(confirmPasswordInput, toggleConfirmPassword));
-
-    // Password strength checking
-    passwordInput.addEventListener('input', function() {
-        checkPasswordStrength(this.value);
+    // Load departments
+    fetchDepartmentsForDropdown();
+    
+    // Toggle password visibility
+    setupPasswordToggles();
+    
+    // Initialize Tailwind form validation
+    window.TailwindUI.Form.initValidation('signupForm', {
+        errorClass: 'border-red-500',
+        successClass: 'border-green-500',
+        errorMessageClass: 'text-sm text-red-500 mt-1'
     });
+});
 
-    // Form submission handler
-    resetPasswordForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        // Validate form
-        if (!resetPasswordForm.checkValidity()) {
-            resetPasswordForm.classList.add('was-validated');
-            return;
-        }
-
-        const password = passwordInput.value;
-        const confirmPassword = confirmPasswordInput.value;
-        const token = document.getElementById('token').value;
-        const email = document.getElementById('email').value;
-
-        // Additional password validation
-        if (password !== confirmPassword) {
-            messageContainer.innerHTML = `
-                <div class="alert alert-danger">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    Passwords do not match
-                </div>
-            `;
-            return;
-        }
-
-        try {
-            const response = await fetch('/api/auth/confirm-reset-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email,
-                    token,
-                    newPassword: password
-                })
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                // Success: Show success message and redirect
-                messageContainer.innerHTML = `
-                    <div class="alert alert-success">
-                        <i class="bi bi-check-circle-fill me-2"></i>
-                        ${result.message || 'Password reset successfully.'}
-                    </div>
-                `;
-
-                // Redirect to login after a short delay
-                setTimeout(() => {
-                    window.location.href = '/Account/Login';
-                }, 2000);
-            } else {
-                // Error: Show error message
-                messageContainer.innerHTML = `
-                    <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        ${result.message || 'Failed to reset password.'}
-                    </div>
-                `;
+/**
+ * Fetches departments from the API and populates the dropdown
+ */
+function fetchDepartmentsForDropdown() {
+    fetch('/api/departments')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load departments');
             }
-        } catch (error) {
-            console.error('Password reset error:', error);
+            return response.json();
+        })
+        .then(departments => {
+            const departmentSelect = document.getElementById('department');
             
-            // Network or unexpected error
-            messageContainer.innerHTML = `
-                <div class="alert alert-danger">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    Network error. Please try again later.
-                </div>
-            `;
-        }
-    });
+            if (departmentSelect) {
+                departments.forEach(function(dept) {
+                    const option = document.createElement('option');
+                    option.value = dept.id;
+                    option.textContent = dept.name;
+                    departmentSelect.appendChild(option);
+                });
+            }
+        })
+        .catch(function(error) {
+            console.error('Error loading departments:', error);
+            
+            // Use Tailwind toast for error notification
+            window.TailwindUI.Toast.show({
+                message: 'Could not load departments. Please try refreshing the page.',
+                type: 'warning'
+            });
+        });
+}
+
+/**
+ * Sets up password visibility toggle functionality
+ */
+function setupPasswordToggles() {
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    
+    if (togglePassword && passwordInput) {
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            
+            // Toggle visibility icon (assuming you're using Lucide icons or similar)
+            this.innerHTML = type === 'password' 
+                ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off"><path d="M9.88 9.88a3 3 0 104.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0112 5c7 0 10 7 10 7a13.16 13.16 0 01-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 002 12s3 7 10 7a9.74 9.74 0 005.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>';
+        });
+    }
+    
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    
+    if (toggleConfirmPassword && confirmPasswordInput) {
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+            confirmPasswordInput.type = type;
+            
+            // Toggle visibility icon
+            this.innerHTML = type === 'password' 
+                ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off"><path d="M9.88 9.88a3 3 0 104.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0112 5c7 0 10 7 10 7a13.16 13.16 0 01-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 002 12s3 7 10 7a9.74 9.74 0 005.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>';
+        });
+    }
+}
+
+// Form submission logic (slightly modified to use Tailwind UI)
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('signupForm');
+    
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Validate form using Tailwind UI validation
+            if (window.TailwindUI.Form.validateForm(form)) {
+                // Prepare form data
+                const formData = new FormData(form);
+                const jsonData = {};
+                
+                formData.forEach((value, key) => {
+                    jsonData[key] = value;
+                });
+                
+                // Disable submit button
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                
+                // Send signup request
+                fetch('/api/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Signup failed');
+                })
+                .then(data => {
+                    // Use Tailwind toast for success
+                    window.TailwindUI.Toast.show({
+                        message: 'Account created successfully!',
+                        type: 'success'
+                    });
+                    
+                    // Redirect to login
+                    setTimeout(() => {
+                        window.location.href = '/Account/Login';
+                    }, 2000);
+                })
+                .catch(error => {
+                    // Use Tailwind toast for error
+                    window.TailwindUI.Toast.show({
+                        message: error.message || 'Signup failed. Please try again.',
+                        type: 'error'
+                    });
+                    
+                    // Re-enable submit button
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                });
+            }
+        });
+    }
 });
