@@ -354,8 +354,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>8jckgy8yh1</Fingerprint>
-      <Integrity>jKuLqM+vxHO58U+y0h1p57ll5lJVpVrH0uPEJQkYGqs=</Integrity>
+      <Fingerprint>1vtenwo68f</Fingerprint>
+      <Integrity>rYX/BLAZZCA26IppeSlMRUZdUszYBHOLY71C7sIRFHs=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\kanban.js'))</OriginalItemSpec>

@@ -40,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             message: 'Failed to update task order',
                             type: 'error'
                         });
-                }})
+                    }
+                })
                 .catch(err => {
                     console.error("Error updating order:", err);
                     window.TailwindUI.Toast.show({
