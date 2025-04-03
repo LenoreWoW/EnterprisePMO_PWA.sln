@@ -1,4 +1,5 @@
 @model EnterprisePMO_PWA.Domain.Entities.Project
+@using EnterprisePMO_PWA.Domain.Enums
 
 <div class="card shadow-sm mb-4">
     <div class="card-header bg-light">
@@ -18,13 +19,13 @@
                     </div>
                 </div>
                 <div class="workflow-connector"></div>
-                <div class="workflow-step @(Model.Status != ProjectStatus.Proposed ? "complete" : Model.Status == ProjectStatus.Proposed && !Model.ApprovedDate.HasValue ? "current" : "pending")">
+                <div class="workflow-step @(Model.Status != ProjectStatus.Draft ? "complete" : Model.Status == ProjectStatus.Draft && !Model.ApprovedDate.HasValue ? "current" : "pending")">
                     <div class="step-indicator">
                         <i class="bi bi-send-fill"></i>
                     </div>
                     <div class="step-label">Submitted</div>
                     <div class="step-date">
-                        @if (Model.Status != ProjectStatus.Proposed || (Model.Status == ProjectStatus.Proposed && !Model.ApprovedDate.HasValue))
+                        @if (Model.Status != ProjectStatus.Draft || (Model.Status == ProjectStatus.Draft && !Model.ApprovedDate.HasValue))
                         {
                             <span>In Progress</span>
                         }
@@ -53,38 +54,17 @@
                         }
                         else
                         {
-                            <span>Sub PMO</span>
+                            <span>Approved</span>
                         }
                     </div>
-                    <div class="step-date">
-                        @if (Model.Status == ProjectStatus.Rejected)
-                        {
-                            <span class="text-danger">@(Model.CreationDate.AddDays(1).ToString("MMM dd, yyyy"))</span>
-                        }
-                        else if (Model.Status == ProjectStatus.Active && !Model.ApprovedDate.HasValue)
-                        {
-                            <span>In Progress</span>
-                        }
-                        else if (Model.ApprovedDate.HasValue)
-                        {
-                            <span>@(Model.CreationDate.AddDays(2).ToString("MMM dd, yyyy"))</span>
-                        }
-                        else
-                        {
-                            <span>Pending</span>
-                        }
-                    </div>
-                </div>
-                <div class="workflow-connector"></div>
-                <div class="workflow-step @(Model.ApprovedDate.HasValue ? "complete" : Model.Status == ProjectStatus.Active && !Model.ApprovedDate.HasValue ? "pending" : "pending")">
-                    <div class="step-indicator">
-                        <i class="bi bi-check-all"></i>
-                    </div>
-                    <div class="step-label">Final Approval</div>
                     <div class="step-date">
                         @if (Model.ApprovedDate.HasValue)
                         {
-                            <span>@Model.ApprovedDate.Value.ToString("MMM dd, yyyy")</span>
+                            @Model.ApprovedDate.Value.ToString("MMM dd, yyyy")
+                        }
+                        else if (Model.Status == ProjectStatus.Rejected)
+                        {
+                            <span>Rejected</span>
                         }
                         else
                         {
@@ -93,7 +73,7 @@
                     </div>
                 </div>
                 <div class="workflow-connector"></div>
-                <div class="workflow-step @(Model.Status == ProjectStatus.Completed ? "complete" : "pending")">
+                <div class="workflow-step @(Model.Status == ProjectStatus.Completed ? "complete" : Model.Status == ProjectStatus.Active ? "current" : "pending")">
                     <div class="step-indicator">
                         <i class="bi bi-flag-fill"></i>
                     </div>
@@ -101,7 +81,11 @@
                     <div class="step-date">
                         @if (Model.Status == ProjectStatus.Completed)
                         {
-                            <span>@(Model.EndDate.ToString("MMM dd, yyyy"))</span>
+                            @Model.CompletionDate?.ToString("MMM dd, yyyy")
+                        }
+                        else if (Model.Status == ProjectStatus.Active)
+                        {
+                            <span>In Progress</span>
                         }
                         else
                         {

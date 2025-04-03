@@ -1,107 +1,142 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using EnterprisePMO_PWA.Domain.Enums;
+using Supabase.Postgrest.Models;
+using TableAttribute = Supabase.Postgrest.Attributes.TableAttribute;
+using ColumnAttribute = Supabase.Postgrest.Attributes.ColumnAttribute;
 
 namespace EnterprisePMO_PWA.Domain.Entities
 {
     /// <summary>
-    /// Enumerates the possible project statuses.
-    /// </summary>
-    public enum ProjectStatus
-    {
-        Proposed,
-        Active,
-        Rejected,
-        Completed
-    }
-
-    /// <summary>
-    /// Enumerates color codes for visual status indication based on project progress.
-    /// </summary>
-    public enum StatusColor
-    {
-        Green,   // > 70% of time remaining or on track
-        Blue,    // Completed milestones ahead of schedule
-        Yellow,  // 30-70% of time elapsed
-        Red      // < 30% of time remaining or behind schedule
-    }
-
-    /// <summary>
     /// Represents a project with detailed lifecycle information.
     /// </summary>
-    public class Project
+    [Table("projects")]
+    public class Project : BaseModel
     {
-        public Guid Id { get; set; } // Unique project identifier
+        [Column("id")]
+        public Guid Id { get; set; }
 
-        public string Name { get; set; } = string.Empty; // Project name
-        public string Description { get; set; } = string.Empty; // Detailed description
+        [Column("name")]
+        public string Name { get; set; }
 
-        public Guid DepartmentId { get; set; } // FK to department
-        public Department? Department { get; set; } // Navigation property
+        [Column("description")]
+        public string Description { get; set; }
 
-        public Guid ProjectManagerId { get; set; } // FK to project manager
-        public User? ProjectManager { get; set; } // Navigation property
+        [Column("department_id")]
+        public Guid DepartmentId { get; set; }
 
-        public Guid? StrategicGoalId { get; set; } // Optional FK to strategic goal
-        public StrategicGoal? StrategicGoal { get; set; }
+        [Column("project_manager_id")]
+        public Guid ProjectManagerId { get; set; }
 
-        public Guid? AnnualGoalId { get; set; } // Optional FK to annual goal
-        public AnnualGoal? AnnualGoal { get; set; }
+        [Column("strategic_goal_id")]
+        public Guid? StrategicGoalId { get; set; }
 
-        public DateTime StartDate { get; set; } // Start date
-        public DateTime EndDate { get; set; }   // Deadline
+        [Column("annual_goal_id")]
+        public Guid? AnnualGoalId { get; set; }
 
-        public decimal Budget { get; set; } // Approved budget
-        public decimal ActualCost { get; set; } // Incurred cost
-        public decimal EstimatedCost { get; set; } // New: Estimated cost
-        public string ClientName { get; set; } = string.Empty; // New: Client name
+        [Column("start_date")]
+        public DateTime StartDate { get; set; }
 
-        public StatusColor StatusColor { get; set; } // Visual status based on deadline
-        public ProjectStatus Status { get; set; } // Overall project status
+        [Column("end_date")]
+        public DateTime EndDate { get; set; }
 
-        public decimal PercentComplete { get; set; } // Added: Percentage of completion
-        
-        public DateTime CreationDate { get; set; } // Creation timestamp
-        public DateTime? ApprovedDate { get; set; } // Approval timestamp (if applicable)
+        [Column("budget")]
+        public decimal Budget { get; set; }
 
-        public string Category { get; set; } = string.Empty; // Category
+        [Column("actual_cost")]
+        public decimal ActualCost { get; set; }
 
-        // Navigation collections for related entities.
-        public ICollection<WeeklyUpdate>? WeeklyUpdates { get; set; }
-        public ICollection<ChangeRequest>? ChangeRequests { get; set; }
-        public ICollection<Document>? Documents { get; set; }
-        public ICollection<ProjectMember>? Members { get; set; }
-        public ICollection<ProjectTask>? Tasks { get; set; } // Added: Tasks collection
+        [Column("estimated_cost")]
+        public decimal EstimatedCost { get; set; }
+
+        [Column("client_name")]
+        public string ClientName { get; set; }
+
+        [Column("status_color")]
+        public StatusColor StatusColor { get; set; }
+
+        [Column("status")]
+        public ProjectStatus Status { get; set; }
+
+        [Column("percent_complete")]
+        public int PercentComplete { get; set; }
+
+        [Column("creation_date")]
+        public DateTime CreationDate { get; set; }
+
+        [Column("approved_date")]
+        public DateTime? ApprovedDate { get; set; }
+
+        [Column("category")]
+        public string Category { get; set; }
+
+        [Column("progress")]
+        public int Progress { get; set; }
+
+        [Column("created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        [Column("updated_at")]
+        public DateTime UpdatedAt { get; set; }
+
+        [ForeignKey("DepartmentId")]
+        public virtual Department Department { get; set; }
+
+        [ForeignKey("ProjectManagerId")]
+        public virtual User ProjectManager { get; set; }
+
+        [ForeignKey("StrategicGoalId")]
+        public virtual StrategicGoal StrategicGoal { get; set; }
+
+        [ForeignKey("AnnualGoalId")]
+        public virtual AnnualGoal AnnualGoal { get; set; }
+
+        public virtual ICollection<ProjectMember> Members { get; set; }
+        public virtual ICollection<ProjectTask> Tasks { get; set; }
+        public virtual ICollection<WeeklyUpdate> WeeklyUpdates { get; set; }
+        public virtual ICollection<ChangeRequest> ChangeRequests { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<ProjectUpdate> Updates { get; set; }
 
         /// <summary>
-        /// Computes the status color based on percentage of project timeline elapsed.
+        /// Computes the status color based on project progress and timeline.
         /// </summary>
         public StatusColor ComputeStatusColor()
         {
-            // Calculate total project duration and elapsed time
-            var totalProjectDuration = (EndDate - StartDate).TotalDays;
-            var elapsedTime = (DateTime.UtcNow - StartDate).TotalDays;
-            
-            // Calculate percentage of time elapsed
-            var percentageElapsed = (elapsedTime / totalProjectDuration) * 100;
+            if (Status == ProjectStatus.Rejected)
+                return StatusColor.Red;
 
-            // Determine status color based on percentage
-            if (percentageElapsed <= 30)
-            {
-                return StatusColor.Green; // Early stages, plenty of time remaining
-            }
-            else if (percentageElapsed <= 70)
-            {
-                return StatusColor.Yellow; // Mid-project, moderate time elapsed
-            }
-            else
-            {
-                // Check if project is completed or near deadline
-                if (Status == ProjectStatus.Completed)
-                {
-                    return StatusColor.Blue; // Completed on time or early
-                }
-                return StatusColor.Red; // Late stages, running out of time
-            }
+            if (DateTime.UtcNow > EndDate)
+                return StatusColor.Red;
+
+            if (PercentComplete < 80)
+                return StatusColor.Yellow;
+
+            if (Status == ProjectStatus.Active)
+                return StatusColor.Green;
+            return StatusColor.Blue;
         }
+    }
+
+    public static class ProjectExtensions
+    {
+        public static string GetStatusClass(this Project project) => project.Status switch
+        {
+            ProjectStatus.Draft => "bg-gray-100 text-gray-800",
+            ProjectStatus.Active => "bg-blue-100 text-blue-800",
+            ProjectStatus.Rejected => "bg-red-100 text-red-800",
+            ProjectStatus.Completed => "bg-green-100 text-green-800",
+            _ => "bg-gray-100 text-gray-800"
+        };
+
+        public static string GetProgressBarClass(this Project project) => project.PercentComplete switch
+        {
+            < 25 => "bg-red-600",
+            < 50 => "bg-yellow-600",
+            < 75 => "bg-blue-600",
+            _ => "bg-green-600"
+        };
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Domain.Enums;
 using EnterprisePMO_PWA.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,127 +12,224 @@ namespace EnterprisePMO_PWA.Application.Services
     /// <summary>
     /// Provides methods for managing global roles with hierarchical permissions.
     /// </summary>
-    public class RoleService
+    public class RoleService : IRoleService
     {
         private readonly AppDbContext _context;
-        private readonly AuditService _auditService;
+        private readonly IAuthService _authService;
 
-        public RoleService(AppDbContext context, AuditService auditService)
+        public RoleService(AppDbContext context, IAuthService authService)
         {
             _context = context;
-            _auditService = auditService;
+            _authService = authService;
         }
 
         /// <summary>
         /// Creates a new role.
         /// </summary>
-        public async Task<Role> CreateRoleAsync(Role role, Guid createdByUserId)
+        public async Task<Role> CreateRoleAsync(Role role, Guid createdBy)
         {
             role.Id = Guid.NewGuid();
+            role.CreatedAt = DateTime.UtcNow;
+            role.UpdatedAt = DateTime.UtcNow;
+            role.IsActive = true;
+
             _context.Roles.Add(role);
             await _context.SaveChangesAsync();
-            
-            // Log the action
-            await _auditService.LogActionAsync(
+
+            await _authService.LogActionAsync(
+                "System",
+                "Role Created",
                 "Role",
-                role.Id,
-                "Create",
-                $"Role '{role.RoleName}' created with hierarchy level {role.HierarchyLevel}"
-            );
-            
+                $"Created role: {role.RoleName}");
+
             return role;
         }
 
         /// <summary>
         /// Retrieves all roles.
         /// </summary>
-        public List<Role> GetAllRoles()
+        public IEnumerable<Role> GetAllRoles()
         {
             return _context.Roles
-                .OrderByDescending(r => r.HierarchyLevel)
+                .OrderBy(r => r.HierarchyLevel)
                 .ToList();
         }
 
         /// <summary>
         /// Gets all roles that can be managed by a user with the specified role type.
         /// </summary>
-        public List<Role> GetManageableRoles(RoleType userRoleType)
+        public IEnumerable<Role> GetManageableRoles(UserRole userRole)
         {
-            int hierarchyLevel = GetRoleHierarchyLevel(userRoleType);
-            
+            var userHierarchyLevel = GetRoleHierarchyLevel(userRole);
             return _context.Roles
-                .Where(r => r.HierarchyLevel < hierarchyLevel)
-                .OrderByDescending(r => r.HierarchyLevel)
+                .Where(r => r.HierarchyLevel < userHierarchyLevel)
+                .OrderBy(r => r.HierarchyLevel)
                 .ToList();
         }
 
         /// <summary>
         /// Updates an existing role.
         /// </summary>
-        public async Task<Role?> UpdateRoleAsync(Role role, Guid updatedByUserId)
+        public async Task<Role> UpdateRoleAsync(Role role, Guid updatedBy)
         {
-            // Retrieve the original role for audit comparison
-            var originalRole = await _context.Roles.AsNoTracking().FirstOrDefaultAsync(r => r.Id == role.Id);
-            if (originalRole == null)
+            var existingRole = await _context.Roles
+                .FirstOrDefaultAsync(r => r.Id == role.Id);
+
+            if (existingRole == null)
                 return null;
-                
-            _context.Entry(role).State = EntityState.Modified;
+
+            existingRole.RoleName = role.RoleName;
+            existingRole.Description = role.Description;
+            existingRole.HierarchyLevel = role.HierarchyLevel;
+            existingRole.Type = role.Type;
+            existingRole.CanManageProjects = role.CanManageProjects;
+            existingRole.CanManageUsers = role.CanManageUsers;
+            existingRole.CanApproveRequests = role.CanApproveRequests;
+            existingRole.CanManageRoles = role.CanManageRoles;
+            existingRole.CanViewReports = role.CanViewReports;
+            existingRole.CanViewAuditLogs = role.CanViewAuditLogs;
+            existingRole.InheritsPermissions = role.InheritsPermissions;
+            existingRole.UpdatedAt = DateTime.UtcNow;
+
             await _context.SaveChangesAsync();
-            
-            // Log the action with changes
-            await _auditService.LogActionAsync(
+
+            await _authService.LogActionAsync(
+                "System",
+                "Role Updated",
                 "Role",
-                role.Id,
-                "Update",
-                _auditService.CreateChangeSummary(originalRole, role)
-            );
-            
-            return role;
+                $"Updated role: {role.RoleName}");
+
+            return existingRole;
         }
 
         /// <summary>
         /// Deletes a role.
         /// </summary>
-        public async Task DeleteRoleAsync(Guid id, Guid deletedByUserId)
+        public async Task<bool> DeleteRoleAsync(Guid roleId, Guid deletedBy)
         {
-            var role = await _context.Roles.FindAsync(id);
-            if (role != null)
-            {
-                _context.Roles.Remove(role);
-                await _context.SaveChangesAsync();
-                
-                // Log the action
-                await _auditService.LogActionAsync(
-                    "Role",
-                    id,
-                    "Delete",
-                    $"Role '{role.RoleName}' with hierarchy level {role.HierarchyLevel} was deleted"
-                );
-            }
+            var role = await _context.Roles
+                .FirstOrDefaultAsync(r => r.Id == roleId);
+
+            if (role == null)
+                return false;
+
+            role.IsActive = false;
+            role.UpdatedAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            await _authService.LogActionAsync(
+                "System",
+                "Role Deleted",
+                "Role",
+                $"Deleted role: {role.RoleName}");
+
+            return true;
         }
         
         /// <summary>
         /// Gets the hierarchy level for a role type.
         /// </summary>
-        private int GetRoleHierarchyLevel(RoleType roleType)
+        private int GetRoleHierarchyLevel(UserRole roleType)
         {
             switch (roleType)
             {
-                case RoleType.Admin:
+                case UserRole.Admin:
                     return 100;
-                case RoleType.MainPMO:
+                case UserRole.MainPMO:
                     return 90;
-                case RoleType.Executive:
+                case UserRole.Executive:
                     return 80;
-                case RoleType.DepartmentDirector:
+                case UserRole.DepartmentDirector:
                     return 70;
-                case RoleType.SubPMO:
+                case UserRole.SubPMO:
                     return 60;
-                case RoleType.ProjectManager:
+                case UserRole.ProjectManager:
                     return 50;
                 default:
                     return 10;
             }
+        }
+
+        public async Task<IEnumerable<User>> GetUsersInRoleAsync(UserRole role)
+        {
+            return await _context.Users
+                .Where(u => u.Role == role)
+                .ToListAsync();
+        }
+
+        public async Task<bool> IsInRoleAsync(Guid userId, UserRole role)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            return user?.Role == role;
+        }
+
+        public async Task<bool> AssignRoleAsync(Guid userId, UserRole role)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+                return false;
+
+            user.Role = role;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> RemoveFromRoleAsync(Guid userId, UserRole role)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null || user.Role != role)
+                return false;
+
+            user.Role = UserRole.Viewer; // Default to Viewer role
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<IEnumerable<UserRole>> GetManageableRolesAsync(Guid userId)
+        {
+            var currentUser = await _context.Users.FindAsync(userId);
+            if (currentUser == null)
+                return Enumerable.Empty<UserRole>();
+
+            var manageableRoles = new List<UserRole>();
+
+            switch (currentUser.Role)
+            {
+                case UserRole.Admin:
+                    manageableRoles.AddRange(new[]
+                    {
+                        UserRole.PMOHead,
+                        UserRole.ProjectManager,
+                        UserRole.TeamMember,
+                        UserRole.Viewer
+                    });
+                    break;
+
+                case UserRole.PMOHead:
+                    manageableRoles.AddRange(new[]
+                    {
+                        UserRole.ProjectManager,
+                        UserRole.TeamMember,
+                        UserRole.Viewer
+                    });
+                    break;
+
+                case UserRole.ProjectManager:
+                    manageableRoles.AddRange(new[]
+                    {
+                        UserRole.TeamMember,
+                        UserRole.Viewer
+                    });
+                    break;
+            }
+
+            return manageableRoles;
+        }
+
+        public async Task<bool> CanManageRoleAsync(Guid managerId, UserRole roleToManage)
+        {
+            var manageableRoles = await GetManageableRolesAsync(managerId);
+            return manageableRoles.Contains(roleToManage);
         }
     }
 }

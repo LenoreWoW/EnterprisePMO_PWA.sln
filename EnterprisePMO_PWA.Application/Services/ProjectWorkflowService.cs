@@ -6,6 +6,9 @@ using EnterprisePMO_PWA.Domain.Entities;
 using EnterprisePMO_PWA.Domain.Services;
 using EnterprisePMO_PWA.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using EnterprisePMO_PWA.Domain.Enums;
+using EnterprisePMO_PWA.Domain.Workflows;
+using Microsoft.Extensions.Logging;
 
 namespace EnterprisePMO_PWA.Application.Services
 {
@@ -32,7 +35,7 @@ namespace EnterprisePMO_PWA.Application.Services
         }
 
         /// <summary>
-        /// Submits a project for approval by the Sub PMO.
+        /// Submits a project for approval by the PMO Head.
         /// </summary>
         public async Task<bool> SubmitForApprovalAsync(Guid projectId, Guid submittedByUserId)
         {
@@ -44,9 +47,9 @@ namespace EnterprisePMO_PWA.Application.Services
                 return false;
                 
             // Verify the project is in a state that can be submitted
-            if (project.Status != ProjectStatus.Proposed)
+            if (project.Status != ProjectStatus.Draft)
             {
-                throw new InvalidOperationException("Only proposed projects can be submitted for approval");
+                throw new InvalidOperationException("Only draft projects can be submitted for approval");
             }
             
             // Create audit log entry
@@ -57,24 +60,24 @@ namespace EnterprisePMO_PWA.Application.Services
                 $"Project '{project.Name}' submitted for approval by {submittedByUserId}"
             );
             
-            // Get Sub PMO users to notify
-            var subPMOUsers = await _context.Users
-                .Where(u => u.Role == RoleType.SubPMO)
+            // Get PMO Head users to notify
+            var pmoHeadUsers = await _context.Users
+                .Where(u => u.Role == UserRole.PMOHead)
                 .ToListAsync();
                 
-            // Send notification to Sub PMO users
-            foreach (var subPMO in subPMOUsers)
+            // Send notification to PMO Head users
+            foreach (var pmoHead in pmoHeadUsers)
             {
                 await _notificationService.NotifyAsync(
                     $"Project '{project.Name}' has been submitted for your approval", 
-                    subPMO.Username
+                    pmoHead.Username
                 );
                 
                 // Queue email notification
                 _notificationService.EnqueueEmailNotification(
-                    subPMO.Username,
+                    pmoHead.Username,
                     $"New Project Approval Request: {project.Name}",
-                    $"Dear Sub PMO,\n\nA new project '{project.Name}' has been submitted for your approval by {project.ProjectManager?.Username ?? "a project manager"}.\n\nPlease review and take action.\n\nRegards,\nEnterprise PMO System"
+                    $"Dear PMO Head,\n\nA new project '{project.Name}' has been submitted for your approval by {project.ProjectManager?.Username ?? "a project manager"}.\n\nPlease review and take action.\n\nRegards,\nEnterprise PMO System"
                 );
             }
             
@@ -82,9 +85,9 @@ namespace EnterprisePMO_PWA.Application.Services
         }
         
         /// <summary>
-        /// Approves a project by the Sub PMO and moves it to the Main PMO approval queue.
+        /// Approves a project by the PMO Head.
         /// </summary>
-        public async Task<bool> ApproveBySubPMOAsync(Guid projectId, Guid approvedByUserId, string comments)
+        public async Task<bool> ApproveProjectAsync(Guid projectId, Guid approvedByUserId, string comments)
         {
             var project = await _context.Projects
                 .Include(p => p.ProjectManager)
@@ -93,144 +96,22 @@ namespace EnterprisePMO_PWA.Application.Services
             if (project == null)
                 return false;
                 
-            // Verify the user has Sub PMO permissions
+            // Verify the user has PMO Head permissions
             if (!await _permissionService.HasPermissionAsync(approvedByUserId, "ApproveRequests"))
             {
-                throw new UnauthorizedAccessException("User does not have Sub PMO approval permissions");
+                throw new UnauthorizedAccessException("User does not have PMO Head approval permissions");
             }
             
             // Create audit log entry
             await _auditService.LogActionAsync(
                 "Project",
                 project.Id,
-                "SubPMOApproval",
-                $"Project '{project.Name}' approved by Sub PMO user {approvedByUserId}. Comments: {comments}"
+                "PMOHeadApproval",
+                $"Project '{project.Name}' approved by PMO Head user {approvedByUserId}. Comments: {comments}"
             );
             
             // Update project status
-            project.Status = ProjectStatus.Active; // Intermediate state before Main PMO approval
-            project.StatusColor = project.ComputeStatusColor();
-            await _context.SaveChangesAsync();
-            
-            // Get Main PMO users to notify
-            var mainPMOUsers = await _context.Users
-                .Where(u => u.Role == RoleType.MainPMO)
-                .ToListAsync();
-                
-            // Send notification to Main PMO users
-            foreach (var mainPMO in mainPMOUsers)
-            {
-                await _notificationService.NotifyAsync(
-                    $"Project '{project.Name}' has been approved by Sub PMO and awaits your review", 
-                    mainPMO.Username
-                );
-                
-                // Queue email notification
-                _notificationService.EnqueueEmailNotification(
-                    mainPMO.Username,
-                    $"Project Approved by Sub PMO: {project.Name}",
-                    $"Dear Main PMO,\n\nProject '{project.Name}' has been approved by Sub PMO and requires your final approval.\n\nSub PMO Comments: {comments}\n\nRegards,\nEnterprise PMO System"
-                );
-            }
-            
-            // Notify the project manager
-            if (project.ProjectManager != null)
-            {
-                await _notificationService.NotifyAsync(
-                    $"Your project '{project.Name}' has been approved by Sub PMO and is awaiting Main PMO review",
-                    project.ProjectManager.Username
-                );
-                
-                _notificationService.EnqueueEmailNotification(
-                    project.ProjectManager.Username,
-                    $"Project Update: {project.Name} - Sub PMO Approved",
-                    $"Dear Project Manager,\n\nYour project '{project.Name}' has been approved by Sub PMO and is now awaiting Main PMO review.\n\nRegards,\nEnterprise PMO System"
-                );
-            }
-            
-            return true;
-        }
-        
-        /// <summary>
-        /// Rejects a project by the Sub PMO and returns it to the project manager.
-        /// </summary>
-        public async Task<bool> RejectBySubPMOAsync(Guid projectId, Guid rejectedByUserId, string rejectionReason)
-        {
-            var project = await _context.Projects
-                .Include(p => p.ProjectManager)
-                .FirstOrDefaultAsync(p => p.Id == projectId);
-                
-            if (project == null)
-                return false;
-                
-            // Verify the user has Sub PMO permissions
-            if (!await _permissionService.HasPermissionAsync(rejectedByUserId, "ApproveRequests"))
-            {
-                throw new UnauthorizedAccessException("User does not have Sub PMO rejection permissions");
-            }
-            
-            // Create audit log entry
-            await _auditService.LogActionAsync(
-                "Project",
-                project.Id,
-                "SubPMORejection",
-                $"Project '{project.Name}' rejected by Sub PMO user {rejectedByUserId}. Reason: {rejectionReason}"
-            );
-            
-            // Update project status
-            project.Status = ProjectStatus.Rejected;
-            project.StatusColor = StatusColor.Red;
-            await _context.SaveChangesAsync();
-            
-            // Notify the project manager
-            if (project.ProjectManager != null)
-            {
-                await _notificationService.NotifyAsync(
-                    $"Your project '{project.Name}' has been rejected by Sub PMO: {rejectionReason}",
-                    project.ProjectManager.Username
-                );
-                
-                _notificationService.EnqueueEmailNotification(
-                    project.ProjectManager.Username,
-                    $"Project Rejected: {project.Name}",
-                    $"Dear Project Manager,\n\nYour project '{project.Name}' has been rejected by Sub PMO.\n\nReason: {rejectionReason}\n\nPlease make necessary adjustments and resubmit.\n\nRegards,\nEnterprise PMO System"
-                );
-            }
-            
-            return true;
-        }
-        
-        /// <summary>
-        /// Final approval by the Main PMO.
-        /// </summary>
-        public async Task<bool> ApproveByMainPMOAsync(Guid projectId, Guid approvedByUserId, string comments)
-        {
-            var project = await _context.Projects
-                .Include(p => p.ProjectManager)
-                .Include(p => p.Department)
-                .FirstOrDefaultAsync(p => p.Id == projectId);
-                
-            if (project == null)
-                return false;
-                
-            // Verify the user has Main PMO permissions
-            var user = await _context.Users.FindAsync(approvedByUserId);
-            if (user == null || user.Role != RoleType.MainPMO)
-            {
-                throw new UnauthorizedAccessException("User does not have Main PMO approval permissions");
-            }
-            
-            // Create audit log entry
-            await _auditService.LogActionAsync(
-                "Project",
-                project.Id,
-                "MainPMOApproval",
-                $"Project '{project.Name}' approved by Main PMO user {approvedByUserId}. Comments: {comments}"
-            );
-            
-            // Update project status and approval date
             project.Status = ProjectStatus.Active;
-            project.ApprovedDate = DateTime.UtcNow;
             project.StatusColor = project.ComputeStatusColor();
             await _context.SaveChangesAsync();
             
@@ -238,49 +119,14 @@ namespace EnterprisePMO_PWA.Application.Services
             if (project.ProjectManager != null)
             {
                 await _notificationService.NotifyAsync(
-                    $"Your project '{project.Name}' has been officially approved by Main PMO",
+                    $"Your project '{project.Name}' has been approved by PMO Head",
                     project.ProjectManager.Username
                 );
                 
                 _notificationService.EnqueueEmailNotification(
                     project.ProjectManager.Username,
                     $"Project Approved: {project.Name}",
-                    $"Dear Project Manager,\n\nCongratulations! Your project '{project.Name}' has been officially approved by Main PMO.\n\nYou can now proceed with project execution.\n\nRegards,\nEnterprise PMO System"
-                );
-            }
-            
-            // Notify department director if available
-            if (project.Department != null)
-            {
-                var departmentDirector = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Role == RoleType.DepartmentDirector && u.DepartmentId == project.DepartmentId);
-                    
-                if (departmentDirector != null)
-                {
-                    await _notificationService.NotifyAsync(
-                        $"Project '{project.Name}' in your department has been approved",
-                        departmentDirector.Username
-                    );
-                    
-                    _notificationService.EnqueueEmailNotification(
-                        departmentDirector.Username,
-                        $"Department Project Approved: {project.Name}",
-                        $"Dear Department Director,\n\nA project in your department '{project.Name}' has been approved and is now active.\n\nRegards,\nEnterprise PMO System"
-                    );
-                }
-            }
-            
-            // Notify executives
-            var executives = await _context.Users
-                .Where(u => u.Role == RoleType.Executive)
-                .ToListAsync();
-                
-            foreach (var executive in executives)
-            {
-                _notificationService.EnqueueEmailNotification(
-                    executive.Username,
-                    $"New Project Approved: {project.Name}",
-                    $"Dear Executive,\n\nA new project '{project.Name}' has been approved and is now active.\n\nDepartment: {project.Department?.Name ?? "N/A"}\nBudget: ${project.Budget}\nEstimated Completion: {project.EndDate.ToShortDateString()}\n\nRegards,\nEnterprise PMO System"
+                    $"Dear Project Manager,\n\nYour project '{project.Name}' has been approved by PMO Head.\n\nComments: {comments}\n\nRegards,\nEnterprise PMO System"
                 );
             }
             
@@ -288,9 +134,9 @@ namespace EnterprisePMO_PWA.Application.Services
         }
         
         /// <summary>
-        /// Rejection by the Main PMO.
+        /// Rejects a project by the PMO Head.
         /// </summary>
-        public async Task<bool> RejectByMainPMOAsync(Guid projectId, Guid rejectedByUserId, string rejectionReason)
+        public async Task<bool> RejectProjectAsync(Guid projectId, Guid rejectedByUserId, string rejectionReason)
         {
             var project = await _context.Projects
                 .Include(p => p.ProjectManager)
@@ -299,19 +145,18 @@ namespace EnterprisePMO_PWA.Application.Services
             if (project == null)
                 return false;
                 
-            // Verify the user has Main PMO permissions
-            var user = await _context.Users.FindAsync(rejectedByUserId);
-            if (user == null || user.Role != RoleType.MainPMO)
+            // Verify the user has PMO Head permissions
+            if (!await _permissionService.HasPermissionAsync(rejectedByUserId, "ApproveRequests"))
             {
-                throw new UnauthorizedAccessException("User does not have Main PMO rejection permissions");
+                throw new UnauthorizedAccessException("User does not have PMO Head rejection permissions");
             }
             
             // Create audit log entry
             await _auditService.LogActionAsync(
                 "Project",
                 project.Id,
-                "MainPMORejection",
-                $"Project '{project.Name}' rejected by Main PMO user {rejectedByUserId}. Reason: {rejectionReason}"
+                "PMOHeadRejection",
+                $"Project '{project.Name}' rejected by PMO Head user {rejectedByUserId}. Reason: {rejectionReason}"
             );
             
             // Update project status
@@ -323,27 +168,14 @@ namespace EnterprisePMO_PWA.Application.Services
             if (project.ProjectManager != null)
             {
                 await _notificationService.NotifyAsync(
-                    $"Your project '{project.Name}' has been rejected by Main PMO: {rejectionReason}",
+                    $"Your project '{project.Name}' has been rejected by PMO Head: {rejectionReason}",
                     project.ProjectManager.Username
                 );
                 
                 _notificationService.EnqueueEmailNotification(
                     project.ProjectManager.Username,
-                    $"Project Rejected by Main PMO: {project.Name}",
-                    $"Dear Project Manager,\n\nYour project '{project.Name}' has been rejected by Main PMO.\n\nReason: {rejectionReason}\n\nPlease make necessary adjustments and resubmit for approval.\n\nRegards,\nEnterprise PMO System"
-                );
-            }
-            
-            // Notify Sub PMO users
-            var subPMOUsers = await _context.Users
-                .Where(u => u.Role == RoleType.SubPMO)
-                .ToListAsync();
-                
-            foreach (var subPMO in subPMOUsers)
-            {
-                await _notificationService.NotifyAsync(
-                    $"Project '{project.Name}' has been rejected by Main PMO",
-                    subPMO.Username
+                    $"Project Rejected: {project.Name}",
+                    $"Dear Project Manager,\n\nYour project '{project.Name}' has been rejected by PMO Head.\n\nReason: {rejectionReason}\n\nPlease make necessary adjustments and resubmit.\n\nRegards,\nEnterprise PMO System"
                 );
             }
             
@@ -351,22 +183,21 @@ namespace EnterprisePMO_PWA.Application.Services
         }
         
         /// <summary>
-        /// Completes a project, marking it as successfully finished.
+        /// Completes a project.
         /// </summary>
         public async Task<bool> CompleteProjectAsync(Guid projectId, Guid completedByUserId, string completionNotes)
         {
             var project = await _context.Projects
                 .Include(p => p.ProjectManager)
-                .Include(p => p.Department)
                 .FirstOrDefaultAsync(p => p.Id == projectId);
                 
             if (project == null)
                 return false;
                 
-            // Verify the project is active
+            // Verify the project is in a state that can be completed
             if (project.Status != ProjectStatus.Active)
             {
-                throw new InvalidOperationException("Only active projects can be completed");
+                throw new InvalidOperationException("Only active projects can be marked as completed");
             }
             
             // Create audit log entry
@@ -382,46 +213,22 @@ namespace EnterprisePMO_PWA.Application.Services
             project.StatusColor = StatusColor.Green;
             await _context.SaveChangesAsync();
             
-            // Notify project stakeholders
-            var stakeholdersToNotify = new List<User>();
-            
-            // Add project manager
-            if (project.ProjectManager != null)
-            {
-                stakeholdersToNotify.Add(project.ProjectManager);
-            }
-            
-            // Add department director if available
-            if (project.Department != null)
-            {
-                var departmentDirector = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Role == RoleType.DepartmentDirector && u.DepartmentId == project.DepartmentId);
-                    
-                if (departmentDirector != null)
-                {
-                    stakeholdersToNotify.Add(departmentDirector);
-                }
-            }
-            
-            // Add PMO users
-            var pmoUsers = await _context.Users
-                .Where(u => u.Role == RoleType.SubPMO || u.Role == RoleType.MainPMO)
+            // Notify stakeholders
+            var stakeholders = await _context.Users
+                .Where(u => u.Role == UserRole.PMOHead || u.Role == UserRole.ProjectManager)
                 .ToListAsync();
                 
-            stakeholdersToNotify.AddRange(pmoUsers);
-            
-            // Notify all stakeholders
-            foreach (var stakeholder in stakeholdersToNotify)
+            foreach (var stakeholder in stakeholders)
             {
                 await _notificationService.NotifyAsync(
-                    $"Project '{project.Name}' has been completed successfully",
+                    $"Project '{project.Name}' has been marked as completed",
                     stakeholder.Username
                 );
                 
                 _notificationService.EnqueueEmailNotification(
                     stakeholder.Username,
                     $"Project Completed: {project.Name}",
-                    $"Dear {stakeholder.Role},\n\nProject '{project.Name}' has been successfully completed.\n\nCompletion Notes: {completionNotes}\n\nRegards,\nEnterprise PMO System"
+                    $"Dear Stakeholder,\n\nProject '{project.Name}' has been marked as completed.\n\nCompletion Notes: {completionNotes}\n\nRegards,\nEnterprise PMO System"
                 );
             }
             
@@ -429,7 +236,7 @@ namespace EnterprisePMO_PWA.Application.Services
         }
         
         /// <summary>
-        /// Resubmits a rejected project for approval with modifications.
+        /// Resubmits a rejected project for approval.
         /// </summary>
         public async Task<bool> ResubmitProjectAsync(Guid projectId, Guid resubmittedByUserId, string changesDescription)
         {
@@ -440,7 +247,7 @@ namespace EnterprisePMO_PWA.Application.Services
             if (project == null)
                 return false;
                 
-            // Verify the project is rejected
+            // Verify the project is in a state that can be resubmitted
             if (project.Status != ProjectStatus.Rejected)
             {
                 throw new InvalidOperationException("Only rejected projects can be resubmitted");
@@ -454,29 +261,28 @@ namespace EnterprisePMO_PWA.Application.Services
                 $"Project '{project.Name}' resubmitted by {resubmittedByUserId}. Changes: {changesDescription}"
             );
             
-            // Update project status back to proposed
-            project.Status = ProjectStatus.Proposed;
-            project.StatusColor = project.ComputeStatusColor();
+            // Update project status
+            project.Status = ProjectStatus.Draft;
+            project.StatusColor = StatusColor.Yellow;
             await _context.SaveChangesAsync();
             
-            // Get Sub PMO users to notify
-            var subPMOUsers = await _context.Users
-                .Where(u => u.Role == RoleType.SubPMO)
+            // Get PMO Head users to notify
+            var pmoHeadUsers = await _context.Users
+                .Where(u => u.Role == UserRole.PMOHead)
                 .ToListAsync();
                 
-            // Send notification to Sub PMO users
-            foreach (var subPMO in subPMOUsers)
+            // Send notification to PMO Head users
+            foreach (var pmoHead in pmoHeadUsers)
             {
                 await _notificationService.NotifyAsync(
-                    $"Project '{project.Name}' has been resubmitted after addressing previous concerns", 
-                    subPMO.Username
+                    $"Project '{project.Name}' has been resubmitted for approval", 
+                    pmoHead.Username
                 );
                 
-                // Queue email notification
                 _notificationService.EnqueueEmailNotification(
-                    subPMO.Username,
+                    pmoHead.Username,
                     $"Project Resubmitted: {project.Name}",
-                    $"Dear Sub PMO,\n\nProject '{project.Name}' has been resubmitted after addressing previous concerns.\n\nChanges Made: {changesDescription}\n\nPlease review at your earliest convenience.\n\nRegards,\nEnterprise PMO System"
+                    $"Dear PMO Head,\n\nProject '{project.Name}' has been resubmitted for approval.\n\nChanges Made: {changesDescription}\n\nPlease review and take action.\n\nRegards,\nEnterprise PMO System"
                 );
             }
             

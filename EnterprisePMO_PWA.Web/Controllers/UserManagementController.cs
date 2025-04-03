@@ -7,34 +7,38 @@ using Microsoft.EntityFrameworkCore;
 using EnterprisePMO_PWA.Infrastructure.Data;
 using EnterprisePMO_PWA.Domain.Entities;
 using EnterprisePMO_PWA.Application.Services;
+using EnterprisePMO_PWA.Domain.Enums;
 
 namespace EnterprisePMO_PWA.Web.Controllers
 {
-    [Authorize(Roles = "Admin,MainPMO")]
+    [Authorize(Policy = "Permission:ManageUsers")]
     public class UserManagementController : Controller
     {
         private readonly AppDbContext _context;
         private readonly AuditService _auditService;
         private readonly INotificationService _notificationService;
+        private readonly UserService _userService;
+        private readonly RoleService _roleService;
 
         public UserManagementController(
             AppDbContext context,
             AuditService auditService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            UserService userService,
+            RoleService roleService)
         {
             _context = context;
             _auditService = auditService;
             _notificationService = notificationService;
+            _userService = userService;
+            _roleService = roleService;
         }
 
         // GET: /UserManagement
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public IActionResult Index()
         {
-            var users = await _context.Users
-                .Include(u => u.Department)
-                .OrderBy(u => u.Username)
-                .ToListAsync();
-
+            var users = _userService.GetAllUsers();
             return View(users);
         }
 
@@ -54,118 +58,49 @@ namespace EnterprisePMO_PWA.Web.Controllers
         }
 
         // GET: /UserManagement/Edit/5
-        public async Task<IActionResult> Edit(Guid id)
+        [HttpGet]
+        public IActionResult Edit(Guid id)
         {
-            var user = await _context.Users
-                .Include(u => u.Department)
-                .FirstOrDefaultAsync(u => u.Id == id);
-
+            var user = _userService.GetAllUsers().FirstOrDefault(u => u.Id == id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            // Get departments for dropdown
-            ViewBag.Departments = await _context.Departments.ToListAsync();
-            
-            // Get roles for dropdown
-            ViewBag.Roles = Enum.GetValues(typeof(RoleType))
-                .Cast<RoleType>()
-                .Select(r => new { Id = (int)r, Name = r.ToString() })
-                .ToList();
+            var currentUserRole = GetCurrentUserRoleType();
+            if (!_roleService.GetManageableRoles(currentUserRole).Any(r => r.RoleName == user.Role.ToString()))
+            {
+                return Forbid();
+            }
 
+            var manageableRoles = _roleService.GetManageableRoles(currentUserRole);
+            ViewBag.ManageableRoles = manageableRoles;
             return View(user);
         }
 
         // POST: /UserManagement/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, User user)
+        public async Task<IActionResult> Edit(User user)
         {
-            if (id != user.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
+                var currentUserRole = GetCurrentUserRoleType();
+                if (!_roleService.GetManageableRoles(currentUserRole).Any(r => r.RoleName == user.Role.ToString()))
                 {
-                    // Get the current user data to track changes
-                    var currentUser = await _context.Users
-                        .AsNoTracking()
-                        .Include(u => u.Department)
-                        .FirstOrDefaultAsync(u => u.Id == id);
-
-                    if (currentUser == null)
-                    {
-                        return NotFound();
-                    }
-
-                    bool departmentChanged = currentUser.DepartmentId != user.DepartmentId;
-                    bool roleChanged = currentUser.Role != user.Role;
-
-                    // Update the user
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
-
-                    // Log the changes in audit trail
-                    string changeSummary = "User details updated";
-                    if (departmentChanged)
-                    {
-                        var newDepartment = await _context.Departments.FindAsync(user.DepartmentId);
-                        changeSummary += $". Department changed to {newDepartment?.Name ?? "None"}";
-                    }
-                    if (roleChanged)
-                    {
-                        changeSummary += $". Role changed to {user.Role}";
-                    }
-
-                    await _auditService.LogActionAsync(
-                        "User",
-                        user.Id,
-                        "Update",
-                        changeSummary);
-
-                    // Send notification to user
-                    if (departmentChanged || roleChanged)
-                    {
-                        string notificationMsg = "Your account has been updated";
-                        if (departmentChanged)
-                        {
-                            var newDepartment = await _context.Departments.FindAsync(user.DepartmentId);
-                            notificationMsg += $". You have been assigned to the {newDepartment?.Name ?? "None"} department";
-                        }
-                        if (roleChanged)
-                        {
-                            notificationMsg += $". Your role has been set to {user.Role}";
-                        }
-
-                        await _notificationService.NotifyAsync(notificationMsg, user.Username);
-                    }
-
-                    return RedirectToAction(nameof(Index));
+                    ModelState.AddModelError("", "You don't have permission to edit users with this role level.");
+                    return View(user);
                 }
-                catch (DbUpdateConcurrencyException)
+
+                var result = await _userService.UpdateUserAsync(user, Guid.Parse(User.Identity?.Name ?? Guid.Empty.ToString()));
+                if (result != null)
                 {
-                    if (!UserExists(user.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return RedirectToAction(nameof(Index));
                 }
             }
 
-            // If ModelState is invalid, repopulate dropdowns
-            ViewBag.Departments = await _context.Departments.ToListAsync();
-            ViewBag.Roles = Enum.GetValues(typeof(RoleType))
-                .Cast<RoleType>()
-                .Select(r => new { Id = (int)r, Name = r.ToString() })
-                .ToList();
-
+            var manageableRoles = _roleService.GetManageableRoles(GetCurrentUserRoleType());
+            ViewBag.ManageableRoles = manageableRoles;
             return View(user);
         }
 
@@ -196,7 +131,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
         // POST: /UserManagement/ProcessBulkMove
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ProcessBulkMove(Guid[] selectedUsers, Guid targetDepartmentId, RoleType targetRole)
+        public async Task<IActionResult> ProcessBulkMove(Guid[] selectedUsers, Guid targetDepartmentId, UserRole targetRole)
         {
             if (selectedUsers == null || selectedUsers.Length == 0 || targetDepartmentId == Guid.Empty)
             {
@@ -238,6 +173,61 @@ namespace EnterprisePMO_PWA.Web.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var currentUserRole = GetCurrentUserRoleType();
+            var manageableRoles = _roleService.GetManageableRoles(currentUserRole);
+            ViewBag.ManageableRoles = manageableRoles;
+            return View(new User());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUserRole = GetCurrentUserRoleType();
+                if (!_roleService.GetManageableRoles(currentUserRole).Any(r => r.RoleName == user.Role.ToString()))
+                {
+                    ModelState.AddModelError("", "You don't have permission to create users with this role level.");
+                    return View(user);
+                }
+
+                await _userService.CreateUserAsync(user, Guid.Parse(User.Identity?.Name ?? Guid.Empty.ToString()));
+                return RedirectToAction(nameof(Index));
+            }
+
+            var manageableRoles = _roleService.GetManageableRoles(GetCurrentUserRoleType());
+            ViewBag.ManageableRoles = manageableRoles;
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var user = _userService.GetAllUsers().FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var currentUserRole = GetCurrentUserRoleType();
+            if (!_roleService.GetManageableRoles(currentUserRole).Any(r => r.RoleName == user.Role.ToString()))
+            {
+                return Forbid();
+            }
+
+            await _userService.DeleteUserAsync(id, Guid.Parse(User.Identity?.Name ?? Guid.Empty.ToString()));
+            return RedirectToAction(nameof(Index));
+        }
+
+        private UserRole GetCurrentUserRoleType()
+        {
+            var roleClaim = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+            return Enum.TryParse<UserRole>(roleClaim, out var role) ? role : UserRole.Viewer;
         }
 
         private bool UserExists(Guid id)

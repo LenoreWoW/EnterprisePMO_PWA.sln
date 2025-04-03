@@ -66,9 +66,9 @@ namespace EnterprisePMO_PWA.Web.Controllers
 
         [Authorize(Roles = "SubPMO,MainPMO")]
         [HttpPost]
-        public async Task<IActionResult> Reject(Guid id)
+        public async Task<IActionResult> Reject(Guid id, string reason)
         {
-            await _changeRequestService.RejectChangeRequestAsync(id);
+            await _changeRequestService.RejectChangeRequestAsync(id, reason);
             return RedirectToAction("List");
         }
     }

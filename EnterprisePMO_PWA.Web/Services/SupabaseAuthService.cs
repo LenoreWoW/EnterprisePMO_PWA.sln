@@ -15,6 +15,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Supabase;
+using EnterprisePMO_PWA.Domain.Enums;
+using EnterprisePMO_PWA.Application.Services;
 
 namespace EnterprisePMO_PWA.Web.Services
 {
@@ -22,7 +28,7 @@ namespace EnterprisePMO_PWA.Web.Services
     /// Consolidated authentication service that uses Supabase for authentication
     /// and manages application user state and roles.
     /// </summary>
-    public class SupabaseAuthService
+    public class SupabaseAuthService : IAuthService
     {
         private readonly HttpClient _httpClient;
         private readonly AppDbContext _dbContext;
@@ -30,11 +36,15 @@ namespace EnterprisePMO_PWA.Web.Services
         private readonly string _supabaseUrl;
         private readonly string _supabaseKey;
         private readonly string _jwtSecret;
+        private readonly Client _supabaseClient;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         
         public SupabaseAuthService(
             HttpClient httpClient,
             AppDbContext dbContext,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            Client supabaseClient,
+            IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
             _dbContext = dbContext;
@@ -51,6 +61,9 @@ namespace EnterprisePMO_PWA.Web.Services
             
             // Configure HTTP client for Supabase requests
             _httpClient.DefaultRequestHeaders.Add("apikey", _supabaseKey);
+            
+            _supabaseClient = supabaseClient;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -191,7 +204,7 @@ namespace EnterprisePMO_PWA.Web.Services
                 {
                     Id = Guid.NewGuid(),
                     Username = request.Email,
-                    Role = RoleType.ProjectManager, // Default role for new users
+                    Role = UserRole.ProjectManager, // Default role for new users
                     DepartmentId = department.Id,
                     SupabaseId = supabaseUser?.Id
                 };
@@ -483,7 +496,7 @@ namespace EnterprisePMO_PWA.Web.Services
                 {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
                     Username = "admin@test.com",
-                    Role = RoleType.Admin,
+                    Role = UserRole.Admin,
                     DepartmentId = adminDept.Id,
                     SupabaseId = "test-admin-id"
                 };
@@ -559,6 +572,103 @@ namespace EnterprisePMO_PWA.Web.Services
             {
                 return null;
             }
+        }
+
+        public async Task<bool> SignInAsync(string email, string password)
+        {
+            try
+            {
+                var session = await _supabaseClient.Auth.SignIn(email, password);
+                if (session != null)
+                {
+                    var user = new User
+                    {
+                        Id = Guid.Parse(session.User.Id),
+                        Email = session.User.Email,
+                        Role = UserRole.Viewer // Default role
+                    };
+
+                    var claims = new[]
+                    {
+                        new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, user.Id.ToString()),
+                        new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Email, user.Email),
+                        new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, user.Role.ToString())
+                    };
+
+                    var claimsIdentity = new System.Security.Claims.ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
+                    };
+
+                    await _httpContextAccessor.HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new System.Security.Claims.ClaimsPrincipal(claimsIdentity),
+                        authProperties);
+
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                // Log the error
+            }
+
+            return false;
+        }
+
+        public async Task SignOutAsync()
+        {
+            await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
+
+        public async Task<User> GetCurrentUserAsync()
+        {
+            var user = _httpContextAccessor.HttpContext.User;
+            if (!user.Identity.IsAuthenticated)
+                return null;
+
+            var userId = user.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+            var userEmail = user.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+            var userRole = user.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userEmail) || string.IsNullOrEmpty(userRole))
+                return null;
+
+            return new User
+            {
+                Id = Guid.Parse(userId),
+                Email = userEmail,
+                Role = Enum.Parse<UserRole>(userRole)
+            };
+        }
+
+        public async Task<bool> IsAuthenticatedAsync()
+        {
+            return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+        }
+
+        public async Task<bool> HasPermissionAsync(string permission)
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+                return false;
+
+            return Permissions.RolePermissions.TryGetValue(user.Role, out var permissions) &&
+                   permissions.Contains(permission);
+        }
+
+        public async Task<bool> HasAnyPermissionAsync(params string[] permissions)
+        {
+            return await Task.WhenAll(permissions.Select(p => HasPermissionAsync(p)))
+                .ContinueWith(t => t.Result.Any(hasPermission => hasPermission));
+        }
+
+        public async Task<bool> HasAllPermissionsAsync(params string[] permissions)
+        {
+            return await Task.WhenAll(permissions.Select(p => HasPermissionAsync(p)))
+                .ContinueWith(t => t.Result.All(hasPermission => hasPermission));
         }
     }
     

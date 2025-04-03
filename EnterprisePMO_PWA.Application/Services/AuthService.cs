@@ -1,38 +1,173 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using EnterprisePMO_PWA.Domain.Entities;
-using EnterprisePMO_PWA.Infrastructure.Data;
-using EnterprisePMO_PWA.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Domain.Enums;
+using EnterprisePMO_PWA.Infrastructure.Services;
+using EnterprisePMO_PWA.Domain.Authorization;
+using EnterprisePMO_PWA.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace EnterprisePMO_PWA.Application.Services
 {
     public class AuthService : IAuthService
     {
         private readonly SupabaseClient _supabaseClient;
-        private readonly AppDbContext _dbContext;
-        private readonly AuditService _auditService;
         private readonly ILogger<AuthService> _logger;
         private readonly IConfiguration _configuration;
+        private readonly AuditService _auditService;
+        private string? _currentToken;
+        private User? _currentUser;
+        private readonly AppDbContext _context;
+        private readonly IPermissionService _permissionService;
 
         public AuthService(
-            SupabaseClient supabaseClient, 
-            AppDbContext dbContext,
-            AuditService auditService,
+            SupabaseClient supabaseClient,
             ILogger<AuthService> logger,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            AuditService auditService,
+            AppDbContext context,
+            IPermissionService permissionService)
         {
             _supabaseClient = supabaseClient;
-            _dbContext = dbContext;
-            _auditService = auditService;
             _logger = logger;
             _configuration = configuration;
+            _auditService = auditService;
+            _context = context;
+            _permissionService = permissionService;
+        }
+
+        public async Task<bool> SignInAsync(string email, string password)
+        {
+            try
+            {
+                var result = await LoginAsync(email, password);
+                if (result.Success && result.Token != null)
+                {
+                    _currentToken = result.Token;
+                    _currentUser = result.User;
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during sign in");
+                return false;
+            }
+        }
+
+        public async Task SignOutAsync()
+        {
+            try
+            {
+                if (_currentToken != null)
+                {
+                    await LogoutAsync(_currentToken);
+                    _currentToken = null;
+                    _currentUser = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during sign out");
+            }
+        }
+
+        public async Task<User?> GetCurrentUserAsync()
+        {
+            try
+            {
+                if (_currentUser != null)
+                    return _currentUser;
+
+                if (_currentToken != null)
+                {
+                    var userResponse = await _supabaseClient.Auth.GetUser(_currentToken);
+                    if (userResponse.User?.Id != null)
+                    {
+                        _currentUser = await GetUserBySupabaseIdAsync(userResponse.User.Id);
+                        return _currentUser;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting current user");
+                return null;
+            }
+        }
+
+        public async Task<bool> IsAuthenticatedAsync()
+        {
+            try
+            {
+                if (_currentToken == null)
+                    return false;
+
+                var userResponse = await _supabaseClient.Auth.GetUser(_currentToken);
+                return userResponse.User != null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error checking authentication status");
+                return false;
+            }
+        }
+
+        public async Task<bool> HasPermissionAsync(string permission)
+        {
+            try
+            {
+                var user = await GetCurrentUserAsync();
+                if (user == null)
+                    return false;
+
+                return await _permissionService.HasPermissionAsync(user.Id, permission);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error checking permission");
+                return false;
+            }
+        }
+
+        public async Task<bool> HasAnyPermissionAsync(IEnumerable<string> permissions)
+        {
+            try
+            {
+                var user = await GetCurrentUserAsync();
+                if (user == null)
+                    return false;
+
+                return await _permissionService.HasAnyPermissionAsync(user.Id, permissions);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error checking permissions");
+                return false;
+            }
+        }
+
+        public async Task<bool> HasAllPermissionsAsync(IEnumerable<string> permissions)
+        {
+            try
+            {
+                var user = await GetCurrentUserAsync();
+                if (user == null)
+                    return false;
+
+                return await _permissionService.HasAllPermissionsAsync(user.Id, permissions);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error checking permissions");
+                return false;
+            }
         }
 
         public async Task<AuthResult> LoginAsync(string email, string password)
@@ -40,46 +175,47 @@ namespace EnterprisePMO_PWA.Application.Services
             try
             {
                 // Authenticate with Supabase
-                var response = await _supabaseClient.Auth.SignInWithPassword(email, password);
+                var authResponse = await _supabaseClient.Auth.SignInWithPassword(email, password);
 
-                if (response.Error != null)
+                if (authResponse.Error != null)
                 {
                     return new AuthResult
                     {
                         Success = false,
-                        ErrorMessage = response.Error.Message
+                        ErrorMessage = authResponse.Error.Message
                     };
                 }
 
-                // Get or create user in our database
-                var user = await GetUserByEmailAsync(email);
+                // Get user profile from Supabase database
+                var user = await _supabaseClient.Database.SelectAsync<User>(
+                    "users",
+                    authResponse.Session?.AccessToken,
+                    $"email=eq.{email}");
+
                 if (user == null)
                 {
-                    // First-time login with Supabase - create user
-                    user = await SyncUserWithSupabaseAsync(email, response.User.Id);
-                }
-                else if (string.IsNullOrEmpty(user.SupabaseId))
-                {
-                    // Update existing user with Supabase ID
-                    user.SupabaseId = response.User.Id;
-                    await _dbContext.SaveChangesAsync();
+                    return new AuthResult
+                    {
+                        Success = false,
+                        ErrorMessage = "User profile not found"
+                    };
                 }
 
-                // Log the successful login
+                // Log successful login
                 await _auditService.LogActionAsync(
                     "Authentication",
                     user.Id,
                     "Login",
-                    "User logged in successfully via Supabase"
+                    "User logged in successfully"
                 );
 
                 return new AuthResult
                 {
                     Success = true,
-                    Token = response.Session.AccessToken,
-                    RefreshToken = response.Session.RefreshToken,
+                    Token = authResponse.Session?.AccessToken,
+                    RefreshToken = authResponse.Session?.RefreshToken,
                     User = user,
-                    ExpiresIn = response.Session.ExpiresIn
+                    ExpiresIn = authResponse.Session?.ExpiresIn ?? 0
                 };
             }
             catch (Exception ex)
@@ -88,7 +224,7 @@ namespace EnterprisePMO_PWA.Application.Services
                 return new AuthResult
                 {
                     Success = false,
-                    ErrorMessage = "An unexpected error occurred during login."
+                    ErrorMessage = "An error occurred during login"
                 };
             }
         }
@@ -97,85 +233,49 @@ namespace EnterprisePMO_PWA.Application.Services
         {
             try
             {
-                // Check if user already exists in our database
-                var existingUser = await _dbContext.Users
-                    .FirstOrDefaultAsync(u => u.Username == request.Email);
+                // Check if user exists in Supabase
+                var existingUser = await _supabaseClient.Database.SelectAsync<User>(
+                    "users",
+                    null,
+                    $"email=eq.{request.Email}");
 
                 if (existingUser != null)
                 {
                     return new AuthResult
                     {
                         Success = false,
-                        ErrorMessage = "A user with this email already exists"
+                        ErrorMessage = "User already exists"
                     };
                 }
 
-                // Register with Supabase
-                var signUpOptions = new SignUpOptions
-                {
-                    Data = new Dictionary<string, object>
-                    {
-                        { "first_name", request.FirstName },
-                        { "last_name", request.LastName }
-                    }
-                };
-
-                var response = await _supabaseClient.Auth.SignUp(request.Email, request.Password, signUpOptions);
-
-                if (response.Error != null)
-                {
-                    return new AuthResult
-                    {
-                        Success = false,
-                        ErrorMessage = response.Error.Message
-                    };
-                }
-
-                // Create user in our database
-                var holdingDepartment = await _dbContext.Departments
-                    .FirstOrDefaultAsync(d => d.Name == "Holding");
-
-                if (holdingDepartment == null)
-                {
-                    // Create a holding department if it doesn't exist
-                    holdingDepartment = new Department
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Holding"
-                    };
-                    _dbContext.Departments.Add(holdingDepartment);
-                    await _dbContext.SaveChangesAsync();
-                }
-
-                var newUser = new User
+                // Create new user in Supabase
+                var user = new User
                 {
                     Id = Guid.NewGuid(),
+                    Email = request.Email,
+                    FullName = request.FirstName + " " + request.LastName,
                     Username = request.Email,
-                    Role = RoleType.ProjectManager, // Default role
-                    DepartmentId = request.DepartmentId ?? holdingDepartment.Id,
-                    SupabaseId = response.User.Id
+                    Role = request.Role,
+                    DepartmentId = request.DepartmentId ?? Guid.Empty,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
                 };
 
-                _dbContext.Users.Add(newUser);
-                await _dbContext.SaveChangesAsync();
+                await _supabaseClient.Database.InsertAsync<User>("users", user);
 
-                // Log the registration
+                // Log successful signup
                 await _auditService.LogActionAsync(
                     "Authentication",
-                    newUser.Id,
-                    "Registration",
-                    "New user registered successfully"
+                    user.Id,
+                    "Signup",
+                    "User signed up successfully"
                 );
 
-                // Return the result
                 return new AuthResult
                 {
                     Success = true,
-                    Message = "Account created successfully",
-                    Token = response.Session?.AccessToken,
-                    RefreshToken = response.Session?.RefreshToken,
-                    User = newUser,
-                    ExpiresIn = response.Session?.ExpiresIn ?? 0
+                    User = user
                 };
             }
             catch (Exception ex)
@@ -184,8 +284,27 @@ namespace EnterprisePMO_PWA.Application.Services
                 return new AuthResult
                 {
                     Success = false,
-                    ErrorMessage = "An unexpected error occurred during registration."
+                    ErrorMessage = "An error occurred during signup"
                 };
+            }
+        }
+
+        private int GetRoleHierarchyLevel(UserRole roleType)
+        {
+            switch (roleType)
+            {
+                case UserRole.Admin:
+                    return 100;
+                case UserRole.PMOHead:
+                    return 90;
+                case UserRole.ProjectManager:
+                    return 80;
+                case UserRole.TeamMember:
+                    return 70;
+                case UserRole.Viewer:
+                    return 60;
+                default:
+                    return 10;
             }
         }
 
@@ -193,9 +312,8 @@ namespace EnterprisePMO_PWA.Application.Services
         {
             try
             {
-                // Logout from Supabase
-                await _supabaseClient.Auth.SignOut();
-                return true;
+                var response = await _supabaseClient.Auth.SignOut(token);
+                return response.Success;
             }
             catch (Exception ex)
             {
@@ -208,7 +326,6 @@ namespace EnterprisePMO_PWA.Application.Services
         {
             try
             {
-                // Call Supabase to refresh the token
                 var response = await _supabaseClient.Auth.RefreshSession(refreshToken);
 
                 if (response.Error != null)
@@ -220,16 +337,28 @@ namespace EnterprisePMO_PWA.Application.Services
                     };
                 }
 
-                // Get user from our database
-                var user = await GetUserBySupabaseIdAsync(response.User.Id);
+                // Get user profile from Supabase database
+                var user = await _supabaseClient.Database.SelectAsync<User>(
+                    "users",
+                    response.Session?.AccessToken,
+                    $"supabase_id=eq.{response.User?.Id}");
+
+                if (user == null)
+                {
+                    return new AuthResult
+                    {
+                        Success = false,
+                        ErrorMessage = "User profile not found"
+                    };
+                }
 
                 return new AuthResult
                 {
                     Success = true,
-                    Token = response.Session.AccessToken,
-                    RefreshToken = response.Session.RefreshToken,
+                    Token = response.Session?.AccessToken,
+                    RefreshToken = response.Session?.RefreshToken,
                     User = user,
-                    ExpiresIn = response.Session.ExpiresIn
+                    ExpiresIn = response.Session?.ExpiresIn ?? 0
                 };
             }
             catch (Exception ex)
@@ -238,7 +367,7 @@ namespace EnterprisePMO_PWA.Application.Services
                 return new AuthResult
                 {
                     Success = false,
-                    ErrorMessage = "An error occurred while refreshing the token."
+                    ErrorMessage = "An error occurred while refreshing the token"
                 };
             }
         }
@@ -249,9 +378,8 @@ namespace EnterprisePMO_PWA.Application.Services
             {
                 string redirectUrl = _configuration["AppUrl"] + "/account/reset-password";
                 
-                // Call Supabase to send reset password email
                 var response = await _supabaseClient.Auth.ResetPasswordForEmail(
-                    email, 
+                    email,
                     new ResetPasswordForEmailOptions
                     {
                         RedirectTo = redirectUrl
@@ -259,25 +387,23 @@ namespace EnterprisePMO_PWA.Application.Services
 
                 if (response.Error != null)
                 {
-                    // Log the error but always return success to prevent email enumeration
                     _logger.LogWarning($"Password reset failed for {email}: {response.Error.Message}");
                 }
 
-                // Always return success to prevent email enumeration attacks
+                // Always return success to prevent email enumeration
                 return new PasswordResetResult
                 {
                     Success = true,
-                    Message = "If your email is registered, you will receive a password reset link."
+                    Message = "If your email is registered, you will receive a password reset link"
                 };
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error in password reset for {email}");
-                // Always return success to prevent email enumeration attacks
                 return new PasswordResetResult
                 {
                     Success = true,
-                    Message = "If your email is registered, you will receive a password reset link."
+                    Message = "If your email is registered, you will receive a password reset link"
                 };
             }
         }
@@ -286,7 +412,6 @@ namespace EnterprisePMO_PWA.Application.Services
         {
             try
             {
-                // Verify token with Supabase
                 var user = await _supabaseClient.Auth.GetUser(token);
 
                 if (user.Error != null)
@@ -298,9 +423,12 @@ namespace EnterprisePMO_PWA.Application.Services
                     };
                 }
 
-                // Get user from our database
-                var appUser = await GetUserBySupabaseIdAsync(user.User.Id);
-                
+                // Get user profile from Supabase database
+                var appUser = await _supabaseClient.Database.SelectAsync<User>(
+                    "users",
+                    token,
+                    $"supabase_id=eq.{user.User?.Id}");
+
                 if (appUser == null)
                 {
                     return new AuthResult
@@ -322,31 +450,26 @@ namespace EnterprisePMO_PWA.Application.Services
                 return new AuthResult
                 {
                     Success = false,
-                    ErrorMessage = "An error occurred while verifying the token."
+                    ErrorMessage = "An error occurred while verifying the token"
                 };
             }
         }
 
         public async Task<User> GetUserBySupabaseIdAsync(string supabaseId)
         {
-            return await _dbContext.Users
-                .Include(u => u.Department)
-                .FirstOrDefaultAsync(u => u.SupabaseId == supabaseId);
-        }
-
-        private async Task<User> GetUserByEmailAsync(string email)
-        {
-            return await _dbContext.Users
-                .Include(u => u.Department)
-                .FirstOrDefaultAsync(u => u.Username == email);
+            return await _supabaseClient.Database.SelectAsync<User>(
+                "users",
+                null,
+                $"supabase_id=eq.{supabaseId}");
         }
 
         public async Task<User> SyncUserWithSupabaseAsync(string email, string supabaseId)
         {
-            // Check if user exists in our database
-            var user = await _dbContext.Users
-                .Include(u => u.Department)
-                .FirstOrDefaultAsync(u => u.Username == email);
+            // Check if user exists in Supabase database
+            var user = await _supabaseClient.Database.SelectAsync<User>(
+                "users",
+                null,
+                $"email=eq.{email}");
 
             if (user != null)
             {
@@ -354,25 +477,31 @@ namespace EnterprisePMO_PWA.Application.Services
                 if (string.IsNullOrEmpty(user.SupabaseId))
                 {
                     user.SupabaseId = supabaseId;
-                    await _dbContext.SaveChangesAsync();
+                    await _supabaseClient.Database.UpdateAsync<User>(
+                        "users",
+                        new { supabase_id = supabaseId },
+                        $"id=eq.{user.Id}");
                 }
                 return user;
             }
 
-            // User doesn't exist, create a new one
-            var holdingDepartment = await _dbContext.Departments
-                .FirstOrDefaultAsync(d => d.Name == "Holding");
+            // Get holding department
+            var holdingDepartment = await _supabaseClient.Database.SelectAsync<Department>(
+                "departments",
+                null,
+                "name=eq.Holding");
 
             if (holdingDepartment == null)
             {
-                // Create a holding department if it doesn't exist
+                // Create holding department
                 holdingDepartment = new Department
                 {
                     Id = Guid.NewGuid(),
                     Name = "Holding"
                 };
-                _dbContext.Departments.Add(holdingDepartment);
-                await _dbContext.SaveChangesAsync();
+                await _supabaseClient.Database.InsertAsync<Department>(
+                    "departments",
+                    holdingDepartment);
             }
 
             // Create new user
@@ -381,22 +510,38 @@ namespace EnterprisePMO_PWA.Application.Services
                 Id = Guid.NewGuid(),
                 Username = email,
                 SupabaseId = supabaseId,
-                Role = RoleType.ProjectManager, // Default role
+                Role = UserRole.ProjectManager,
                 DepartmentId = holdingDepartment.Id
             };
 
-            _dbContext.Users.Add(newUser);
-            await _dbContext.SaveChangesAsync();
+            var createdUser = await _supabaseClient.Database.InsertAsync<User>(
+                "users",
+                newUser);
 
             // Log the user creation
             await _auditService.LogActionAsync(
                 "Authentication",
-                newUser.Id,
+                createdUser.Id,
                 "UserCreation",
                 "User automatically created during authentication sync"
             );
 
-            return newUser;
+            return createdUser;
+        }
+
+        public async Task LogActionAsync(string entityType, string entityId, string action, string details)
+        {
+            await _auditService.LogActionAsync(entityType, entityId, action, details);
+        }
+
+        public async Task LogActionAsync(string entityType, Guid entityId, string action, string details)
+        {
+            await _auditService.LogActionAsync(entityType, entityId, action, details);
+        }
+
+        public async Task LogActionAsync(string entityType, string action, string details)
+        {
+            await _auditService.LogActionAsync(entityType, "System", action, details);
         }
     }
 }

@@ -1,37 +1,62 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using EnterprisePMO_PWA.Domain.Enums;
+using Supabase.Postgrest.Models;
+using TableAttribute = Supabase.Postgrest.Attributes.TableAttribute;
+using ColumnAttribute = Supabase.Postgrest.Attributes.ColumnAttribute;
 
 namespace EnterprisePMO_PWA.Domain.Entities
 {
     /// <summary>
-    /// Enumerates the possible global roles for users.
-    /// </summary>
-    public enum RoleType
-    {
-        ProjectManager,
-        SubPMO,
-        MainPMO,
-        DepartmentDirector,
-        Executive,
-        Admin
-    }
-
-    /// <summary>
     /// Represents a user in the system.
     /// </summary>
-    public class User
+    [Table("users")]
+    public class User : BaseModel
     {
+        [Column("id")]
         public Guid Id { get; set; } // Unique identifier
 
+        [Column("username")]
         public string Username { get; set; } = string.Empty; // Email address
 
-        public RoleType Role { get; set; } // Global role
+        [Column("role")]
+        public UserRole Role { get; set; } // Global role
 
-        public Guid? DepartmentId { get; set; } // Optional FK to department
-        public Department? Department { get; set; } // Navigation property
+        [Column("department_id")]
+        public Guid DepartmentId { get; set; } // Optional FK to department
+        [ForeignKey("DepartmentId")]
+        public virtual Department Department { get; set; } // Navigation property
         
         /// <summary>
         /// The user's ID in the Supabase authentication system
         /// </summary>
-        public string? SupabaseId { get; set; }
+        [Column("supabase_id")]
+        public string SupabaseId { get; set; }
+
+        [Column("email")]
+        public string Email { get; set; } = string.Empty;
+
+        [Column("full_name")]
+        public string FullName { get; set; } = string.Empty;
+
+        [Column("password_hash")]
+        public string PasswordHash { get; set; } = string.Empty;
+
+        [Column("salt")]
+        public string Salt { get; set; } = string.Empty;
+
+        [Column("is_active")]
+        public bool IsActive { get; set; }
+
+        [Column("created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        [Column("updated_at")]
+        public DateTime? UpdatedAt { get; set; }
+
+        public virtual ICollection<ProjectMember> ProjectMemberships { get; set; }
+        public virtual ICollection<ProjectTask> AssignedTasks { get; set; }
     }
 }

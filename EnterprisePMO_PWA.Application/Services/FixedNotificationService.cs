@@ -11,6 +11,12 @@ using Microsoft.EntityFrameworkCore;
 using EnterprisePMO_PWA.Domain.Entities;
 using EnterprisePMO_PWA.Domain.Services;
 using EnterprisePMO_PWA.Infrastructure.Data;
+using EnterprisePMO_PWA.Domain.Enums;
+using Supabase;
+using Microsoft.Extensions.Logging;
+using Supabase.Postgrest;
+using Supabase.Postgrest.Attributes;
+using static Supabase.Postgrest.Constants;
 
 namespace EnterprisePMO_PWA.Application.Services
 {
@@ -24,10 +30,14 @@ namespace EnterprisePMO_PWA.Application.Services
         private readonly IConfiguration _configuration;
         private readonly IRealTimeNotificationService? _realTimeNotificationService;
         private readonly string _supabaseProjectRef;
+        private readonly Supabase.Client _supabaseClient;
+        private readonly ILogger<EnhancedNotificationService> _logger;
 
         public EnhancedNotificationService(
             AppDbContext context,
             IConfiguration configuration,
+            Supabase.Client supabaseClient,
+            ILogger<EnhancedNotificationService> logger,
             IRealTimeNotificationService? realTimeNotificationService = null)
         {
             _context = context;
@@ -42,6 +52,8 @@ namespace EnterprisePMO_PWA.Application.Services
                 Console.WriteLine("Warning: Supabase ProjectRef is not configured. Using default value.");
             }
             _supabaseProjectRef = projectRef;
+            _supabaseClient = supabaseClient;
+            _logger = logger;
         }
 
         /// <summary>
@@ -64,11 +76,12 @@ namespace EnterprisePMO_PWA.Application.Services
             var notification = new Notification
             {
                 Id = Guid.NewGuid(),
-                UserId = recipient.Id,
+                UserId = recipient.Id.ToString(),
+                Title = "System Notification",
                 Message = message,
                 Type = NotificationType.SystemAlert, // Default type
                 CreatedAt = DateTime.UtcNow,
-                IsRead = false
+                Read = false
             };
 
             // Store in database
@@ -111,14 +124,15 @@ namespace EnterprisePMO_PWA.Application.Services
             var notification = new Notification
             {
                 Id = Guid.NewGuid(),
-                UserId = recipient.Id,
+                UserId = recipient.Id.ToString(),
+                Title = "System Notification",
                 Message = message,
                 Type = type,
-                Link = link,
-                EntityId = entityId,
-                EntityType = entityType,
+                ActionUrl = link,
+                RelatedEntityId = entityId?.ToString(),
+                RelatedEntityType = entityType,
                 CreatedAt = DateTime.UtcNow,
-                IsRead = false
+                Read = false
             };
 
             // Store in database
@@ -208,7 +222,7 @@ namespace EnterprisePMO_PWA.Application.Services
         public async Task<List<Notification>> GetUnreadNotificationsAsync(Guid userId)
         {
             return await _context.Set<Notification>()
-                .Where(n => n.UserId == userId && !n.IsRead)
+                .Where(n => n.UserId == userId.ToString() && !n.Read)
                 .OrderByDescending(n => n.CreatedAt)
                 .ToListAsync();
         }
@@ -220,7 +234,7 @@ namespace EnterprisePMO_PWA.Application.Services
             Guid userId, int page = 1, int pageSize = 20)
         {
             var query = _context.Set<Notification>()
-                .Where(n => n.UserId == userId)
+                .Where(n => n.UserId == userId.ToString())
                 .OrderByDescending(n => n.CreatedAt);
 
             var totalCount = await query.CountAsync();
@@ -239,7 +253,7 @@ namespace EnterprisePMO_PWA.Application.Services
         public async Task<int> GetUnreadNotificationCountAsync(Guid userId)
         {
             return await _context.Set<Notification>()
-                .CountAsync(n => n.UserId == userId && !n.IsRead);
+                .CountAsync(n => n.UserId == userId.ToString() && !n.Read);
         }
 
         /// <summary>
@@ -248,11 +262,11 @@ namespace EnterprisePMO_PWA.Application.Services
         public async Task MarkNotificationAsReadAsync(Guid notificationId, Guid userId)
         {
             var notification = await _context.Set<Notification>()
-                .FirstOrDefaultAsync(n => n.Id == notificationId && n.UserId == userId);
+                .FirstOrDefaultAsync(n => n.Id.ToString() == notificationId.ToString() && n.UserId == userId.ToString());
 
             if (notification != null)
             {
-                notification.IsRead = true;
+                notification.Read = true;
                 notification.ReadAt = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
             }
@@ -264,14 +278,14 @@ namespace EnterprisePMO_PWA.Application.Services
         public async Task MarkAllNotificationsAsReadAsync(Guid userId)
         {
             var unreadNotifications = await _context.Set<Notification>()
-                .Where(n => n.UserId == userId && !n.IsRead)
+                .Where(n => n.UserId == userId.ToString() && !n.Read)
                 .ToListAsync();
 
             if (unreadNotifications.Any())
             {
                 foreach (var notification in unreadNotifications)
                 {
-                    notification.IsRead = true;
+                    notification.Read = true;
                     notification.ReadAt = DateTime.UtcNow;
                 }
 
@@ -285,7 +299,7 @@ namespace EnterprisePMO_PWA.Application.Services
         public async Task DeleteNotificationAsync(Guid notificationId, Guid userId)
         {
             var notification = await _context.Set<Notification>()
-                .FirstOrDefaultAsync(n => n.Id == notificationId && n.UserId == userId);
+                .FirstOrDefaultAsync(n => n.Id.ToString() == notificationId.ToString() && n.UserId == userId.ToString());
 
             if (notification != null)
             {
@@ -312,12 +326,14 @@ namespace EnterprisePMO_PWA.Application.Services
                     // Find notifications that may match this email subject
                     // This is a best-effort match based on the subject line
                     var notifications = await _context.Set<Notification>()
-                        .Where(n => n.UserId == user.Id && !n.EmailSent && n.Message.Contains(subjectPart))
+                        .Where(n => n.UserId == user.Id.ToString() && !n.Read && n.Message.Contains(subjectPart))
                         .ToListAsync();
 
                     foreach (var notification in notifications)
                     {
-                        notification.EmailSent = true;
+                        // We don't have an EmailSent property, so we'll just mark it as read
+                        notification.Read = true;
+                        notification.ReadAt = DateTime.UtcNow;
                     }
 
                     await _context.SaveChangesAsync();
@@ -327,6 +343,111 @@ namespace EnterprisePMO_PWA.Application.Services
             {
                 // Just log, don't let this secondary operation fail the email send
                 Console.WriteLine($"Error updating notification email status: {ex.Message}");
+            }
+        }
+
+        public async Task<Notification> CreateProjectUpdateNotificationAsync(string userId, string projectId, string projectName)
+        {
+            try
+            {
+                var notification = new Notification
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = userId,
+                    Title = "Project Update",
+                    Message = $"Project '{projectName}' has been updated",
+                    Type = NotificationType.ProjectCreation,
+                    RelatedEntityId = projectId,
+                    RelatedEntityType = "Project",
+                    Priority = NotificationPriority.Medium
+                };
+
+                var response = await _supabaseClient
+                    .From<Notification>()
+                    .Insert(notification);
+
+                return response.Models.FirstOrDefault() ?? throw new Exception("Failed to create project update notification");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating project update notification");
+                throw;
+            }
+        }
+
+        public async Task<Notification> CreateTaskUpdateNotificationAsync(string userId, string taskId, string taskName)
+        {
+            try
+            {
+                var notification = new Notification
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = userId,
+                    Title = "Task Update",
+                    Message = $"Task '{taskName}' has been updated",
+                    Type = NotificationType.TaskAssignment,
+                    RelatedEntityId = taskId,
+                    RelatedEntityType = "Task",
+                    Priority = NotificationPriority.Medium
+                };
+
+                var response = await _supabaseClient
+                    .From<Notification>()
+                    .Insert(notification);
+
+                return response.Models.FirstOrDefault() ?? throw new Exception("Failed to create task update notification");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating task update notification");
+                throw;
+            }
+        }
+
+        public async Task<Notification> CreateSystemAnnouncementAsync(string title, string message, NotificationPriority priority = NotificationPriority.Medium)
+        {
+            try
+            {
+                var notification = new Notification
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = "system", // System-wide notification
+                    Title = title,
+                    Message = message,
+                    Type = NotificationType.SystemAlert,
+                    Priority = priority
+                };
+
+                var response = await _supabaseClient
+                    .From<Notification>()
+                    .Insert(notification);
+
+                return response.Models.FirstOrDefault() ?? throw new Exception("Failed to create system announcement");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating system announcement");
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<Notification>> GetUnreadNotificationsAsync(string userId)
+        {
+            try
+            {
+                var response = await _supabaseClient
+                    .From<Notification>()
+                    .Filter("user_id", Operator.Equals, userId)
+                    .Filter("read", Operator.Equals, false)
+                    .Order("created_at", Ordering.Descending)
+                    .Get();
+
+                return response.Models;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving unread notifications for user {UserId}", userId);
+                return Enumerable.Empty<Notification>();
             }
         }
     }

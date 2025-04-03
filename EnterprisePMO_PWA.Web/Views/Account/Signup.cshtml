@@ -1,118 +1,93 @@
+@model EnterprisePMO_PWA.Web.Models.RegisterViewModel
 @{
-    ViewData["Title"] = "Sign Up";
     Layout = "~/Views/Shared/_TailwindLayout.cshtml";
+    ViewBag.Title = "Sign Up";
 }
 
-<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Create Account</h2>
-    </div>
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <!-- Logo and Header -->
+        <div class="text-center">
+            <img class="mx-auto h-12 w-auto" src="~/images/logo.png" alt="Enterprise PMO">
+            <h2 class="mt-6 text-3xl font-bold text-gray-900">Create your account</h2>
+            <p class="mt-2 text-sm text-gray-600">
+                Join our project management platform
+            </p>
+        </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <div id="message-container"></div>
+        <!-- Signup Form -->
+        <form class="mt-8 space-y-6" method="post" action="@Url.Action("Signup", "Account")">
+            @Html.AntiForgeryToken()
             
-            <form id="signupForm" class="space-y-6">
-                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
-                    <div>
-                        <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
-                        <div class="mt-1">
-                            <input id="firstName" name="firstName" type="text" required 
-                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
-                        </div>
-                    </div>
+            <div class="rounded-md shadow-sm space-y-4">
+                <div>
+                    <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                    <input id="firstName" name="FirstName" type="text" required 
+                           class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                           placeholder="John">
+                </div>
 
-                    <div>
-                        <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
-                        <div class="mt-1">
-                            <input id="lastName" name="lastName" type="text" required
-                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
-                        </div>
-                    </div>
+                <div>
+                    <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                    <input id="lastName" name="LastName" type="text" required 
+                           class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                           placeholder="Doe">
                 </div>
 
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
-                    <div class="mt-1">
-                        <input id="email" name="email" type="email" autocomplete="email" required
-                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
-                    </div>
-                </div>
-
-                <div>
-                    <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
-                    <div class="mt-1">
-                        <select id="department" name="departmentId" required
-                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
-                            <option value="" disabled selected>Select department</option>
-                        </select>
-                    </div>
+                    <input id="email" name="Email" type="email" required 
+                           class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                           placeholder="john.doe@example.com">
                 </div>
 
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <div class="mt-1 relative rounded-md shadow-sm">
-                        <input id="password" name="password" type="password" required minlength="8"
-                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
-                        <button id="togglePassword" type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </div>
+                    <input id="password" name="Password" type="password" required 
+                           class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                           placeholder="••••••••">
                 </div>
 
                 <div>
                     <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <div class="mt-1 relative rounded-md shadow-sm">
-                        <input id="confirmPassword" name="confirmPassword" type="password" required
-                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
-                        <button id="toggleConfirmPassword" type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex items-center">
-                    <input id="termsAgreed" name="termsAgreed" type="checkbox" required
-                           class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-                    <label for="termsAgreed" class="ml-2 block text-sm text-gray-900">
-                        I agree to the <a href="/Home/Terms" class="text-blue-600 hover:text-blue-500">terms of service</a> and 
-                        <a href="/Home/Privacy" class="text-blue-600 hover:text-blue-500">privacy policy</a>.
-                    </label>
-                </div>
-
-                <div>
-                    <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        Create Account
-                    </button>
-                </div>
-            </form>
-            
-            <div class="mt-6">
-                <div class="relative">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gray-300"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="bg-white px-2 text-gray-500">Already have an account?</span>
-                    </div>
-                </div>
-                
-                <div class="mt-6 text-center">
-                    <a href="/Account/Login" class="font-medium text-blue-600 hover:text-blue-500">
-                        Go to Login
-                    </a>
+                    <input id="confirmPassword" name="ConfirmPassword" type="password" required 
+                           class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                           placeholder="••••••••">
                 </div>
             </div>
+
+            <div class="flex items-center">
+                <input id="terms" name="TermsAccepted" type="checkbox" required
+                       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                <label for="terms" class="ml-2 block text-sm text-gray-900">
+                    I agree to the 
+                    <a href="@Url.Action("PrivacyPolicy", "Account")" class="font-medium text-blue-600 hover:text-blue-500">
+                        Terms of Service
+                    </a>
+                    and
+                    <a href="@Url.Action("PrivacyPolicy", "Account")" class="font-medium text-blue-600 hover:text-blue-500">
+                        Privacy Policy
+                    </a>
+                </label>
+            </div>
+
+            <div>
+                <button type="submit" class="clickup-button group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                        <i class="bi bi-person-plus"></i>
+                    </span>
+                    Create Account
+                </button>
+            </div>
+        </form>
+
+        <div class="text-center mt-4">
+            <p class="text-sm text-gray-600">
+                Already have an account?
+                <a href="@Url.Action("Login", "Account")" class="font-medium text-blue-600 hover:text-blue-500">
+                    Sign in
+                </a>
+            </p>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script src="~/js/signup.js"></script>
-}

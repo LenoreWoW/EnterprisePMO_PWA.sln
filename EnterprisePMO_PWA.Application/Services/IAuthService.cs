@@ -1,11 +1,20 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Domain.Enums;
 
 namespace EnterprisePMO_PWA.Application.Services
 {
     public interface IAuthService
     {
+        Task<bool> SignInAsync(string email, string password);
+        Task SignOutAsync();
+        Task<User> GetCurrentUserAsync();
+        Task<bool> IsAuthenticatedAsync();
+        Task<bool> HasPermissionAsync(string permission);
+        Task<bool> HasAnyPermissionAsync(IEnumerable<string> permissions);
+        Task<bool> HasAllPermissionsAsync(IEnumerable<string> permissions);
         Task<AuthResult> LoginAsync(string email, string password);
         Task<AuthResult> SignupAsync(SignupRequest request);
         Task<bool> LogoutAsync(string token);
@@ -14,6 +23,9 @@ namespace EnterprisePMO_PWA.Application.Services
         Task<AuthResult> VerifyTokenAsync(string token);
         Task<User> GetUserBySupabaseIdAsync(string supabaseId);
         Task<User> SyncUserWithSupabaseAsync(string email, string supabaseId);
+        Task LogActionAsync(string entityType, string entityId, string action, string details);
+        Task LogActionAsync(string entityType, Guid entityId, string action, string details);
+        Task LogActionAsync(string entityType, string action, string details);
     }
 
     public class AuthResult
@@ -42,5 +54,6 @@ namespace EnterprisePMO_PWA.Application.Services
         public string LastName { get; set; } = string.Empty;
         public bool TermsAgreed { get; set; }
         public Guid? DepartmentId { get; set; }
+        public UserRole Role { get; set; } = UserRole.ProjectManager;
     }
 }

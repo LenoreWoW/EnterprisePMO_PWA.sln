@@ -54,7 +54,7 @@ namespace EnterprisePMO_PWA.Infrastructure.Data
                 .HasIndex(n => n.UserId);
 
             modelBuilder.Entity<Notification>()
-                .HasIndex(n => n.IsRead);
+                .HasIndex(n => n.Read);
 
             modelBuilder.Entity<Notification>()
                 .HasIndex(n => n.CreatedAt);

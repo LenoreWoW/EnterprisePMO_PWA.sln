@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using EnterprisePMO_PWA.Infrastructure.Data;
 using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Domain.Enums;
 using System.Linq;
 
 namespace EnterprisePMO_PWA.Web.Controllers
@@ -24,7 +25,7 @@ namespace EnterprisePMO_PWA.Web.Controllers
             var projects = _context.Projects.ToList();
             var completed = projects.Count(p => p.Status == ProjectStatus.Completed);
             var inProgress = projects.Count(p => p.Status == ProjectStatus.Active);
-            var pending = projects.Count(p => p.Status == ProjectStatus.Proposed);
+            var pending = projects.Count(p => p.Status == ProjectStatus.Draft);
             var result = new
             {
                 statusLabels = new[] { "Completed", "In Progress", "Pending" },

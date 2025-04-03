@@ -5,11 +5,14 @@ using EnterprisePMO_PWA.Application.Services;
 using Microsoft.EntityFrameworkCore;
 using EnterprisePMO_PWA.Domain.Entities;
 using System.Security.Claims;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using EnterprisePMO_PWA.Domain.Enums;
 
 namespace EnterprisePMO_PWA.Web.Controllers
 {
-    // Comment out the Authorize attribute temporarily for testing
-    // [Authorize]
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly AppDbContext _context;
@@ -17,121 +20,109 @@ namespace EnterprisePMO_PWA.Web.Controllers
         private readonly WeeklyUpdateService _weeklyUpdateService;
         private readonly AuditService _auditService;
         private readonly ILogger<DashboardController> _logger;
+        private readonly NotificationService _notificationService;
+        private readonly IAuthService _authService;
 
         public DashboardController(
             AppDbContext context,
             ProjectService projectService,
             WeeklyUpdateService weeklyUpdateService,
             AuditService auditService,
-            ILogger<DashboardController> logger)
+            ILogger<DashboardController> logger,
+            NotificationService notificationService,
+            IAuthService authService)
         {
             _context = context;
             _projectService = projectService;
             _weeklyUpdateService = weeklyUpdateService;
             _auditService = auditService;
             _logger = logger;
+            _notificationService = notificationService;
+            _authService = authService;
         }
 
         // GET: /Dashboard
         public async Task<IActionResult> Index()
         {
-            // Debug auth info
-            var authHeader = HttpContext.Request.Headers["Authorization"].ToString();
-            _logger.LogInformation($"Authorization header: {authHeader}");
-            
-            // Check query string token
-            var queryToken = HttpContext.Request.Query["auth_token"].ToString();
-            if (!string.IsNullOrEmpty(queryToken))
+            var currentUser = await _authService.GetCurrentUserAsync();
+            var viewModel = new DashboardViewModel
             {
-                _logger.LogInformation($"Query token found: {queryToken.Substring(0, Math.Min(20, queryToken.Length))}...");
-            }
+                RecentProjects = await GetRecentProjects(currentUser.Role),
+                RecentUpdates = await _weeklyUpdateService.GetRecentAsync(5),
+                Notifications = await _notificationService.GetUserNotificationsAsync(currentUser.Id),
+                ProjectStats = await GetProjectStats(currentUser.Role)
+            };
+
+            return View(viewModel);
+        }
+
+        private async Task<IEnumerable<Project>> GetRecentProjects(UserRole userRole)
+        {
+            var projects = await _projectService.GetAllAsync();
             
-            _logger.LogInformation($"User authenticated: {User.Identity?.IsAuthenticated}");
-            _logger.LogInformation($"Username: {User.Identity?.Name}");
-            
-            // Get current user's username
-            var username = User.Identity?.Name;
-            
-            if (string.IsNullOrEmpty(username))
+            switch (userRole)
             {
-                _logger.LogWarning("No username found in the Identity");
-                
-                // TEMPORARY: Get admin user for testing
-                if (!User.Identity?.IsAuthenticated == true)
-                {
-                    _logger.LogWarning("Not authenticated but continuing for debugging");
-                    username = "admin@test.com";
-                    
-                    // For debugging only - remove in production!
-                    var adminUser = await _context.Users
-                        .Include(u => u.Department)
-                        .FirstOrDefaultAsync(u => u.Username == username);
-                    
-                    if (adminUser != null)
-                    {
-                        // Pass user info to view for debugging
-                        ViewBag.User = new
-                        {
-                            Id = adminUser.Id,
-                            Username = adminUser.Username,
-                            Role = adminUser.Role.ToString(),
-                            Department = adminUser.Department?.Name,
-                            IsDebugMode = true
-                        };
-                        
-                        _logger.LogWarning("Using debug user for view: {Username}", adminUser.Username);
-                        
-                        return View();
-                    }
-                }
-                
-                _logger.LogWarning("Redirecting to login due to missing username");
-                return RedirectToAction("Login", "Account");
-            }
-            
-            try
-            {
-                // Log dashboard access
-                await _auditService.LogAction(username, "DashboardAccess", "Dashboard", "User accessed the dashboard");
-                
-                // Get current user info
-                var user = await _context.Users
-                    .Include(u => u.Department)
-                    .FirstOrDefaultAsync(u => u.Username == username);
-                
-                if (user == null)
-                {
-                    _logger.LogWarning("User {Username} not found in database", username);
-                    return RedirectToAction("Login", "Account");
-                }
-                
-                // Pass user info to view
-                ViewBag.User = new
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Role = user.Role.ToString(),
-                    Department = user.Department?.Name
-                };
-                
-                // Get dashboard data based on user role
-                await LoadDashboardData(user);
-                
-                return View();
-            }
-            catch (Exception ex)
-            {
-                // Log error
-                _logger.LogError(ex, "Error accessing dashboard: {Message}", ex.Message);
-                await _auditService.LogAction(username, "DashboardError", "Dashboard", $"Error accessing dashboard: {ex.Message}");
-                
-                // Show error page
-                return RedirectToAction("Error", "Home", new { message = "Error loading dashboard data" });
+                case UserRole.Admin:
+                    return projects.OrderByDescending(p => p.UpdatedAt).Take(5);
+                case UserRole.PMOHead:
+                    return projects.Where(p => p.Status == ProjectStatus.PendingApproval)
+                                 .OrderByDescending(p => p.UpdatedAt)
+                                 .Take(5);
+                case UserRole.ProjectManager:
+                    var currentUser = await _authService.GetCurrentUserAsync();
+                    return projects.Where(p => p.ProjectManagerId == currentUser.Id)
+                                 .OrderByDescending(p => p.UpdatedAt)
+                                 .Take(5);
+                default:
+                    currentUser = await _authService.GetCurrentUserAsync();
+                    return projects.Where(p => p.ProjectMembers.Any(pm => pm.UserId == currentUser.Id))
+                                 .OrderByDescending(p => p.UpdatedAt)
+                                 .Take(5);
             }
         }
 
-        // The rest of the controller methods remain unchanged
-        // ...
+        private async Task<ProjectStats> GetProjectStats(UserRole userRole)
+        {
+            var projects = await _projectService.GetAllAsync();
+            
+            switch (userRole)
+            {
+                case UserRole.Admin:
+                    return new ProjectStats
+                    {
+                        Total = projects.Count(),
+                        Active = projects.Count(p => p.Status == ProjectStatus.Active),
+                        Completed = projects.Count(p => p.Status == ProjectStatus.Completed),
+                        OnHold = projects.Count(p => p.Status == ProjectStatus.OnHold)
+                    };
+                case UserRole.PMOHead:
+                    return new ProjectStats
+                    {
+                        Total = projects.Count(p => p.Status == ProjectStatus.PendingApproval),
+                        Active = projects.Count(p => p.Status == ProjectStatus.Active),
+                        Completed = projects.Count(p => p.Status == ProjectStatus.Completed),
+                        OnHold = projects.Count(p => p.Status == ProjectStatus.OnHold)
+                    };
+                case UserRole.ProjectManager:
+                    var currentUser = await _authService.GetCurrentUserAsync();
+                    return new ProjectStats
+                    {
+                        Total = projects.Count(p => p.ProjectManagerId == currentUser.Id),
+                        Active = projects.Count(p => p.ProjectManagerId == currentUser.Id && p.Status == ProjectStatus.Active),
+                        Completed = projects.Count(p => p.ProjectManagerId == currentUser.Id && p.Status == ProjectStatus.Completed),
+                        OnHold = projects.Count(p => p.ProjectManagerId == currentUser.Id && p.Status == ProjectStatus.OnHold)
+                    };
+                default:
+                    currentUser = await _authService.GetCurrentUserAsync();
+                    return new ProjectStats
+                    {
+                        Total = projects.Count(p => p.ProjectMembers.Any(pm => pm.UserId == currentUser.Id)),
+                        Active = projects.Count(p => p.ProjectMembers.Any(pm => pm.UserId == currentUser.Id) && p.Status == ProjectStatus.Active),
+                        Completed = projects.Count(p => p.ProjectMembers.Any(pm => pm.UserId == currentUser.Id) && p.Status == ProjectStatus.Completed),
+                        OnHold = projects.Count(p => p.ProjectMembers.Any(pm => pm.UserId == currentUser.Id) && p.Status == ProjectStatus.OnHold)
+                    };
+            }
+        }
 
         // Helper method to load dashboard data based on user role
         private async Task LoadDashboardData(User user)
@@ -263,5 +254,21 @@ namespace EnterprisePMO_PWA.Web.Controllers
 
         // Other helper methods remain unchanged
         // ...
+    }
+
+    public class DashboardViewModel
+    {
+        public IEnumerable<Project> RecentProjects { get; set; }
+        public IEnumerable<WeeklyUpdate> RecentUpdates { get; set; }
+        public IEnumerable<Notification> Notifications { get; set; }
+        public ProjectStats ProjectStats { get; set; }
+    }
+
+    public class ProjectStats
+    {
+        public int Total { get; set; }
+        public int Active { get; set; }
+        public int Completed { get; set; }
+        public int OnHold { get; set; }
     }
 }

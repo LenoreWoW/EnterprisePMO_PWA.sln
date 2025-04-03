@@ -1,4 +1,5 @@
 using System;
+using EnterprisePMO_PWA.Domain.Enums;
 
 namespace EnterprisePMO_PWA.Domain.Entities
 {
@@ -10,7 +11,17 @@ namespace EnterprisePMO_PWA.Domain.Entities
         public Guid Id { get; set; } // Unique identifier
 
         public Guid ProjectId { get; set; } // FK to project
-        public Project? Project { get; set; } // Navigation property
+        public string ProjectName { get; set; }
+        public int WeekNumber { get; set; }
+        public int Year { get; set; }
+        public int CompletedTasks { get; set; }
+        public int TotalTasks { get; set; }
+        public ProjectStatus Status { get; set; }
+        public double Progress { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+
+        public virtual Project Project { get; set; } // Navigation property
 
         public DateTime WeekEndingDate { get; set; } // Week ending date
 

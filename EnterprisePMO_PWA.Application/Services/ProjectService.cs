@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Domain.Enums;
 using EnterprisePMO_PWA.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,10 +15,12 @@ namespace EnterprisePMO_PWA.Application.Services
     public class ProjectService
     {
         private readonly AppDbContext _context;
+        private readonly IAuthService _authService;
 
-        public ProjectService(AppDbContext context)
+        public ProjectService(AppDbContext context, IAuthService authService)
         {
             _context = context;
+            _authService = authService;
         }
 
         /// <summary>
@@ -27,10 +30,11 @@ namespace EnterprisePMO_PWA.Application.Services
         {
             project.Id = Guid.NewGuid();
             project.CreationDate = DateTime.UtcNow;
-            project.StatusColor = project.ComputeStatusColor();
-            project.Status = ProjectStatus.Proposed;
-            _context.Projects.Add(project);
+            project.Status = ProjectStatus.Draft;
+
+            await _context.Projects.AddAsync(project);
             await _context.SaveChangesAsync();
+
             return project;
         }
 
@@ -45,11 +49,60 @@ namespace EnterprisePMO_PWA.Application.Services
         /// <summary>
         /// Updates an existing project.
         /// </summary>
-        public async Task UpdateProjectAsync(Project project)
+        public async Task<Project> UpdateProjectAsync(Project project)
         {
-            project.StatusColor = project.ComputeStatusColor();
-            _context.Entry(project).State = EntityState.Modified;
+            var existingProject = await _context.Projects
+                .Include(p => p.Members)
+                .FirstOrDefaultAsync(p => p.Id == project.Id);
+
+            if (existingProject == null)
+            {
+                throw new KeyNotFoundException($"Project with ID {project.Id} not found.");
+            }
+
+            // Update basic properties
+            existingProject.Name = project.Name;
+            existingProject.Description = project.Description;
+            existingProject.StartDate = project.StartDate;
+            existingProject.EndDate = project.EndDate;
+            existingProject.Budget = project.Budget;
+            existingProject.ActualCost = project.ActualCost;
+            existingProject.EstimatedCost = project.EstimatedCost;
+            existingProject.ClientName = project.ClientName;
+            existingProject.Category = project.Category;
+            existingProject.PercentComplete = project.PercentComplete;
+            existingProject.Status = project.Status;
+            existingProject.StatusColor = project.StatusColor;
+            existingProject.DepartmentId = project.DepartmentId;
+            existingProject.ProjectManagerId = project.ProjectManagerId;
+            existingProject.StrategicGoalId = project.StrategicGoalId;
+            existingProject.AnnualGoalId = project.AnnualGoalId;
+
+            // Update project members
+            if (project.Members != null)
+            {
+                // Remove members that are not in the updated list
+                var membersToRemove = existingProject.Members
+                    .Where(m => !project.Members.Any(pm => pm.Id == m.Id))
+                    .ToList();
+
+                foreach (var member in membersToRemove)
+                {
+                    existingProject.Members.Remove(member);
+                }
+
+                // Add new members
+                foreach (var member in project.Members)
+                {
+                    if (!existingProject.Members.Any(m => m.Id == member.Id))
+                    {
+                        existingProject.Members.Add(member);
+                    }
+                }
+            }
+
             await _context.SaveChangesAsync();
+            return existingProject;
         }
 
         /// <summary>

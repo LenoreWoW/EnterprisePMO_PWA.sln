@@ -1,0 +1,100 @@
+@model IEnumerable<EnterprisePMO_PWA.Domain.Entities.Project>
+@using EnterprisePMO_PWA.Domain.Enums
+@{
+    ViewData["Title"] = "Projects";
+    Layout = "_TailwindLayout";
+}
+
+<div class="px-4 sm:px-6 lg:px-8 py-6">
+    <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+            <h1 class="text-2xl font-semibold text-gray-900">Projects</h1>
+            <p class="mt-2 text-sm text-gray-700">A list of all projects in your organization.</p>
+        </div>
+        <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+            <a href="@Url.Action("Create", "Project")" class="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto">
+                Add Project
+            </a>
+        </div>
+    </div>
+
+    <div class="mt-8 flex flex-col">
+        <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-300">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Progress</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">End Date</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Team</th>
+                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            @foreach (var project in Model)
+                            {
+                                <tr>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                        <a href="@Url.Action("Details", "Project", new { id = project.Id })" class="hover:text-blue-600">@project.Name</a>
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm">
+                                        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium @GetStatusClass(project.Status)">
+                                            @project.Status
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: @(project.PercentComplete)%"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-1">@project.PercentComplete%</span>
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        @project.EndDate.ToString("MMM dd, yyyy")
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <div class="flex -space-x-2">
+                                            @foreach (var member in project.Members.Take(3))
+                                            {
+                                                <div class="h-8 w-8 rounded-full @member.GetAvatarClass() flex items-center justify-center text-white text-xs">
+                                                    <span>@member.GetInitials()</span>
+                                                </div>
+                                            }
+                                            @if (project.Members.Count > 3)
+                                            {
+                                                <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs">
+                                                    <span>+@(project.Members.Count - 3)</span>
+                                                </div>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                        <div class="flex justify-end space-x-2">
+                                            <a href="@Url.Action("Edit", "Project", new { id = project.Id })" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                            <a href="@Url.Action("Details", "Project", new { id = project.Id })" class="text-gray-600 hover:text-gray-900">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetStatusClass(ProjectStatus status) => status switch
+    {
+        ProjectStatus.Draft => "bg-gray-100 text-gray-800",
+        ProjectStatus.Active => "bg-blue-100 text-blue-800",
+        ProjectStatus.Rejected => "bg-red-100 text-red-800",
+        ProjectStatus.Completed => "bg-green-100 text-green-800",
+        _ => "bg-gray-100 text-gray-800"
+    };
+} 

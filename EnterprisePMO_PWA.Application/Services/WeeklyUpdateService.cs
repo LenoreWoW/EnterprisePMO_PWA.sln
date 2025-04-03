@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Domain.Enums;
 using EnterprisePMO_PWA.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using TaskStatus = EnterprisePMO_PWA.Domain.Enums.TaskStatus;
 
 namespace EnterprisePMO_PWA.Application.Services
 {
@@ -14,12 +16,17 @@ namespace EnterprisePMO_PWA.Application.Services
     public class WeeklyUpdateService
     {
         private readonly AppDbContext _context;
-        private readonly INotificationService? _notificationService;
+        private readonly INotificationService _notificationService;
+        private readonly IEmailService _emailService;
 
-        public WeeklyUpdateService(AppDbContext context, INotificationService? notificationService = null)
+        public WeeklyUpdateService(
+            AppDbContext context,
+            INotificationService notificationService,
+            IEmailService emailService)
         {
             _context = context;
             _notificationService = notificationService;
+            _emailService = emailService;
         }
 
         /// <summary>
@@ -60,8 +67,15 @@ namespace EnterprisePMO_PWA.Application.Services
         /// <summary>
         /// Submits a new weekly update.
         /// </summary>
-        public async Task<WeeklyUpdate> SubmitWeeklyUpdateAsync(WeeklyUpdate update)
+        public async Task<WeeklyUpdate> SubmitWeeklyUpdateAsync(WeeklyUpdate update, Guid userId)
         {
+            // Verify the user has permission to submit updates
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null || user.Role != UserRole.ProjectManager)
+            {
+                throw new UnauthorizedAccessException("Only project managers can submit weekly updates");
+            }
+
             update.Id = Guid.NewGuid();
             update.SubmittedDate = DateTime.UtcNow;
             update.IsApprovedBySubPMO = false;
@@ -83,7 +97,7 @@ namespace EnterprisePMO_PWA.Application.Services
                 if (project != null && project.Department != null)
                 {
                     var subPMOUsers = await _context.Users
-                        .Where(u => u.Role == RoleType.SubPMO && u.DepartmentId == project.DepartmentId)
+                        .Where(u => u.Role == UserRole.SubPMO && u.DepartmentId == project.DepartmentId)
                         .ToListAsync();
                         
                     foreach (var subPMO in subPMOUsers)
@@ -214,6 +228,99 @@ namespace EnterprisePMO_PWA.Application.Services
             
             // If percent complete is low, set to Red
             return StatusColor.Red;
+        }
+
+        public async Task SendWeeklyUpdatesAsync()
+        {
+            var projects = await _context.Projects
+                .Include(p => p.ProjectManager)
+                .Include(p => p.Tasks)
+                .Where(p => p.Status == ProjectStatus.Active)
+                .ToListAsync();
+
+            var updates = new List<WeeklyUpdate>();
+
+            foreach (var project in projects)
+            {
+                var update = new WeeklyUpdate
+                {
+                    ProjectId = project.Id,
+                    ProjectName = project.Name,
+                    WeekNumber = GetISOWeekNumber(DateTime.UtcNow),
+                    Year = DateTime.UtcNow.Year,
+                    CompletedTasks = project.Tasks.Count(t => t.Status == TaskStatus.Completed),
+                    TotalTasks = project.Tasks.Count,
+                    Status = project.Status,
+                    Progress = CalculateProgress(project)
+                };
+
+                updates.Add(update);
+            }
+
+            await _context.WeeklyUpdates.AddRangeAsync(updates);
+            await _context.SaveChangesAsync();
+
+            // Notify PMO Head and Project Managers
+            var stakeholders = await _context.Users
+                .Where(u => u.Role == UserRole.PMOHead || u.Role == UserRole.ProjectManager)
+                .ToListAsync();
+
+            foreach (var stakeholder in stakeholders)
+            {
+                var relevantUpdates = stakeholder.Role == UserRole.PMOHead
+                    ? updates // PMO Head sees all updates
+                    : updates.Where(u => projects.Any(p => p.ProjectManagerId == stakeholder.Id && p.Id == u.ProjectId));
+
+                if (relevantUpdates.Any())
+                {
+                    await SendWeeklyUpdateEmailAsync(stakeholder, relevantUpdates);
+                }
+            }
+        }
+
+        private async Task SendWeeklyUpdateEmailAsync(User recipient, IEnumerable<WeeklyUpdate> updates)
+        {
+            var emailBody = GenerateWeeklyUpdateEmailBody(updates);
+            var weekNumber = GetISOWeekNumber(DateTime.UtcNow);
+
+            await _emailService.SendEmailAsync(
+                recipient.Email,
+                $"Weekly Project Updates - Week {weekNumber}",
+                emailBody
+            );
+
+            await _notificationService.NotifyAsync(
+                $"Weekly project updates for Week {weekNumber} are available",
+                recipient.Username
+            );
+        }
+
+        private string GenerateWeeklyUpdateEmailBody(IEnumerable<WeeklyUpdate> updates)
+        {
+            var body = "Weekly Project Updates\n\n";
+
+            foreach (var update in updates)
+            {
+                body += $"Project: {update.ProjectName}\n";
+                body += $"Status: {update.Status}\n";
+                body += $"Progress: {update.Progress:P0}\n";
+                body += $"Tasks Completed: {update.CompletedTasks}/{update.TotalTasks}\n\n";
+            }
+
+            return body;
+        }
+
+        private double CalculateProgress(Project project)
+        {
+            if (!project.Tasks.Any())
+                return 0;
+
+            return (double)project.Tasks.Count(t => t.Status == TaskStatus.Completed) / project.Tasks.Count;
+        }
+
+        private int GetISOWeekNumber(DateTime date)
+        {
+            return System.Globalization.ISOWeek.GetWeekOfYear(date);
         }
     }
 }

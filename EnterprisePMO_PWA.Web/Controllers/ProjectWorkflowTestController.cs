@@ -6,9 +6,12 @@ using EnterprisePMO_PWA.Domain.Entities;
 using EnterprisePMO_PWA.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using EnterprisePMO_PWA.Domain.Enums;
 
 namespace EnterprisePMO_PWA.Web.Controllers
 {
+    [Authorize]
     [Route("api/test/workflow")]
     [ApiController]
     public class ProjectWorkflowTestController : ControllerBase
@@ -16,15 +19,21 @@ namespace EnterprisePMO_PWA.Web.Controllers
         private readonly ProjectWorkflowService _workflowService;
         private readonly AppDbContext _context;
         private readonly EnhancedNotificationService _notificationService;
+        private readonly ProjectService _projectService;
+        private readonly IAuthService _authService;
 
         public ProjectWorkflowTestController(
             ProjectWorkflowService workflowService,
             AppDbContext context,
-            EnhancedNotificationService notificationService)
+            EnhancedNotificationService notificationService,
+            ProjectService projectService,
+            IAuthService authService)
         {
             _workflowService = workflowService;
             _context = context;
             _notificationService = notificationService;
+            _projectService = projectService;
+            _authService = authService;
         }
         
         // MVC Actions for user interface
@@ -108,137 +117,178 @@ namespace EnterprisePMO_PWA.Web.Controllers
         [HttpGet("test-workflow/{projectId}")]
         public async Task<IActionResult> TestCompleteWorkflow(Guid projectId)
         {
-            try
+            var project = await _context.Projects
+                .Include(p => p.ProjectManager)
+                .FirstOrDefaultAsync(p => p.Id == projectId);
+
+            if (project == null)
             {
-                // Find the project
-                var project = await _context.Projects
-                    .Include(p => p.ProjectManager)
-                    .FirstOrDefaultAsync(p => p.Id == projectId)
-                    ?? throw new Exception("Project not found");
-
-                // Get users for each role
-                var projectManager = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Role == RoleType.ProjectManager)
-                    ?? throw new Exception("No Project Manager found");
-
-                var subPmo = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Role == RoleType.SubPMO)
-                    ?? throw new Exception("No Sub PMO user found");
-
-                var mainPmo = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Role == RoleType.MainPMO)
-                    ?? throw new Exception("No Main PMO user found");
-
-                // Execute the complete workflow
-                var steps = new List<object>();
-
-                // Step 1: Submit for approval
-                await _workflowService.SubmitForApprovalAsync(projectId, projectManager.Id);
-                steps.Add(new { step = "Submit for approval", status = "Success" });
-
-                // Step 2: Sub PMO approval
-                await _workflowService.ApproveBySubPMOAsync(projectId, subPmo.Id, "Approved by Sub PMO in test");
-                steps.Add(new { step = "Sub PMO approval", status = "Success" });
-
-                // Step 3: Main PMO approval
-                await _workflowService.ApproveByMainPMOAsync(projectId, mainPmo.Id, "Final approval by Main PMO in test");
-                steps.Add(new { step = "Main PMO approval", status = "Success" });
-
-                // Get all notifications created
-                var notifications = await _context.Notifications.ToListAsync();
-
-                return Ok(new
-                {
-                    success = true,
-                    message = "Complete workflow test executed successfully",
-                    workflows = steps,
-                    notifications = notifications.Select(n => new
-                    {
-                        n.Id,
-                        n.Message,
-                        n.Type,
-                        Recipient = n.UserId,
-                        n.IsRead,
-                        Created = n.CreatedAt
-                    }).ToList()
-                });
+                return NotFound();
             }
-            catch (Exception ex)
+
+            var currentUser = await _authService.GetCurrentUserAsync();
+            if (currentUser == null)
             {
-                return StatusCode(500, new
-                {
-                    success = false,
-                    message = "Error executing test workflow",
-                    error = ex.Message,
-                    stackTrace = ex.StackTrace
-                });
+                return Unauthorized();
             }
+
+            // Test Sub PMO approval
+            if (currentUser.Role == UserRole.SubPMO)
+            {
+                await _workflowService.ApproveBySubPMOAsync(project);
+            }
+
+            // Test Main PMO approval
+            if (currentUser.Role == UserRole.MainPMO)
+            {
+                await _workflowService.ApproveByMainPMOAsync(project);
+            }
+
+            // Test Project Manager actions
+            if (currentUser.Role == UserRole.ProjectManager)
+            {
+                await _workflowService.SubmitForApprovalAsync(project);
+            }
+
+            return Ok(new { message = "Workflow test completed successfully" });
         }
 
         [HttpGet("test-workflow-rejection/{projectId}")]
         public async Task<IActionResult> TestRejectionWorkflow(Guid projectId)
         {
-            try
+            var project = await _context.Projects
+                .Include(p => p.ProjectManager)
+                .FirstOrDefaultAsync(p => p.Id == projectId);
+
+            if (project == null)
             {
-                // Find the project
-                var project = await _context.Projects
-                    .Include(p => p.ProjectManager)
-                    .FirstOrDefaultAsync(p => p.Id == projectId)
-                    ?? throw new Exception("Project not found");
-
-                // Get users for each role
-                var projectManager = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Role == RoleType.ProjectManager)
-                    ?? throw new Exception("No Project Manager found");
-
-                var subPmo = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Role == RoleType.SubPMO)
-                    ?? throw new Exception("No Sub PMO user found");
-
-                // Execute the rejection workflow
-                var steps = new List<object>();
-
-                // Step 1: Submit for approval
-                await _workflowService.SubmitForApprovalAsync(projectId, projectManager.Id);
-                steps.Add(new { step = "Submit for approval", status = "Success" });
-
-                // Step 2: Sub PMO rejection
-                await _workflowService.RejectBySubPMOAsync(projectId, subPmo.Id, "Rejected by Sub PMO in test - needs more details");
-                steps.Add(new { step = "Sub PMO rejection", status = "Success" });
-
-                // Step 3: Resubmit project after rejection
-                await _workflowService.ResubmitProjectAsync(projectId, projectManager.Id, "Added more details as requested");
-                steps.Add(new { step = "Project resubmission", status = "Success" });
-
-                // Get all notifications created
-                var notifications = await _context.Notifications.ToListAsync();
-
-                return Ok(new
-                {
-                    success = true,
-                    message = "Rejection workflow test executed successfully",
-                    workflows = steps,
-                    notifications = notifications.Select(n => new
-                    {
-                        n.Id,
-                        n.Message,
-                        n.Type,
-                        Recipient = n.UserId,
-                        n.IsRead,
-                        Created = n.CreatedAt
-                    }).ToList()
-                });
+                return NotFound();
             }
-            catch (Exception ex)
+
+            var currentUser = await _authService.GetCurrentUserAsync();
+            if (currentUser == null)
             {
-                return StatusCode(500, new
-                {
-                    success = false,
-                    message = "Error executing rejection workflow",
-                    error = ex.Message,
-                    stackTrace = ex.StackTrace
-                });
+                return Unauthorized();
             }
+
+            // Test Sub PMO rejection
+            if (currentUser.Role == UserRole.SubPMO)
+            {
+                await _workflowService.RejectBySubPMOAsync(project);
+            }
+
+            // Test Main PMO rejection
+            if (currentUser.Role == UserRole.MainPMO)
+            {
+                await _workflowService.RejectByMainPMOAsync(project);
+            }
+
+            return Ok(new { message = "Rejection workflow test completed successfully" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTestProject()
+        {
+            var project = new Project
+            {
+                Name = "Test Project",
+                Description = "A test project for workflow testing",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(3),
+                Status = ProjectStatus.Draft,
+                Budget = 100000,
+                ProjectManagerId = (await _authService.GetCurrentUserAsync())?.Id ?? Guid.Empty
+            };
+
+            await _projectService.CreateAsync(project);
+            return Ok(new { projectId = project.Id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitForApproval(Guid projectId)
+        {
+            var project = await _projectService.GetByIdAsync(projectId);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            await _workflowService.SubmitForApprovalAsync(project);
+            await _projectService.UpdateAsync(project);
+
+            return Ok(new { message = "Project submitted for approval" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApproveProject(Guid projectId)
+        {
+            var project = await _projectService.GetByIdAsync(projectId);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            var currentUser = await _authService.GetCurrentUserAsync();
+            if (currentUser == null)
+            {
+                return Unauthorized();
+            }
+
+            if (currentUser.Role == UserRole.SubPMO)
+            {
+                await _workflowService.ApproveBySubPMOAsync(project);
+            }
+            else if (currentUser.Role == UserRole.MainPMO)
+            {
+                await _workflowService.ApproveByMainPMOAsync(project);
+            }
+
+            await _projectService.UpdateAsync(project);
+            return Ok(new { message = "Project approved" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectProject(Guid projectId)
+        {
+            var project = await _projectService.GetByIdAsync(projectId);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            var currentUser = await _authService.GetCurrentUserAsync();
+            if (currentUser == null)
+            {
+                return Unauthorized();
+            }
+
+            if (currentUser.Role == UserRole.SubPMO)
+            {
+                await _workflowService.RejectBySubPMOAsync(project);
+            }
+            else if (currentUser.Role == UserRole.MainPMO)
+            {
+                await _workflowService.RejectByMainPMOAsync(project);
+            }
+
+            await _projectService.UpdateAsync(project);
+            return Ok(new { message = "Project rejected" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CompleteProject(Guid projectId)
+        {
+            var project = await _projectService.GetByIdAsync(projectId);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            project.Status = ProjectStatus.Completed;
+            project.CompletionDate = DateTime.Now;
+            await _projectService.UpdateAsync(project);
+
+            return Ok(new { message = "Project completed" });
         }
     }
 }

@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using EnterprisePMO_PWA.Domain.Entities;
-using EnterprisePMO_PWA.Infrastructure.Data;
-using Microsoft.AspNetCore.Http;
+using EnterprisePMO_PWA.Infrastructure.Services;
 using Newtonsoft.Json;
 
 namespace EnterprisePMO_PWA.Application.Services
@@ -12,13 +12,15 @@ namespace EnterprisePMO_PWA.Application.Services
     /// </summary>
     public class AuditService
     {
-        private readonly AppDbContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly SupabaseClient _supabaseClient;
+        private readonly ILogger<AuditService> _logger;
 
-        public AuditService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+        public AuditService(
+            SupabaseClient supabaseClient,
+            ILogger<AuditService> logger)
         {
-            _context = context;
-            _httpContextAccessor = httpContextAccessor;
+            _supabaseClient = supabaseClient;
+            _logger = logger;
         }
 
         /// <summary>
@@ -43,19 +45,27 @@ namespace EnterprisePMO_PWA.Application.Services
         /// <param name="changeSummary">A summary of changes made</param>
         public async Task LogActionAsync(string username, string action, string entityName, string changeSummary)
         {
-            var auditLog = new AuditLog
+            try
             {
-                Id = Guid.NewGuid(),
-                EntityName = entityName,
-                Action = action,
-                ChangeSummary = changeSummary,
-                Username = username,
-                Timestamp = DateTime.UtcNow,
-                IpAddress = GetClientIpAddress()
-            };
+                var auditLog = new AuditLog
+                {
+                    Id = Guid.NewGuid(),
+                    EntityName = entityName,
+                    Action = action,
+                    ChangeSummary = changeSummary,
+                    Username = username,
+                    Timestamp = DateTime.UtcNow,
+                    IpAddress = "Unknown"
+                };
 
-            _context.AuditLogs.Add(auditLog);
-            await _context.SaveChangesAsync();
+                await _supabaseClient.Database.InsertAsync<AuditLog>(
+                    "audit_logs",
+                    auditLog);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error logging audit action");
+            }
         }
 
         /// <summary>
@@ -67,20 +77,28 @@ namespace EnterprisePMO_PWA.Application.Services
         /// <param name="changeSummary">A summary of changes made</param>
         public async Task LogActionAsync(string entityName, Guid entityId, string action, string changeSummary)
         {
-            var auditLog = new AuditLog
+            try
             {
-                Id = Guid.NewGuid(),
-                EntityName = entityName,
-                EntityId = entityId,
-                Action = action,
-                ChangeSummary = changeSummary,
-                Username = GetCurrentUsername(),
-                Timestamp = DateTime.UtcNow,
-                IpAddress = GetClientIpAddress()
-            };
+                var auditLog = new AuditLog
+                {
+                    Id = Guid.NewGuid(),
+                    EntityName = entityName,
+                    EntityId = entityId,
+                    Action = action,
+                    ChangeSummary = changeSummary,
+                    Username = "System",
+                    Timestamp = DateTime.UtcNow,
+                    IpAddress = "Unknown"
+                };
 
-            _context.AuditLogs.Add(auditLog);
-            await _context.SaveChangesAsync();
+                await _supabaseClient.Database.InsertAsync<AuditLog>(
+                    "audit_logs",
+                    auditLog);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error logging audit action");
+            }
         }
 
         /// <summary>
@@ -94,16 +112,6 @@ namespace EnterprisePMO_PWA.Application.Services
             // In a real implementation, you would do a more detailed comparison
             // to extract exactly what properties changed
             return $"Changed from {originalJson} to {modifiedJson}";
-        }
-
-        private string GetCurrentUsername()
-        {
-            return _httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "System";
-        }
-
-        private string GetClientIpAddress()
-        {
-            return _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? "Unknown";
         }
     }
 }

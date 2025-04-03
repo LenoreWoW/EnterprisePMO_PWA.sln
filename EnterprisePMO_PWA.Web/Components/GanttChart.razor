@@ -1,0 +1,155 @@
+@using Microsoft.JSInterop
+@using EnterprisePMO_PWA.Application.Services
+@using EnterprisePMO_PWA.Domain.Entities
+@using EnterprisePMO_PWA.Domain.Workflows
+@inject IJSRuntime JSRuntime
+@inject IProjectService ProjectService
+@inject GanttService GanttService
+
+<div class="gantt-container">
+    <div class="gantt-header">
+        <h3>Project Timeline</h3>
+        <div class="gantt-controls">
+            <button class="btn btn-sm btn-outline-primary" @onclick="ZoomIn">Zoom In</button>
+            <button class="btn btn-sm btn-outline-primary" @onclick="ZoomOut">Zoom Out</button>
+            <button class="btn btn-sm btn-outline-primary" @onclick="FitToScreen">Fit to Screen</button>
+        </div>
+    </div>
+    <div id="gantt-chart" class="gantt-chart"></div>
+</div>
+
+@code {
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    private List<GanttTask> _tasks = new();
+    private List<GanttDependency> _dependencies = new();
+    private bool _isInitialized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadGanttData();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var tasks = await GanttService.GetProjectTasksAsync(ProjectId);
+            var dependencies = await GanttService.GetTaskDependenciesAsync(ProjectId);
+
+            await JSRuntime.InvokeVoidAsync("initializeGanttChart", 
+                $"gantt-chart-{ProjectId}",
+                tasks,
+                dependencies);
+        }
+    }
+
+    private async Task LoadGanttData()
+    {
+        var project = await ProjectService.GetProjectByIdAsync(ProjectId);
+        if (project == null) return;
+
+        // Load tasks
+        var tasks = await ProjectService.GetProjectTasksAsync(ProjectId);
+        _tasks = tasks.Select(t => new GanttTask
+        {
+            Id = t.Id.ToString(),
+            Text = t.Title,
+            StartDate = t.StartDate,
+            EndDate = t.DueDate ?? t.StartDate.AddDays(1),
+            Progress = GetTaskProgress(t),
+            Parent = t.ParentTaskId?.ToString()
+        }).ToList();
+
+        // Load dependencies
+        var dependencies = await ProjectService.GetProjectDependenciesAsync(ProjectId);
+        _dependencies = dependencies.Select(d => new GanttDependency
+        {
+            Id = d.Id.ToString(),
+            Source = d.SourceTaskId.ToString(),
+            Target = d.TargetTaskId.ToString(),
+            Type = GetDependencyType(d.DependencyType)
+        }).ToList();
+    }
+
+    private async Task InitializeGanttChart()
+    {
+        var options = new
+        {
+            container = "#gantt-chart",
+            tasks = _tasks,
+            dependencies = _dependencies,
+            rowHeight = 30,
+            columnWidth = 30,
+            headerHeight = 50,
+            viewMode = "Week",
+            dateFormat = "YYYY-MM-DD",
+            language = "en",
+            customPopupHtml = "function(task) { return '<div class=\"gantt-popup\"><b>Task:</b> ' + task.text + '<br/><b>Start:</b> ' + task.start_date.format('YYYY-MM-DD') + '<br/><b>End:</b> ' + task.end_date.format('YYYY-MM-DD') + '<br/><b>Progress:</b> ' + task.progress + '%</div>'; }"
+        };
+
+        await JSRuntime.InvokeVoidAsync("initializeGantt", options);
+        _isInitialized = true;
+    }
+
+    private async Task ZoomIn()
+    {
+        if (_isInitialized)
+        {
+            await JSRuntime.InvokeVoidAsync("ganttZoomIn");
+        }
+    }
+
+    private async Task ZoomOut()
+    {
+        if (_isInitialized)
+        {
+            await JSRuntime.InvokeVoidAsync("ganttZoomOut");
+        }
+    }
+
+    private async Task FitToScreen()
+    {
+        if (_isInitialized)
+        {
+            await JSRuntime.InvokeVoidAsync("ganttFitToScreen");
+        }
+    }
+
+    private double GetTaskProgress(ProjectTask task)
+    {
+        // Calculate progress based on subtasks or other metrics
+        return 0; // Placeholder
+    }
+
+    private string GetDependencyType(DependencyType dependencyType)
+    {
+        return dependencyType switch
+        {
+            DependencyType.FinishToStart => "0",
+            DependencyType.StartToStart => "1",
+            DependencyType.FinishToFinish => "2",
+            DependencyType.StartToFinish => "3",
+            _ => "0"
+        };
+    }
+
+    private class GanttTask
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public double Progress { get; set; }
+        public string Parent { get; set; }
+    }
+
+    private class GanttDependency
+    {
+        public string Id { get; set; }
+        public string Source { get; set; }
+        public string Target { get; set; }
+        public string Type { get; set; }
+    }
+} 

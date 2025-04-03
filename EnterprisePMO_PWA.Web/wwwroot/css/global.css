@@ -1,0 +1,345 @@
+/* Import Tailwind CSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* ClickUp Theme Colors */
+:root {
+    /* Brand Colors */
+    --clickup-primary: #7B68EE;
+    --clickup-primary-dark: #6A5ACD;
+    --clickup-primary-light: #E6E6FA;
+    --clickup-secondary: #2B1C50;
+    --clickup-accent: #FF5A5F;
+    
+    /* UI Colors */
+    --clickup-success: #00C853;
+    --clickup-warning: #FFB300;
+    --clickup-error: #FF3D00;
+    --clickup-info: #2196F3;
+    
+    /* Neutral Colors */
+    --clickup-gray-50: #F9FAFB;
+    --clickup-gray-100: #F3F4F6;
+    --clickup-gray-200: #E5E7EB;
+    --clickup-gray-300: #D1D5DB;
+    --clickup-gray-400: #9CA3AF;
+    --clickup-gray-500: #6B7280;
+    --clickup-gray-600: #4B5563;
+    --clickup-gray-700: #374151;
+    --clickup-gray-800: #1F2937;
+    --clickup-gray-900: #111827;
+}
+
+/* Dark Mode Colors */
+.dark {
+    /* Brand Colors - Adjusted for dark mode */
+    --clickup-primary: #9F8FFF;
+    --clickup-primary-dark: #7B68EE;
+    --clickup-primary-light: #2B1C50;
+    --clickup-secondary: #E6E6FA;
+    --clickup-accent: #FF7A7F;
+    
+    /* UI Colors - Adjusted for dark mode */
+    --clickup-success: #00E676;
+    --clickup-warning: #FFD54F;
+    --clickup-error: #FF5252;
+    --clickup-info: #64B5F6;
+    
+    /* Neutral Colors - Inverted for dark mode */
+    --clickup-gray-50: #111827;
+    --clickup-gray-100: #1F2937;
+    --clickup-gray-200: #374151;
+    --clickup-gray-300: #4B5563;
+    --clickup-gray-400: #6B7280;
+    --clickup-gray-500: #9CA3AF;
+    --clickup-gray-600: #D1D5DB;
+    --clickup-gray-700: #E5E7EB;
+    --clickup-gray-800: #F3F4F6;
+    --clickup-gray-900: #F9FAFB;
+}
+
+/* Custom Utility Classes */
+@layer components {
+    /* Button Styles */
+    .clickup-button {
+        @apply inline-flex items-center justify-center px-4 py-2 rounded-md font-medium transition-colors duration-200;
+    }
+
+    .clickup-button-primary {
+        @apply clickup-button bg-[#7B68EE] text-white hover:bg-[#6A5ACD] focus:ring-2 focus:ring-[#7B68EE] focus:ring-offset-2 dark:bg-[#9F8FFF] dark:hover:bg-[#7B68EE] dark:focus:ring-[#9F8FFF];
+    }
+
+    .clickup-button-secondary {
+        @apply clickup-button bg-white text-[#7B68EE] border border-[#7B68EE] hover:bg-[#E6E6FA] focus:ring-2 focus:ring-[#7B68EE] focus:ring-offset-2 dark:bg-[#1F2937] dark:text-[#9F8FFF] dark:border-[#9F8FFF] dark:hover:bg-[#2B1C50];
+    }
+
+    .clickup-button-danger {
+        @apply clickup-button bg-[#FF3D00] text-white hover:bg-[#E63900] focus:ring-2 focus:ring-[#FF3D00] focus:ring-offset-2 dark:bg-[#FF5252] dark:hover:bg-[#FF3D00];
+    }
+
+    /* Card Styles */
+    .clickup-card {
+        @apply bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden dark:bg-gray-800 dark:border-gray-700;
+    }
+
+    .clickup-card-header {
+        @apply px-6 py-4 border-b border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-900;
+    }
+
+    .clickup-card-body {
+        @apply p-6 dark:text-gray-200;
+    }
+
+    .clickup-card-footer {
+        @apply px-6 py-4 border-t border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-900;
+    }
+
+    /* Form Styles */
+    .clickup-form-input {
+        @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7B68EE] focus:ring-[#7B68EE] sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-[#9F8FFF] dark:focus:ring-[#9F8FFF];
+    }
+
+    .clickup-form-label {
+        @apply block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300;
+    }
+
+    .clickup-form-error {
+        @apply mt-1 text-sm text-[#FF3D00] dark:text-[#FF5252];
+    }
+
+    /* Table Styles */
+    .clickup-table {
+        @apply min-w-full divide-y divide-gray-200 dark:divide-gray-700;
+    }
+
+    .clickup-table th {
+        @apply px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:bg-gray-900 dark:text-gray-400;
+    }
+
+    .clickup-table td {
+        @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200;
+    }
+
+    .clickup-table tr {
+        @apply hover:bg-gray-50 dark:hover:bg-gray-700;
+    }
+
+    /* Badge Styles */
+    .clickup-badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+
+    .clickup-badge-success {
+        @apply clickup-badge bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
+    }
+
+    .clickup-badge-warning {
+        @apply clickup-badge bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200;
+    }
+
+    .clickup-badge-error {
+        @apply clickup-badge bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
+    }
+
+    .clickup-badge-info {
+        @apply clickup-badge bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
+    }
+
+    /* Modal Styles */
+    .modal-backdrop {
+        @apply fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 dark:bg-opacity-70;
+    }
+
+    .modal-content {
+        @apply fixed inset-0 z-50 overflow-y-auto;
+    }
+
+    .modal-dialog {
+        @apply flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0;
+    }
+
+    .modal-panel {
+        @apply relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 dark:bg-gray-800 dark:text-white;
+    }
+
+    /* Tooltip Styles */
+    .tooltip {
+        @apply absolute z-50 invisible opacity-0 bg-gray-900 text-white text-xs rounded py-1 px-2 -mt-8 transition-all duration-200 dark:bg-gray-700;
+    }
+
+    .tooltip-visible {
+        @apply visible opacity-100;
+    }
+
+    /* Tab Styles */
+    .tabs {
+        @apply border-b border-gray-200 dark:border-gray-700;
+    }
+
+    .tab {
+        @apply inline-flex items-center px-4 py-2 border-b-2 font-medium text-sm;
+    }
+
+    .tab-active {
+        @apply border-[#7B68EE] text-[#7B68EE] dark:border-[#9F8FFF] dark:text-[#9F8FFF];
+    }
+
+    .tab-inactive {
+        @apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-600;
+    }
+
+    /* Loading Spinner */
+    .clickup-spinner {
+        @apply animate-spin rounded-full h-5 w-5 border-2 border-gray-300 border-t-[#7B68EE] dark:border-gray-600 dark:border-t-[#9F8FFF];
+    }
+
+    /* Avatar Styles */
+    .clickup-avatar {
+        @apply inline-block h-10 w-10 rounded-full ring-2 ring-white dark:ring-gray-800;
+    }
+
+    .clickup-avatar-sm {
+        @apply h-8 w-8;
+    }
+
+    .clickup-avatar-lg {
+        @apply h-12 w-12;
+    }
+
+    /* Progress Bar */
+    .clickup-progress {
+        @apply w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700;
+    }
+
+    .clickup-progress-bar {
+        @apply bg-[#7B68EE] h-2.5 rounded-full transition-all duration-300 dark:bg-[#9F8FFF];
+    }
+
+    /* Dropdown Styles */
+    .clickup-dropdown {
+        @apply absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800 dark:ring-gray-700;
+    }
+
+    .clickup-dropdown-item {
+        @apply block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white;
+    }
+
+    /* Search Input */
+    .clickup-search {
+        @apply block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#7B68EE] sm:text-sm sm:leading-6 dark:bg-gray-700 dark:text-white dark:ring-gray-600 dark:placeholder:text-gray-400 dark:focus:ring-[#9F8FFF];
+    }
+
+    /* Sidebar Styles */
+    .clickup-sidebar {
+        @apply fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700;
+    }
+
+    .clickup-sidebar-item {
+        @apply flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white;
+    }
+
+    .clickup-sidebar-item-active {
+        @apply bg-[#7B68EE] text-white hover:bg-[#6A5ACD] hover:text-white dark:bg-[#9F8FFF] dark:hover:bg-[#7B68EE];
+    }
+
+    /* Header Styles */
+    .clickup-header {
+        @apply fixed top-0 right-0 left-64 z-40 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700;
+    }
+
+    .clickup-header-content {
+        @apply flex h-16 items-center justify-between px-4 sm:px-6;
+    }
+
+    /* Main Content Styles */
+    .clickup-main {
+        @apply pl-64 pt-16 min-h-screen bg-gray-50 dark:bg-gray-900;
+    }
+
+    .clickup-main-content {
+        @apply py-6 px-4 sm:px-6 lg:px-8;
+    }
+
+    /* Kanban Styles */
+    .kanban-column {
+        @apply bg-gray-50 rounded-lg p-4 min-h-[500px] dark:bg-gray-800;
+    }
+
+    .kanban-task {
+        @apply bg-white rounded-lg shadow-sm p-4 mb-3 cursor-move hover:shadow-md transition-shadow duration-200 dark:bg-gray-700 dark:hover:shadow-lg dark:hover:shadow-gray-900/30;
+    }
+
+    .kanban-task-header {
+        @apply flex items-center justify-between mb-2;
+    }
+
+    .kanban-task-title {
+        @apply font-medium text-gray-900;
+    }
+
+    .kanban-task-priority {
+        @apply text-xs font-medium px-2 py-1 rounded-full;
+    }
+
+    .kanban-task-priority-high {
+        @apply bg-red-100 text-red-800;
+    }
+
+    .kanban-task-priority-medium {
+        @apply bg-yellow-100 text-yellow-800;
+    }
+
+    .kanban-task-priority-low {
+        @apply bg-green-100 text-green-800;
+    }
+
+    /* File Upload Styles */
+    .clickup-file-upload {
+        @apply mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md;
+    }
+
+    .drop-zone {
+        @apply space-y-1 text-center;
+    }
+
+    .drop-zone-text {
+        @apply flex text-sm text-gray-600;
+    }
+
+    .drop-zone-text-main {
+        @apply relative cursor-pointer rounded-md font-medium text-[#7B68EE] hover:text-[#6A5ACD] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#7B68EE];
+    }
+
+    .drop-zone-text-secondary {
+        @apply pl-1;
+    }
+
+    .file-list {
+        @apply mt-4 space-y-2;
+    }
+}
+
+/* Animation Styles */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(1rem); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slideIn {
+    animation: slideIn 0.3s ease-in-out;
+}
+
+/* Icons */
+.bi {
+    @apply inline-block;
+}

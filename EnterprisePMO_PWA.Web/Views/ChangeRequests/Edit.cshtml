@@ -1,59 +1,67 @@
 @model EnterprisePMO_PWA.Domain.Entities.ChangeRequest
+
 @{
-    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
-    ViewBag.Title = "Edit Change Request";
+    ViewData["Title"] = "Edit Change Request";
 }
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <div class="md:flex md:items-center md:justify-between mb-6">
-        <div class="flex-1 min-w-0">
-            <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate">
-                Edit Change Request
-            </h1>
-        </div>
-    </div>
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
 
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-        <div class="px-4 py-5 sm:p-6">
-            <form asp-action="Edit" method="post">
-                <input type="hidden" asp-for="Id" />
-                <div class="space-y-6">
-                    <div>
-                        <label asp-for="ChangeType" class="block text-sm font-medium text-gray-700">Change Type</label>
-                        <div class="mt-1">
-                            <input asp-for="ChangeType" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" />
-                            <span asp-validation-for="ChangeType" class="mt-1 text-sm text-red-600"></span>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label asp-for="Justification" class="block text-sm font-medium text-gray-700">Justification</label>
-                        <div class="mt-1">
-                            <textarea asp-for="Justification" rows="4" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
-                            <span asp-validation-for="Justification" class="mt-1 text-sm text-red-600"></span>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label asp-for="ImpactAnalysis" class="block text-sm font-medium text-gray-700">Impact Analysis</label>
-                        <div class="mt-1">
-                            <textarea asp-for="ImpactAnalysis" rows="4" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
-                            <span asp-validation-for="ImpactAnalysis" class="mt-1 text-sm text-red-600"></span>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Save Changes
-                        </button>
-                        <a href="/ChangeRequests/List" class="ml-3 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Cancel
-                        </a>
-                    </div>
-                </div>
-            </form>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ProjectId" />
+
+        <div class="form-group">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
-    </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Type" class="control-label"></label>
+            <select asp-for="Type" class="form-control">
+                <option value="@ChangeRequestType.Scope">Scope</option>
+                <option value="@ChangeRequestType.Schedule">Schedule</option>
+                <option value="@ChangeRequestType.Budget">Budget</option>
+                <option value="@ChangeRequestType.Quality">Quality</option>
+            </select>
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Impact" class="control-label"></label>
+            <select asp-for="Impact" class="form-control">
+                <option value="@ChangeRequestImpact.Low">Low</option>
+                <option value="@ChangeRequestImpact.Medium">Medium</option>
+                <option value="@ChangeRequestImpact.High">High</option>
+                <option value="@ChangeRequestImpact.Critical">Critical</option>
+            </select>
+            <span asp-validation-for="Impact" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <select asp-for="Status" class="form-control">
+                <option value="@ChangeRequestStatus.Pending">Pending</option>
+                <option value="@ChangeRequestStatus.Approved">Approved</option>
+                <option value="@ChangeRequestStatus.Rejected">Rejected</option>
+                <option value="@ChangeRequestStatus.Implemented">Implemented</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

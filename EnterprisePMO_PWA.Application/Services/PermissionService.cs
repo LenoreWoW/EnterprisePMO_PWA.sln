@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EnterprisePMO_PWA.Domain.Entities;
 using EnterprisePMO_PWA.Domain.Services;
 using EnterprisePMO_PWA.Infrastructure.Data;
+using EnterprisePMO_PWA.Domain.Enums;
+using EnterprisePMO_PWA.Domain.Authorization;
 
 namespace EnterprisePMO_PWA.Application.Services
 {
@@ -20,6 +23,15 @@ namespace EnterprisePMO_PWA.Application.Services
             _context = context;
         }
 
+        public IEnumerable<string> GetUserPermissions(UserRole userRole)
+        {
+            if (Permissions.RolePermissions.TryGetValue(userRole, out var permissions))
+            {
+                return permissions;
+            }
+            return Array.Empty<string>();
+        }
+
         /// <summary>
         /// Checks if a user has a specific permission.
         /// </summary>
@@ -31,42 +43,8 @@ namespace EnterprisePMO_PWA.Application.Services
             if (user == null)
                 return false;
 
-            // Handle global-level permissions based on the user's role type
-            switch (permission)
-            {
-                case "ManageProjects":
-                    return user.Role == RoleType.ProjectManager || 
-                           user.Role == RoleType.SubPMO || 
-                           user.Role == RoleType.MainPMO || 
-                           user.Role == RoleType.Admin;
-
-                case "ManageUsers":
-                    return user.Role == RoleType.MainPMO || 
-                           user.Role == RoleType.Admin;
-
-                case "ApproveRequests":
-                    return user.Role == RoleType.SubPMO || 
-                           user.Role == RoleType.MainPMO || 
-                           user.Role == RoleType.Admin;
-
-                case "ManageRoles":
-                    return user.Role == RoleType.Admin;
-
-                case "ViewReports":
-                    return user.Role == RoleType.ProjectManager || 
-                           user.Role == RoleType.SubPMO || 
-                           user.Role == RoleType.MainPMO || 
-                           user.Role == RoleType.DepartmentDirector || 
-                           user.Role == RoleType.Executive || 
-                           user.Role == RoleType.Admin;
-
-                case "ViewAuditLogs":
-                    return user.Role == RoleType.MainPMO || 
-                           user.Role == RoleType.Admin;
-
-                default:
-                    return false;
-            }
+            return Permissions.RolePermissions.TryGetValue(user.Role, out var permissions) &&
+                   permissions.Contains(permission);
         }
 
         /// <summary>
@@ -81,11 +59,11 @@ namespace EnterprisePMO_PWA.Application.Services
                 return false;
 
             // Admin and Main PMO have access to all projects
-            if (user.Role == RoleType.Admin || user.Role == RoleType.MainPMO)
+            if (user.Role == UserRole.Admin || user.Role == UserRole.MainPMO)
                 return true;
 
             // Executives have access to all projects
-            if (user.Role == RoleType.Executive)
+            if (user.Role == UserRole.Executive)
                 return true;
 
             var project = await _context.Projects
@@ -95,17 +73,17 @@ namespace EnterprisePMO_PWA.Application.Services
                 return false;
 
             // Project Manager has access to their own projects
-            if (user.Role == RoleType.ProjectManager && project.ProjectManagerId == userId)
+            if (user.Role == UserRole.ProjectManager && project.ProjectManagerId == userId)
                 return true;
 
             // Department Director has access to projects in their department
-            if (user.Role == RoleType.DepartmentDirector && user.DepartmentId.HasValue && 
-                project.DepartmentId == user.DepartmentId.Value)
+            if (user.Role == UserRole.DepartmentDirector && 
+                project.DepartmentId == user.DepartmentId)
                 return true;
 
             // Sub PMO has access to projects in their department
-            if (user.Role == RoleType.SubPMO && user.DepartmentId.HasValue && 
-                project.DepartmentId == user.DepartmentId.Value)
+            if (user.Role == UserRole.SubPMO && 
+                project.DepartmentId == user.DepartmentId)
                 return true;
 
             // Check if user is a project member
@@ -127,7 +105,7 @@ namespace EnterprisePMO_PWA.Application.Services
                 return false;
 
             // Admin and Main PMO can manage all projects
-            if (user.Role == RoleType.Admin || user.Role == RoleType.MainPMO)
+            if (user.Role == UserRole.Admin || user.Role == UserRole.MainPMO)
                 return true;
 
             var project = await _context.Projects
@@ -137,13 +115,78 @@ namespace EnterprisePMO_PWA.Application.Services
                 return false;
 
             // Project Manager can manage their own projects
-            if (user.Role == RoleType.ProjectManager && project.ProjectManagerId == userId)
+            if (user.Role == UserRole.ProjectManager && project.ProjectManagerId == userId)
                 return true;
 
             // Sub PMO can manage projects in their department
-            if (user.Role == RoleType.SubPMO && user.DepartmentId.HasValue && 
-                project.DepartmentId == user.DepartmentId.Value)
+            if (user.Role == UserRole.SubPMO && 
+                project.DepartmentId == user.DepartmentId)
                 return true;
+
+            return false;
+        }
+
+        public async Task<bool> HasAnyPermissionAsync(Guid userId, IEnumerable<string> permissions)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                return false;
+
+            return Permissions.RolePermissions.TryGetValue(user.Role, out var rolePermissions) &&
+                   permissions.Any(p => rolePermissions.Contains(p));
+        }
+
+        public async Task<bool> HasAllPermissionsAsync(Guid userId, IEnumerable<string> permissions)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                return false;
+
+            return Permissions.RolePermissions.TryGetValue(user.Role, out var rolePermissions) &&
+                   permissions.All(p => rolePermissions.Contains(p));
+        }
+
+        private bool HasPermissionForRole(UserRole role, string permission)
+        {
+            // Admin has all permissions
+            if (role == UserRole.Admin)
+                return true;
+
+            // PMO Head has all project-related permissions
+            if (role == UserRole.PMOHead)
+            {
+                return permission.StartsWith("Projects.") ||
+                       permission.StartsWith("Reports.") ||
+                       permission.StartsWith("Users.") ||
+                       permission.StartsWith("Departments.");
+            }
+
+            // Project Manager has project management permissions
+            if (role == UserRole.ProjectManager)
+            {
+                return permission.StartsWith("Projects.") ||
+                       permission.StartsWith("Reports.View") ||
+                       permission.StartsWith("Tasks.");
+            }
+
+            // Team Member has task-related permissions
+            if (role == UserRole.TeamMember)
+            {
+                return permission.StartsWith("Tasks.") ||
+                       permission.StartsWith("Projects.View") ||
+                       permission.StartsWith("Reports.View");
+            }
+
+            // Viewer has view-only permissions
+            if (role == UserRole.Viewer)
+            {
+                return permission.StartsWith("Projects.View") ||
+                       permission.StartsWith("Reports.View");
+            }
 
             return false;
         }

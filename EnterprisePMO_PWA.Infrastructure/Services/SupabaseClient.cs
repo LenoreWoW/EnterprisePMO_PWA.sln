@@ -18,6 +18,7 @@ namespace EnterprisePMO_PWA.Infrastructure.Services
         private readonly string _supabaseUrl;
         private readonly string _supabaseKey;
         private readonly ILogger<SupabaseClient> _logger;
+        private readonly JsonSerializerOptions _jsonOptions;
         
         public SupabaseClient(
             IConfiguration configuration,
@@ -33,6 +34,12 @@ namespace EnterprisePMO_PWA.Infrastructure.Services
             _supabaseKey = configuration["Supabase:Key"] ?? 
                 throw new ArgumentException("Supabase:Key configuration is missing");
             
+            _jsonOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+            };
+            
             // Configure HTTP client
             if (_httpClient.BaseAddress == null)
             {
@@ -47,12 +54,20 @@ namespace EnterprisePMO_PWA.Infrastructure.Services
             
             // Initialize auth client
             Auth = new SupabaseAuthClient(_httpClient, _logger);
+            
+            // Initialize database client
+            Database = new SupabaseDatabaseClient(_httpClient, _logger, _jsonOptions);
         }
         
         /// <summary>
         /// Authentication client for Supabase
         /// </summary>
         public SupabaseAuthClient Auth { get; }
+        
+        /// <summary>
+        /// Database client for Supabase
+        /// </summary>
+        public SupabaseDatabaseClient Database { get; }
         
         /// <summary>
         /// Makes a raw HTTP request to Supabase
@@ -74,11 +89,7 @@ namespace EnterprisePMO_PWA.Infrastructure.Services
             // Add request body if provided
             if (data != null)
             {
-                var json = JsonSerializer.Serialize(data, new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
-                
+                var json = JsonSerializer.Serialize(data, _jsonOptions);
                 request.Content = new StringContent(json, Encoding.UTF8, "application/json");
             }
             

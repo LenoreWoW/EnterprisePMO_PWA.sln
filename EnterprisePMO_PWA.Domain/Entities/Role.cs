@@ -1,18 +1,30 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using EnterprisePMO_PWA.Domain.Enums;
+using TableAttribute = Supabase.Postgrest.Attributes.TableAttribute;
+using ColumnAttribute = Supabase.Postgrest.Attributes.ColumnAttribute;
 
 namespace EnterprisePMO_PWA.Domain.Entities
 {
     /// <summary>
     /// Represents a global role with hierarchical permissions.
     /// </summary>
+    [Table("roles")]
     public class Role
     {
+        [Column("id")]
         public Guid Id { get; set; } // Unique identifier
 
+        [Column("name")]
         public string RoleName { get; set; } = string.Empty; // Role name
 
+        [Column("description")]
         public string Description { get; set; } = string.Empty; // Role description
+        
+        [Column("type")]
+        public UserRole Type { get; set; }
         
         public int HierarchyLevel { get; set; } // Position in role hierarchy (higher = more permissions)
         
@@ -31,7 +43,13 @@ namespace EnterprisePMO_PWA.Domain.Entities
         // For Discord-like inheritance, a role inherits all permissions from lower roles
         public bool InheritsPermissions { get; set; } = true;
 
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+
         // Navigation: Project memberships using this role.
         public ICollection<ProjectMember>? ProjectMembers { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
     }
 }

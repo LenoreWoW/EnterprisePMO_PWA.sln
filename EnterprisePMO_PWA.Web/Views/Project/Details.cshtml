@@ -1,86 +1,170 @@
-@model EnterprisePMO_PWA.Domain.Entities.Project
+@model EnterprisePMO_PWA.Web.Models.ProjectDetailsViewModel
 @{
-    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
-    ViewBag.Title = "Project Details";
-    var userRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "Guest";
+    ViewData["Title"] = Model.Project.Name;
+    Layout = "_TailwindLayout";
+    var activeTab = Context.Request.Query["tab"].ToString() ?? "overview";
 }
 
-<div class="bg-gray-50 min-h-screen pb-10">
-    <nav class="bg-white border-b border-gray-200 px-4 py-4 sm:px-6 lg:px-8">
-        <ol class="flex items-center space-x-4">
-            <li>
-                <div>
-                    <a href="/Project/List" class="text-gray-400 hover:text-gray-500">
-                        Projects
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="flex items-center">
-                    <svg class="flex-shrink-0 h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                        <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                    </svg>
-                    <span class="ml-4 text-sm font-medium text-gray-500" aria-current="page">@Model.Name</span>
-                </div>
-            </li>
-        </ol>
-    </nav>
+<div class="px-4 sm:px-6 lg:px-8 py-6">
+    <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+            <h1 class="text-2xl font-semibold text-gray-900">@Model.Project.Name</h1>
+            <p class="mt-2 text-sm text-gray-700">@Model.Project.Description</p>
+        </div>
+        <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+            <a href="@Url.Action("Edit", "Project", new { id = Model.Project.Id })" class="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto">
+                Edit Project
+            </a>
+        </div>
+    </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-900">@Model.Name</h1>
-            </div>
-            <div class="mt-4 md:mt-0 flex space-x-3">
-                @if (User.IsInRole("ProjectManager"))
-                {
-                    <a href="/Project/Edit/@Model.Id" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                        </svg>
-                        Edit
-                    </a>
-                }
-                <a href="/Project/List" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                    </svg>
-                    Back to List
-                </a>
+    <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <!-- Project Details -->
+        <div class="lg:col-span-2">
+            <div class="bg-white shadow sm:rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">Project Details</h3>
+                    <div class="mt-5 border-t border-gray-200">
+                        <dl class="divide-y divide-gray-200">
+                            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                                <dt class="text-sm font-medium text-gray-500">Status</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium @Model.Project.GetStatusClass()">
+                                        @Model.Project.Status
+                                    </span>
+                                </dd>
+                            </div>
+                            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                                <dt class="text-sm font-medium text-gray-500">Progress</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="@Model.Project.GetProgressBarClass() h-2.5 rounded-full" style="width: @(Model.Project.PercentComplete)%"></div>
+                                    </div>
+                                    <span class="text-xs text-gray-500 mt-1">@Model.Project.PercentComplete%</span>
+                                </dd>
+                            </div>
+                            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                                <dt class="text-sm font-medium text-gray-500">Start Date</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">@Model.Project.StartDate.ToString("MMM dd, yyyy")</dd>
+                            </div>
+                            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                                <dt class="text-sm font-medium text-gray-500">End Date</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">@Model.Project.EndDate.ToString("MMM dd, yyyy")</dd>
+                            </div>
+                            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                                <dt class="text-sm font-medium text-gray-500">Budget</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">@Model.Project.Budget.ToString("C")</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- React Component Root -->
-        <div id="project-details-root" data-project-id="@Model.Id" data-user-role="@userRole" class="bg-white shadow-sm rounded-lg overflow-hidden"></div>
+        <!-- Team Members -->
+        <div>
+            <div class="bg-white shadow sm:rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">Team Members</h3>
+                    <div class="mt-5">
+                        <ul role="list" class="divide-y divide-gray-200">
+                            @foreach (var member in Model.Project.Members)
+                            {
+                                <li class="py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="h-10 w-10 rounded-full @member.GetAvatarClass() flex items-center justify-center text-white">
+                                            <span class="text-sm font-medium">@member.GetInitials()</span>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate">@member.GetName()</p>
+                                            <p class="text-sm text-gray-500 truncate">@member.Role.Name</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tasks -->
+    <div class="mt-8">
+        <div class="bg-white shadow sm:rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <div class="sm:flex sm:items-center">
+                    <div class="sm:flex-auto">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">Tasks</h3>
+                    </div>
+                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                        <a href="@Url.Action("Create", "Task", new { projectId = Model.Project.Id })" class="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto">
+                            Add Task
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <table class="min-w-full divide-y divide-gray-300">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Title</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Priority</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Assignee</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Due Date</th>
+                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            @foreach (var task in Model.Tasks)
+                            {
+                                <tr>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                        <a href="@Url.Action("Details", "Task", new { id = task.Id })" class="hover:text-blue-600">@task.Title</a>
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm">
+                                        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium @task.GetStatusClass()">
+                                            @task.GetStatusText()
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm">
+                                        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium @task.GetPriorityClass()">
+                                            @task.Priority
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <div class="flex items-center">
+                                            <div class="h-8 w-8 rounded-full @task.GetAssigneeAvatarClass() flex items-center justify-center text-white text-xs">
+                                                <span>@task.GetAssigneeInitials()</span>
+                                            </div>
+                                            <span class="ml-2">@task.GetAssigneeName()</span>
+                                        </div>
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        @task.DueDate.ToString("MMM dd, yyyy")
+                                    </td>
+                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                        <div class="flex justify-end space-x-2">
+                                            <a href="@Url.Action("Edit", "Task", new { id = task.Id })" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                            <a href="@Url.Action("Details", "Task", new { id = task.Id })" class="text-gray-600 hover:text-gray-900">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    <!-- Load React and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prop-types@15.8.1/prop-types.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/recharts@2.7.2/umd/Recharts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
-    
-    <!-- Load project components bundle -->
-    <script src="~/js/components/project-components-bundle.js"></script>
-    
-    <!-- Initialize the React components -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const rootElement = document.getElementById('project-details-root');
-            const projectId = rootElement.getAttribute('data-project-id');
-            const userRole = rootElement.getAttribute('data-user-role');
-            
-            // Render the ProjectDetailsView component
-            ReactDOM.render(
-                React.createElement(EnterprisePMO.ProjectDetailsView, {
-                    projectId: projectId,
-                    userRole: userRole
-                }),
-                rootElement
-            );
+            // Initialize any interactive components
         });
     </script>
 }

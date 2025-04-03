@@ -1,7 +1,8 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using EnterprisePMO_PWA.Domain.Entities;
+using EnterprisePMO_PWA.Domain.Enums;
+using EnterprisePMO_PWA.Domain.Interfaces;
 using EnterprisePMO_PWA.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,23 +14,30 @@ namespace EnterprisePMO_PWA.Application.Services
     public class ChangeRequestService
     {
         private readonly AppDbContext _context;
+        private readonly INotificationService _notificationService;
 
-        public ChangeRequestService(AppDbContext context)
+        public ChangeRequestService(AppDbContext context, INotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
 
         /// <summary>
         /// Creates a new change request.
         /// </summary>
-        public async Task<ChangeRequest> CreateChangeRequestAsync(ChangeRequest cr)
+        public async Task<ChangeRequest> CreateChangeRequestAsync(ChangeRequest changeRequest)
         {
-            cr.Id = Guid.NewGuid();
-            cr.RequestDate = DateTime.UtcNow;
-            cr.ApprovalStatus = ChangeRequestStatus.Proposed;
-            _context.ChangeRequests.Add(cr);
+            changeRequest.Id = Guid.NewGuid();
+            changeRequest.RequestDate = DateTime.UtcNow;
+            changeRequest.Status = ChangeRequestStatus.Pending;
+
+            _context.ChangeRequests.Add(changeRequest);
             await _context.SaveChangesAsync();
-            return cr;
+
+            // Notify project manager and PMO
+            await NotifyChangeRequestCreated(changeRequest);
+
+            return changeRequest;
         }
 
         /// <summary>
@@ -50,29 +58,77 @@ namespace EnterprisePMO_PWA.Application.Services
         }
 
         /// <summary>
-        /// Approves a change request.
+        /// Approves a change request by the Main PMO.
         /// </summary>
-        public async Task ApproveChangeRequestAsync(Guid id)
+        public async Task<bool> ApproveChangeRequestAsync(Guid changeRequestId)
         {
-            var cr = await _context.ChangeRequests.FirstOrDefaultAsync(c => c.Id == id);
-            if (cr != null)
-            {
-                cr.ApprovalStatus = ChangeRequestStatus.MainPMOApproved;
-                cr.MainPMOApprovalDate = DateTime.UtcNow;
-                await _context.SaveChangesAsync();
-            }
+            var changeRequest = await _context.ChangeRequests
+                .Include(cr => cr.Project)
+                .FirstOrDefaultAsync(cr => cr.Id == changeRequestId);
+
+            if (changeRequest == null)
+                return false;
+
+            changeRequest.Status = ChangeRequestStatus.Approved;
+            changeRequest.MainPMOApprovalDate = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            // Notify project team
+            await NotifyChangeRequestApproved(changeRequest);
+
+            return true;
         }
 
         /// <summary>
         /// Rejects a change request.
         /// </summary>
-        public async Task RejectChangeRequestAsync(Guid id)
+        public async Task<bool> RejectChangeRequestAsync(Guid changeRequestId, string reason)
         {
-            var cr = await _context.ChangeRequests.FirstOrDefaultAsync(c => c.Id == id);
-            if (cr != null)
+            var changeRequest = await _context.ChangeRequests
+                .Include(cr => cr.Project)
+                .FirstOrDefaultAsync(cr => cr.Id == changeRequestId);
+
+            if (changeRequest == null)
+                return false;
+
+            changeRequest.Status = ChangeRequestStatus.Rejected;
+
+            await _context.SaveChangesAsync();
+
+            // Notify project team
+            await NotifyChangeRequestRejected(changeRequest, reason);
+
+            return true;
+        }
+
+        private async Task NotifyChangeRequestCreated(ChangeRequest changeRequest)
+        {
+            var message = $"A new change request has been created for project {changeRequest.Project?.Name}";
+            var projectManager = changeRequest.Project?.ProjectManager;
+            if (projectManager != null)
             {
-                cr.ApprovalStatus = ChangeRequestStatus.Rejected;
-                await _context.SaveChangesAsync();
+                await _notificationService.NotifyAsync(message, projectManager.Username);
+            }
+        }
+
+        private async Task NotifyChangeRequestApproved(ChangeRequest changeRequest)
+        {
+            var message = $"The change request for project {changeRequest.Project?.Name} has been approved";
+            var requestedBy = changeRequest.RequestedByUser;
+            if (requestedBy != null)
+            {
+                await _notificationService.NotifyAsync(message, requestedBy.Username);
+            }
+        }
+
+        private async Task NotifyChangeRequestRejected(ChangeRequest changeRequest, string reason)
+        {
+            var message = $"The change request for project {changeRequest.Project?.Name} has been rejected. Reason: {reason}";
+            var requestedBy = changeRequest.RequestedByUser;
+            if (requestedBy != null)
+            {
+                await _notificationService.NotifyAsync(message, requestedBy.Username);
             }
         }
     }

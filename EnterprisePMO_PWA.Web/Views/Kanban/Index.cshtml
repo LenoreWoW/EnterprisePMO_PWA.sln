@@ -1,44 +1,282 @@
+@using EnterprisePMO_PWA.Domain.Enums
+@model IEnumerable<EnterprisePMO_PWA.Domain.Entities.ProjectTask>
 @{
-    Layout = "_TailwindLayout";
-    ViewData["Title"] = "Kanban Board";
+    Layout = "~/Views/Shared/_TailwindLayout.cshtml";
+    ViewBag.Title = "Kanban Board";
 }
 
-<div class="container mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-6">Kanban Board</h1>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
-            <h3 class="text-lg font-medium mb-4">To Do</h3>
-            <div class="kanban-column bg-gray-100 p-4 rounded-lg min-h-[12rem]" id="todoColumn">
-                <div class="card mb-2 bg-white p-4 rounded shadow cursor-move" data-id="task1">
-                    <h5 class="font-medium mb-1">Task 1</h5>
-                    <p class="text-gray-600 text-sm">Description of Task 1</p>
-                </div>
+<div class="px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Kanban Board</h1>
+                <p class="mt-1 text-sm text-gray-500">Drag and drop tasks to update their status</p>
+            </div>
+            <div class="flex items-center gap-x-4">
+                <button type="button" class="clickup-button inline-flex items-center px-4 py-2">
+                    <i class="bi bi-plus-lg mr-2"></i>
+                    New Task
+                </button>
             </div>
         </div>
-        
-        <div>
-            <h3 class="text-lg font-medium mb-4">In Progress</h3>
-            <div class="kanban-column bg-blue-100 p-4 rounded-lg min-h-[12rem]" id="inProgressColumn">
-                <div class="card mb-2 bg-white p-4 rounded shadow cursor-move" data-id="task2">
-                    <h5 class="font-medium mb-1">Task 2</h5>
-                    <p class="text-gray-600 text-sm">Description of Task 2</p>
+    </div>
+
+    <!-- Filters and Search -->
+    <div class="mb-6">
+        <div class="flex flex-col sm:flex-row gap-4">
+            <!-- Search -->
+            <div class="flex-1">
+                <div class="relative">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="bi bi-search text-gray-400"></i>
+                    </div>
+                    <input type="text" class="clickup-search block w-full pl-10 pr-3 py-2" placeholder="Search tasks...">
                 </div>
             </div>
+            
+            <!-- Filters -->
+            <div class="flex gap-4">
+                <select class="clickup-search py-2 pl-3 pr-10">
+                    <option value="">Project</option>
+                    <option value="project1">Project 1</option>
+                    <option value="project2">Project 2</option>
+                </select>
+                
+                <select class="clickup-search py-2 pl-3 pr-10">
+                    <option value="">Assignee</option>
+                    <option value="user1">User 1</option>
+                    <option value="user2">User 2</option>
+                </select>
+                
+                <select class="clickup-search py-2 pl-3 pr-10">
+                    <option value="">Priority</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
         </div>
-        
-        <div>
-            <h3 class="text-lg font-medium mb-4">Done</h3>
-            <div class="kanban-column bg-green-100 p-4 rounded-lg min-h-[12rem]" id="doneColumn">
-                <div class="card mb-2 bg-white p-4 rounded shadow cursor-move" data-id="task3">
-                    <h5 class="font-medium mb-1">Task 3</h5>
-                    <p class="text-gray-600 text-sm">Description of Task 3</p>
-                </div>
+    </div>
+
+    <!-- Kanban Board -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- To Do Column -->
+        <div class="bg-gray-50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900">To Do</h3>
+                <span class="bg-gray-200 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded-full">@Model.Count(t => t.Status == EnterprisePMO_PWA.Domain.Enums.TaskStatus.ToDo)</span>
+            </div>
+            <div class="space-y-3" id="todo-column">
+                @foreach (var task in Model.Where(t => t.Status == EnterprisePMO_PWA.Domain.Enums.TaskStatus.ToDo))
+                {
+                    <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-move" draggable="true" data-task-id="@task.Id">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900">@task.Title</h4>
+                                <p class="mt-1 text-sm text-gray-500">@task.Description</p>
+                            </div>
+                            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium @GetPriorityClass(task.Priority)">
+                                @task.Priority
+                            </span>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div class="flex -space-x-2">
+                                @if (task.AssignedTo != null)
+                                {
+                                    <div class="h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center ring-2 ring-white">
+                                        <span class="text-xs font-medium text-blue-600">@GetInitials(task.AssignedTo.FullName)</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <i class="bi bi-calendar3 mr-1"></i>
+                                @task.DueDate?.ToString("MMM dd")
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- In Progress Column -->
+        <div class="bg-gray-50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900">In Progress</h3>
+                <span class="bg-gray-200 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded-full">@Model.Count(t => t.Status == EnterprisePMO_PWA.Domain.Enums.TaskStatus.InProgress)</span>
+            </div>
+            <div class="space-y-3" id="inprogress-column">
+                @foreach (var task in Model.Where(t => t.Status == EnterprisePMO_PWA.Domain.Enums.TaskStatus.InProgress))
+                {
+                    <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-move" draggable="true" data-task-id="@task.Id">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900">@task.Title</h4>
+                                <p class="mt-1 text-sm text-gray-500">@task.Description</p>
+                            </div>
+                            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium @GetPriorityClass(task.Priority)">
+                                @task.Priority
+                            </span>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div class="flex -space-x-2">
+                                @if (task.AssignedTo != null)
+                                {
+                                    <div class="h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center ring-2 ring-white">
+                                        <span class="text-xs font-medium text-blue-600">@GetInitials(task.AssignedTo.FullName)</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <i class="bi bi-calendar3 mr-1"></i>
+                                @task.DueDate?.ToString("MMM dd")
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Review Column -->
+        <div class="bg-gray-50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900">Review</h3>
+                <span class="bg-gray-200 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded-full">@Model.Count(t => t.Status == EnterprisePMO_PWA.Domain.Enums.TaskStatus.Review)</span>
+            </div>
+            <div class="space-y-3" id="review-column">
+                @foreach (var task in Model.Where(t => t.Status == EnterprisePMO_PWA.Domain.Enums.TaskStatus.Review))
+                {
+                    <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-move" draggable="true" data-task-id="@task.Id">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900">@task.Title</h4>
+                                <p class="mt-1 text-sm text-gray-500">@task.Description</p>
+                            </div>
+                            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium @GetPriorityClass(task.Priority)">
+                                @task.Priority
+                            </span>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div class="flex -space-x-2">
+                                @if (task.AssignedTo != null)
+                                {
+                                    <div class="h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center ring-2 ring-white">
+                                        <span class="text-xs font-medium text-blue-600">@GetInitials(task.AssignedTo.FullName)</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <i class="bi bi-calendar3 mr-1"></i>
+                                @task.DueDate?.ToString("MMM dd")
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Done Column -->
+        <div class="bg-gray-50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900">Done</h3>
+                <span class="bg-gray-200 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded-full">@Model.Count(t => t.Status == EnterprisePMO_PWA.Domain.Enums.TaskStatus.Done)</span>
+            </div>
+            <div class="space-y-3" id="done-column">
+                @foreach (var task in Model.Where(t => t.Status == EnterprisePMO_PWA.Domain.Enums.TaskStatus.Done))
+                {
+                    <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-move" draggable="true" data-task-id="@task.Id">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900">@task.Title</h4>
+                                <p class="mt-1 text-sm text-gray-500">@task.Description</p>
+                            </div>
+                            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium @GetPriorityClass(task.Priority)">
+                                @task.Priority
+                            </span>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div class="flex -space-x-2">
+                                @if (task.AssignedTo != null)
+                                {
+                                    <div class="h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center ring-2 ring-white">
+                                        <span class="text-xs font-medium text-blue-600">@GetInitials(task.AssignedTo.FullName)</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <i class="bi bi-calendar3 mr-1"></i>
+                                @task.DueDate?.ToString("MMM dd")
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
 
-<!-- Include SortableJS and custom kanban.js -->
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="/js/kanban.js"></script>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const columns = document.querySelectorAll('[id$="-column"]');
+            const tasks = document.querySelectorAll('[draggable="true"]');
+
+            tasks.forEach(task => {
+                task.addEventListener('dragstart', e => {
+                    e.dataTransfer.setData('text/plain', task.dataset.taskId);
+                    task.classList.add('opacity-50');
+                });
+
+                task.addEventListener('dragend', e => {
+                    task.classList.remove('opacity-50');
+                });
+            });
+
+            columns.forEach(column => {
+                column.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    const draggable = document.querySelector('.opacity-50');
+                    if (draggable) {
+                        column.appendChild(draggable);
+                    }
+                });
+
+                column.addEventListener('drop', e => {
+                    e.preventDefault();
+                    const taskId = e.dataTransfer.getData('text/plain');
+                    const newStatus = column.id.replace('-column', '');
+                    
+                    // Update task status via API
+                    fetch('/api/tasks/' + taskId + '/status', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ status: newStatus })
+                    });
+                });
+            });
+        });
+    </script>
+}
+
+@functions {
+    private string GetPriorityClass(string priority)
+    {
+        return priority.ToLower() switch
+        {
+            "high" => "bg-red-100 text-red-800",
+            "medium" => "bg-yellow-100 text-yellow-800",
+            "low" => "bg-green-100 text-green-800",
+            _ => "bg-gray-100 text-gray-800"
+        };
+    }
+
+    private string GetInitials(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return "?";
+        var parts = name.Split(' ');
+        if (parts.Length == 1) return parts[0][0].ToString().ToUpper();
+        return (parts[0][0].ToString() + parts[^1][0].ToString()).ToUpper();
+    }
+}
